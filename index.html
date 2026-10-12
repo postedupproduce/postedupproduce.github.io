@@ -222,6 +222,7 @@ details.terms[open] summary::after{content:"−"}
 .chips li.ph small,.chips li.tx small{display:block;padding:0 10px 9px;font-size:12.5px;line-height:1.3;color:var(--muted);font-weight:500;white-space:normal}
 .chips li.tx{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 0 0;width:150px;min-height:112px;white-space:normal;align-self:stretch}
 .chips li.tx span{display:block;padding:0 10px 4px;font-weight:700;font-size:15px}
+.chips li.tx span.soonph{margin:-10px 0 8px;height:78px;display:grid;place-items:center;background:var(--chip);color:var(--muted);font-size:12.5px;font-weight:600;padding:0}
 .tickhint{font-size:13px;color:var(--muted);margin:-4px 0 0}
 
 /* Pickup days + founder perk */
@@ -438,7 +439,7 @@ details.terms[open] summary::after{content:"−"}
         
       </ol>
     </details>
-    <details class="credits"><summary>Photo credits</summary><p>Apples: <a href="https://commons.wikimedia.org/wiki/File:Apples_in_basket_2018_G1.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pears: <a href="https://commons.wikimedia.org/wiki/File:Pears_in_basket_2022_G1.jpg" rel="noopener">George Chernilevsky</a>, CC BY-SA 4.0; Winter squash: <a href="https://commons.wikimedia.org/wiki/File:Cucurbita_moschata_Butternut_2012_G2.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pumpkins: <a href="https://commons.wikimedia.org/wiki/File:Pumpkins_galore_(8083328403).jpg" rel="noopener">Maya Maceka</a>, CC BY 2.0; Sweet potatoes: <a href="https://commons.wikimedia.org/wiki/File:Sweet_Potato.jpg" rel="noopener">Gaurav Dhwaj Khadka</a>, CC BY-SA 4.0; Brussels sprouts: <a href="https://commons.wikimedia.org/wiki/File:Roasted_Brussels_sprouts_-_December_2023_-_Sarah_Stierch_01.jpg" rel="noopener">Missvain</a>, CC BY 4.0; Beets: <a href="https://commons.wikimedia.org/wiki/File:Beta_vulgaris,_San_Francisco_farmers_market.jpg" rel="noopener">Frank Schulenburg</a>, CC0; Carrots: <a href="https://commons.wikimedia.org/wiki/File:Carrots_at_Ljubljana_Central_Market.JPG" rel="noopener">domdomegg</a>, CC BY 4.0. Via Wikimedia Commons; cropped. Real market photos coming soon.</p></details>
+    <details class="credits"><summary>Photo credits</summary><p>Apples: <a href="https://commons.wikimedia.org/wiki/File:Apples_in_basket_2018_G1.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pears: <a href="https://commons.wikimedia.org/wiki/File:Pears_in_basket_2022_G1.jpg" rel="noopener">George Chernilevsky</a>, CC BY-SA 4.0; Winter squash: <a href="https://commons.wikimedia.org/wiki/File:Cucurbita_moschata_Butternut_2012_G2.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pumpkins: <a href="https://commons.wikimedia.org/wiki/File:Pumpkins_galore_(8083328403).jpg" rel="noopener">Maya Maceka</a>, CC BY 2.0; Sweet potatoes: <a href="https://commons.wikimedia.org/wiki/File:Sweet_Potato.jpg" rel="noopener">Gaurav Dhwaj Khadka</a>, CC BY-SA 4.0; Brussels sprouts: <a href="https://commons.wikimedia.org/wiki/File:Roasted_Brussels_sprouts_-_December_2023_-_Sarah_Stierch_01.jpg" rel="noopener">Missvain</a>, CC BY 4.0; Beets: <a href="https://commons.wikimedia.org/wiki/File:Beta_vulgaris,_San_Francisco_farmers_market.jpg" rel="noopener">Frank Schulenburg</a>, CC0; Carrots: <a href="https://commons.wikimedia.org/wiki/File:Carrots_at_Ljubljana_Central_Market.JPG" rel="noopener">domdomegg</a>, CC BY 4.0.; Concord grapes: <a href="https://commons.wikimedia.org/wiki/File:Concord_grapes.jpg" rel="noopener">Joli Rumi</a>, CC BY-SA 4.0; Red potatoes: <a href="https://commons.wikimedia.org/wiki/File:Red_potatoes_-_Heart_of_the_City_Farmers%27_Market_-_San_Francisco.jpg" rel="noopener">Daderot</a>, CC0; Kale: <a href="https://commons.wikimedia.org/wiki/File:SNAP*_Benefit_Feeds_Housholds_in_Need_(20120414-DM-LSC-2819).jpg" rel="noopener">USDA</a>, Public domain; Cabbage: <a href="https://commons.wikimedia.org/wiki/File:Cabbage_in_a_stack.jpg" rel="noopener">Jeffery Martin</a>, CC0; Cauliflower, leeks and garlic: <a href="https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Fresh_Garlic.jpg" rel="noopener">HaJunkiyada</a>, CC BY-SA 4.0; Radishes: <a href="https://commons.wikimedia.org/wiki/File:Radish_bunches.jpg" rel="noopener">Jeffery Martin</a>, CC0; Fennel: <a href="https://commons.wikimedia.org/wiki/File:Au_march%C3%A9_-_Fenouil.JPG" rel="noopener">Dinkum</a>, CC0; Peppers: <a href="https://commons.wikimedia.org/wiki/File:Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg" rel="noopener">Missvain</a>, CC BY 4.0. Via Wikimedia Commons; cropped. Real market photos coming soon.</p></details>
     <div class="ip">
       <p><b>&copy; 2026 Posted Up Produce&trade;. All rights reserved.</b> The Posted Up name and marks, logo designs, box and ordering system, menu, written content and site design are the original work of Sol Coburn. Please don't copy, adapt, resell or pass them off as your own without written permission. Unauthorized use will be pursued.</p>
       <p><b>Want to build something together?</b> I'm open to collaborations with farms, makers, markets and community groups. Text 773-807-9223 or email cultivate.regenerate@gmail.com.</p>
@@ -522,8 +523,11 @@ const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:
 const PICK_ONLY=["produce","bread"];
 
 /* Pickup dates: Wed (outdoor Wednesday market runs through Oct 28, 2026) and Sat (through Nov 21, 2026). */
+/* Chicago wall-clock time, whatever the visitor's device time zone is. */
+function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
+const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 function pickupDates(){
-  const out=[],now=new Date(),wedEnd=new Date(2026,9,28,23,59),satEnd=new Date(2026,10,21,23,59);
+  const out=[],now=chiNow(),wedEnd=new Date(2026,9,28,23,59),satEnd=new Date(2026,10,21,23,59);
   for(let i=0;i<35&&out.length<6;i++){
     const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i);
     const day=d.getDay();
@@ -531,11 +535,11 @@ function pickupDates(){
     if(!isWed&&!isSat)continue;
     const cut=new Date(d);cut.setDate(cut.getDate()-1);cut.setHours(21,0,0,0);
     if(now>cut)continue;
-    out.push({v:d.toISOString().slice(0,10),label:d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"})});
+    out.push({v:ymd(d),label:d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"})});
   }
   return out;
 }
-const DATES=pickupDates();
+let DATES=pickupDates();
 state.date=DATES[0]?.v||"";
 
 /* Logo vote: optional, one per order, open through Sat Oct 24. Thank-you applies to this order; $5 off needs a $30 subtotal. */
@@ -750,6 +754,7 @@ function renderTicket(){
     if(!state.name.trim()||state.phone.replace(/\D/g,"").length<10){err.textContent="Add your name and a 10-digit mobile number so we can confirm by text.";return}
     if(isDel()&&state.address.trim().length<6){err.textContent="Add a delivery address so we can confirm it's in our area.";return}
     if(!state.agree){err.textContent="Tick the box to agree to the Order Terms before getting your ticket.";return}
+    DATES=pickupDates();if(state.date&&!DATES.some(d=>d.v===state.date)){const nx=datesFor()[0];state.date=nx?nx.v:"";renderTicket();document.getElementById("err").textContent="Orders for that day closed at 9 PM the night before. "+(nx?"We moved you to "+nx.label+". Check it and tap again.":"No pickup day is open right now.");return}
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
     const id=(Date.now()%100000).toString().padStart(5,"0");
     state.wait=isWait();state.sent=orderText(id);state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
@@ -779,9 +784,11 @@ function tickNow(){
     next=" · Next orders close "+cut.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+" at 9 PM for "+d.label+(pd.getDay()===3?" pickup or delivery":" pickup");}
   el.textContent="Now in Chicago: "+t+next;const ct=document.getElementById("closeTop");if(ct&&d){const pd=new Date(d.v+"T12:00");const cut=new Date(pd);cut.setDate(cut.getDate()-1);ct.textContent="Closes "+cut.toLocaleDateString("en-US",{month:"short",day:"numeric"})+", 9 PM";}
 }
-tickNow();setInterval(tickNow,30000);
+tickNow();setInterval(()=>{const fresh=pickupDates();if(fresh.map(d=>d.v).join()!==DATES.map(d=>d.v).join()){DATES=fresh;if(!datesFor().some(d=>d.v===state.date))state.date=datesFor()[0]?.v||"";if(!state.sent)renderTicket()}tickNow()},30000);
 /* What's in season in Chicago, by month */
-const PHOTOS={"Apples": "img/apples.jpg", "Pears": "img/pears.jpg", "Winter squash": "img/squash.jpg", "Pumpkins": "img/pumpkins.jpg", "Sweet potatoes": "img/sweetpotato.jpg", "Brussels sprouts": "img/brussels.jpg", "Beets": "img/beets.jpg", "Carrots": "img/carrots.jpg"};
+const WM="https://thumb.wikimedia.org/wikipedia/commons/thumb/";
+const PHOTOS={"Grapes":WM+"7/7b/Concord_grapes.jpg/330px-Concord_grapes.jpg","Potatoes":WM+"0/00/Red_potatoes_-_Heart_of_the_City_Farmers%27_Market_-_San_Francisco.jpg/330px-Red_potatoes_-_Heart_of_the_City_Farmers%27_Market_-_San_Francisco.jpg","Kale & collards":WM+"8/81/SNAP%2A_Benefit_Feeds_Housholds_in_Need_%2820120414-DM-LSC-2819%29.jpg/330px-SNAP%2A_Benefit_Feeds_Housholds_in_Need_%2820120414-DM-LSC-2819%29.jpg","Kale":WM+"8/81/SNAP%2A_Benefit_Feeds_Housholds_in_Need_%2820120414-DM-LSC-2819%29.jpg/330px-SNAP%2A_Benefit_Feeds_Housholds_in_Need_%2820120414-DM-LSC-2819%29.jpg","Cabbage":WM+"8/88/Cabbage_in_a_stack.jpg/330px-Cabbage_in_a_stack.jpg","Cauliflower":WM+"3/34/Liat_Portal_for_Foodie_Disorder_-_Cauliflower_from_San_Francisco_farmers_market.jpg/330px-Liat_Portal_for_Foodie_Disorder_-_Cauliflower_from_San_Francisco_farmers_market.jpg","Radishes":WM+"a/a9/Radish_bunches.jpg/330px-Radish_bunches.jpg","Leeks & onions":WM+"1/17/Liat_Portal_for_Foodie_Disorder_-_Fresh_Leeks_from_San_Francisco_Farmers_Market.jpg/330px-Liat_Portal_for_Foodie_Disorder_-_Fresh_Leeks_from_San_Francisco_Farmers_Market.jpg","Garlic":WM+"7/76/Liat_Portal_for_Foodie_Disorder_-_Fresh_Garlic.jpg/330px-Liat_Portal_for_Foodie_Disorder_-_Fresh_Garlic.jpg","Fennel":WM+"d/de/Au_march%C3%A9_-_Fenouil.JPG/330px-Au_march%C3%A9_-_Fenouil.JPG","Last peppers":WM+"4/4a/Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg/330px-Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg","Peppers":WM+"4/4a/Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg/330px-Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg",
+  "Apples": "img/apples.jpg", "Pears": "img/pears.jpg", "Winter squash": "img/squash.jpg", "Pumpkins": "img/pumpkins.jpg", "Sweet potatoes": "img/sweetpotato.jpg", "Brussels sprouts": "img/brussels.jpg", "Beets": "img/beets.jpg", "Carrots": "img/carrots.jpg"};
 const SEASON={
   9:{t:"September harvest",items:["Tomatoes","Sweet corn","Peppers","Eggplant","Melons","Apples","Pears","Grapes","Green beans","Summer squash","Kale","Potatoes","Onions","Herbs"]},
   10:{t:"October harvest",items:["Apples","Pears","Grapes","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Cabbage","Cauliflower","Beets","Carrots","Radishes","Leeks & onions","Garlic","Fennel","Last peppers"]},
@@ -806,7 +813,7 @@ const FROM={
   const withPh=s.items.filter(i=>PHOTOS[i]),rest=s.items.filter(i=>!PHOTOS[i]);
   const from=i=>el("small",{},FROM[i]?"Usually from "+FROM[i]:"From farms within 150 mi");
   const fill=()=>{for(const i of withPh)ul.append(el("li",{class:"ph"},el("img",{src:PHOTOS[i],alt:i,loading:"lazy",width:"150",height:"112"}),el("span",{},i),from(i)));
-    for(const i of rest)ul.append(el("li",{class:"tx"},el("span",{},i),from(i)))};
+    for(const i of rest)ul.append(el("li",{class:"tx"},el("span",{class:"soonph"},"Photo coming soon"),el("span",{},i),from(i)))};
   fill();
   /* Ticker: second copy (hidden from screen readers) so the loop is seamless. Pauses on touch, hover or focus; off for reduced motion. */
   if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
