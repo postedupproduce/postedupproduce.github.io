@@ -677,9 +677,11 @@ function renderTicket(){
       msg,
       el("div",{class:"contact"},
         el("div",{},"Text: ",el("code",{},"773-807-9223"))),
-      el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;renderTicket()}},"Edit order")));
+      el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;renderTicket()}},"Back to menu")));
     return;
   }
+  let last=null;try{last=JSON.parse(localStorage.getItem("pu-last")||"null")}catch(e){}
+  if(last&&last.txt&&last.date>=ymd(chiNow()))t.append(el("button",{type:"button",class:"ghost",style:"width:100%;margin-bottom:12px",onclick:()=>{state.sent=last.txt;state.wait=last.wait;state.sendStatus="sent";renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"})}},"See my last order ticket"));
   t.append(el("h2",{},"Your Order"));
   const lines=el("div",{class:"lines"});
   if(!n)lines.append(el("p",{class:"empty"},"Pick a box or add something from the menu."));
@@ -757,7 +759,7 @@ function renderTicket(){
     DATES=pickupDates();if(state.date&&!DATES.some(d=>d.v===state.date)){const nx=datesFor()[0];state.date=nx?nx.v:"";renderTicket();document.getElementById("err").textContent="Orders for that day closed at 9 PM the night before. "+(nx?"We moved you to "+nx.label+". Check it and tap again.":"No pickup day is open right now.");return}
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
     const id=(Date.now()%100000).toString().padStart(5,"0");
-    state.wait=isWait();state.sent=orderText(id);state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
+    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now()}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
     sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
   });
   t.append(f);

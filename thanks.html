@@ -65,6 +65,14 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .share pre{margin:0;white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;font:500 15px/1.5 var(--body);user-select:all}
 .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.chip{border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:10px 6px;font-weight:700;min-height:46px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.payto{display:grid;gap:8px}
+.payto div{display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:15px}
+.payto span{font-weight:700}
+.payto code{font:600 15px var(--body);overflow-wrap:anywhere;user-select:all}
+.ghost.sm{padding:8px 12px;min-height:40px;font-size:14px}
 .foot{font-size:13px;color:var(--muted);margin:0}
 .foot a{color:var(--muted)}
 </style>
@@ -114,6 +122,23 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
     <p class="ok" id="shareMsg" aria-live="polite"></p>
   </section>
 
+  <section class="card" aria-labelledby="tipH">
+    <h2 id="tipH">Tip your shopper</h2>
+    <p class="sub">Totally optional. Tips go straight to the person who shopped, packed and posted up for you.</p>
+    <div class="chips" role="radiogroup" aria-label="Tip amount">
+      <button type="button" class="chip" data-tip="3" aria-pressed="false">$3</button>
+      <button type="button" class="chip" data-tip="5" aria-pressed="true">$5</button>
+      <button type="button" class="chip" data-tip="10" aria-pressed="false">$10</button>
+      <button type="button" class="chip" data-tip="" aria-pressed="false">Other</button>
+    </div>
+    <div class="payto">
+      <div><span>Zelle</span><code id="zelle">leeks.sabrosa@gmail.com</code><button type="button" class="ghost sm" data-copy="zelle">Copy</button></div>
+      <div><span>Apple Cash</span><code id="apple">773-807-9223</code><button type="button" class="ghost sm" data-copy="apple">Copy</button></div>
+    </div>
+    <p class="sub" id="tipNote">Send <b>$5</b> with <b>TIP</b> in the memo. Thank you!</p>
+    <p class="ok" id="tipMsg" aria-live="polite"></p>
+  </section>
+
   <p class="foot">&copy; 2026 123 Footprint, LLC. <a href="./">Back to ordering</a> · <a href="./#terms">Order Terms</a></p>
 </div>
 
@@ -141,6 +166,12 @@ f.addEventListener("submit",async e=>{
     f.replaceChildren(h,p);
   }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
 });
+/* Tip */
+const chips=[...document.querySelectorAll(".chip")],tipNote=document.getElementById("tipNote"),tipMsg=document.getElementById("tipMsg");
+chips.forEach(c=>c.addEventListener("click",()=>{chips.forEach(x=>x.setAttribute("aria-pressed",String(x===c)));
+  tipNote.innerHTML=c.dataset.tip?"Send <b>$"+c.dataset.tip+"</b> with <b>TIP</b> in the memo. Thank you!":"Send any amount with <b>TIP</b> in the memo. Thank you!"}));
+document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",async()=>{const el=document.getElementById(b.dataset.copy);
+  try{await navigator.clipboard.writeText(el.textContent);tipMsg.textContent="Copied "+el.textContent+"."}catch(e){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);tipMsg.textContent="Selected. Use your phone's copy."}}));
 /* Share */
 const shareText=document.getElementById("shareText").textContent,msg=document.getElementById("shareMsg");
 document.getElementById("shareBtn").addEventListener("click",async()=>{
