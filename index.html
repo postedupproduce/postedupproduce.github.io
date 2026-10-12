@@ -394,7 +394,7 @@ const ALL=Object.values(ITEMS).flat();
 /* Paste the Google Apps Script web app URL here to send orders straight to the sheet. Leave blank to use text-in tickets. */
 const ORDER_ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
 /* Zelle name or number customers should pay. Leave blank to send payment details by text. */
-const ZELLE="";
+const ZELLE="leeks.sabrosa@gmail.com";
 const DELIVERY_FEE=8, FLAT_MILES=3, PER_MILE=1.5;
 function isDel(){return state.fulfill.startsWith("del-")}
 function delStop(){return STOPS.find(x=>"del-"+x.id===state.fulfill)}
@@ -423,6 +423,10 @@ function pickupDates(){
 const DATES=pickupDates();
 state.date=DATES[0]?.v||"";
 
+/* Order cap per market day: the Apps Script returns {cap, counts} on GET. If it can't be reached, ordering stays open. */
+let CAP=null,COUNTS={};
+function spotsLeft(v){return CAP==null?null:Math.max(0,CAP-(COUNTS[v]||0))}
+function loadCounts(){if(!ORDER_ENDPOINT)return;fetch(ORDER_ENDPOINT+"?q=counts").then(r=>r.json()).then(j=>{if(typeof j.cap!=="number")return;CAP=j.cap;COUNTS=j.counts||{};if(spotsLeft(state.date)===0){const o=datesFor().find(d=>spotsLeft(d.v)!==0);state.date=o?o.v:""}if(!state.sent)renderTicket()}).catch(()=>{})}
 function el(t,a={},...k){const e=document.createElement(t);for(const[x,y]of Object.entries(a)){if(x==="class")e.className=y;else if(x.startsWith("on"))e.addEventListener(x.slice(2),y);else e.setAttribute(x,y)}for(const c of k)e.append(c);return e}
 
 function renderBoxes(){
@@ -566,7 +570,7 @@ function renderTicket(){
   const ds=datesFor();
   const sel=el("select",{id:"date"});
   if(!ds.length)sel.append(el("option",{value:""},isDel()?"No Wednesday deliveries open right now":"No pickups open right now"));
-  for(const d of ds){const o=el("option",{value:d.v},d.label);if(d.v===state.date)o.selected=true;sel.append(o)}
+  for(const d of ds){const l=spotsLeft(d.v);const o=el("option",{value:d.v},d.label+(l===0?" · full":l!=null&&l<=3?" · "+l+" spot"+(l>1?"s":"")+" left":""));if(l===0)o.disabled=true;if(d.v===state.date)o.selected=true;sel.append(o)}
   sel.addEventListener("change",()=>state.date=sel.value);
   f.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
   const ss=el("select",{id:"sub"});
@@ -585,6 +589,7 @@ function renderTicket(){
     if(isDel()&&state.address.trim().length<6){err.textContent="Add a delivery address so we can confirm it's in our area.";return}
     if(!state.agree){err.textContent="Tick the box to agree to the Order Terms before getting your ticket.";return}
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
+    if(spotsLeft(state.date)===0){err.textContent="That day just filled up. Pick another day.";return}
     const id=(Date.now()%100000).toString().padStart(5,"0");
     state.sent=orderText(id);state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
     sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
@@ -633,7 +638,7 @@ const SEASON={
 })();
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
-renderBoxes();renderItems();renderTicket();
+renderBoxes();renderItems();renderTicket();loadCounts();
 </script>
 
 </body>
