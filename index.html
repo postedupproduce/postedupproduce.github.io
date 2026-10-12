@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Pilot season: personal shopping from Chicago farmers markets. Produce, meat, bread and pantry goods from farms and makers within 150 miles of the Loop.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta property="og:title" content="Posted Up Produce: market haul, picked for you">
+<meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, we hand-pick the best of the week, meet us in Goose Island, Hyde Park or Rogers Park.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://postedupproduce.github.io/">
+<link rel="canonical" href="https://postedupproduce.github.io/">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#24392c">
+<title>Posted Up Produce</title>
+</head>
+<body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Feed layout: one thumb-width column that scrolls like a social feed. Each "post" is one idea.
+   The memorable element: produce boxes as swipeable crate tags with a hang-tag price. Everything else stays quiet. */
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
+  --tomato:#c4432b;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --col:600px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:64px}
+body{background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);padding:0;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;letter-spacing:.01em}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* Top bar */
+.top{position:sticky;top:0;z-index:6;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--col);margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none;white-space:nowrap}
+.beta{font:700 11px/1 var(--body);letter-spacing:.04em;background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
+@media(max-width:420px){.brand-p{display:none}}.close{flex:none}
+.close{font-size:13px;font-weight:600;color:var(--board);background:var(--chip);border-radius:999px;padding:6px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+
+/* Feed */
+.feed{max-width:var(--col);margin:0 auto;padding:14px 16px 0;display:grid;gap:34px}
+.post{display:grid;gap:12px;min-width:0}
+.post > h2{font-size:clamp(26px,7vw,32px);line-height:1.1}
+.sub{margin:0;color:var(--muted);font-size:16px;max-width:60ch}
+.swipe-hint{font-size:14px;color:var(--muted);font-weight:600}
+
+/* Hero: the chalkboard sign */
+.sign{background:var(--board);color:var(--board-ink);border-radius:14px;padding:26px 22px 24px;position:relative;overflow:hidden;display:grid;gap:14px}
+.sign .kicker{font-size:14px;font-weight:600;color:color-mix(in srgb,var(--board-ink) 78%,transparent)}
+.sign h1{font-size:clamp(40px,12vw,58px);line-height:1}
+.sign .lede{margin:0;font-size:18px;color:color-mix(in srgb,var(--board-ink) 90%,transparent)}
+.sign .now{margin:0;font-size:14px;font-weight:500;background:color-mix(in srgb,var(--board-ink) 12%,transparent);border-radius:8px;padding:9px 11px}
+.stamp{justify-self:start;border:2px solid var(--tomato);color:var(--tomato);font:400 13px/1.15 var(--display);padding:7px 11px;transform:rotate(-6deg);text-align:center;letter-spacing:.04em;margin-top:2px}
+.go{justify-self:stretch;text-align:center;background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;text-decoration:none}
+@media (prefers-reduced-motion:no-preference){
+  .stamp{animation:stamp .5s .4s cubic-bezier(.3,1.6,.5,1) both}
+}
+@keyframes stamp{from{transform:rotate(-6deg) scale(1.6);opacity:0}to{transform:rotate(-6deg) scale(1);opacity:1}}
+
+/* How it works: a real sequence, so it gets numbers */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start}
+.steps li::before{content:counter(s);font:400 20px/38px var(--display);text-align:center;width:38px;height:38px;border-radius:50%;background:var(--board);color:var(--board-ink)}
+.steps b{font-weight:700}
+.stops{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stop{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:14px;line-height:1.3}
+.stop b{display:block;font-size:15px}
+
+/* Swipe rows */
+.row{display:grid;grid-auto-flow:column;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;overscroll-behavior-x:contain;margin:0 -16px;padding:4px 16px 10px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.chips{grid-auto-columns:max-content;list-style:none}
+.chips li{background:var(--chip);border-radius:999px;padding:8px 14px;font-size:15px;scroll-snap-align:start;white-space:nowrap}
+
+/* Shop toggle */
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--chip);border-radius:12px;padding:4px;gap:4px}
+.seg button{border:0;background:transparent;color:var(--ink);border-radius:9px;padding:11px 8px;font-weight:700;font-size:16px;min-height:44px}
+.seg button[aria-checked="true"]{background:var(--board);color:var(--board-ink)}
+.seg-note{margin:0;font-size:15px;color:var(--muted)}
+
+/* Crate-tag boxes: the one bold element */
+.boxes{grid-auto-columns:min(78%,320px)}
+.box{scroll-snap-align:start;position:relative;background:var(--panel);border:2px solid var(--ink);border-radius:6px 6px 14px 14px;padding:20px 18px 18px;display:flex;flex-direction:column;gap:8px;text-align:left;color:var(--ink);min-height:100%}
+.box::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,var(--ink) 0 18px,transparent 18px 26px);opacity:.85}
+.box h3{font-size:26px;margin-top:6px}
+.box .wt{font-size:15px;font-weight:600;color:var(--muted)}
+.box p{margin:0;font-size:15px;color:var(--muted)}
+.price{position:absolute;top:22px;right:-2px;background:var(--tomato);color:#fff;font:400 20px/1 var(--display);padding:9px 12px 9px 20px;clip-path:polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%)}
+.price::before{content:"";position:absolute;left:9px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--panel)}
+.pick{align-self:flex-start;font-weight:700;font-size:13px;color:var(--board);background:var(--chip);border-radius:999px;padding:3px 10px}
+.has{margin:4px 0;padding-left:18px;font-size:15px;display:grid;gap:3px}
+.box .add{margin-top:auto;border-radius:10px;padding:12px;text-align:center;font-weight:700;border:2px solid var(--ink)}
+.box[aria-pressed="true"]{border-color:var(--tomato);box-shadow:0 0 0 2px var(--tomato) inset}
+.box[aria-pressed="true"] .add{background:var(--tomato);border-color:var(--tomato);color:#fff}
+
+/* Add-on lists */
+.tabs{grid-auto-columns:max-content}
+.tab{scroll-snap-align:start;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:9px 16px;font-weight:700;min-height:44px;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.bin{display:grid;gap:6px}
+.bin h3{font-size:22px;margin-top:8px}
+.bin .sub{font-size:15px}
+.items{display:grid;border-top:1px solid var(--line)}
+.item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item .nm{font-weight:700}
+.item .ds{font-size:14px;color:var(--muted)}
+.ip{font-weight:700;color:var(--ink)}
+.qty{display:flex;align-items:center;gap:4px}
+.qty button{width:44px;height:44px;font-size:20px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-weight:700;line-height:1}
+.qty output{min-width:22px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.soon{margin:0;padding:12px 0;color:var(--muted);font-style:italic}
+
+/* Trust */
+.trust{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.trust li{border-left:4px solid var(--good);padding:2px 0 2px 14px;max-width:60ch}
+.trust b{display:block;font-size:18px}
+.fomo{margin:0;padding:14px 16px;border-radius:12px;background:var(--board);color:var(--board-ink);font-size:16px}
+.fomo b{color:#ffb4a3}
+
+/* Radius */
+.rings{width:100%;max-width:420px;display:block;margin:0 auto}
+.ring{fill:none;stroke-width:1.5}
+.r1{stroke:var(--tomato)}.r2{stroke:var(--good)}.r3{stroke:var(--muted);stroke-dasharray:4 4}
+.dot{fill:var(--tomato)}
+.rl{fill:var(--ink);font:500 12px var(--body);text-anchor:middle}
+.quality{margin:0;padding-left:20px;display:grid;gap:8px;font-size:16px;max-width:60ch}
+
+/* Checkout ticket */
+.ticket{background:var(--panel);border:2px solid var(--ink);border-radius:6px;padding:20px 18px;display:grid;gap:14px;position:relative;margin-top:8px}
+.ticket::before{content:"";position:absolute;left:-2px;right:-2px;top:-9px;height:9px;background:radial-gradient(circle at 6px 9px,var(--bg) 5px,transparent 5.5px) 0 0/12px 9px repeat-x}
+.ticket h2{font-size:26px}
+.lines{display:grid;gap:6px;font-size:15px;min-height:40px}
+.line{display:flex;justify-content:space-between;gap:10px}
+.line span:last-child{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.empty{color:var(--muted);font-size:15px;margin:0}
+.total{display:flex;justify-content:space-between;border-top:2px dashed var(--line);padding-top:10px;font-weight:700;font-size:18px}
+label{display:grid;gap:5px;font-size:15px;font-weight:700}
+input,select,textarea{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:11px 12px;width:100%;min-height:48px}
+textarea{min-height:72px;resize:vertical}
+.agree{display:flex;gap:12px;align-items:flex-start;font-weight:400;font-size:15px}
+.agree input{width:26px;height:26px;min-height:0;margin-top:1px;flex:none;accent-color:var(--tomato)}
+.agree a{color:var(--tomato);font-weight:700}
+.cta{background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;min-height:52px}
+.cta:disabled{opacity:.45;cursor:not-allowed}
+.cutoff{font-size:14px;color:var(--muted)}
+.err{color:var(--tomato);font-size:15px;font-weight:600;margin:0}
+.note{font-size:15px;color:var(--muted);margin:0}
+.thanks{margin:0;font-size:16px}
+.done{display:grid;gap:12px}
+.done pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;font:500 14px/1.5 ui-monospace,Menlo,monospace;margin:0;overflow-x:auto;user-select:all}
+.contact{display:grid;gap:6px;font-size:15px}
+.contact code{font:600 15px var(--body);user-select:all}
+.ghost{background:transparent;border:1.5px solid var(--ink);color:var(--ink);border-radius:10px;padding:12px 14px;font-weight:700;min-height:48px}
+
+/* Terms + footer */
+details.terms{border-top:2px solid var(--ink);padding-top:12px}
+details.terms summary{font:400 22px/1.2 var(--display);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:44px}
+details.terms summary::-webkit-details-marker{display:none}
+details.terms summary::after{content:"+";font-size:28px}
+details.terms[open] summary::after{content:"−"}
+.terms ol{margin:10px 0 0;padding-left:22px;display:grid;gap:10px;font-size:15px;max-width:65ch}
+.pilot{margin:0;background:var(--chip);border-radius:12px;padding:14px 16px;font-size:16px}
+.foot{font-size:14px;color:var(--muted);margin:0 0 20px}
+
+/* Order bar, always visible */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:7;background:var(--board);color:var(--board-ink);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.bar-in{max-width:var(--col);margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.bar span{font-weight:700;font-variant-numeric:tabular-nums}
+.bar button{background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:12px 18px;font-weight:700;min-height:48px}
+
+@media (min-width:700px){
+  .sign{padding:34px 32px 30px}
+  .feed{gap:44px;padding-top:24px}
+}
+[hidden]{display:none!important}
+</style>
+
+<header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div></header>
+
+<main class="feed" id="start">
+  <section class="post">
+    <div class="sign">
+      <span class="kicker">Now in beta: pilot season in Chicago, fall 2026</span>
+      <h1>Market haul, picked for you.</h1>
+      <p class="lede">We shop small farms and makers at the farmers market, then hand you the best of the week at a meet-up near you.</p>
+      <p class="now" id="now" aria-live="polite">Chicago time</p>
+      <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
+      <a class="go" href="#shop">Start my order</a>
+    </div>
+  </section>
+
+  <section class="post" aria-labelledby="howH">
+    <h2 id="howH">How it works</h2>
+    <ol class="steps">
+      <li><span><b>Order by 9 PM</b> the night before. Pick a box or build your own.</span></li>
+      <li><span><b>We shop the morning market</b> and hand-select what's peaking.</span></li>
+      <li><span><b>Meet us at The Post-Up</b>, or get same-day delivery on Wednesdays.</span></li>
+    </ol>
+    <div class="stops">
+      <div class="stop"><b>Goose Island</b>1–2 PM</div>
+      <div class="stop"><b>Hyde Park</b>3–4 PM</div>
+      <div class="stop"><b>Rogers Park</b>5–6 PM</div>
+    </div>
+  </section>
+
+  <section class="post" aria-labelledby="seasonTitle">
+    <h2 id="seasonTitle">October harvest</h2>
+    <p class="sub" id="seasonNote">What local farms are bringing to market right now. Boxes are built from whatever is peaking that week.</p>
+    <ul class="row chips" id="seasonList"></ul>
+  </section>
+
+  <section class="post" id="shop" aria-labelledby="shopH">
+    <h2 id="shopH">Pick your haul</h2>
+    <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
+      <button type="button" role="radio" data-mode="box" aria-checked="true">Shopper's Choice</button>
+      <button type="button" role="radio" data-mode="pick" aria-checked="false">Build Your Own</button>
+    </div>
+    <p class="seg-note" id="produceNote">We pick the best of the week. Boxes cost less than itemizing.</p>
+    <div class="bin" id="produce">
+      <span class="swipe-hint" id="boxHint">Swipe to compare sizes</span>
+      <div class="row boxes" id="boxes"></div>
+      <div class="items" data-cat="produce"></div>
+    </div>
+  </section>
+
+  <section class="post" aria-labelledby="addH">
+    <h2 id="addH">Add to your order</h2>
+    <nav class="row tabs" role="tablist" aria-label="Menu sections">
+      <button class="tab" role="tab" aria-selected="true" data-go="meat">Meat, fish &amp; eggs</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="bread">Bread &amp; bakery</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="pantry">Pantry</button>
+    </nav>
+    <div class="bin" id="meat">
+      <h3>Meat, fish &amp; eggs</h3>
+      <p class="sub">Grass-fed and pasture-raised meat and wild Great Lakes fish from a nearby family farm. Frozen packs, so bring a cooler bag if you have one.</p>
+      <div class="items" data-cat="meat"></div>
+    </div>
+    <div class="bin" id="bread">
+      <h3>Bread &amp; bakery</h3>
+      <p class="sub">Baked by local makers the morning of market.</p>
+      <div class="row boxes" id="breadboxes"></div>
+      <div class="items" data-cat="bread"></div>
+    </div>
+    <div class="bin" id="pantry">
+      <h3>Pantry</h3>
+      <p class="sub">Small-batch staples from orchards and farm kitchens. They keep, so stock up.</p>
+      <div class="items" data-cat="pantry"></div>
+    </div>
+  </section>
+
+  <section class="post" aria-labelledby="whyH">
+    <h2 id="whyH">A shopper who knows the farmers</h2>
+    <p class="sub">Delivery apps send whoever is free to a warehouse store. We spend market mornings with growers we've known for years.</p>
+    <ul class="trust">
+      <li><b>20+ years in Chicago food</b>Your shopper has worked in Chicago's farms, markets and food systems for two decades and knows which stand has the best of each thing that week.</li>
+      <li><b>Food-safety trained</b>Produce Safety Alliance certified. Your order stays cool, clean and separate from purchase to handoff.</li>
+      <li><b>One person you can text</b>No call center. You text the person who shopped for you.</li>
+      <li><b>Quality guaranteed</b>If anything isn't right, tell us at handoff and we make it right.</li>
+      <li><b>You can't lose money</b>Anything we can't get becomes a credit or a refund, your choice.</li>
+    </ul>
+    <p class="fomo"><b>Pilot spots are limited.</b> We only take as many orders as one person can hand-pick well, and the season ends November 21. When a market day fills, it's full.</p>
+  </section>
+
+  <section class="post" aria-labelledby="milesH">
+    <h2 id="milesH">Everything within 150 miles</h2>
+    <svg viewBox="0 0 320 200" role="img" aria-labelledby="rTitle rDesc" class="rings">
+      <title id="rTitle">Sourcing radius from downtown Chicago</title>
+      <desc id="rDesc">Bakeries are within 15 miles, produce and orchard farms 60 to 100 miles, and meat and fish farms about 120 miles from the Loop.</desc>
+      <circle cx="160" cy="190" r="170" class="ring r3"/>
+      <circle cx="160" cy="190" r="125" class="ring r2"/>
+      <circle cx="160" cy="190" r="40" class="ring r1"/>
+      <circle cx="160" cy="190" r="6" class="dot"/>
+      <text x="160" y="176" class="rl">The Loop</text>
+      <text x="160" y="140" class="rl">Bakeries, under 15 mi</text>
+      <text x="160" y="92" class="rl">Produce and orchards, 60–100 mi</text>
+      <text x="160" y="40" class="rl">Meat and fish, about 120 mi</text>
+    </svg>
+    <ul class="quality">
+      <li><b>Picked days, not weeks, before you get it.</b> We buy the morning of pickup from the people who grew or baked it.</li>
+      <li><b>Hand-selected.</b> We pass on anything we wouldn't take home.</li>
+      <li><b>Your money stays close.</b> Every order supports small farms and makers in Illinois and southwest Michigan.</li>
+    </ul>
+  </section>
+
+  <section class="post" id="checkout" aria-label="Checkout">
+    <div class="ticket" id="ticket" aria-live="polite"><div id="ticketBody"></div></div>
+  </section>
+
+  <section class="post">
+    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items, stops and even the name may change as we learn. Tell us what works: text 773-807-9223.</p>
+    <details class="terms" id="terms">
+      <summary>Order Terms</summary>
+      <p class="note">Version: October 2026. By paying for an order, you agree to these terms.</p>
+      <ol>
+          <li><b>What we do.</b> Posted Up Produce is a personal shopping service. You pay us to shop farmers markets and local makers for you and hand off your order. We don't grow or make the food ourselves.</li>
+          <li><b>Payment.</b> Pay in full by 9 PM the night before pickup. Your order is confirmed only when payment arrives and we text you a confirmation. Unpaid orders are not shopped.</li>
+          <li><b>What you get.</b> You get the box or item groups you ordered, chosen by us at market that day. Examples on the menu are typical, not promised. Weights are approximate.</li>
+          <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the pilot (November 21) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
+          <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
+          <li><b>Pickup and delivery.</b> Pick up during your chosen window. Orders not picked up by the end of the window aren't refunded, but text us and we'll try to arrange a late handoff or delivery for the delivery fee. Delivery fees are confirmed by text before you pay.</li>
+          <li><b>Quality.</b> If something arrives damaged or spoiled, text us a photo within 24 hours. We refund or replace that item.</li>
+          <li><b>Food safety.</b> Wash produce before eating. Keep frozen items frozen; they're your responsibility once handed off. Baked goods may contain wheat, dairy, eggs, nuts or other allergens and may be made in shared kitchens. Tell us about allergies in your order notes.</li>
+          <li><b>Limit.</b> Our responsibility for any order is limited to the amount you paid for it.</li>
+          <li><b>Questions.</b> Text 773-807-9223 or email cultivate.regenerate@gmail.com.</li>
+        
+      </ol>
+    </details>
+    <p class="foot">Fresh produce should always be washed before eating, even when farm-direct. Availability depends on weather, harvest and which makers are at market that day.</p>
+  </section>
+</main>
+
+<div class="bar" id="bar"><div class="bar-in"><span id="barText">No items yet</span><button type="button" id="barGo">Review order</button></div></div>
+
+<script>
+const BOXES=[
+  {id:"sampler",name:"Sampler",price:25,wt:"~4 lb",desc:"A taste of the season for one.",pick:"",
+   has:["2 lb orchard apples","1 bunch kale","1 honeynut squash"]},
+  {id:"halfpeck",name:"Half Peck",price:50,wt:"~9–10 lb",desc:"A week of sides and a couple of mains for two.",pick:"Most popular",
+   has:["2 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","1 bunch kale","1 delicata squash"]},
+  {id:"crate",name:"Full Crate",price:72,wt:"~14–15 lb",desc:"A full week of cooking for a household.",pick:"",
+   has:["4 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","Butternut squash","Brussels sprouts","Kale + collards"]}
+];
+const PREFS=["Apples","Winter squash","Sweet potatoes","Kale & greens","Beets","Cabbage","Brussels sprouts","Onions & garlic","Peppers","Potatoes","Microgreens","Herbs"];
+const BREADBOXES=[
+  {id:"bread1",name:"Bread Bag",price:23,wt:"1 loaf + 1 pastry",desc:"The best sourdough of the week, plus a treat.",pick:"",has:["1 sourdough boule","1 croissant or scone"]},
+  {id:"bread2",name:"Bakery Bundle",price:42,wt:"2 loaves + 2 pastries",desc:"Enough for the week, with something for the freezer.",pick:"",has:["2 sourdough loaves","2 pastries"]}
+];
+const ITEMS={
+  produce:[
+    {id:"apples",nm:"Apples, 2 lb",ds:"e.g. Honeycrisp, Gala, EverCrisp, Pink Lady",p:13},
+    {id:"apples4",nm:"Apples, 4 lb",ds:"e.g. a mix of sweet and tart varieties",p:20},
+    {id:"squash",nm:"Winter squash",ds:"Each · e.g. delicata, acorn, butternut, kabocha",p:7},
+    {id:"potatoes",nm:"Potatoes & sweet potatoes, 2 lb",ds:"e.g. Japanese sweet, fingerlings, Yukon Gold",p:10},
+    {id:"roots",nm:"Root vegetables, 2 lb",ds:"e.g. beets, carrots, rutabaga, radishes",p:8},
+    {id:"greens",nm:"Hearty greens",ds:"Bunch · e.g. kale, collards, chard",p:8},
+    {id:"salad",nm:"Salad greens & microgreens",ds:"e.g. arugula, pea shoots, sunflower shoots",p:8},
+    {id:"brassica",nm:"Cabbage family",ds:"e.g. Brussels sprouts, cabbage, broccoli, cauliflower",p:8},
+    {id:"alliums",nm:"Onions & garlic",ds:"e.g. sweet or red onions, leeks, shallots, garlic",p:8},
+    {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. bell, poblano, shishito, fennel, celery",p:8}
+  ],
+  meat:[
+    {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10},
+    {id:"ground",nm:"Ground meat, 1 lb",ds:"e.g. grass-fed beef or pastured pork",p:17},
+    {id:"everyday",nm:"Everyday cut, about 1 lb",ds:"e.g. pork chops, tenderloin, beef stew meat, fajita meat",p:24},
+    {id:"steak",nm:"Steak night, 10–12 oz",ds:"e.g. sirloin, Delmonico, flat iron",p:38},
+    {id:"sausage",nm:"Sausage, about 1 lb",ds:"e.g. andouille, bratwurst, breakfast links",p:20},
+    {id:"fish",nm:"Great Lakes fish fillet",ds:"~8–16 oz · e.g. walleye, whitefish, lake trout, wild salmon",p:30},
+    {id:"cured",nm:"Smoked & cured",ds:"e.g. salami, smoked fish pâté, pork snack sticks",p:18}
+  ],
+  bread:[
+    {id:"sour",nm:"Sourdough loaf",ds:"e.g. miche, black rye, polenta, classic",p:14},
+    {id:"special",nm:"Specialty loaf",ds:"e.g. olive, garlic Asiago, jalapeño cheddar",p:18},
+    {id:"baguette",nm:"Baguette",ds:"Each",p:7},
+    {id:"bagels",nm:"Bagels, 4-pack",ds:"e.g. everything, sesame, Asiago, pretzel",p:15},
+    {id:"pastry",nm:"Pastry",ds:"Each · e.g. croissant, scone, danish, muffin, monkey bun",p:8},
+    {id:"cookie",nm:"Big cookie",ds:"Each · e.g. chocolate chip, sprinkle, oatmeal raisin",p:6}
+  ],
+  pantry:[
+    {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
+    {id:"maple",nm:"Maple syrup",ds:"Pint",p:19},
+    {id:"honey",nm:"Raw honey",ds:"~1–1.5 lb jar",p:21},
+    {id:"butter",nm:"Grass-fed butter",ds:"1 lb",p:13},
+    {id:"broth",nm:"Bone broth",ds:"16 oz · e.g. beef, chicken, turkey",p:15},
+    {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. jam, apple butter, dilly beans, giardiniera",p:13},
+    {id:"berries",nm:"Frozen berries",ds:"2 lb bag · e.g. red raspberries",p:13}
+  ]
+};
+const ALL=Object.values(ITEMS).flat();
+/* Paste the Google Apps Script web app URL here to send orders straight to the sheet. Leave blank to use text-in tickets. */
+const ORDER_ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+/* Zelle name or number customers should pay. Leave blank to send payment details by text. */
+const ZELLE="";
+const DELIVERY_FEE=8, FLAT_MILES=3, PER_MILE=1.5;
+function isDel(){return state.fulfill.startsWith("del-")}
+function delStop(){return STOPS.find(x=>"del-"+x.id===state.fulfill)}
+const STOPS=[
+  {id:"goose",name:"Goose Island",time:"1:00–2:00 PM"},
+  {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM"},
+  {id:"rogers",name:"Rogers Park",time:"5:00–6:00 PM"}
+];
+const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,sent:null};
+const PICK_ONLY=["produce","bread"];
+
+/* Pickup dates: Wed (outdoor Wednesday market runs through Oct 28, 2026) and Sat (through Nov 21, 2026). */
+function pickupDates(){
+  const out=[],now=new Date(),wedEnd=new Date(2026,9,28,23,59),satEnd=new Date(2026,10,21,23,59);
+  for(let i=0;i<35&&out.length<6;i++){
+    const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i);
+    const day=d.getDay();
+    const isWed=day===3&&d<=wedEnd, isSat=day===6&&d<=satEnd;
+    if(!isWed&&!isSat)continue;
+    const cut=new Date(d);cut.setDate(cut.getDate()-1);cut.setHours(21,0,0,0);
+    if(now>cut)continue;
+    out.push({v:d.toISOString().slice(0,10),label:d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"})});
+  }
+  return out;
+}
+const DATES=pickupDates();
+state.date=DATES[0]?.v||"";
+
+function el(t,a={},...k){const e=document.createElement(t);for(const[x,y]of Object.entries(a)){if(x==="class")e.className=y;else if(x.startsWith("on"))e.addEventListener(x.slice(2),y);else e.setAttribute(x,y)}for(const c of k)e.append(c);return e}
+
+function renderBoxes(){
+  const isBox=state.mode==="box";
+  document.getElementById("boxes").hidden=!isBox;
+  document.getElementById("breadboxes").hidden=!isBox;
+  document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";document.getElementById("boxHint").hidden=!isBox;
+  for(const s of document.querySelectorAll(".seg button"))s.setAttribute("aria-checked",String(s.dataset.mode===state.mode));
+  boxRow("boxes",BOXES,"box");boxRow("breadboxes",BREADBOXES,"breadBox");
+}
+function boxRow(wid,list,key){
+  const w=document.getElementById(wid);w.textContent="";
+  for(const b of list){
+    const btn=el("button",{class:"box",type:"button","aria-pressed":String(state[key]===b.id),onclick:()=>{state[key]=state[key]===b.id?null:b.id;renderBoxes();renderTicket()}});
+    if(b.pick)btn.append(el("span",{class:"pick"},b.pick));
+    const ul=el("ul",{class:"has"});for(const h of b.has)ul.append(el("li",{},h));
+    btn.append(el("h3",{},b.name),el("span",{class:"wt"},b.wt),el("p",{},b.desc),ul,el("span",{class:"price"},"$"+b.price),el("span",{class:"add"},state[key]===b.id?"In your order":"Add to order"));
+    w.append(btn);
+  }
+}
+function renderPrefs(){
+  const w=document.getElementById("prefs");w.textContent="";
+  for(const p of PREFS){
+    const s=state.prefs[p]||"";
+    w.append(el("button",{class:"pref",type:"button","data-s":s,"aria-label":p+(s?": "+s:""),onclick:()=>{const n=s===""?"more":s==="more"?"skip":"";if(n)state.prefs[p]=n;else delete state.prefs[p];renderPrefs();renderTicket()}},(s==="more"?"+ ":"")+p));
+  }
+}
+function renderItems(){
+  for(const w of document.querySelectorAll(".items")){
+    w.textContent="";
+    w.hidden=state.mode==="box"&&PICK_ONLY.includes(w.dataset.cat);
+    if(!ITEMS[w.dataset.cat].length){w.append(el("p",{class:"soon"},"Coming soon. We're lining up local bakers now."));continue}
+    for(const it of ITEMS[w.dataset.cat]){
+      const q=state.qty[it.id]||0;
+      const set=n=>{state.qty[it.id]=Math.max(0,Math.min(9,n));if(!state.qty[it.id])delete state.qty[it.id];renderItems();renderTicket()};
+      w.append(el("div",{class:"item"},
+        el("div",{style:"min-width:0"},el("div",{class:"nm"},it.nm),el("div",{class:"ds"},it.ds+" · ",el("b",{class:"ip"},"$"+it.p))),
+        el("div",{class:"qty"},
+          el("button",{type:"button","aria-label":"Remove one "+it.nm,onclick:()=>set(q-1)},"−"),
+          el("output",{},String(q)),
+          el("button",{type:"button","aria-label":"Add one "+it.nm,onclick:()=>set(q+1)},"+"))));
+    }
+  }
+}
+function orderText(id){
+  const b=BOXES.find(x=>x.id===state.box);
+  const d=DATES.find(x=>x.v===state.date);
+  const L=["POSTED — Posted Up Produce order #"+id,"Name: "+state.name,"Phone: "+state.phone,
+    isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().time.split("–")[1]+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
+  const bb=BREADBOXES.find(x=>x.id===state.breadBox);
+  L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
+  if(b)L.push(b.name+" produce box ("+b.wt+") — $"+b.price);
+  if(bb)L.push(bb.name+" ("+bb.wt+") — $"+bb.price);
+  const more=Object.keys(state.prefs).filter(k=>state.prefs[k]==="more"),skip=Object.keys(state.prefs).filter(k=>state.prefs[k]==="skip");
+  if(more.length)L.push("  More of: "+more.join(", "));
+  if(skip.length)L.push("  Skip: "+skip.join(", "));
+  const adds=ALL.filter(i=>state.qty[i.id]);
+  if(adds.length){L.push("Add-ons:");for(const i of adds)L.push("  "+state.qty[i.id]+" × "+i.nm+" — $"+state.qty[i.id]*i.p)}
+  L.push("","If unavailable: "+(state.sub==="replace"?"Replace with equal or greater value":state.sub==="refund"?"Refund me":"Credit my next order"));
+  if(state.notes)L.push("Notes: "+state.notes);
+  if(fee())L.push("Delivery fee — $"+fee()+" flat (+$"+PER_MILE.toFixed(2)+"/mi beyond "+FLAT_MILES+" mi, confirmed by text)");
+  L.push("","TOTAL: $"+total());
+  L.push("","I agree to the Posted Up Produce Order Terms (October 2026), including the refund and cancellation policy.");
+  return L.join("\n");
+}
+function orderPayload(id){
+  const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox),items={};
+  if(b)items["Produce Box: "+b.name]=1;
+  if(bb)items[bb.name]=1;
+  for(const i of ALL)if(state.qty[i.id])items[i.nm]=state.qty[i.id];
+  const st=isDel()?delStop():STOPS.find(x=>x.id===state.fulfill);
+  return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),
+    fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
+    style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
+    notes:state.notes.trim(),items,deliveryFee:fee(),total:total()};
+}
+async function sendOrder(id){
+  if(!ORDER_ENDPOINT)return false;
+  try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(orderPayload(id))});return true}
+  catch(e){return false}
+}
+function count(){return (state.box?1:0)+(state.breadBox?1:0)+Object.values(state.qty).reduce((a,b)=>a+b,0)}
+function subtotal(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(bb?bb.price:0)+ALL.reduce((s,i)=>s+(state.qty[i.id]||0)*i.p,0)}
+function fee(){return isDel()&&count()?DELIVERY_FEE:0}
+function total(){return subtotal()+fee()}
+function datesFor(){return isDel()?DATES.filter(d=>new Date(d.v+"T12:00").getDay()===3):DATES}
+function setMode(m){
+  if(m===state.mode)return;
+  state.mode=m;
+  if(m==="pick"){state.box=null;state.breadBox=null}
+  else for(const c of PICK_ONLY)for(const i of ITEMS[c])delete state.qty[i.id];
+  renderBoxes();renderItems();renderTicket();
+}
+
+function renderTicket(){
+  const t=document.getElementById("ticketBody");t.textContent="";
+  const n=count(),b=BOXES.find(x=>x.id===state.box);
+  document.getElementById("barText").textContent=n?n+" item"+(n>1?"s":"")+" · $"+total():"No items yet";
+  if(state.sent){
+    const txt=state.sent;
+    const pre=el("pre",{id:"orderPre"},txt);
+    const msg=el("p",{class:"note",id:"copyMsg"},"");
+    t.append(el("div",{class:"done"},
+      el("h2",{},"Thank you for ordering!"),
+      el("p",{class:"thanks"},"You're one of our first Posted Up customers, and that means a lot. Every order keeps money with small farms and makers close to home and helps us shape this pilot."),
+      el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
+        "Your order is in. Last step: pay by 9 PM the night before. "+(ZELLE?"Zelle "+ZELLE+" and put POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
+        "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
+      pre,
+      el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text or email."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
+      msg,
+      el("div",{class:"contact"},
+        el("div",{},"Text: ",el("code",{},"773-807-9223")),
+        el("div",{},"Email: ",el("code",{},"cultivate.regenerate@gmail.com"))),
+      el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;renderTicket()}},"Edit order")));
+    return;
+  }
+  t.append(el("h2",{},"Your Order"));
+  const lines=el("div",{class:"lines"});
+  if(!n)lines.append(el("p",{class:"empty"},"Pick a box or add something from the menu."));
+  if(b)lines.append(el("div",{class:"line"},el("span",{},b.name+" box"),el("span",{},"$"+b.price)));
+  const bb=BREADBOXES.find(x=>x.id===state.breadBox);
+  if(bb)lines.append(el("div",{class:"line"},el("span",{},bb.name),el("span",{},"$"+bb.price)));
+  for(const i of ALL.filter(i=>state.qty[i.id]))lines.append(el("div",{class:"line"},el("span",{},state.qty[i.id]+" × "+i.nm),el("span",{},"$"+state.qty[i.id]*i.p)));
+  if(fee())lines.append(el("div",{class:"line"},el("span",{},"Delivery (from)"),el("span",{},"$"+fee())));
+  t.append(lines);
+  t.append(el("div",{class:"total"},el("span",{},"Total"),el("span",{},"$"+total())));
+  const f=el("form",{novalidate:"",style:"display:grid;gap:10px"});
+  const inp=(id,lab,type,ph)=>{const i=el("input",{id,type,placeholder:ph,autocomplete:id==="phone"?"tel":"name"});i.value=state[id];i.addEventListener("input",()=>state[id]=i.value);return el("label",{for:id},lab,i)};
+  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
+  const fs=el("select",{id:"fulfill"});
+  for(const s of STOPS)fs.append(el("option",{value:s.id},"Meet-up · "+s.name+", "+s.time));
+  for(const st of STOPS)fs.append(el("option",{value:"del-"+st.id},"Delivery from "+st.name+" · Wed, after "+st.time.split("–")[1]+" (from $"+DELIVERY_FEE+")"));
+  fs.value=state.fulfill;
+  fs.addEventListener("change",()=>{state.fulfill=fs.value;const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()});
+  f.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of the stop, then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window.":"We text the exact meet-up spot after you order."));
+  if(isDel()){
+    const a=el("input",{id:"address",type:"text",placeholder:"Street, unit, zip",autocomplete:"street-address"});a.value=state.address;a.addEventListener("input",()=>state.address=a.value);
+    f.append(el("label",{for:"address"},"Delivery address",a));
+  }
+  const ds=datesFor();
+  const sel=el("select",{id:"date"});
+  if(!ds.length)sel.append(el("option",{value:""},isDel()?"No Wednesday deliveries open right now":"No pickups open right now"));
+  for(const d of ds){const o=el("option",{value:d.v},d.label);if(d.v===state.date)o.selected=true;sel.append(o)}
+  sel.addEventListener("change",()=>state.date=sel.value);
+  f.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
+  const ss=el("select",{id:"sub"});
+  ss.append(el("option",{value:"credit"},"Credit it to my next order"),el("option",{value:"replace"},"Replace it with equal or greater value"),el("option",{value:"refund"},"Refund me for it"));
+  ss.value=state.sub;ss.addEventListener("change",()=>state.sub=ss.value);
+  f.append(el("label",{for:"sub"},"If something isn't at market",ss));
+  const ta=el("textarea",{id:"notes",placeholder:"Allergies, things you'd never want as a swap, ripeness…"});ta.value=state.notes;ta.addEventListener("input",()=>state.notes=ta.value);
+  f.append(el("label",{for:"notes"},"Notes (optional)",ta));
+  const ag=el("input",{id:"agree",type:"checkbox"});ag.checked=state.agree;ag.addEventListener("change",()=>{state.agree=ag.checked});
+  f.append(el("label",{for:"agree",class:"agree"},ag,el("span",{},"I agree to the ",el("a",{href:"#terms"},"Order Terms"),", including credits for unavailable items and no refunds on cancellations after 9 PM the night before.")));
+  const err=el("p",{class:"err",id:"err"});
+  f.append(err,el("button",{class:"cta",type:"submit"},"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Payment is due up front."));
+  if(!n)f.querySelector(".cta").disabled=true;
+  f.addEventListener("submit",e=>{e.preventDefault();
+    if(!state.name.trim()||state.phone.replace(/\D/g,"").length<10){err.textContent="Add your name and a 10-digit mobile number so we can confirm by text.";return}
+    if(isDel()&&state.address.trim().length<6){err.textContent="Add a delivery address so we can confirm it's in our area.";return}
+    if(!state.agree){err.textContent="Tick the box to agree to the Order Terms before getting your ticket.";return}
+    if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
+    const id=(Date.now()%100000).toString().padStart(5,"0");
+    state.sent=orderText(id);state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
+    sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  t.append(f);
+}
+
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",String(x===b)));
+  document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth",block:"start"});
+}));
+document.getElementById("barGo").addEventListener("click",()=>document.getElementById("checkout").scrollIntoView({behavior:"smooth",block:"start"}));
+document.addEventListener("click",e=>{if(e.target.closest('a[href="#terms"]'))document.getElementById("terms").open=true});
+
+/* Open in a realistic working state: Half Peck selected as an example pick. */
+state.box="halfpeck";
+
+/* Live Chicago date/time and next order deadline */
+function tickNow(){
+  const el=document.getElementById("now");if(!el)return;
+  const now=new Date();
+  const t=now.toLocaleString("en-US",{timeZone:"America/Chicago",weekday:"long",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
+  const d=DATES[0];
+  let next="";
+  if(d){const pd=new Date(d.v+"T12:00");const cut=new Date(pd);cut.setDate(cut.getDate()-1);
+    next=" · Next orders close "+cut.toLocaleDateString("en-US",{weekday:"short"})+" 9 PM for "+d.label+" pickup";}
+  el.textContent="Now in Chicago: "+t+next;const ct=document.getElementById("closeTop");if(ct&&d){const pd=new Date(d.v+"T12:00");const cut=new Date(pd);cut.setDate(cut.getDate()-1);ct.textContent="Closes "+cut.toLocaleDateString("en-US",{weekday:"short"})+" 9 PM";}
+}
+tickNow();setInterval(tickNow,30000);
+/* What's in season in Chicago, by month */
+const SEASON={
+  9:{t:"September harvest",items:["Tomatoes","Sweet corn","Peppers","Eggplant","Melons","Apples","Pears","Grapes","Green beans","Summer squash","Kale","Potatoes","Onions","Herbs"]},
+  10:{t:"October harvest",items:["Apples","Pears","Grapes","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Cabbage","Cauliflower","Beets","Carrots","Radishes","Leeks & onions","Garlic","Fennel","Last peppers"]},
+  11:{t:"November harvest",items:["Apples","Pears","Winter squash","Sweet potatoes","Potatoes","Brussels sprouts","Kale","Cabbage","Beets","Carrots","Parsnips","Turnips & rutabaga","Leeks & onions","Garlic","Celery root","Spinach","Microgreens"]},
+  12:{t:"Winter market",items:["Storage apples","Winter squash","Potatoes","Sweet potatoes","Onions","Garlic","Carrots","Beets","Cabbage","Microgreens","Mushrooms"]}
+};
+(function(){
+  const m=Number(new Date().toLocaleString("en-US",{timeZone:"America/Chicago",month:"numeric"}));
+  const s=SEASON[m]||SEASON[10];
+  document.getElementById("seasonTitle").textContent=s.t;
+  const ul=document.getElementById("seasonList");
+  for(const i of s.items)ul.append(el("li",{},i));
+})();
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+renderBoxes();renderItems();renderTicket();
+</script>
+
+</body>
+</html>
