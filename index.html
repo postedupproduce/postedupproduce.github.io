@@ -216,6 +216,39 @@ details.terms[open] summary::after{content:"−"}
 .ropt:has(input:checked)::after{content:"✓";color:var(--good);font-size:18px}
 .vskip{justify-self:start;background:none;border:0;color:var(--muted);text-decoration:underline;font-size:14px;padding:4px 0;min-height:32px}
 [hidden]{display:none!important}
+
+/* Season ticker: auto-scrolls slowly, stops the moment you touch it */
+.ticker .ph,.ticker li{display:grid;align-content:start}
+.chips li.ph small,.chips li.tx small{display:block;padding:0 10px 9px;font-size:12.5px;line-height:1.3;color:var(--muted);font-weight:500;white-space:normal}
+.chips li.tx{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 0 0;width:150px;min-height:112px;white-space:normal;align-self:stretch}
+.chips li.tx span{display:block;padding:0 10px 4px;font-weight:700;font-size:15px}
+.tickhint{font-size:13px;color:var(--muted);margin:-4px 0 0}
+
+/* Pickup days + founder perk */
+.days{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:15px}
+.founder{margin:0;border:2px solid var(--tomato);border-radius:12px;padding:14px 16px;display:grid;gap:6px}
+.founder b.k{font:400 19px/1.15 var(--display);color:var(--tomato)}
+.founder p{margin:0;font-size:15px}
+
+/* Produce plug */
+.plug{background:var(--board);color:var(--board-ink);border-radius:14px;padding:22px 20px;display:grid;gap:14px}
+.plug h2{font-size:clamp(26px,7vw,32px);line-height:1.1}
+.plug .q{font:400 20px/1.25 var(--display);color:#ffb4a3;margin:0}
+.chain{display:grid;gap:8px;margin:0;padding:0;list-style:none;font-size:15px}
+.chain li{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:start}
+.chain li b{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:color-mix(in srgb,var(--board-ink) 75%,transparent);padding-top:2px}
+.plug p{margin:0;font-size:15px;color:color-mix(in srgb,var(--board-ink) 90%,transparent)}
+.plug small{font-size:12.5px;color:color-mix(in srgb,var(--board-ink) 70%,transparent)}
+
+/* Feedback + meeting forms */
+.talk{display:grid;gap:12px}
+.talkf{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px}
+.talkf h3{font-size:21px}
+.talkf .sub{font-size:15px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:420px){.two{grid-template-columns:1fr}}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ok{color:var(--good);font-weight:700;margin:0;font-size:15px}
 </style>
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div></header>
@@ -244,13 +277,19 @@ details.terms[open] summary::after{content:"−"}
       <div class="stop"><b>Hyde Park</b>3–4 PM</div>
       <div class="stop"><b>Rogers Park</b>5–6 PM</div>
     </div>
+    <p class="days"><b>Pickup days: Wednesdays and Saturdays,</b> same day as market. Wednesdays run through Oct 28, Saturdays through Nov 21. Need a different day or time? Text us and we'll work something out.</p>
+    <div class="founder">
+      <b class="k">Beta founder rate: 10% off boxes</b>
+      <p>Pick up your box at a meet-up during the beta and it's 10% off. Complete one paid meet-up order and you're a Founding Member: you keep 10% off boxes through the 2027 season if Posted Up keeps growing. Thanks for being here first.</p>
+    </div>
   </section>
 
   <section class="post" aria-labelledby="seasonTitle">
     <h2 id="seasonTitle">October harvest</h2>
-    <p class="sub" id="seasonNote">What local farms are bringing to market right now. Boxes are built from whatever is peaking that week.</p>
-    <div class="swipe"><span>&larr; Swipe left or right to see more &rarr;</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
-    <ul class="row chips" id="seasonList"></ul>
+    <p class="sub" id="seasonNote">What local farms are bringing to market right now, and the part of the Midwest it usually comes from. Boxes are built from whatever is peaking that week.</p>
+    <div class="swipe"><span>Scrolling on its own. Tap or swipe to look closer.</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
+    <ul class="row chips ticker" id="seasonList" aria-label="In season now"></ul>
+    <p class="tickhint">Want to know exactly which farm grew something in your bag? Ask at handoff and we'll tell you.</p>
   </section>
 
   <section class="post" id="shop" aria-labelledby="shopH">
@@ -292,6 +331,20 @@ details.terms[open] summary::after{content:"−"}
     </div>
   </section>
 
+  <section class="post" aria-labelledby="plugH">
+    <div class="plug">
+      <h2 id="plugH">Your produce plug, straight from the farm</h2>
+      <p class="q">Would you rather pay the middleman, or the people who grew it?</p>
+      <ul class="chain">
+        <li><b>Grocery</b><span>Farm → packer → distributor → warehouse → store → you. At the grocery store, farmers get about 18¢ of every food dollar (USDA, 2024).</span></li>
+        <li><b>Posted Up</b><span>Farm stand → your shopper → you. That's it.</span></li>
+      </ul>
+      <p><b>The farmer gets their full price.</b> We buy at the stand at the farmer's own retail price. No wholesale squeeze, no distributor cut. Every dollar we spend on your food goes straight to the farm or maker who grew or baked it.</p>
+      <p><b>Farm to table, for real.</b> Picked days before you get it, by the person who grew it, chosen by someone who knows them.</p>
+      <small>Our shopping and handoff fee is built into our prices, and we'd rather tell you than hide it. It's how we can afford to do this right.</small>
+    </div>
+  </section>
+
   <section class="post" aria-labelledby="whyH">
     <h2 id="whyH">A shopper who knows the farmers</h2>
     <p class="sub">Delivery apps send whoever is free to a warehouse store. We spend market mornings with growers we've known for years.</p>
@@ -330,8 +383,41 @@ details.terms[open] summary::after{content:"−"}
     <div class="ticket" id="ticket" aria-live="polite"><div id="ticketBody"></div></div>
   </section>
 
+  <section class="post talk" id="talk" aria-labelledby="talkH">
+    <h2 id="talkH">Help us build this</h2>
+    <p class="sub">Posted Up is in beta, and your ideas shape what comes next: items, stops, days, anything.</p>
+    <form class="talkf" id="fbForm" novalidate>
+      <h3>Share feedback</h3>
+      <p class="sub">Leave your number or email and we'll tuck a bonus produce pick into your next order as a thank-you (one per person during the beta).</p>
+      <label for="fbMsg">What should we do better, add or keep?<textarea id="fbMsg" maxlength="2000" required placeholder="More greens, a Sunday stop, smaller boxes…"></textarea></label>
+      <div class="two">
+        <label for="fbName">Name (optional)<input id="fbName" type="text" autocomplete="name"></label>
+        <label for="fbContact">Phone or email (optional)<input id="fbContact" type="text" autocomplete="tel"></label>
+      </div>
+      <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="err" data-err></p>
+      <button class="cta" type="submit">Send feedback</button>
+    </form>
+    <form class="talkf" id="mtForm" novalidate>
+      <h3>Pick a time to meet</h3>
+      <p class="sub">Farm, maker, market, office order or partnership idea? Suggest two times and we'll text or email to confirm one.</p>
+      <div class="two">
+        <label for="mtName">Name<input id="mtName" type="text" autocomplete="name" required></label>
+        <label for="mtContact">Phone or email<input id="mtContact" type="text" autocomplete="tel" required></label>
+      </div>
+      <div class="two">
+        <label for="mtT1">First choice<input id="mtT1" type="datetime-local" required></label>
+        <label for="mtT2">Second choice<input id="mtT2" type="datetime-local"></label>
+      </div>
+      <label for="mtMsg">What about? (optional)<input id="mtMsg" type="text" maxlength="300"></label>
+      <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="err" data-err></p>
+      <button class="cta" type="submit">Request a time</button>
+    </form>
+  </section>
+
   <section class="post">
-    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items, stops and even the name may change as we learn. Tell us what works: text 773-807-9223.</p>
+    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items, stops and even the name may change as we learn. Tell us what works with the feedback form above, or text 773-807-9223.</p>
     <details class="terms" id="terms">
       <summary>Order Terms</summary>
       <p class="note">Version: October 2026. By paying for an order, you agree to these terms.</p>
@@ -341,6 +427,9 @@ details.terms[open] summary::after{content:"−"}
           <li><b>What you get.</b> You get the box or item groups you ordered, chosen by us at market that day. Examples on the menu are typical, not promised. Weights are approximate.</li>
           <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the pilot (November 21) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
+          <li><b>Pickup days.</b> Pickups are on market days only, Wednesdays and Saturdays, the same day we shop. Wednesday delivery is same-day. Other days or times may be arranged by text.</li>
+          <li><b>Beta founder rate.</b> Shopper's Choice boxes (produce and bread) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later.</li>
+          <li><b>Feedback thank-you.</b> Leave feedback with your contact info during the beta and we'll add one bonus produce pick to your next order. One per person.</li>
           <li><b>Pickup and delivery.</b> Pick up during your chosen window. Orders not picked up by the end of the window aren't refunded, but text us and we'll try to arrange a late handoff or delivery for the delivery fee. Delivery fees are confirmed by text before you pay.</li>
           <li><b>Quality.</b> If something arrives damaged or spoiled, text us a photo within 24 hours. We refund or replace that item.</li>
           <li><b>Food safety.</b> Wash produce before eating. Keep frozen items frozen; they're your responsibility once handed off. Baked goods may contain wheat, dairy, eggs, nuts or other allergens and may be made in shared kitchens. Tell us about allergies in your order notes.</li>
@@ -523,6 +612,7 @@ function orderText(id){
   L.push("","If unavailable: "+(state.sub==="replace"?"Replace with equal or greater value":state.sub==="refund"?"Refund me":"Credit my next order"));
   if(state.notes)L.push("Notes: "+state.notes);
   if(state.logo&&voteOpen()){L.push("Logo vote: "+logoName());if(state.reward)L.push("Thank-you: "+rewardName()+(discount()?" (−$5)":state.reward==="5off"?" (needs a $30+ order, not applied)":""));if(state.why.trim())L.push("Why: "+state.why.trim())}
+  if(founderOff())L.push("Beta founder rate (meet-up, "+FOUNDER_PCT+"% off boxes) — −$"+founderOff());
   if(fee())L.push("Delivery fee — $"+fee()+" flat (+$"+PER_MILE.toFixed(2)+"/mi beyond "+FLAT_MILES+" mi, confirmed by text)");
   L.push("","TOTAL: $"+total());
   L.push("","I agree to the Posted Up Produce Order Terms (October 2026), including the refund and cancellation policy.");
@@ -538,7 +628,7 @@ function orderPayload(id){
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
     notes:state.notes.trim(),items,deliveryFee:fee(),total:total(),
-    logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":state.reward==="pastry"?"Pastry":state.reward==="produce"?"Produce pick":""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),waitlist:isWait()?"Yes":""};
+    logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":state.reward==="pastry"?"Pastry":state.reward==="produce"?"Produce pick":""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
   if(!ORDER_ENDPOINT)return false;
@@ -548,7 +638,11 @@ async function sendOrder(id){
 function count(){return (state.box?1:0)+(state.breadBox?1:0)+Object.values(state.qty).reduce((a,b)=>a+b,0)}
 function subtotal(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(bb?bb.price:0)+ALL.reduce((s,i)=>s+(state.qty[i.id]||0)*i.p,0)}
 function fee(){return isDel()&&count()?DELIVERY_FEE:0}
-function total(){return subtotal()+fee()-discount()}
+const FOUNDER_PCT=10;
+function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(bb?bb.price:0)}
+/* Beta founder rate: 10% off boxes on meet-up orders, rounded to whole dollars. */
+function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
+function total(){return subtotal()+fee()-discount()-founderOff()}
 function datesFor(){return isDel()?DATES.filter(d=>new Date(d.v+"T12:00").getDay()===3):DATES}
 function setMode(m){
   if(m===state.mode)return;
@@ -589,6 +683,8 @@ function renderTicket(){
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   if(bb)lines.append(el("div",{class:"line"},el("span",{},bb.name),el("span",{},"$"+bb.price)));
   for(const i of ALL.filter(i=>state.qty[i.id]))lines.append(el("div",{class:"line"},el("span",{},state.qty[i.id]+" × "+i.nm),el("span",{},"$"+state.qty[i.id]*i.p)));
+  if(founderOff())lines.append(el("div",{class:"line"},el("span",{},"Beta founder rate ("+FOUNDER_PCT+"% off boxes)"),el("span",{},"−$"+founderOff())));
+  else if(isDel()&&boxSum())lines.append(el("p",{class:"note"},"Tip: pick a meet-up instead of delivery and your box is "+FOUNDER_PCT+"% off."));
   if(discount())lines.append(el("div",{class:"line"},el("span",{},"Logo vote thank-you"),el("span",{},"−$5")));
   if(state.logo&&state.reward&&state.reward!=="5off"&&voteOpen())lines.append(el("div",{class:"line"},el("span",{},"Thank-you: "+rewardName()),el("span",{},"Free")));
   if(fee())lines.append(el("div",{class:"line"},el("span",{},"Delivery (from)"),el("span",{},"$"+fee())));
@@ -692,15 +788,64 @@ const SEASON={
   11:{t:"November harvest",items:["Apples","Pears","Winter squash","Sweet potatoes","Potatoes","Brussels sprouts","Kale","Cabbage","Beets","Carrots","Parsnips","Turnips & rutabaga","Leeks & onions","Garlic","Celery root","Spinach","Microgreens"]},
   12:{t:"Winter market",items:["Storage apples","Winter squash","Potatoes","Sweet potatoes","Onions","Garlic","Carrots","Beets","Cabbage","Microgreens","Mushrooms"]}
 };
+/* Where each item usually comes from: regions only, never farm names (public rule). */
+const FROM={
+  "Apples":"SW Michigan fruit belt · N. Illinois orchards","Storage apples":"SW Michigan · N. Illinois orchards","Pears":"SW Michigan fruit belt","Grapes":"SW Michigan","Melons":"NW Indiana · N. Illinois",
+  "Winter squash":"N. Illinois · NW Indiana","Pumpkins":"N. Illinois · NW Indiana","Sweet potatoes":"N. Illinois · S. Wisconsin","Potatoes":"N. Illinois · S. Wisconsin",
+  "Brussels sprouts":"N. Illinois · SW Michigan","Kale & collards":"N. Illinois · Chicagoland urban farms","Kale":"N. Illinois · Chicagoland urban farms","Cabbage":"N. Illinois · S. Wisconsin","Cauliflower":"N. Illinois · SW Michigan",
+  "Beets":"N. Illinois · S. Wisconsin","Carrots":"N. Illinois · S. Wisconsin","Radishes":"N. Illinois · Chicagoland urban farms","Parsnips":"S. Wisconsin · N. Illinois","Turnips & rutabaga":"S. Wisconsin · N. Illinois","Celery root":"N. Illinois",
+  "Leeks & onions":"N. Illinois · S. Wisconsin","Onions":"N. Illinois · S. Wisconsin","Garlic":"N. Illinois · S. Wisconsin","Fennel":"N. Illinois","Last peppers":"N. Illinois · NW Indiana","Peppers":"N. Illinois · NW Indiana",
+  "Spinach":"N. Illinois hoop houses","Microgreens":"Chicagoland urban growers","Mushrooms":"Chicagoland growers","Herbs":"Chicagoland urban farms",
+  "Tomatoes":"N. Illinois · NW Indiana","Sweet corn":"N. Illinois · NW Indiana","Eggplant":"N. Illinois","Green beans":"N. Illinois · SW Michigan","Summer squash":"N. Illinois"
+};
 (function(){
   const m=Number(new Date().toLocaleString("en-US",{timeZone:"America/Chicago",month:"numeric"}));
   const s=SEASON[m]||SEASON[10];
   document.getElementById("seasonTitle").textContent=s.t;
   const ul=document.getElementById("seasonList");
   const withPh=s.items.filter(i=>PHOTOS[i]),rest=s.items.filter(i=>!PHOTOS[i]);
-  for(const i of withPh)ul.append(el("li",{class:"ph"},el("img",{src:PHOTOS[i],alt:i,loading:"lazy",width:"150",height:"112"}),el("span",{},i)));
-  for(const i of rest)ul.append(el("li",{},i));
+  const from=i=>el("small",{},FROM[i]?"Usually from "+FROM[i]:"From farms within 150 mi");
+  const fill=()=>{for(const i of withPh)ul.append(el("li",{class:"ph"},el("img",{src:PHOTOS[i],alt:i,loading:"lazy",width:"150",height:"112"}),el("span",{},i),from(i)));
+    for(const i of rest)ul.append(el("li",{class:"tx"},el("span",{},i),from(i)))};
+  fill();
+  /* Ticker: second copy (hidden from screen readers) so the loop is seamless. Pauses on touch, hover or focus; off for reduced motion. */
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const n=ul.children.length;fill();for(let k=n;k<ul.children.length;k++)ul.children[k].setAttribute("aria-hidden","true");
+  ul.style.scrollSnapType="none";
+  let paused=false,resume=0,last=0,pos=0;
+  const hold=()=>{paused=true;clearTimeout(resume);ul.style.scrollSnapType=""};
+  const release=()=>{clearTimeout(resume);resume=setTimeout(()=>{pos=ul.scrollLeft;ul.style.scrollSnapType="none";paused=false},3500)};
+  ul.addEventListener("pointerdown",hold);ul.addEventListener("pointerup",release);ul.addEventListener("pointercancel",release);
+  ul.addEventListener("touchstart",hold,{passive:true});ul.addEventListener("touchend",release);
+  ul.addEventListener("mouseenter",hold);ul.addEventListener("mouseleave",release);
+  ul.addEventListener("focusin",hold);ul.addEventListener("focusout",release);
+  ul.addEventListener("wheel",()=>{hold();release()},{passive:true});
+  document.querySelectorAll('.arw[data-row="seasonList"]').forEach(b=>b.addEventListener("click",()=>{hold();release()}));
+  function step(t){
+    if(!paused&&!document.hidden){const dt=last?Math.min(t-last,50):16;pos+=dt*0.03;const half=ul.children[n]?ul.children[n].offsetLeft-ul.children[0].offsetLeft:0;if(half&&pos>=half)pos-=half;ul.scrollLeft=pos}
+    else pos=ul.scrollLeft;
+    last=t;requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 })();
+/* Feedback + meeting requests go to the Feedback tab of the sheet (no inbox email). */
+function talkForm(id,build){
+  const f=document.getElementById(id);if(!f)return;const err=f.querySelector("[data-err]");
+  f.addEventListener("submit",async e=>{e.preventDefault();err.textContent="";
+    const r=build(f);if(typeof r==="string"){err.textContent=r;return}
+    r.hp=f.querySelector('input[name="website"]').value;
+    const btn=f.querySelector("button[type=submit]");btn.disabled=true;btn.textContent="Sending…";
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(r)});
+      f.replaceChildren(el("h3",{},"Got it. Thank you!"),el("p",{class:"ok"},r.type==="meeting"?"We'll text or email you to confirm a time.":(r.contact?"Your bonus produce pick will be in your next order.":"Every note helps us shape the next season.")));}
+    catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+  });
+}
+const fmtT=v=>v?new Date(v).toLocaleString("en-US",{weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}):"";
+talkForm("fbForm",f=>{const m=f.querySelector("#fbMsg").value.trim();if(m.length<3)return "Write a few words first.";
+  return {type:"feedback",name:f.querySelector("#fbName").value.trim(),contact:f.querySelector("#fbContact").value.trim(),message:m,times:""}});
+talkForm("mtForm",f=>{const n=f.querySelector("#mtName").value.trim(),c=f.querySelector("#mtContact").value.trim(),t1=f.querySelector("#mtT1").value,t2=f.querySelector("#mtT2").value;
+  if(!n||c.length<7)return "Add your name and a phone number or email.";if(!t1)return "Pick at least one time that works.";
+  return {type:"meeting",name:n,contact:c,message:f.querySelector("#mtMsg").value.trim(),times:[fmtT(t1),fmtT(t2)].filter(Boolean).join(" | ")}});
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
 renderBoxes();renderItems();renderTicket();loadCounts();
