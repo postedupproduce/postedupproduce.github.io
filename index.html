@@ -846,11 +846,12 @@ function talkForm(id,build){
     catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
   });
 }
+(()=>{const n=chiNow();n.setMinutes(n.getMinutes()-n.getTimezoneOffset());const mn=n.toISOString().slice(0,16);["mtT1","mtT2"].forEach(id=>{const e=document.getElementById(id);if(e)e.min=mn})})();
 const fmtT=v=>v?new Date(v).toLocaleString("en-US",{weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}):"";
 talkForm("fbForm",f=>{const m=f.querySelector("#fbMsg").value.trim();if(m.length<3)return "Write a few words first.";
   return {type:"feedback",name:f.querySelector("#fbName").value.trim(),contact:f.querySelector("#fbContact").value.trim(),message:m,times:""}});
 talkForm("mtForm",f=>{const n=f.querySelector("#mtName").value.trim(),c=f.querySelector("#mtContact").value.trim(),t1=f.querySelector("#mtT1").value,t2=f.querySelector("#mtT2").value;
-  if(!n||c.length<7)return "Add your name and a phone number or email.";if(!t1)return "Pick at least one time that works.";
+  if(!n||c.length<7)return "Add your name and a phone number or email.";if(!t1)return "Pick at least one time that works.";const nowS=Date.now();if([t1,t2].filter(Boolean).some(t=>new Date(t).getTime()<nowS))return "Pick times in the future.";
   return {type:"meeting",name:n,contact:c,message:f.querySelector("#mtMsg").value.trim(),times:[fmtT(t1),fmtT(t2)].filter(Boolean).join(" | ")}});
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
