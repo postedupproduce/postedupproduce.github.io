@@ -184,6 +184,7 @@ details.terms[open] summary::after{content:"−"}
 .terms ol{margin:10px 0 0;padding-left:22px;display:grid;gap:10px;font-size:15px;max-width:65ch}
 .pilot{margin:0;background:var(--chip);border-radius:12px;padding:14px 16px;font-size:16px}
 .foot{font-size:14px;color:var(--muted);margin:0 0 20px}
+.ip{border-top:1px solid var(--line);padding-top:14px;display:grid;gap:8px;font-size:14px;color:var(--muted)}.ip p{margin:0;max-width:65ch}.ip b{color:var(--ink)}
 
 /* Order bar, always visible */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:7;background:var(--board);color:var(--board-ink);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
@@ -349,6 +350,10 @@ details.terms[open] summary::after{content:"−"}
       </ol>
     </details>
     <details class="credits"><summary>Photo credits</summary><p>Apples: <a href="https://commons.wikimedia.org/wiki/File:Apples_in_basket_2018_G1.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pears: <a href="https://commons.wikimedia.org/wiki/File:Pears_in_basket_2022_G1.jpg" rel="noopener">George Chernilevsky</a>, CC BY-SA 4.0; Winter squash: <a href="https://commons.wikimedia.org/wiki/File:Cucurbita_moschata_Butternut_2012_G2.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pumpkins: <a href="https://commons.wikimedia.org/wiki/File:Pumpkins_galore_(8083328403).jpg" rel="noopener">Maya Maceka</a>, CC BY 2.0; Sweet potatoes: <a href="https://commons.wikimedia.org/wiki/File:Sweet_Potato.jpg" rel="noopener">Gaurav Dhwaj Khadka</a>, CC BY-SA 4.0; Brussels sprouts: <a href="https://commons.wikimedia.org/wiki/File:Roasted_Brussels_sprouts_-_December_2023_-_Sarah_Stierch_01.jpg" rel="noopener">Missvain</a>, CC BY 4.0; Beets: <a href="https://commons.wikimedia.org/wiki/File:Beta_vulgaris,_San_Francisco_farmers_market.jpg" rel="noopener">Frank Schulenburg</a>, CC0; Carrots: <a href="https://commons.wikimedia.org/wiki/File:Carrots_at_Ljubljana_Central_Market.JPG" rel="noopener">domdomegg</a>, CC BY 4.0. Via Wikimedia Commons; cropped. Real market photos coming soon.</p></details>
+    <div class="ip">
+      <p><b>&copy; 2026 Posted Up Produce&trade;. All rights reserved.</b> The Posted Up name and marks, logo designs, box and ordering system, menu, written content and site design are the original work of Sol Coburn. Please don't copy, adapt, resell or pass them off as your own without written permission. Unauthorized use will be pursued.</p>
+      <p><b>Want to build something together?</b> I'm open to collaborations with farms, makers, markets and community groups. Text 773-807-9223 or email cultivate.regenerate@gmail.com.</p>
+    </div>
     <p class="foot">Fresh produce should always be washed before eating, even when farm-direct. Availability depends on weather, harvest and which makers are at market that day.</p>
   </section>
 </main>
@@ -452,6 +457,7 @@ function logoName(){const l=LOGOS.find(x=>x.id===state.logo);return l?l.id+" · 
 function rewardName(){const r=REWARDS.find(x=>x.v===state.reward);return r?r.t:""}
 /* Order cap per market day: the Apps Script returns {cap, counts} on GET. If it can't be reached, ordering stays open. */
 let CAP=null,COUNTS={};
+function isWait(){return spotsLeft(state.date)===0}
 function spotsLeft(v){return CAP==null?null:Math.max(0,CAP-(COUNTS[v]||0))}
 function loadCounts(){if(!ORDER_ENDPOINT)return;fetch(ORDER_ENDPOINT+"?q=counts").then(r=>r.json()).then(j=>{if(typeof j.cap!=="number")return;CAP=j.cap;COUNTS=j.counts||{};if(spotsLeft(state.date)===0){const o=datesFor().find(d=>spotsLeft(d.v)!==0);state.date=o?o.v:""}if(!state.sent)renderTicket()}).catch(()=>{})}
 function el(t,a={},...k){const e=document.createElement(t);for(const[x,y]of Object.entries(a)){if(x==="class")e.className=y;else if(x.startsWith("on"))e.addEventListener(x.slice(2),y);else e.setAttribute(x,y)}for(const c of k)e.append(c);return e}
@@ -501,7 +507,7 @@ function renderItems(){
 function orderText(id){
   const b=BOXES.find(x=>x.id===state.box);
   const d=DATES.find(x=>x.v===state.date);
-  const L=["POSTED — Posted Up Produce order #"+id,"Name: "+state.name,"Phone: "+state.phone,
+  const L=[(isWait()?"WAITLIST — ":"")+"POSTED — Posted Up Produce order #"+id,"Name: "+state.name,"Phone: "+state.phone,
     isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().time.split("–")[1]+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
@@ -530,7 +536,7 @@ function orderPayload(id){
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
     notes:state.notes.trim(),items,deliveryFee:fee(),total:total(),
-    logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":state.reward==="pastry"?"Pastry":state.reward==="produce"?"Produce pick":""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount()};
+    logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":state.reward==="pastry"?"Pastry":state.reward==="produce"?"Produce pick":""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
   if(!ORDER_ENDPOINT)return false;
@@ -562,7 +568,7 @@ function renderTicket(){
     t.append(el("div",{class:"done"},
       el("h2",{},"Thank you for ordering!"),
       el("p",{class:"thanks"},"You're one of our first Posted Up customers, and that means a lot. Every order keeps money with small farms and makers close to home and helps us shape this pilot."),
-      el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
+      el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.wait?"You're on the waitlist for that day. Don't pay yet. If a spot opens, we'll text you to confirm and send payment details. Want a sure spot? Pick another day.":state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
         "Your order is in. Last step: pay by 9 PM the night before. "+(ZELLE?"Zelle "+ZELLE+" and put POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       pre,
@@ -602,8 +608,8 @@ function renderTicket(){
   const ds=datesFor();
   const sel=el("select",{id:"date"});
   if(!ds.length)sel.append(el("option",{value:""},isDel()?"No Wednesday deliveries open right now":"No pickups open right now"));
-  for(const d of ds){const l=spotsLeft(d.v);const o=el("option",{value:d.v},d.label+(l===0?" · full":l!=null&&l<=3?" · "+l+" spot"+(l>1?"s":"")+" left":""));if(l===0)o.disabled=true;if(d.v===state.date)o.selected=true;sel.append(o)}
-  sel.addEventListener("change",()=>state.date=sel.value);
+  for(const d of ds){const l=spotsLeft(d.v);const o=el("option",{value:d.v},d.label+(l===0?" · full, join the waitlist":l!=null&&l<=3?" · "+l+" spot"+(l>1?"s":"")+" left":""));if(d.v===state.date)o.selected=true;sel.append(o)}
+  sel.addEventListener("change",()=>{state.date=sel.value;renderTicket()});
   f.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
   const ss=el("select",{id:"sub"});
   ss.append(el("option",{value:"credit"},"Credit it to my next order"),el("option",{value:"replace"},"Replace it with equal or greater value"),el("option",{value:"refund"},"Refund me for it"));
@@ -640,16 +646,15 @@ function renderTicket(){
     f.append(fs);
   }
   const err=el("p",{class:"err",id:"err"});
-  f.append(err,el("button",{class:"cta",type:"submit"},"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Payment is due up front."));
+  f.append(err,el("button",{class:"cta",type:"submit"},isWait()?"Join the waitlist":"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Payment is due up front."));
   if(!n)f.querySelector(".cta").disabled=true;
   f.addEventListener("submit",e=>{e.preventDefault();
     if(!state.name.trim()||state.phone.replace(/\D/g,"").length<10){err.textContent="Add your name and a 10-digit mobile number so we can confirm by text.";return}
     if(isDel()&&state.address.trim().length<6){err.textContent="Add a delivery address so we can confirm it's in our area.";return}
     if(!state.agree){err.textContent="Tick the box to agree to the Order Terms before getting your ticket.";return}
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
-    if(spotsLeft(state.date)===0){err.textContent="That day just filled up. Pick another day.";return}
     const id=(Date.now()%100000).toString().padStart(5,"0");
-    state.sent=orderText(id);state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
+    state.wait=isWait();state.sent=orderText(id);state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
     sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
   });
   t.append(f);
