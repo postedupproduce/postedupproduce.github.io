@@ -435,7 +435,7 @@ details.terms[open] summary::after{content:"−"}
           <li><b>Quality.</b> If something arrives damaged or spoiled, text us a photo within 24 hours. We refund or replace that item.</li>
           <li><b>Food safety.</b> Wash produce before eating. Keep frozen items frozen; they're your responsibility once handed off. Baked goods may contain wheat, dairy, eggs, nuts or other allergens and may be made in shared kitchens. Tell us about allergies in your order notes.</li>
           <li><b>Limit.</b> Our responsibility for any order is limited to the amount you paid for it.</li>
-          <li><b>Questions.</b> Text 773-807-9223 or email cultivate.regenerate@gmail.com.</li>
+          <li><b>Questions.</b> Text 773-807-9223 or use the feedback form on this page.</li>
         
       </ol>
     </details>
@@ -672,11 +672,10 @@ function renderTicket(){
         "Your order is in. Last step: pay by 9 PM the night before. "+(ZELLE?"Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       pre,
-      el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text or email."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
+      el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
       msg,
       el("div",{class:"contact"},
-        el("div",{},"Text: ",el("code",{},"773-807-9223")),
-        el("div",{},"Email: ",el("code",{},"cultivate.regenerate@gmail.com"))),
+        el("div",{},"Text: ",el("code",{},"773-807-9223"))),
       el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;renderTicket()}},"Edit order")));
     return;
   }
