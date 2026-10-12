@@ -434,6 +434,7 @@ details.terms[open] summary::after{content:"−"}
           <li><b>Pickup and delivery.</b> Pick up during your chosen window. Orders not picked up by the end of the window aren't refunded, but text us and we'll try to arrange a late handoff or delivery for the delivery fee. Delivery fees are confirmed by text before you pay.</li>
           <li><b>Quality.</b> If something arrives damaged or spoiled, text us a photo within 24 hours. We refund or replace that item.</li>
           <li><b>Food safety.</b> Wash produce before eating. Keep frozen items frozen; they're your responsibility once handed off. Baked goods may contain wheat, dairy, eggs, nuts or other allergens and may be made in shared kitchens. Tell us about allergies in your order notes.</li>
+          <li><b>Privacy.</b> We count site visits anonymously to see what's working: no cookies, no names, no IP addresses. Order and form details are used only to fill and follow up on your order or message.</li>
           <li><b>Limit.</b> Our responsibility for any order is limited to the amount you paid for it.</li>
           <li><b>Questions.</b> Text 773-807-9223 or use the feedback form on this page.</li>
         
@@ -568,7 +569,7 @@ function renderBoxes(){
 function boxRow(wid,list,key){
   const w=document.getElementById(wid);w.textContent="";
   for(const b of list){
-    const btn=el("button",{class:"box",type:"button","aria-pressed":String(state[key]===b.id),onclick:()=>{state[key]=state[key]===b.id?null:b.id;renderBoxes();renderTicket()}});
+    const btn=el("button",{class:"box",type:"button","aria-pressed":String(state[key]===b.id),onclick:()=>{state[key]=state[key]===b.id?null:b.id;if(state[key]&&window.puCart)puCart();renderBoxes();renderTicket()}});
     if(b.pick)btn.append(el("span",{class:"pick"},b.pick));
     const ul=el("ul",{class:"has"});for(const h of b.has)ul.append(el("li",{},h));
     btn.append(el("h3",{},b.name),el("span",{class:"wt"},b.wt),el("p",{},b.desc),ul,el("span",{class:"price"},"$"+b.price),el("span",{class:"add"},state[key]===b.id?"In your order":"Add to order"));
@@ -589,7 +590,7 @@ function renderItems(){
     if(!ITEMS[w.dataset.cat].length){w.append(el("p",{class:"soon"},"Coming soon. We're lining up local bakers now."));continue}
     for(const it of ITEMS[w.dataset.cat]){
       const q=state.qty[it.id]||0;
-      const set=n=>{state.qty[it.id]=Math.max(0,Math.min(9,n));if(!state.qty[it.id])delete state.qty[it.id];renderItems();renderTicket()};
+      const set=n=>{if(n>q&&window.puCart)puCart();state.qty[it.id]=Math.max(0,Math.min(9,n));if(!state.qty[it.id])delete state.qty[it.id];renderItems();renderTicket()};
       w.append(el("div",{class:"item"},
         el("div",{style:"min-width:0"},el("div",{class:"nm"},it.nm),el("div",{class:"ds"},it.ds+" · ",el("b",{class:"ip"},"$"+it.p))),
         el("div",{class:"qty"},
@@ -855,6 +856,21 @@ talkForm("mtForm",f=>{const n=f.querySelector("#mtName").value.trim(),c=f.queryS
   return {type:"meeting",name:n,contact:c,message:f.querySelector("#mtMsg").value.trim(),times:[fmtT(t1),fmtT(t2)].filter(Boolean).join(" | ")}});
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
+/* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
+   Open the site once with ?me on your own phone/computer to stop counting your visits. Share links like ?s=ig or ?s=fam to tag sources. */
+(function(){
+  if(!ORDER_ENDPOINT)return;
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me")){window.puCart=()=>{};return}}catch(e){}
+  let vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  const q=new URLSearchParams(location.search),ua=navigator.userAgent,ref=document.referrer;
+  let src=q.get("s")||q.get("utm_source")||"";
+  if(!src){if(/Instagram/i.test(ua))src="Instagram";else if(/FBAN|FBAV|FB_IAB/i.test(ua))src="Facebook";else if(ref&&!ref.includes(location.host)){try{src=new URL(ref).hostname.replace(/^www\./,"")}catch(e){src="Other site"}}else src="Direct / text"}
+  const dev=/Mobi|Android|iPhone|iPad/i.test(ua)?"Phone":"Computer";
+  const send=type=>fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type,source:src,device:dev,returning:ret,vid})}).catch(()=>{});
+  let fresh=true;try{fresh=!sessionStorage.getItem("pu-v");sessionStorage.setItem("pu-v","1")}catch(e){}
+  if(fresh)send("visit");
+  let carted=false;window.puCart=()=>{if(carted)return;carted=true;try{if(sessionStorage.getItem("pu-c"))return;sessionStorage.setItem("pu-c","1")}catch(e){}send("cart")};
+})();
 renderBoxes();renderItems();renderTicket();loadCounts();
 </script>
 
