@@ -85,7 +85,14 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 /* Swipe rows */
 .row{display:grid;grid-auto-flow:column;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;overscroll-behavior-x:contain;margin:0 -16px;padding:4px 16px 10px;scrollbar-width:none}
 .row::-webkit-scrollbar{display:none}
-.chips{grid-auto-columns:max-content;list-style:none}
+.chips{grid-auto-columns:max-content;list-style:none;align-items:end}
+.chips li.ph{padding:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;width:150px;white-space:normal}
+.chips li.ph img{display:block;width:150px;height:112px;object-fit:cover}
+.chips li.ph span{display:block;padding:7px 10px;font-weight:700;font-size:15px}
+.swipe{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--board)}
+.swipe .arw{display:none}.swipe>span:last-child{display:flex;gap:6px;flex:none}
+@media (hover:hover) and (pointer:fine){.swipe .arw{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-weight:700}.swipe{justify-content:space-between}}
+.credits{font-size:13px;color:var(--muted);margin:0 0 20px}.credits summary{cursor:pointer;min-height:32px}.credits a{color:var(--muted)}
 .chips li{background:var(--chip);border-radius:999px;padding:8px 14px;font-size:15px;scroll-snap-align:start;white-space:nowrap}
 
 /* Shop toggle */
@@ -222,6 +229,7 @@ details.terms[open] summary::after{content:"−"}
   <section class="post" aria-labelledby="seasonTitle">
     <h2 id="seasonTitle">October harvest</h2>
     <p class="sub" id="seasonNote">What local farms are bringing to market right now. Boxes are built from whatever is peaking that week.</p>
+    <div class="swipe"><span>&larr; Swipe left or right to see more &rarr;</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
     <ul class="row chips" id="seasonList"></ul>
   </section>
 
@@ -233,7 +241,7 @@ details.terms[open] summary::after{content:"−"}
     </div>
     <p class="seg-note" id="produceNote">We pick the best of the week. Boxes cost less than itemizing.</p>
     <div class="bin" id="produce">
-      <span class="swipe-hint" id="boxHint">Swipe to compare sizes</span>
+      <div class="swipe" id="boxHint"><span>&larr; Swipe left or right to compare sizes &rarr;</span><span><button type="button" class="arw" data-row="boxes" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="boxes" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
       <div class="row boxes" id="boxes"></div>
       <div class="items" data-cat="produce"></div>
     </div>
@@ -294,7 +302,7 @@ details.terms[open] summary::after{content:"−"}
     <ul class="quality">
       <li><b>Picked days, not weeks, before you get it.</b> We buy the morning of pickup from the people who grew or baked it.</li>
       <li><b>Hand-selected.</b> We pass on anything we wouldn't take home.</li>
-      <li><b>Your money stays close.</b> Every order supports small farms and makers in Illinois and southwest Michigan.</li>
+      <li><b>Your money stays close.</b> Every order supports small farms and makers from Illinois, Indiana, Michigan and Wisconsin.</li>
     </ul>
   </section>
 
@@ -321,6 +329,7 @@ details.terms[open] summary::after{content:"−"}
         
       </ol>
     </details>
+    <details class="credits"><summary>Photo credits</summary><p>Apples: <a href="https://commons.wikimedia.org/wiki/File:Apples_in_basket_2018_G1.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pears: <a href="https://commons.wikimedia.org/wiki/File:Pears_in_basket_2022_G1.jpg" rel="noopener">George Chernilevsky</a>, CC BY-SA 4.0; Winter squash: <a href="https://commons.wikimedia.org/wiki/File:Cucurbita_moschata_Butternut_2012_G2.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pumpkins: <a href="https://commons.wikimedia.org/wiki/File:Pumpkins_galore_(8083328403).jpg" rel="noopener">Maya Maceka</a>, CC BY 2.0; Sweet potatoes: <a href="https://commons.wikimedia.org/wiki/File:Sweet_Potato.jpg" rel="noopener">Gaurav Dhwaj Khadka</a>, CC BY-SA 4.0; Brussels sprouts: <a href="https://commons.wikimedia.org/wiki/File:Roasted_Brussels_sprouts_-_December_2023_-_Sarah_Stierch_01.jpg" rel="noopener">Missvain</a>, CC BY 4.0; Beets: <a href="https://commons.wikimedia.org/wiki/File:Beta_vulgaris,_San_Francisco_farmers_market.jpg" rel="noopener">Frank Schulenburg</a>, CC0; Carrots: <a href="https://commons.wikimedia.org/wiki/File:Carrots_at_Ljubljana_Central_Market.JPG" rel="noopener">domdomegg</a>, CC BY 4.0. Via Wikimedia Commons; cropped. Real market photos coming soon.</p></details>
     <p class="foot">Fresh produce should always be washed before eating, even when farm-direct. Availability depends on weather, harvest and which makers are at market that day.</p>
   </section>
 </main>
@@ -601,11 +610,12 @@ function tickNow(){
   const d=DATES[0];
   let next="";
   if(d){const pd=new Date(d.v+"T12:00");const cut=new Date(pd);cut.setDate(cut.getDate()-1);
-    next=" · Next orders close "+cut.toLocaleDateString("en-US",{weekday:"short"})+" 9 PM for "+d.label+" pickup";}
-  el.textContent="Now in Chicago: "+t+next;const ct=document.getElementById("closeTop");if(ct&&d){const pd=new Date(d.v+"T12:00");const cut=new Date(pd);cut.setDate(cut.getDate()-1);ct.textContent="Closes "+cut.toLocaleDateString("en-US",{weekday:"short"})+" 9 PM";}
+    next=" · Next orders close "+cut.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+" at 9 PM for "+d.label+(pd.getDay()===3?" pickup or delivery":" pickup");}
+  el.textContent="Now in Chicago: "+t+next;const ct=document.getElementById("closeTop");if(ct&&d){const pd=new Date(d.v+"T12:00");const cut=new Date(pd);cut.setDate(cut.getDate()-1);ct.textContent="Closes "+cut.toLocaleDateString("en-US",{month:"short",day:"numeric"})+", 9 PM";}
 }
 tickNow();setInterval(tickNow,30000);
 /* What's in season in Chicago, by month */
+const PHOTOS={"Apples": "img/apples.jpg", "Pears": "img/pears.jpg", "Winter squash": "img/squash.jpg", "Pumpkins": "img/pumpkins.jpg", "Sweet potatoes": "img/sweetpotato.jpg", "Brussels sprouts": "img/brussels.jpg", "Beets": "img/beets.jpg", "Carrots": "img/carrots.jpg"};
 const SEASON={
   9:{t:"September harvest",items:["Tomatoes","Sweet corn","Peppers","Eggplant","Melons","Apples","Pears","Grapes","Green beans","Summer squash","Kale","Potatoes","Onions","Herbs"]},
   10:{t:"October harvest",items:["Apples","Pears","Grapes","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Cabbage","Cauliflower","Beets","Carrots","Radishes","Leeks & onions","Garlic","Fennel","Last peppers"]},
@@ -617,9 +627,12 @@ const SEASON={
   const s=SEASON[m]||SEASON[10];
   document.getElementById("seasonTitle").textContent=s.t;
   const ul=document.getElementById("seasonList");
-  for(const i of s.items)ul.append(el("li",{},i));
+  const withPh=s.items.filter(i=>PHOTOS[i]),rest=s.items.filter(i=>!PHOTOS[i]);
+  for(const i of withPh)ul.append(el("li",{class:"ph"},el("img",{src:PHOTOS[i],alt:i,loading:"lazy",width:"150",height:"112"}),el("span",{},i)));
+  for(const i of rest)ul.append(el("li",{},i));
 })();
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
 renderBoxes();renderItems();renderTicket();
 </script>
 
