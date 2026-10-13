@@ -520,7 +520,7 @@ const STOPS=[
   {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM"},
   {id:"rogers",name:"Rogers Park",time:"5:00–6:00 PM"}
 ];
-const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,sent:null,logo:"",reward:"",why:""};
+const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:""};
 const PICK_ONLY=["produce","bread"];
 
 /* Pickup dates: Wed (outdoor Wednesday market runs through Oct 28, 2026) and Sat (through Nov 21, 2026). */
@@ -603,7 +603,7 @@ function renderItems(){
 function orderText(id){
   const b=BOXES.find(x=>x.id===state.box);
   const d=DATES.find(x=>x.v===state.date);
-  const L=[(isWait()?"WAITLIST — ":"")+"POSTED — Posted Up Produce order #"+id,"Name: "+state.name,"Phone: "+state.phone,
+  const L=[(isWait()?"WAITLIST — ":"")+"POSTED — Posted Up Produce order #"+id,"Name: "+state.name,"Phone: "+state.phone,...(state.email.trim()?["Email: "+state.email.trim()]:[]),
     isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().time.split("–")[1]+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
@@ -630,7 +630,7 @@ function orderPayload(id){
   if(bb)items[bb.name]=1;
   for(const i of ALL)if(state.qty[i.id])items[i.nm]=state.qty[i.id];
   const st=isDel()?delStop():STOPS.find(x=>x.id===state.fulfill);
-  return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),
+  return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),email:state.email.trim(),
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
     notes:state.notes.trim(),items,deliveryFee:fee(),total:total(),
@@ -677,7 +677,8 @@ function renderTicket(){
       el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
       msg,
       el("div",{class:"contact"},
-        el("div",{},"Text: ",el("code",{},"773-807-9223"))),
+        el("div",{},"Text: ",el("code",{},"773-807-9223")),
+        el("div",{},"Track it: ",el("a",{href:"track.html?o="+(txt.match(/#(\d+)/)||[])[1],style:"color:var(--tomato);font-weight:700"},"Order status page"))),
       el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;renderTicket()}},"Back to menu")));
     return;
   }
@@ -698,8 +699,8 @@ function renderTicket(){
   t.append(lines);
   t.append(el("div",{class:"total"},el("span",{},"Total"),el("span",{},"$"+total())));
   const f=el("form",{novalidate:"",style:"display:grid;gap:10px"});
-  const inp=(id,lab,type,ph)=>{const i=el("input",{id,type,placeholder:ph,autocomplete:id==="phone"?"tel":"name"});i.value=state[id];i.addEventListener("input",()=>state[id]=i.value);return el("label",{for:id},lab,i)};
-  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
+  const inp=(id,lab,type,ph)=>{const i=el("input",{id,type,placeholder:ph,autocomplete:id==="phone"?"tel":id==="email"?"email":"name"});i.value=state[id];i.addEventListener("input",()=>state[id]=i.value);return el("label",{for:id},lab,i)};
+  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"),inp("email","Email for order updates (optional)","email","We email you at each step: paid, shopped, ready"));
   const fs=el("select",{id:"fulfill"});
   for(const s of STOPS)fs.append(el("option",{value:s.id},"Meet-up · "+s.name+", "+s.time));
   for(const st of STOPS)fs.append(el("option",{value:"del-"+st.id},"Delivery from "+st.name+" · Wed, after "+st.time.split("–")[1]+" (from $"+DELIVERY_FEE+")"));
@@ -757,6 +758,7 @@ function renderTicket(){
   if(!n)f.querySelector(".cta").disabled=true;
   f.addEventListener("submit",e=>{e.preventDefault();
     if(!state.name.trim()||state.phone.replace(/\D/g,"").length<10){err.textContent="Add your name and a 10-digit mobile number so we can confirm by text.";return}
+    if(state.email.trim()&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email.trim())){err.textContent="That email doesn't look right. Fix it or leave it blank.";return}
     if(isDel()&&state.address.trim().length<6){err.textContent="Add a delivery address so we can confirm it's in our area.";return}
     if(!state.agree){err.textContent="Tick the box to agree to the Order Terms before getting your ticket.";return}
     if(!state.payAck&&!isWait()){err.textContent="Tick the payment box: orders are only shopped once payment arrives.";return}

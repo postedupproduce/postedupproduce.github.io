@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Track my order · Posted Up Produce</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
+  --tomato:#c4432b;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:520px;margin:0 auto;padding:14px 16px 40px;display:grid;gap:20px}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+.top{padding-top:env(safe-area-inset-top,0px)}
+.brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none}
+.beta{font:700 11px/1 var(--body);background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
+h1{font-size:clamp(32px,9vw,42px);line-height:1.04}
+.sub{margin:0;color:var(--muted);font-size:15px}
+form{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+label{display:grid;gap:5px;font-size:15px;font-weight:700}
+input{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:11px 12px;width:100%;min-height:48px}
+.cta{background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:14px 16px;font-weight:700;font-size:17px;min-height:52px}
+.cta:disabled{opacity:.5}
+.err{color:var(--tomato);font-size:15px;font-weight:600;margin:0}
+.result{background:var(--board);color:var(--board-ink);border-radius:14px;padding:20px 18px;display:grid;gap:14px}
+.result h2{font-size:24px}
+.result .meta{margin:0;font-size:15px;color:color-mix(in srgb,var(--board-ink) 85%,transparent)}
+ol.track{list-style:none;margin:0;padding:0;display:grid;gap:0}
+ol.track li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;position:relative;padding-bottom:16px}
+ol.track li:last-child{padding-bottom:0}
+ol.track li::before{content:"";width:16px;height:16px;border-radius:50%;margin:4px 0 0 6px;border:2px solid color-mix(in srgb,var(--board-ink) 45%,transparent);background:transparent;z-index:1}
+ol.track li:not(:last-child)::after{content:"";position:absolute;left:13px;top:22px;bottom:2px;width:2px;background:color-mix(in srgb,var(--board-ink) 25%,transparent)}
+ol.track li.done::before{background:#9fd4ad;border-color:#9fd4ad}
+ol.track li.now::before{background:#ffb4a3;border-color:#ffb4a3;box-shadow:0 0 0 4px color-mix(in srgb,#ffb4a3 30%,transparent)}
+ol.track b{display:block;font-size:16px}
+ol.track span{font-size:14px;color:color-mix(in srgb,var(--board-ink) 78%,transparent)}
+ol.track li.todo b{color:color-mix(in srgb,var(--board-ink) 60%,transparent)}
+.foot{font-size:13px;color:var(--muted);margin:0}
+.foot a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a class="brand" href="./">Posted Up Produce <span class="beta">Beta</span></a></header>
+  <div style="display:grid;gap:8px">
+    <h1>Track my order</h1>
+    <p class="sub">Enter your order number from your ticket and the last 4 digits of your phone.</p>
+  </div>
+  <form id="f" novalidate>
+    <div class="two">
+      <label for="o">Order #<input id="o" inputmode="numeric" autocomplete="off" maxlength="5" placeholder="e.g. 71227"></label>
+      <label for="p">Phone, last 4<input id="p" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="e.g. 0142"></label>
+    </div>
+    <p class="err" id="err"></p>
+    <button class="cta" type="submit">Check status</button>
+  </form>
+  <section class="result" id="res" hidden aria-live="polite"></section>
+  <p class="foot">Questions? Text 773-807-9223. <a href="./">Back to ordering</a></p>
+</div>
+<script>
+const ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+const STEPS=[
+  ["Order received","We have your order."],
+  ["Paid and confirmed","Payment is in. You're on the list for market morning."],
+  ["Shopped","Picked at market and packed cold."],
+  ["Ready","At The Post-Up, or out for delivery."],
+  ["Picked up","Enjoy! Tell us how it went."]
+];
+const IDX={"Awaiting payment":0,"Paid":1,"Shopped":2,"Ready at The Post-Up":3,"Out for delivery":3,"Picked up":4};
+const f=document.getElementById("f"),err=document.getElementById("err"),res=document.getElementById("res");
+const q=new URLSearchParams(location.search);if(q.get("o"))f.querySelector("#o").value=q.get("o").replace(/\D/g,"").slice(0,5);
+function el(t,c,txt){const e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
+f.addEventListener("submit",async e=>{
+  e.preventDefault();err.textContent="";res.hidden=true;
+  const o=f.querySelector("#o").value.replace(/\D/g,""),p=f.querySelector("#p").value.replace(/\D/g,"");
+  if(o.length<4||p.length!==4){err.textContent="Add your order number and the last 4 digits of your phone.";return}
+  const btn=f.querySelector(".cta");btn.disabled=true;btn.textContent="Checking…";
+  try{
+    const j=await (await fetch(ENDPOINT+"?q=status&o="+encodeURIComponent(o)+"&p="+encodeURIComponent(p))).json();
+    if(j.found===false){err.textContent="We couldn't find that order. Check the number on your ticket, or text 773-807-9223.";return}
+    if(!j.status){err.textContent="Order tracking is warming up. Text 773-807-9223 for your status.";return}
+    render(o,j);
+  }catch(x){err.textContent="Couldn't check right now. Try again, or text 773-807-9223."}
+  finally{btn.disabled=false;btn.textContent="Check status"}
+});
+function render(o,j){
+  res.replaceChildren();
+  if(j.status==="Waitlist"){res.append(el("h2",null,"You're on the waitlist"),el("p","meta","Order #"+o+(j.pickup?" · "+j.pickup:"")+". Don't pay yet. We'll text you if a spot opens."));res.hidden=false;return}
+  if(j.status==="Canceled"){res.append(el("h2",null,"Order canceled"),el("p","meta","Order #"+o+". Text 773-807-9223 with any questions."));res.hidden=false;return}
+  const at=IDX[j.status]??0;
+  res.append(el("h2",null,STEPS[at][0]),el("p","meta","Order #"+o+(j.pickup?" · "+j.pickup:"")+(j.spot?" · "+j.spot:"")));
+  const ol=el("ol","track");
+  STEPS.forEach((s,i)=>{const li=el("li",i<at?"done":i===at?"now":"todo");const d=el("div");d.append(el("b",null,s[0]),el("span",null,s[1]));li.append(d);ol.append(li)});
+  res.append(ol);
+  if(at===0)res.append(el("p","meta","Pay by Zelle (leeks.sabrosa@gmail.com) or Apple Cash (773-807-9223) by 9 PM the night before, with POSTED "+o+" in the memo. Your order isn't shopped until payment arrives."));
+  if(at===4){const a=el("a",null,"Leave feedback and get a bonus pick →");a.href="thanks.html";a.style.cssText="color:#ffb4a3;font-weight:700";res.append(a)}
+  res.hidden=false;
+}
+</script>
+</body>
+</html>
