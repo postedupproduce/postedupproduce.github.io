@@ -520,7 +520,7 @@ const STOPS=[
   {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM"},
   {id:"rogers",name:"Rogers Park",time:"5:00–6:00 PM"}
 ];
-const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,sent:null,logo:"",reward:"",why:""};
+const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,sent:null,logo:"",reward:"",why:""};
 const PICK_ONLY=["produce","bread"];
 
 /* Pickup dates: Wed (outdoor Wednesday market runs through Oct 28, 2026) and Sat (through Nov 21, 2026). */
@@ -621,6 +621,7 @@ function orderText(id){
   if(fee())L.push("Delivery fee — $"+fee()+" flat (+$"+PER_MILE.toFixed(2)+"/mi beyond "+FLAT_MILES+" mi, confirmed by text)");
   L.push("","TOTAL: $"+total());
   L.push("","I agree to the Posted Up Produce Order Terms (October 2026), including the refund and cancellation policy.");
+  if(!isWait())L.push("I understand my order isn't shopped until payment arrives (Zelle or Apple Cash by 9 PM the night before).");
   return L.join("\n");
 }
 function orderPayload(id){
@@ -723,6 +724,8 @@ function renderTicket(){
   f.append(el("label",{for:"notes"},"Notes (optional)",ta));
   const ag=el("input",{id:"agree",type:"checkbox"});ag.checked=state.agree;ag.addEventListener("change",()=>{state.agree=ag.checked});
   f.append(el("label",{for:"agree",class:"agree"},ag,el("span",{},"I agree to the ",el("a",{href:"#terms"},"Order Terms"),", including credits for unavailable items and no refunds on cancellations after 9 PM the night before.")));
+  const pa=el("input",{id:"payAck",type:"checkbox"});pa.checked=state.payAck;pa.addEventListener("change",()=>{state.payAck=pa.checked});
+  f.append(el("label",{for:"payAck",class:"agree"},pa,el("span",{},el("b",{},"I understand my order isn't shopped until payment arrives."),el("br"),"Pay by Zelle or Apple Cash by 9 PM the night before pickup. No payment at pickup.")));
   if(voteOpen()){
     const fs=el("fieldset",{class:"vote"});
     fs.append(el("legend",{},"Help pick our logo"),el("p",{class:"vsub"},"Optional, and it takes 5 seconds. Pick your favorite and we'll say thanks with a little something in this order. Voting closes Sat, Oct 24."));
@@ -756,6 +759,7 @@ function renderTicket(){
     if(!state.name.trim()||state.phone.replace(/\D/g,"").length<10){err.textContent="Add your name and a 10-digit mobile number so we can confirm by text.";return}
     if(isDel()&&state.address.trim().length<6){err.textContent="Add a delivery address so we can confirm it's in our area.";return}
     if(!state.agree){err.textContent="Tick the box to agree to the Order Terms before getting your ticket.";return}
+    if(!state.payAck&&!isWait()){err.textContent="Tick the payment box: orders are only shopped once payment arrives.";return}
     DATES=pickupDates();if(state.date&&!DATES.some(d=>d.v===state.date)){const nx=datesFor()[0];state.date=nx?nx.v:"";renderTicket();document.getElementById("err").textContent="Orders for that day closed at 9 PM the night before. "+(nx?"We moved you to "+nx.label+". Check it and tap again.":"No pickup day is open right now.");return}
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
     const id=(Date.now()%100000).toString().padStart(5,"0");
