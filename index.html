@@ -269,7 +269,7 @@ details.terms[open] summary::after{content:"−"}
   <section class="post" aria-labelledby="howH">
     <h2 id="howH">How it works</h2>
     <ol class="steps">
-      <li><span><b>Order by 9 PM</b> the night before. Pick a box or build your own.</span></li>
+      <li><span><b>Order and pay by 9 PM</b> the night before, by Zelle or Apple Cash. Pick a box or build your own.</span></li>
       <li><span><b>We shop the morning market</b> and hand-select what's peaking.</span></li>
       <li><span><b>Meet us at The Post-Up</b>, or get same-day delivery on Wednesdays.</span></li>
     </ol>
@@ -424,7 +424,7 @@ details.terms[open] summary::after{content:"−"}
       <p class="note">Version: October 2026. By paying for an order, you agree to these terms.</p>
       <ol>
           <li><b>What we do.</b> Posted Up Produce is a personal shopping service operated by 123 Footprint, LLC ("we"). You pay us to shop farmers markets and local makers for you and hand off your order. We don't grow or make the food ourselves.</li>
-          <li><b>Payment.</b> Pay in full by 9 PM the night before pickup, by Zelle or Apple Cash. Your order is confirmed only when payment arrives and we text you a confirmation. Unpaid orders are not shopped.</li>
+          <li><b>Payment.</b> Pay in full by 9 PM the night before pickup, by Zelle or Apple Cash. Your order is confirmed only when payment arrives and we text you a confirmation. Unpaid orders are not shopped. We can't take cash or card for orders at pickup, because we buy everything at market that morning. Cash is fine at pickup for tips or a small extra you add by text.</li>
           <li><b>What you get.</b> You get the box or item groups you ordered, chosen by us at market that day. Examples on the menu are typical, not promised. Weights are approximate.</li>
           <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the pilot (November 21) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
@@ -670,7 +670,7 @@ function renderTicket(){
       el("h2",{},"Thank you for ordering!"),
       el("p",{class:"thanks"},"You're one of our first Posted Up customers, and that means a lot. Every order keeps money with small farms and makers close to home and helps us shape this pilot."),
       el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.wait?"You're on the waitlist for that day. Don't pay yet. If a spot opens, we'll text you to confirm and send payment details. Want a sure spot? Pick another day.":state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
-        "Your order is in. Last step: pay by 9 PM the night before. "+(ZELLE?"Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
+        "Your order is in. Last step: pay by 9 PM the night before (we can't take payment at pickup). "+(ZELLE?"Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       pre,
       el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
@@ -750,7 +750,7 @@ function renderTicket(){
     f.append(fs);
   }
   const err=el("p",{class:"err",id:"err"});
-  f.append(err,el("button",{class:"cta",type:"submit"},isWait()?"Join the waitlist":"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Payment is due up front."));
+  f.append(err,el("button",{class:"cta",type:"submit"},isWait()?"Join the waitlist":"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Pay up front by Zelle or Apple Cash; no payment at pickup."));
   if(!n)f.querySelector(".cta").disabled=true;
   f.addEventListener("submit",e=>{e.preventDefault();
     if(!state.name.trim()||state.phone.replace(/\D/g,"").length<10){err.textContent="Add your name and a 10-digit mobile number so we can confirm by text.";return}
