@@ -669,6 +669,7 @@ function renderTicket(){
     const msg=el("p",{class:"note",id:"copyMsg"},"");
     t.append(el("div",{class:"done"},
       el("h2",{},"Thank you for ordering!"),
+      ...(state.dupe?[el("p",{class:"note",style:"margin:0;color:var(--tomato);font-weight:700"},"You already placed this exact order, so here's your ticket. No need to order again."),el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;state.dupe=false;state.forceNew=true;renderTicket()}},"I really want a second order")]:[]),
       el("p",{class:"thanks"},"You're one of our first Posted Up customers, and that means a lot. Every order keeps money with small farms and makers close to home and helps us shape this pilot."),
       el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.wait?"You're on the waitlist for that day. Don't pay yet. If a spot opens, we'll text you to confirm and send payment details. Want a sure spot? Pick another day.":state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
         "Your order is in. Last step: pay by 9 PM the night before (we can't take payment at pickup). "+(ZELLE?"Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
@@ -764,8 +765,12 @@ function renderTicket(){
     if(!state.payAck&&!isWait()){err.textContent="Tick the payment box: orders are only shopped once payment arrives.";return}
     DATES=pickupDates();if(state.date&&!DATES.some(d=>d.v===state.date)){const nx=datesFor()[0];state.date=nx?nx.v:"";renderTicket();document.getElementById("err").textContent="Orders for that day closed at 9 PM the night before. "+(nx?"We moved you to "+nx.label+". Check it and tap again.":"No pickup day is open right now.");return}
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
+    /* Duplicate guard: same phone + same date + same items within an hour on this device → show the existing ticket */
+    try{const last=JSON.parse(localStorage.getItem("pu-last")||"null");const sig=state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items);
+      if(last&&last.sig===sig&&Date.now()-last.at<3600000&&!state.forceNew){state.sent=last.txt;state.wait=last.wait;state.sendStatus="sent";state.dupe=true;renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});return}}catch(e){}
+    state.forceNew=false;state.dupe=false;
     const id=(Date.now()%100000).toString().padStart(5,"0");
-    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now()}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
+    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
     sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
   });
   t.append(f);
