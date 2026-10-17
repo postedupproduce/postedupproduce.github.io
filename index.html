@@ -327,6 +327,7 @@ details.terms[open] summary::after{content:"−"}
       <button class="tab" role="tab" aria-selected="true" data-go="meat">Meat, fish &amp; eggs</button>
       <button class="tab" role="tab" aria-selected="false" data-go="bread">Bread &amp; bakery</button>
       <button class="tab" role="tab" aria-selected="false" data-go="cheese">Cheese</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="specialty">Specialty</button>
       <button class="tab" role="tab" aria-selected="false" data-go="pantry">Pantry</button>
       <button class="tab" role="tab" aria-selected="false" data-go="flowers">Flowers</button>
     </nav>
@@ -345,6 +346,11 @@ details.terms[open] summary::after{content:"−"}
       <h3>Cheese</h3>
       <p class="sub">Farmstead and cave-aged cheeses from small creameries in Illinois and Indiana. Kept cold from the stand to your handoff.</p>
       <div class="items" data-cat="cheese"></div>
+    </div>
+    <div class="bin" id="specialty">
+      <h3>Specialty</h3>
+      <p class="sub">Small-batch hot sauces from a southern Wisconsin farm kitchen, plus mushroom tinctures, teas and coffee from a Chicagoland mushroom grower.</p>
+      <div class="items" data-cat="specialty"></div>
     </div>
     <div class="bin" id="pantry">
       <h3>Pantry</h3>
@@ -512,8 +518,13 @@ const ITEMS={
   cheese:[
     {id:"chevre",nm:"Fresh goat cheese",ds:"e.g. herbed chèvre, or feta with herbs in oil",p:14},
     {id:"farmstead",nm:"Aged farmstead cheese",ds:"Wedge · e.g. goat's milk toma, Jersey cow tomme, cheddar-style blue",p:20},
-    {id:"cheddar",nm:"Cave-aged cheddar",ds:"Wedge · from an Illinois dairy farm",p:20},
-    {id:"brie",nm:"Bloomy-rind cheese, 7 oz",ds:"e.g. brie or camembert, cave-aged",p:26}
+    {id:"cheddar",nm:"Cave-aged cheddar",ds:"Wedge · from an Illinois dairy farm",p:22},
+    {id:"brie",nm:"Bloomy-rind cheese, 7 oz",ds:"e.g. brie or camembert, cave-aged",p:29}
+  ],
+  specialty:[
+    {id:"hotsauce",nm:"Small-batch hot sauce",ds:"10 oz bottle · e.g. cherry habanero, jalapeño lime, mango habanero, ghost pepper",p:16},
+    {id:"tincture",nm:"Mushroom tincture, 2 fl oz",ds:"Dual-extracted · e.g. lion's mane, reishi, turkey tail, chaga · contains alcohol",p:37},
+    {id:"mushtea",nm:"Mushroom tea or coffee",ds:"e.g. reishi & lion's mane tea, lion's mane instant coffee",p:36}
   ],
   pantry:[
     {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
@@ -521,7 +532,7 @@ const ITEMS={
     {id:"honey",nm:"Raw honey",ds:"~1–1.5 lb jar",p:21},
     {id:"butter",nm:"Grass-fed butter",ds:"1 lb",p:13},
     {id:"broth",nm:"Bone broth",ds:"16 oz · e.g. beef, chicken, turkey",p:15},
-    {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. jam, apple butter, dilly beans, giardiniera",p:13},
+    {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. cherry lavender or peach jalapeño jam, apple butter, dilly beans, giardiniera",p:13},
     {id:"berries",nm:"Frozen berries",ds:"2 lb bag · e.g. red raspberries",p:13}
   ]
 };
