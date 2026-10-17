@@ -182,8 +182,10 @@ td.on, th.on { background: var(--chip); }
 .dig { font: 700 var(--step-1) var(--font-body); background: var(--accent); color: #fff; border: 0; border-radius: 999px; padding: 14px 26px; cursor: pointer; box-shadow: 0 4px 0 var(--fg); transition: transform .12s ease, box-shadow .12s ease; }
 .dig:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--fg); }
 .dig:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--fg); }
+.dig-alt { font: 700 var(--step-0) var(--font-body); background: transparent; color: var(--fg); border: 2px solid var(--fg); border-radius: 999px; padding: 12px 20px; cursor: pointer; }
+.dig-alt:hover { background: var(--bg); }
 .dig-row { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
-@media (max-width: 720px) { .dig-row { align-items: center; } }
+@media (max-width: 720px) { .dig-row { align-items: center; } .dig-row > div { justify-content: center; } }
 .splash .hint { font-size: var(--step--1); color: var(--muted); }
 body.splash-open { overflow: hidden; }
 body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
@@ -258,16 +260,16 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
     <div class="splash-copy">
       <span class="eyebrow">A Posted Up Produce production · fresh-picked for <span class="who">you</span></span>
       <h1 id="splash-h">Hey <span class="who">there</span>. <em>This pitch has prongs.</em></h1>
-      <p class="lede">Four of them: the food, the farms, the numbers and the ask. Hand-picked this week and sharpened for you.</p>
+      <p class="lede" id="sp-lede">Four of them: the food, the farms, the numbers and the ask. Hand-picked this week and sharpened for you.</p>
       <dl class="ticket">
-        <dt>Order</dt><dd>#<span class="who-up">PARTNER</span>-001</dd>
-        <dt>For</dt><dd><span class="who">You</span>, future partner in produce</dd>
-        <dt>Contents</dt><dd>1 business plan, hand-picked; 12 ways to grow; 1 calculator to poke at</dd>
+        <dt>Order</dt><dd>#<span class="who-up">PARTNER</span>-<span id="sp-code">001</span></dd>
+        <dt>For</dt><dd><span class="who">You</span>, <span id="sp-title">future partner in produce</span></dd>
+        <dt>Contents</dt><dd id="sp-contents">1 business plan, hand-picked; 12 ways to grow; 1 calculator to poke at</dd>
         <dt>Pickup</dt><dd>Right now. No line.</dd>
-        <dt>Shelf life</dt><dd>About 10 minutes</dd>
+        <dt id="sp-lastk">Shelf life</dt><dd id="sp-lastv">About 10 minutes</dd>
       </dl>
       <div class="dig-row">
-        <button type="button" class="dig" id="dig">Pick it up →</button>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:inherit;"><button type="button" class="dig" id="dig">Pick it up →</button><button type="button" class="dig-alt" id="dig-numbers" hidden>Skip to the numbers</button></div>
         <span class="hint">Tap anywhere to dig in. Inside: arrow keys or swipe to move.</span>
       </div>
     </div>
@@ -672,24 +674,46 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
     document.querySelectorAll('.splash .who-up').forEach((el) => { el.textContent = pretty.toUpperCase().replace(/\s+/g, ''); });
     document.title = pretty + ', this pitch has prongs · Posted Up Produce';
   }
+  let role = '';
+  try { role = (new URLSearchParams(location.search).get('role') || '').toLowerCase(); } catch (e) {}
+  if (role === 'cfo') {
+    const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+    document.querySelectorAll('.splash .eyebrow').forEach((el) => { el.firstChild.textContent = 'A Posted Up Produce production · prepared for '; });
+    set('sp-lede', 'Four of them: the food, the farms, the numbers and the ask. Every number shows its work. We have a guess which prong you’ll test first.');
+    set('sp-code', 'CFO');
+    set('sp-title', 'Chief Fork Officer (pending)');
+    set('sp-contents', '1 season P&L; 1 cost-benefit; 1 calculator to stress-test; 1 ask');
+    set('sp-lastk', 'Audit');
+    set('sp-lastv', 'Assumptions listed. Poke holes.');
+    const alt = document.getElementById('dig-numbers'); if (alt) alt.hidden = false;
+  }
   const deepLink = /^#[a-z]+$/.test(location.hash) && location.hash !== '#intro';
   if (deepLink) { splash.remove(); return; }
   document.body.classList.add('splash-open');
   let done = false;
-  function enter() {
+  function enter(target) {
     if (done) return; done = true;
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finish = () => {
       splash.remove(); document.body.classList.remove('splash-open'); window.scrollTo({ top: 0 });
       window.dispatchEvent(new Event('resize'));
       const n = document.getElementById('next'); if (n) { try { n.focus({ preventScroll: true }); } catch (e) {} }
+      if (typeof target === 'string') {
+        const slides = [...document.querySelectorAll('.slide')];
+        const i = slides.findIndex((el) => el.id === target);
+        const jump = document.getElementById('jump');
+        if (i >= 0 && jump) { jump.value = String(i); jump.dispatchEvent(new Event('change')); }
+        if (i >= 0 && document.getElementById('app').classList.contains('page-mode')) slides[i].scrollIntoView();
+      }
     };
     if (reduce) finish(); else { splash.classList.add('leaving'); setTimeout(finish, 520); }
   }
-  splash.addEventListener('click', enter);
+  splash.addEventListener('click', () => enter());
+  const alt = document.getElementById('dig-numbers');
+  if (alt) alt.addEventListener('click', (e) => { e.stopPropagation(); enter('season'); });
   function onKey(e) {
     if (done) { document.removeEventListener('keydown', onKey, true); return; }
-    if (['Enter', ' ', 'ArrowRight', 'ArrowDown', 'Escape'].includes(e.key)) { e.preventDefault(); e.stopImmediatePropagation(); enter(); }
+    if (['Enter', ' ', 'ArrowRight', 'ArrowDown', 'Escape'].includes(e.key)) { if (e.key === 'Enter' && document.activeElement && document.activeElement.id === 'dig-numbers') return; e.preventDefault(); e.stopImmediatePropagation(); enter(); }
   }
   document.addEventListener('keydown', onKey, true);
 })();
