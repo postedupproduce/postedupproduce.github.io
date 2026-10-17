@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Posted Up Produce: Prove the Model</title>
+<meta name="description" content="Funding proposal: one season to prove a local farmers-market personal-shopping model in Chicago.">
+<meta property="og:title" content="Posted Up Produce: Prove the Model">
+<meta property="og:description" content="One season to prove a local farmers-market personal-shopping model in Chicago.">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta property="og:url" content="https://postedupproduce.github.io/pitchfork/">
+<meta property="og:type" content="website">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a market-sign deck. One slide at a time on a cream board, a fixed control strip at the bottom, "One page" mode stacks every slide. */
+:root {
+  --bg: #EFE6D4;            /* warm cream (brand) */
+  --panel: #F7F1E4;
+  --fg: #24392C;            /* deep forest (brand) */
+  --muted: #5C6B5F;
+  --line: #D6CBB3;
+  --accent: #C8452C;        /* tomato red (brand) */
+  --accent-soft: #E9B8A6;
+  --leaf: #4F7A55;
+  --chip: #E4D9C1;
+  --grid: rgba(36, 57, 44, .12);
+  --font-display: "Bowlby One", "Arial Black", Impact, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --radius: 10px;
+  --step--1: .8125rem; --step-0: 1rem; --step-1: 1.25rem; --step-2: 1.6rem; --step-3: 2.2rem; --step-4: clamp(2.2rem, 6vw, 4.2rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17251C; --panel: #1F3026; --fg: #EFE6D4; --muted: #AFB8A9; --line: #33493B;
+    --accent: #F0785C; --accent-soft: #7A3A2C; --leaf: #8DBB8F; --chip: #2A3D31; --grid: rgba(239, 230, 212, .12);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17251C; --panel: #1F3026; --fg: #EFE6D4; --muted: #AFB8A9; --line: #33493B;
+  --accent: #F0785C; --accent-soft: #7A3A2C; --leaf: #8DBB8F; --chip: #2A3D31; --grid: rgba(239, 230, 212, .12);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.5; }
+.wrap { max-width: 72rem; margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); padding-block: 24px 120px; }
+h1, h2 { font-family: var(--font-display); font-weight: 400; line-height: 1.02; text-wrap: balance; margin: 0; letter-spacing: .005em; }
+h1 { font-size: var(--step-4); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-1); font-weight: 700; margin: 0; }
+p { margin: 0; max-width: 62ch; }
+.lede { font-size: var(--step-1); color: var(--fg); }
+.muted { color: var(--muted); }
+.small { font-size: var(--step--1); }
+.mono { font-family: var(--font-mono); }
+.eyebrow { font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* masthead */
+.mast { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 2px solid var(--fg); margin-bottom: 28px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 1.05rem; }
+.brand svg { flex: none; }
+.modes { display: inline-flex; border: 1.5px solid var(--fg); border-radius: 999px; overflow: hidden; }
+.modes button { font: 600 var(--step--1) var(--font-body); padding: 6px 14px; border: 0; background: transparent; color: var(--fg); cursor: pointer; }
+.modes button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+
+/* slides */
+.slide { display: flex; flex-direction: column; gap: 22px; padding-block: 8px 40px; min-height: 62vh; }
+.deck-mode .slide:not(.on) { display: none; }
+.page-mode .slide { border-bottom: 1.5px dashed var(--line); padding-block: 40px; min-height: 0; }
+.slide-head { display: flex; flex-direction: column; gap: 10px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 18px; }
+.cols > * { min-width: 0; }
+.board { background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tag { align-self: flex-start; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; background: var(--chip); color: var(--fg); }
+.tag.hot { background: var(--accent); color: var(--bg); }
+
+/* price-tag figures */
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 14px; }
+.fig { border: 2px solid var(--fg); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; position: relative; background: var(--bg); }
+.fig::before { content: ""; position: absolute; top: 12px; right: 12px; width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--fg); }
+.fig-label { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-right: 18px; }
+.fig-value { font-family: var(--font-display); font-size: var(--step-3); line-height: 1; font-variant-numeric: tabular-nums; }
+.fig-sub { font-size: var(--step--1); color: var(--muted); }
+.fig.accent { border-color: var(--accent); }
+.fig.accent .fig-value { color: var(--accent); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.stamp { width: 100%; max-width: 260px; justify-self: center; aspect-ratio: 1; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* steps */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 14px; counter-reset: s; }
+.step { border-top: 3px solid var(--fg); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.step b { font-family: var(--font-mono); font-size: var(--step--1); color: var(--accent); font-weight: 500; }
+
+/* lists */
+.ticks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ticks li { padding-left: 22px; position: relative; max-width: 62ch; }
+.ticks li::before { content: ""; position: absolute; left: 2px; top: .55em; width: 10px; height: 10px; border-radius: 2px; background: var(--leaf); }
+.ticks.risk li::before { background: var(--accent); border-radius: 50%; }
+
+/* controls */
+.seg { display: inline-flex; border: 1.5px solid var(--fg); border-radius: 999px; overflow: hidden; align-self: flex-start; }
+.seg button { font: 600 var(--step--1) var(--font-body); padding: 6px 14px; border: 0; background: transparent; color: var(--fg); cursor: pointer; }
+.seg button + button { border-left: 1.5px solid var(--fg); }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.calc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+@media (max-width: 760px) { .calc { grid-template-columns: 1fr; } }
+.ctl { display: flex; flex-direction: column; gap: 4px; }
+.ctl label { display: flex; justify-content: space-between; gap: 10px; font-weight: 600; font-size: var(--step--1); }
+.ctl output { font-family: var(--font-mono); font-weight: 500; color: var(--accent); }
+.ctl input[type=range] { width: 100%; accent-color: var(--accent); }
+.check { display: flex; align-items: center; gap: 8px; font-size: var(--step--1); font-weight: 600; }
+.check input { accent-color: var(--accent); width: 18px; height: 18px; }
+.presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.presets button { font: 600 var(--step--1) var(--font-body); padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--fg); background: transparent; color: var(--fg); cursor: pointer; }
+.presets button:hover { background: var(--chip); }
+.meter { height: 12px; border-radius: 999px; background: var(--chip); overflow: hidden; position: relative; }
+.meter span { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
+.meter i { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--fg); }
+
+/* charts and tables */
+.chart { width: 100%; position: relative; min-width: 0; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.tip { position: absolute; pointer-events: none; background: var(--panel); border: 1.5px solid var(--fg); border-radius: 8px; padding: 6px 9px; font-size: .78rem; line-height: 1.35; max-width: 15rem; z-index: 3; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: var(--step--1); color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: var(--step--1); font-variant-numeric: tabular-nums; }
+th { text-align: left; font-family: var(--font-mono); font-weight: 500; font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 6px 8px; border-bottom: 2px solid var(--fg); vertical-align: bottom; }
+td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.r, th.r { text-align: right; white-space: nowrap; }
+tr.total td { font-weight: 700; border-top: 2px solid var(--fg); border-bottom: 0; }
+td.on, th.on { background: var(--chip); }
+
+/* bottom control strip */
+.strip { position: fixed; left: 0; right: 0; bottom: 0; background: var(--fg); color: var(--bg); padding: 10px clamp(16px, 4vw, 48px) calc(10px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 12px; z-index: 5; }
+.strip button { font: 700 var(--step--1) var(--font-body); padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--bg); background: transparent; color: var(--bg); cursor: pointer; }
+.strip button:disabled { opacity: .35; cursor: default; }
+.strip .next { background: var(--accent); border-color: var(--accent); color: #fff; }
+.strip select { font: 600 var(--step--1) var(--font-body); background: transparent; color: var(--bg); border: 1.5px solid var(--bg); border-radius: 999px; padding: 7px 10px; min-width: 0; flex: 1; max-width: 22rem; }
+.strip select option { color: #24392C; background: #EFE6D4; }
+.strip .count { font-family: var(--font-mono); font-size: var(--step--1); margin-left: auto; white-space: nowrap; }
+.progress { position: fixed; left: 0; right: 0; bottom: calc(56px + env(safe-area-inset-bottom, 0px)); height: 3px; background: transparent; z-index: 5; }
+.progress span { display: block; height: 100%; background: var(--accent); transition: width .3s ease; }
+.page-mode .strip, .page-mode .progress { display: none; }
+@media (max-width: 520px) { .strip select { display: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  .deck-mode .slide.on { animation: rise .35s ease-out; }
+  @keyframes rise { from { opacity: .4; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}
+.note { border-left: 3px solid var(--accent); padding: 6px 0 6px 14px; font-size: var(--step--1); color: var(--muted); max-width: 70ch; }
+.tree-chip { font-family: var(--font-mono); }
+.ideas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 14px; }
+.idea { background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.idea[data-h="now"] { border-top: 5px solid var(--leaf); }
+.idea[data-h="next"] { border-top: 5px solid var(--fg); }
+.idea[data-h="later"] { border-top: 5px solid var(--accent); }
+.idea .takes { font-size: var(--step--1); color: var(--muted); }
+.idea .takes b { color: var(--fg); font-weight: 600; }
+.vs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 14px; }
+.vs .board h3 { font-size: var(--step-0); }
+</style>
+</head>
+<body>
+
+<div class="wrap deck-mode" id="app">
+  <header class="mast">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 3c-7 0-12.5 5.4-12.5 12.2 0 8.6 12.5 21.8 12.5 21.8s12.5-13.2 12.5-21.8C32.5 8.4 27 3 20 3z" fill="var(--fg)"/>
+        <rect x="12.5" y="13" width="15" height="9" rx="1.5" fill="var(--bg)"/>
+        <rect x="12.5" y="16.3" width="15" height="1.6" fill="var(--fg)"/>
+        <circle cx="23.5" cy="11.2" r="3" fill="var(--accent)"/>
+        <path d="M16 12.5c.6-3 2.4-4.2 4-4.6" stroke="var(--leaf)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      Posted Up Produce <span class="tag" style="font-family: var(--font-mono);">Beta</span>
+    </div>
+    <div class="modes" role="group" aria-label="View">
+      <button type="button" id="mode-deck" aria-pressed="true">Present</button>
+      <button type="button" id="mode-page" aria-pressed="false">One page</button>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section class="slide on" id="intro" data-title="Posted Up Produce">
+    <div class="hero">
+      <div class="slide-head">
+        <span class="eyebrow">Funding proposal · 2027 proving season</span>
+        <h1>Your farmers market, <em>picked for you.</em></h1>
+        <p class="lede">A personal-shopping service that brings Chicago farmers-market food to people who can't get there, and sends more of every sale back to the farms that grew it.</p>
+        <div class="facts">
+          <span class="tag hot">Beta live since Oct 12, 2026</span>
+          <span class="tag">Wednesday + Saturday markets</span>
+          <span class="tag">Meet-ups + same-day delivery</span>
+        </div>
+      </div>
+      <svg class="stamp" viewBox="0 0 200 200" role="img" aria-label="Within 150 miles of the Loop">
+        <defs><path id="ring" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="var(--accent)" stroke-width="4"/>
+        <circle cx="100" cy="100" r="58" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <text font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="3" fill="var(--accent)"><textPath href="#ring">WITHIN 150 MI OF THE LOOP · PICKED THAT MORNING ·</textPath></text>
+        <path d="M100 66 l7 14 15 2 -11 10 3 15 -14 -7 -14 7 3 -15 -11 -10 15 -2z" fill="var(--accent)" transform="translate(0,6)"/>
+        <text x="100" y="138" text-anchor="middle" font-family="Bowlby One, Arial Black, sans-serif" font-size="15" fill="var(--accent)">CHICAGO</text>
+      </svg>
+    </div>
+    <div class="figs">
+      <div class="fig accent"><span class="fig-label">The ask</span><span class="fig-value num" id="f-ask">—</span><span class="fig-sub">One season to prove the model</span></div>
+      <div class="fig"><span class="fig-label">Modeled 2027 farm spend</span><span class="fig-value num" id="f-farm">—</span><span class="fig-sub">Paid to local farms, May–Dec</span></div>
+      <div class="fig"><span class="fig-label">Farm dollars per grant dollar</span><span class="fig-value num" id="f-ratio">—</span><span class="fig-sub">In the first season alone</span></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" id="problem" data-title="The gap">
+    <div class="slide-head">
+      <span class="eyebrow">The gap</span>
+      <h2>Great food, sold during working hours.</h2>
+    </div>
+    <div class="cols">
+      <div class="board">
+        <span class="tag">For households</span>
+        <p>Chicago's best farmers markets run weekday and Saturday mornings. People with jobs, kids or long commutes miss them, and grocery-store produce has traveled much farther.</p>
+      </div>
+      <div class="board">
+        <span class="tag">For farms</span>
+        <p>Small farms only sell to whoever walks up during market hours. Every household that can't make it is a sale they never see. In grocery stores, farmers get about 18¢ of each food dollar (USDA Food Dollar Series, 2024).</p>
+      </div>
+      <div class="board">
+        <span class="tag hot">The opening</span>
+        <p>A trusted local shopper can turn one trip to market into dozens of households served. The farmer gets their full stand price, and our fee is built into what customers pay.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" id="how" data-title="How it works">
+    <div class="slide-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Order by the night before. Picked that morning.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><b>Order</b><h3>Pick a box or build your own</h3><p class="muted">Shopper's Choice boxes, or groups like "sourdough loaf" or "steak night." Prepaid by Zelle or Apple Pay; orders close 9 PM the night before.</p></div>
+      <div class="step"><b>Shop</b><h3>Hand-picked at market</h3><p class="muted">Our shopper chooses the best example of each group that morning, from farms within 150 miles of the Loop.</p></div>
+      <div class="step"><b>Post up</b><h3>Meet-up or delivery</h3><p class="muted">Pick up at a set neighborhood spot and time ("The Post-Up") in Goose Island, Hyde Park or Rogers Park, or get same-day Wednesday delivery. Order status updates by email.</p></div>
+      <div class="step"><b>Guarantee</b><h3>Fair if something sells out</h3><p class="muted">Anything unavailable becomes a credit toward the next order, a refund on request, or a swap if the customer says swaps are OK.</p></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide" id="today" data-title="Where it stands">
+    <div class="slide-head">
+      <span class="eyebrow">Where it stands · first week of beta, Oct 12–16, 2026</span>
+      <h2>Live, taking orders, and learning fast.</h2>
+    </div>
+    <div class="figs">
+      <div class="fig accent"><span class="fig-label">Average order</span><span class="fig-value num" id="p-aov">—</span><span class="fig-sub" id="p-aov-sub">—</span></div>
+      <div class="fig"><span class="fig-label">Orders, first week</span><span class="fig-value num" id="p-orders">—</span><span class="fig-sub" id="p-orders-sub">—</span></div>
+      <div class="fig"><span class="fig-label">Site visitors</span><span class="fig-value num" id="p-visitors">—</span><span class="fig-sub" id="p-visitors-sub">—</span></div>
+      <div class="fig"><span class="fig-label">Carts that ordered</span><span class="fig-value num" id="p-cart">—</span><span class="fig-sub" id="p-cart-sub">—</span></div>
+    </div>
+    <div class="cols">
+      <div class="board">
+        <h3>Built and running</h3>
+        <ul class="ticks">
+          <li>Order site with boxes, build-your-own item groups and plain-language order terms</li>
+          <li>Orders land in a shared order sheet with a shopping list, weekly P&amp;L and customer list</li>
+          <li>Status emails at each step, from "order received" to "ready at the Post-Up," plus an order tracking page</li>
+          <li>A 5-order cap per market day with a waitlist, so quality holds while the system is tested</li>
+          <li>Feedback, meeting requests and after-pickup ratings collected on the site</li>
+          <li>Visits tracked by link source, so we know which outreach converts</li>
+          <li>Customers are voting on the logo through Oct 24</li>
+        </ul>
+      </div>
+      <div class="board">
+        <h3>What week one taught us</h3>
+        <ul class="ticks">
+          <li><strong>Orders run bigger than planned.</strong> About $95 on average, double the model's $47. Early buyers are mostly friends and family, so the model keeps the lower figure until the full pilot is in.</li>
+          <li><strong>Personal texts convert; group posts don't.</strong> The first group announcement got no orders. One-to-one links got the first-week orders.</li>
+          <li><strong>All three meet-up stops were used.</strong> Spreading out costs time, which is why the plan narrows to one zone.</li>
+        </ul>
+        <span class="tag">Full pilot results after Nov 21</span>
+      </div>
+    </div>
+    <div class="board">
+      <h3>The founder</h3>
+      <p>More than 20 years in Chicago food systems, community organizing and urban agriculture. Former Volunteer Manager at a major Chicago farmers market. Produce Safety Alliance certified; permaculture designer; MBA/MPA candidate in Sustainable Solutions.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" id="truth" data-title="What the pilot teaches">
+    <div class="slide-head">
+      <span class="eyebrow">What the pilot teaches</span>
+      <h2>As built, it's a job. Two changes make it a business.</h2>
+      <p class="lede">The pilot buys at retail prices and runs three meet-ups across the city. That caps what an hour of work can earn.</p>
+    </div>
+    <div class="figs">
+      <div class="fig"><span class="fig-label">Pilot today</span><span class="fig-value num" id="t-a">—</span><span class="fig-sub" id="t-a-sub">—</span></div>
+      <div class="fig"><span class="fig-label">+ Wholesale from farms</span><span class="fig-value num" id="t-b">—</span><span class="fig-sub" id="t-b-sub">—</span></div>
+      <div class="fig accent"><span class="fig-label">+ One zone, office drops</span><span class="fig-value num" id="t-c">—</span><span class="fig-sub" id="t-c-sub">—</span></div>
+    </div>
+    <p class="muted small">Modeled profit per hour of the founder's time at 15–25 orders per market day, after goods, packaging and driving, using the conservative $47 average order. The beta is capped at 5 orders a day on purpose; these figures show what the same setup earns once the cap lifts. Wholesale pricing and dropping two meet-ups cost nothing to try.</p>
+  </section>
+
+  <section class="slide" id="lessons" data-title="Why others stalled">
+    <div class="slide-head">
+      <span class="eyebrow">Learning from those who tried</span>
+      <h2>Local food delivery fails on logistics, not demand.</h2>
+      <p class="muted">Several well-funded services tried to bring local food to the door. The ones that pulled back ran out of margin on delivery, not out of customers.</p>
+    </div>
+    <div class="vs">
+      <div class="board"><span class="tag">Pulled back</span><h3>Door-to-door, every day, citywide</h3><p class="small muted">Farmigo's consumer service, Good Eggs' expansion cities and Peapod in the Midwest all wound down. Spread-out routes and thin margins made each order cost too much to deliver.</p></div>
+      <div class="board"><span class="tag">Survived</span><h3>Fixed days and pickup points</h3><p class="small muted">The services still standing batch orders on set days and use free pickup spots, or grew big enough to run their own fleet.</p></div>
+      <div class="board"><span class="tag hot">Posted Up's design</span><h3>Two market days, set meet-up windows, one zone</h3><p class="small muted">Orders close the night before, everything is shopped in one trip, and most handoffs happen at a single Post-Up. Delivery stays a paid add-on.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide" id="branches" data-title="Growth branches">
+    <div class="slide-head">
+      <span class="eyebrow">Growth branches</span>
+      <h2>Six paths, tested in order.</h2>
+      <p class="muted">Each branch builds on the one before it. Switch the volume to see what each earns per hour of founder time.</p>
+    </div>
+    <div class="seg" role="group" aria-label="Order volume">
+      <button type="button" data-lv="low" aria-pressed="false">Low</button>
+      <button type="button" data-lv="mid" aria-pressed="true">Mid</button>
+      <button type="button" data-lv="high" aria-pressed="false">High</button>
+    </div>
+    <div class="board">
+      <div class="legend" id="tree-legend"></div>
+      <div class="chart" id="tree"></div>
+    </div>
+  </section>
+
+  <section class="slide" id="beyond" data-title="Where it can branch">
+    <div class="slide-head">
+      <span class="eyebrow">Beyond the first season</span>
+      <h2>One market trip, many ways to grow.</h2>
+      <p class="muted">The same system (one shopper, set days, a neighborhood handoff) can carry more than grocery boxes. These are ideas, not modeled numbers. Filter by when each could start.</p>
+    </div>
+    <div class="seg" role="group" aria-label="When">
+      <button type="button" data-h="all" aria-pressed="true">All</button>
+      <button type="button" data-h="now" aria-pressed="false">Now</button>
+      <button type="button" data-h="next" aria-pressed="false">2027</button>
+      <button type="button" data-h="later" aria-pressed="false">Later</button>
+    </div>
+    <div class="ideas" id="ideas">
+      <div class="idea" data-h="now"><span class="tag">Now</span><h3>Host a Post-Up</h3><p class="small">An office or apartment building rounds up 5 orders; the host's box is free and everything arrives in one handoff.</p><p class="takes"><b>Takes:</b> a host reward on the site</p></div>
+      <div class="idea" data-h="now"><span class="tag">Now</span><h3>Referral links</h3><p class="small">Every customer gets a personal link; a friend's first order earns them a bonus pick. Links are already tracked.</p><p class="takes"><b>Takes:</b> reward rules, a thank-you text</p></div>
+      <div class="idea" data-h="now"><span class="tag">Now</span><h3>Holiday gift boxes</h3><p class="small">Shelf-stable boxes from local makers (jam, honey, maple, pickles) for families and office gifting.</p><p class="takes"><b>Takes:</b> packaging, pre-sales with deposits</p></div>
+      <div class="idea" data-h="now"><span class="tag">Now</span><h3>Winter indoor season</h3><p class="small">Keep Saturdays going through the indoor market with storage crops, bread and pantry goods.</p><p class="takes"><b>Takes:</b> a smaller menu, cold-weather handoffs</p></div>
+      <div class="idea" data-h="next"><span class="tag">2027</span><h3>Office produce benefit</h3><p class="small">Employers pay for weekly boxes as a wellness perk, delivered in one drop per office.</p><p class="takes"><b>Takes:</b> invoicing, a simple employer agreement</p></div>
+      <div class="idea" data-h="next"><span class="tag">2027</span><h3>Café and small-kitchen runs</h3><p class="small">Shop the market for cafés and small restaurants that can't spare staff on market mornings.</p><p class="takes"><b>Takes:</b> standing orders, net-7 billing</p></div>
+      <div class="idea" data-h="next"><span class="tag">2027</span><h3>Produce prescriptions</h3><p class="small">Partner with clinics or health plans that pay for fresh-food boxes for patients.</p><p class="takes"><b>Takes:</b> a health partner, simple outcome reporting</p></div>
+      <div class="idea" data-h="next"><span class="tag">2027</span><h3>SNAP access</h3><p class="small">Accept SNAP so lower-income households can use their benefits for market food.</p><p class="takes"><b>Takes:</b> USDA retailer authorization; confirm a shopper model qualifies</p></div>
+      <div class="idea" data-h="later"><span class="tag">Later</span><h3>Neighborhood food hub</h3><p class="small">Customers order from several farms at once; farms pack and pay a commission; pickup hubs serve each area.</p><p class="takes"><b>Takes:</b> farm agreements, ordering software, funding</p></div>
+      <div class="idea" data-h="later"><span class="tag">Later</span><h3>Closing the loop</h3><p class="small">Collect kitchen scraps at each Post-Up and return finished compost to partner farms.</p><p class="takes"><b>Takes:</b> a compost partner, bins, a hauling plan</p></div>
+      <div class="idea" data-h="later"><span class="tag">Later</span><h3>Post-Up playbook in other cities</h3><p class="small">License the system (order site, sheet, routines and brand) to shoppers at markets in other cities.</p><p class="takes"><b>Takes:</b> a trademark, a license agreement, training</p></div>
+      <div class="idea" data-h="later"><span class="tag">Later</span><h3>Farmer co-ownership</h3><p class="small">Farms and shoppers share ownership of the hub, so growth pays the growers too.</p><p class="takes"><b>Takes:</b> a cooperative structure, legal setup</p></div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide" id="calculator" data-title="Try the numbers">
+    <div class="slide-head">
+      <span class="eyebrow">Try the numbers</span>
+      <h2>Move the levers yourself.</h2>
+      <p class="muted">Built from the fall 2026 price sheet: average order $47.30 at today's retail costs. Start from a preset or set your own.</p>
+    </div>
+    <div class="presets" role="group" aria-label="Presets">
+      <button type="button" data-preset="pilot">Pilot today</button>
+      <button type="button" data-preset="wholesale">+ Wholesale</button>
+      <button type="button" data-preset="zone">+ One zone</button>
+      <button type="button" data-preset="scale">50 a day + helper</button>
+    </div>
+    <div class="calc">
+      <div class="board">
+        <div class="ctl"><label for="c-orders">Orders per market day <output id="o-orders"></output></label><input type="range" id="c-orders" min="5" max="70" step="1" value="15"></div>
+        <div class="ctl"><label for="c-disc">Wholesale discount from farms <output id="o-disc"></output></label><input type="range" id="c-disc" min="0" max="35" step="5" value="0"></div>
+        <div class="ctl"><label for="c-stops">Meet-up stops per day <output id="o-stops"></output></label><input type="range" id="c-stops" min="1" max="3" step="1" value="3"></div>
+        <div class="ctl"><label for="c-days">Market days per week <output id="o-days"></output></label><input type="range" id="c-days" min="1" max="2" step="1" value="2"></div>
+        <label class="check" for="c-pack"><input type="checkbox" id="c-pack"> Farms pre-pack orders (3 min per order instead of 6)</label>
+        <label class="check" for="c-help"><input type="checkbox" id="c-help"> Paid helper, $5 per order above 25 a day</label>
+      </div>
+      <div class="board">
+        <div class="figs">
+          <div class="fig accent"><span class="fig-label">Per hour</span><span class="fig-value num" id="r-hour">—</span><span class="fig-sub">Founder time</span></div>
+          <div class="fig"><span class="fig-label">Per week</span><span class="fig-value num" id="r-week">—</span><span class="fig-sub" id="r-week-sub">—</span></div>
+        </div>
+        <div class="meter" aria-hidden="true"><span id="r-meter"></span><i id="r-mark"></i></div>
+        <p class="small muted" id="r-meter-note">—</p>
+        <table>
+          <tbody>
+            <tr><td>Profit per order</td><td class="r" id="r-per">—</td></tr>
+            <tr><td>Goods margin</td><td class="r" id="r-margin">—</td></tr>
+            <tr><td>Hours per market day</td><td class="r" id="r-hours">—</td></tr>
+            <tr><td>Spent with farms per week</td><td class="r" id="r-farm">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide" id="cba" data-title="Cost-benefit">
+    <div class="slide-head">
+      <span class="eyebrow">Cost-benefit, first year</span>
+      <h2>Cheapest tests first. The big bet last.</h2>
+    </div>
+    <div class="cols">
+      <div class="board">
+        <h3>First-year cost vs. yearly profit</h3>
+        <div class="legend" id="cba-legend"></div>
+        <div class="chart" id="cba-chart"></div>
+      </div>
+      <div class="board">
+        <h3>Dollars to local farms per year</h3>
+        <div class="chart" id="farm-chart"></div>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table id="cba-table"><thead><tr><th>Branch</th><th class="r">One-time</th><th class="r">Yearly fixed</th><th class="r">Yearly profit</th><th class="r">Benefit ÷ cost</th><th class="r">Payback</th></tr></thead><tbody></tbody></table>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide" id="season" data-title="2027 season P&L">
+    <div class="slide-head">
+      <span class="eyebrow">Proving season P&amp;L · May–Dec 2027</span>
+      <h2>Profitable in its first full season.</h2>
+      <p class="muted">Wholesale pricing phasing in, one zone, 60% of orders on subscription, a helper on busy days, and 300 holiday gift boxes. Every cost included, even the ones this grant would cover.</p>
+    </div>
+    <div class="figs">
+      <div class="fig"><span class="fig-label">Revenue</span><span class="fig-value num" id="s-rev">—</span><span class="fig-sub" id="s-orders">—</span></div>
+      <div class="fig accent"><span class="fig-label">Operating profit</span><span class="fig-value num" id="s-op">—</span><span class="fig-sub">After all costs</span></div>
+      <div class="fig"><span class="fig-label">Per founder hour</span><span class="fig-value num" id="s-hr">—</span><span class="fig-sub" id="s-hours">—</span></div>
+      <div class="fig"><span class="fig-label">To local farms</span><span class="fig-value num" id="s-farm">—</span><span class="fig-sub">Goods purchased</span></div>
+    </div>
+    <div class="board">
+      <div class="legend" id="pl-legend"></div>
+      <div class="chart" id="pl-chart"></div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide" id="needs" data-title="What it takes">
+    <div class="slide-head">
+      <span class="eyebrow">What it takes</span>
+      <h2>Infrastructure grows with volume, not ahead of it.</h2>
+    </div>
+    <div class="seg" role="group" aria-label="Order volume">
+      <button type="button" data-lv="low" aria-pressed="false">Low</button>
+      <button type="button" data-lv="mid" aria-pressed="true">Mid</button>
+      <button type="button" data-lv="high" aria-pressed="false">High</button>
+    </div>
+    <div class="tablewrap"><table id="infra-table"><thead><tr><th>Component</th><th data-col="pilot">Pilot today</th><th data-col="low">Low</th><th data-col="mid">Mid</th><th data-col="high">High</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide" id="ask" data-title="The ask">
+    <div class="slide-head">
+      <span class="eyebrow">The ask</span>
+      <h2><span id="a-total">—</span> to prove the model.</h2>
+      <p class="lede">One-time money for equipment, compliance and the season's fixed costs. Operating profit then funds year two without another grant.</p>
+    </div>
+    <div class="cols">
+      <div class="board">
+        <h3>Use of funds</h3>
+        <div class="chart" id="uof-chart"></div>
+      </div>
+      <div class="board">
+        <h3>What the grant returns</h3>
+        <div class="figs">
+          <div class="fig"><span class="fig-label">25% match</span><span class="fig-value num" id="a-match">—</span><span class="fig-sub">In-kind: founder time, order system already built</span></div>
+          <div class="fig accent"><span class="fig-label">Farm $ per grant $</span><span class="fig-value num" id="a-ratio">—</span><span class="fig-sub">First season only</span></div>
+        </div>
+        <p class="small muted">Plus a self-funding business, a paid local job, and a tested route for small farms into households that never reach the market.</p>
+      </div>
+    </div>
+    <details class="board">
+      <summary><strong>Line-item budget</strong></summary>
+      <div class="tablewrap"><table id="uof-table"><thead><tr><th>Item</th><th>Phase</th><th class="r">Amount</th></tr></thead><tbody></tbody></table></div>
+    </details>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide" id="milestones" data-title="Milestones">
+    <div class="slide-head">
+      <span class="eyebrow">How you'll know it worked</span>
+      <h2>Clear milestones, with a decision at each.</h2>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>By</th><th>Milestone</th><th>If it's missed</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">Oct 2026</td><td>Beta live; first paid orders across all three meet-up stops <span class="tag hot">Done</span></td><td>—</td></tr>
+          <tr><td class="mono">Oct 24, 2026</td><td>Customer logo vote closes; brand locked for the 2027 season</td><td>Keep the working mark through the pilot</td></tr>
+          <tr><td class="mono">Dec 2026</td><td>Pilot results published (ends Nov 21); 60+ holiday gift boxes pre-sold</td><td>Rework pricing and the offer before spending any grant money</td></tr>
+          <tr><td class="mono">May 2027</td><td>3+ farms on written wholesale or pre-order terms</td><td>Keep retail sourcing and cap volume; profit per hour stays near pilot levels</td></tr>
+          <tr><td class="mono">Jul 2027</td><td>25 orders per market day in one zone; half on subscription</td><td>Add a second zone only after the first fills</td></tr>
+          <tr><td class="mono">Sep 2027</td><td>$30+ profit per founder hour; 50%+ customers reorder</td><td>Pause scaling and fix retention first</td></tr>
+          <tr><td class="mono">Dec 2027</td><td>Season P&amp;L reported; go/no-go on the food-hub model</td><td>Stay a profitable personal-shopper business</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="slide" id="risks" data-title="Risks">
+    <div class="slide-head">
+      <span class="eyebrow">Risks, named plainly</span>
+      <h2>What could go wrong, and the plan for each.</h2>
+    </div>
+    <div class="cols">
+      <div class="board"><ul class="ticks risk">
+        <li><strong>Farms won't discount.</strong> Start with farms that already sell to restaurants; standing weekly orders give them a reason to.</li>
+        <li><strong>Demand is seasonal.</strong> Holiday gift boxes and shelf-stable pantry goods carry income past the outdoor season.</li>
+        <li><strong>One person is the bottleneck.</strong> Farms pre-pack, one zone, and a paid helper above 25 orders a day.</li>
+      </ul></div>
+      <div class="board"><ul class="ticks risk">
+        <li><strong>Food safety and licensing.</strong> Cold chain for meat and dairy, licensed shared-kitchen space, and city licensing confirmed before scaling.</li>
+        <li><strong>Prices land near farms' own CSAs.</strong> Compete on convenience, gifting and curation; wholesale pricing protects margin.</li>
+        <li><strong>Early buyers are friends and family.</strong> Week-one order sizes may not hold with strangers. The model uses half the observed average until the full pilot is in.</li>
+        <li><strong>The model is still a model.</strong> Every modeled figure here is replaced with pilot data in December.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide" id="close" data-title="Let's prove it">
+    <div class="slide-head">
+      <span class="eyebrow">Next step</span>
+      <h2>Fund one season. Get a business that funds itself.</h2>
+      <p class="lede">Posted Up Produce is asking mission-aligned funders for <span id="c-ask">—</span> to prove that a local personal shopper can serve busy households and grow small-farm sales at the same time.</p>
+    </div>
+    <div class="cols">
+      <div class="board"><h3>See it live</h3><p><a href="../" style="color: var(--accent);">postedupproduce.github.io</a></p><p class="small muted">The pilot order site, live in beta.</p></div>
+      <div class="board"><h3>Contact</h3><p>123 Footprint, LLC · Chicago</p><p class="small muted">Text 773-807-9223, or <a href="../#talk" style="color: var(--accent);">request a meeting time</a> on the order site.</p></div>
+    </div>
+    <p class="note">Pilot figures are actual results from Oct 12–16, 2026. All other dollar figures are modeled from the fall 2026 price sheet and researched 2026 costs (shared-kitchen rates, small-business insurance averages), and will be replaced with full pilot results after Nov 21. Food-dollar figure: USDA ERS Food Dollar Series, 2024.</p>
+  </section>
+</div>
+
+<div class="progress" aria-hidden="true"><span id="prog"></span></div>
+<nav class="strip" aria-label="Slides">
+  <button type="button" id="prev">← Back</button>
+  <select id="jump" aria-label="Go to slide"></select>
+  <span class="count mono" id="count">1 / 14</span>
+  <button type="button" class="next" id="next">Next →</button>
+</nav>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+const PILOT = {"window": "Oct 12\u201316, 2026", "visits": 104, "unique_visitors": 53, "cart_visitors": 9, "orders": 4, "paid_orders": 3, "order_value_total": 379, "paid_total": 295, "avg_order": 94.75, "model_avg_order": 47.3, "stops_used": 3, "visitor_to_order": 7.5, "cart_to_order": 44};
+const DATA = {"branches": [{"branch_id": "A", "step": 1, "branch": "Pilot as-is", "level": "low", "volume": 10, "volume_unit": "orders per market day", "profit_per_order": 14.05, "period_profit": 109.0, "period": "per market day", "hours": 8.5, "profit_per_hour": 12.8, "weekly_profit": 218.0, "margin_pct": 31.8}, {"branch_id": "A", "step": 1, "branch": "Pilot as-is", "level": "mid", "volume": 15, "volume_unit": "orders per market day", "profit_per_order": 14.05, "period_profit": 179.0, "period": "per market day", "hours": 9.0, "profit_per_hour": 19.9, "weekly_profit": 358.0, "margin_pct": 31.8}, {"branch_id": "A", "step": 1, "branch": "Pilot as-is", "level": "high", "volume": 25, "volume_unit": "orders per market day", "profit_per_order": 14.05, "period_profit": 320.0, "period": "per market day", "hours": 10.0, "profit_per_hour": 32.0, "weekly_profit": 639.0, "margin_pct": 31.8}, {"branch_id": "B", "step": 2, "branch": "Wholesale sourcing", "level": "low", "volume": 15, "volume_unit": "orders per market day", "profit_per_order": 20.5, "period_profit": 276.0, "period": "per market day", "hours": 8.2, "profit_per_hour": 33.5, "weekly_profit": 552.0, "margin_pct": 45.5}, {"branch_id": "B", "step": 2, "branch": "Wholesale sourcing", "level": "mid", "volume": 25, "volume_unit": "orders per market day", "profit_per_order": 20.5, "period_profit": 481.0, "period": "per market day", "hours": 8.8, "profit_per_hour": 55.0, "weekly_profit": 962.0, "margin_pct": 45.5}, {"branch_id": "B", "step": 2, "branch": "Wholesale sourcing", "level": "high", "volume": 35, "volume_unit": "orders per market day", "profit_per_order": 20.5, "period_profit": 686.0, "period": "per market day", "hours": 9.2, "profit_per_hour": 74.2, "weekly_profit": 1372.0, "margin_pct": 45.5}, {"branch_id": "C", "step": 3, "branch": "One zone + office drops", "level": "low", "volume": 15, "volume_unit": "orders per market day", "profit_per_order": 20.5, "period_profit": 293.0, "period": "per market day", "hours": 5.2, "profit_per_hour": 55.9, "weekly_profit": 587.0, "margin_pct": 45.5}, {"branch_id": "C", "step": 3, "branch": "One zone + office drops", "level": "mid", "volume": 25, "volume_unit": "orders per market day", "profit_per_order": 20.5, "period_profit": 498.0, "period": "per market day", "hours": 5.8, "profit_per_hour": 86.7, "weekly_profit": 997.0, "margin_pct": 45.5}, {"branch_id": "C", "step": 3, "branch": "One zone + office drops", "level": "high", "volume": 35, "volume_unit": "orders per market day", "profit_per_order": 20.5, "period_profit": 703.0, "period": "per market day", "hours": 6.2, "profit_per_hour": 112.6, "weekly_profit": 1407.0, "margin_pct": 45.5}, {"branch_id": "D", "step": 4, "branch": "Subscriptions + helper", "level": "low", "volume": 35, "volume_unit": "orders per market day", "profit_per_order": 13.13, "period_profit": 442.0, "period": "per market day", "hours": 6.2, "profit_per_hour": 71.7, "weekly_profit": 884.0, "margin_pct": 42.6}, {"branch_id": "D", "step": 4, "branch": "Subscriptions + helper", "level": "mid", "volume": 50, "volume_unit": "orders per market day", "profit_per_order": 13.13, "period_profit": 639.0, "period": "per market day", "hours": 6.7, "profit_per_hour": 95.9, "weekly_profit": 1278.0, "margin_pct": 42.6}, {"branch_id": "D", "step": 4, "branch": "Subscriptions + helper", "level": "high", "volume": 70, "volume_unit": "orders per market day", "profit_per_order": 13.13, "period_profit": 902.0, "period": "per market day", "hours": 7.3, "profit_per_hour": 123.0, "weekly_profit": 1804.0, "margin_pct": 42.6}, {"branch_id": "E", "step": 5, "branch": "Holiday gift boxes", "level": "low", "volume": 60, "volume_unit": "boxes per 6-week season", "profit_per_order": 29.93, "period_profit": 1733.0, "period": "6-week season", "hours": 44.0, "profit_per_hour": 39.4, "weekly_profit": 289, "margin_pct": 43.2}, {"branch_id": "E", "step": 5, "branch": "Holiday gift boxes", "level": "mid", "volume": 150, "volume_unit": "boxes per 6-week season", "profit_per_order": 29.93, "period_profit": 4426.0, "period": "6-week season", "hours": 56.0, "profit_per_hour": 79.0, "weekly_profit": 738, "margin_pct": 43.2}, {"branch_id": "E", "step": 5, "branch": "Holiday gift boxes", "level": "high", "volume": 300, "volume_unit": "boxes per 6-week season", "profit_per_order": 29.93, "period_profit": 8915.0, "period": "6-week season", "hours": 76.0, "profit_per_hour": 117.3, "weekly_profit": 1486, "margin_pct": 43.2}, {"branch_id": "F", "step": 6, "branch": "Food hub", "level": "low", "volume": 100, "volume_unit": "orders per week", "profit_per_order": 11.21, "period_profit": 1093.0, "period": "per week", "hours": 17.0, "profit_per_hour": 64.3, "weekly_profit": 1093.0, "margin_pct": null}, {"branch_id": "F", "step": 6, "branch": "Food hub", "level": "mid", "volume": 250, "volume_unit": "orders per week", "profit_per_order": 11.21, "period_profit": 2534.0, "period": "per week", "hours": 24.5, "profit_per_hour": 103.4, "weekly_profit": 2534.0, "margin_pct": null}, {"branch_id": "F", "step": 6, "branch": "Food hub", "level": "high", "volume": 500, "volume_unit": "orders per week", "profit_per_order": 11.21, "period_profit": 5097.0, "period": "per week", "hours": 37.0, "profit_per_hour": 137.8, "weekly_profit": 5097.0, "margin_pct": null}], "cba": [{"branch_id": "B", "branch": "Wholesale sourcing", "one_time_cost": 0, "yearly_fixed_cost": 0, "yearly_profit": 25012, "net_first_year": 25012, "benefit_cost_ratio": null, "payback_weeks": 0, "farm_spend_per_year": 33540, "other_benefits": "Same farms, bigger standing orders; fewer hours shopping"}, {"branch_id": "C", "branch": "One zone + office drops", "one_time_cost": 0, "yearly_fixed_cost": 0, "yearly_profit": 25922, "net_first_year": 25922, "benefit_cost_ratio": null, "payback_weeks": 0, "farm_spend_per_year": 33540, "other_benefits": "About 3 fewer hours per market day; denser neighborhood presence"}, {"branch_id": "E", "branch": "Holiday gift boxes", "one_time_cost": 2180, "yearly_fixed_cost": 539, "yearly_profit": 4426, "net_first_year": 1707, "benefit_cost_ratio": 1.63, "payback_weeks": 3.4, "farm_spend_per_year": 5520, "other_benefits": "Year-round farm income from shelf-stable goods; corporate relationships"}, {"branch_id": "D", "branch": "Subscriptions + helper", "one_time_cost": 4600, "yearly_fixed_cost": 15880, "yearly_profit": 33228, "net_first_year": 12748, "benefit_cost_ratio": 1.62, "payback_weeks": 6.9, "farm_spend_per_year": 67080, "other_benefits": "A paid local job; predictable demand farms can plan around"}, {"branch_id": "F", "branch": "Food hub", "one_time_cost": 7500, "yearly_fixed_cost": 22848, "yearly_profit": 65884, "net_first_year": 35536, "benefit_cost_ratio": 2.17, "payback_weeks": 4.5, "farm_spend_per_year": 303875, "other_benefits": "Farms keep 85% of each sale; more farms reach more neighborhoods"}], "pl": [{"month": "May 2027", "market_days": 6, "orders": 72, "gift_boxes": 0, "revenue": 3303, "cogs": 2162, "gross_profit": 1142, "card_fees": 117, "helper": 0, "driving": 84, "kitchen": 504, "van": 0, "insurance": 269, "marketing": 300.0, "software": 30.0, "operating_profit": -163, "founder_hours": 41, "profit_per_hour": -4.02, "farm_spend": 2090, "ramp_gap": 1178}, {"month": "Jun 2027", "market_days": 9, "orders": 162, "gift_boxes": 0, "revenue": 7433, "cogs": 4603, "gross_profit": 2830, "card_fees": 264, "helper": 0, "driving": 126, "kitchen": 756, "van": 0, "insurance": 269, "marketing": 300.0, "software": 30.0, "operating_profit": 1084, "founder_hours": 59, "profit_per_hour": 18.51, "farm_spend": 4441, "ramp_gap": 381}, {"month": "Jul 2027", "market_days": 9, "orders": 216, "gift_boxes": 0, "revenue": 9910, "cogs": 5789, "gross_profit": 4121, "card_fees": 352, "helper": 0, "driving": 126, "kitchen": 756, "van": 810, "insurance": 269, "marketing": 300.0, "software": 30.0, "operating_profit": 1478, "founder_hours": 61, "profit_per_hour": 24.11, "farm_spend": 5573, "ramp_gap": 55}, {"month": "Aug 2027", "market_days": 9, "orders": 270, "gift_boxes": 0, "revenue": 12388, "cogs": 7236, "gross_profit": 5152, "card_fees": 440, "helper": 225, "driving": 126, "kitchen": 756, "van": 810, "insurance": 269, "marketing": 300.0, "software": 30.0, "operating_profit": 2195, "founder_hours": 64, "profit_per_hour": 34.3, "farm_spend": 6966, "ramp_gap": 0}, {"month": "Sep 2027", "market_days": 9, "orders": 315, "gift_boxes": 0, "revenue": 14453, "cogs": 8442, "gross_profit": 6011, "card_fees": 514, "helper": 450, "driving": 126, "kitchen": 756, "van": 810, "insurance": 269, "marketing": 300.0, "software": 30.0, "operating_profit": 2756, "founder_hours": 66, "profit_per_hour": 41.59, "farm_spend": 8127, "ramp_gap": 0}, {"month": "Oct 2027", "market_days": 8, "orders": 280, "gift_boxes": 0, "revenue": 12847, "cogs": 7504, "gross_profit": 5343, "card_fees": 457, "helper": 400, "driving": 112, "kitchen": 672, "van": 720, "insurance": 269, "marketing": 300.0, "software": 30.0, "operating_profit": 2383, "founder_hours": 60, "profit_per_hour": 39.71, "farm_spend": 7224, "ramp_gap": 0}, {"month": "Nov 2027", "market_days": 3, "orders": 90, "gift_boxes": 100, "revenue": 11629, "cogs": 6672, "gross_profit": 4957, "card_fees": 394, "helper": 75, "driving": 74, "kitchen": 1092, "van": 810, "insurance": 269, "marketing": 300.0, "software": 30.0, "operating_profit": 1913, "founder_hours": 59, "profit_per_hour": 32.25, "farm_spend": 6582, "ramp_gap": 0}, {"month": "Dec 2027", "market_days": 0, "orders": 0, "gift_boxes": 200, "revenue": 15000, "cogs": 8520, "gross_profit": 6480, "card_fees": 495, "helper": 0, "driving": 31, "kitchen": 840, "van": 540, "insurance": 269, "marketing": 300.0, "software": 30.0, "operating_profit": 3974, "founder_hours": 55, "profit_per_hour": 72.7, "farm_spend": 8520, "ramp_gap": 0}, {"market_days": 53, "orders": 1405, "gift_boxes": 300, "revenue": 86963, "cogs": 50928, "gross_profit": 36036, "card_fees": 3033, "helper": 1150, "driving": 805, "kitchen": 6132, "van": 4500, "insurance": 2152, "marketing": 2400.0, "software": 240.0, "operating_profit": 15620, "founder_hours": 465, "profit_per_hour": 33.59, "farm_spend": 49523, "ramp_gap": 1614, "month": "Season total"}], "uof": [{"item": "Insulated totes + ice packs (80)", "category": "Equipment", "amount": 1600, "basis": "Assumption: ~$20 each", "phase": "Startup"}, {"item": "12V vehicle fridge/freezer", "category": "Equipment", "amount": 600, "basis": "Assumption", "phase": "Startup"}, {"item": "Hand truck, crates, scale, label printer", "category": "Equipment", "amount": 900, "basis": "Assumption", "phase": "Startup"}, {"item": "Gift packaging for 300 boxes", "category": "Working capital", "amount": 1740, "basis": "Model: $5\u20137 per box", "phase": "Startup"}, {"item": "Gift goods working capital (until pre-sales clear)", "category": "Working capital", "amount": 4000, "basis": "Model: ~$12.8k at 300 boxes; deposits cover the rest", "phase": "Startup"}, {"item": "City licensing (shared kitchen user or similar)", "category": "Compliance", "amount": 1500, "basis": "Placeholder: confirm type and fee with BACP", "phase": "Startup"}, {"item": "Farm agreements + LLC/legal review", "category": "Compliance", "amount": 1500, "basis": "Assumption", "phase": "Startup"}, {"item": "Brand, photography, custom domain", "category": "Marketing", "amount": 1500, "basis": "Assumption", "phase": "Startup"}, {"item": "Shared kitchen time (season)", "category": "Operations", "amount": 6132, "basis": "From $28/hr, R City Kitchen", "phase": "Season"}, {"item": "Cargo van rental on high-volume days", "category": "Operations", "amount": 4500, "basis": "Assumption: $90/day", "phase": "Season"}, {"item": "General liability + commercial auto (8 mo)", "category": "Compliance", "amount": 2152, "basis": "Insureon averages: $563 + $2,669/yr", "phase": "Season"}, {"item": "Marketing + outreach (8 mo)", "category": "Marketing", "amount": 2400, "basis": "$300/month", "phase": "Season"}, {"item": "Ordering, payments, domain (8 mo)", "category": "Operations", "amount": 240, "basis": "$30/month", "phase": "Season"}, {"item": "Founder ramp stipend", "category": "People", "amount": 1614, "basis": "Gap between operating profit and $25/hr for founder hours", "phase": "Season"}, {"item": "Contingency (10%)", "category": "Contingency", "amount": 3038, "basis": "10% of the above", "phase": "Season"}], "infra": [{"component": "Vehicle", "pilot": "Personal car", "low": "Car + vehicle fridge", "mid": "Cargo van on market days", "high": "Leased van with reefer space"}, {"component": "Cold chain", "pilot": "Coolers", "low": "Insulated totes + ice packs per order", "mid": "Totes + 12V fridge for meat/dairy", "high": "Commissary walk-in + reefer"}, {"component": "Packing space", "pilot": "At the market", "low": "At the market", "mid": "Shared kitchen 3 hrs/market day", "high": "Commissary pickup hub"}, {"component": "People", "pilot": "You", "low": "You", "mid": "You + helper paid per order", "high": "You + 1\u20132 part-time staff"}, {"component": "Ordering", "pilot": "Site + Google Sheet + Zelle", "low": "Site + card checkout + order caps", "mid": "Subscriptions with autopay", "high": "Multi-farm marketplace software"}, {"component": "Licensing", "pilot": "Verify with BACP", "low": "City business license", "mid": "Shared kitchen user license (confirm)", "high": "Wholesale/food establishment (confirm)"}, {"component": "Insurance", "pilot": "None yet", "low": "General + product liability", "mid": "+ commercial auto", "high": "+ higher limits, workers' comp"}, {"component": "Cash at risk", "pilot": "Groceries per order (prepaid)", "low": "Gift goods (pre-sell with deposits)", "mid": "Season fixed costs", "high": "Software, lease, payroll"}], "funders": [{"program": "USDA Local Food Promotion Program (LFPP)", "funder": "USDA Agricultural Marketing Service", "award_range": "Planning $25k\u2013$100k; implementation $100k\u2013$500k", "match": "25% of request, cash or in-kind", "timing": "FY2026 round closed June 5, 2026; watch for an FY2027 notice", "fit": "Strong if a new round opens. Closest eligible type is 'agricultural business or cooperative'; confirm with AMS.", "source": "https://simpler.grants.gov/opportunity/68e57d41-a77d-4525-ae33-13f3ee035148"}, {"program": "Metro Chicago GFPI Community Fund", "funder": "Chicago Food Policy Action Council + Cook County Dept. of Public Health", "award_range": "$40k\u2013$80k", "match": "Not stated", "timing": "Third annual round awarded Jan 2026; next round not yet announced", "fit": "Strong on size and mission: local food businesses within 250 miles of Chicago.", "source": "https://cookcountypublichealth.org/2026/01/20/local-farms-and-food-businesses-receive-nearly-700000-in-grants-to-help-make-metro-chicago-food-system-more-equitable/"}, {"program": "Chicago Neighborhood Market Grant", "funder": "City of Chicago", "award_range": "Up to $10k", "match": "Not stated", "timing": "Closed Sept 25, 2026", "fit": "Weak: requires a storefront in a low-food-access area.", "source": "https://chicago.suntimes.com/money/2026/08/31/chicago-neighborhood-market-10-000-grants-food-access-south-west-sides"}]};
+(function () {
+  const $ = (s) => document.querySelector(s);
+  const usd = d3.format('$,.0f');
+  const usd2 = d3.format('$,.2f');
+  const compact = (v) => Math.abs(v) >= 10000 ? '$' + d3.format('.3~s')(v) : usd(v);
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  let LV = 'mid';
+
+  /* ---------- derived figures ---------- */
+  const total = DATA.pl.find((r) => r.month === 'Season total');
+  const ask = DATA.uof.reduce((s, r) => s + r.amount, 0);
+  const ratio = total.farm_spend / ask;
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  set('f-ask', usd(ask)); set('a-total', usd(ask)); set('c-ask', usd(ask));
+  set('f-farm', usd(total.farm_spend)); set('f-ratio', usd2(ratio)); set('a-ratio', usd2(ratio));
+  set('a-match', usd(Math.round(ask * 0.25)));
+  set('s-rev', usd(total.revenue)); set('s-op', usd(total.operating_profit)); set('s-hr', usd2(total.profit_per_hour));
+  set('s-farm', usd(total.farm_spend));
+  set('s-orders', `${d3.format(',')(total.orders)} orders + ${total.gift_boxes} gift boxes`);
+  set('s-hours', `${d3.format(',')(total.founder_hours)} hours over 8 months`);
+
+  const br = (id, lv) => DATA.branches.find((r) => r.branch_id === id && r.level === lv);
+  [['t-a', 'A', 'mid'], ['t-b', 'B', 'mid'], ['t-c', 'C', 'mid']].forEach(([el, id, lv]) => {
+    const r = br(id, lv); set(el, usd(r.profit_per_hour) + '/hr'); set(el + '-sub', `${r.volume} orders/day · ${usd(r.weekly_profit)} a week`);
+  });
+
+  /* ---------- pilot ---------- */
+  set('p-aov', usd(PILOT.avg_order)); set('p-aov-sub', `Model assumes ${usd2(PILOT.model_avg_order)}`);
+  set('p-orders', String(PILOT.orders)); set('p-orders-sub', `${PILOT.paid_orders} paid so far · ${usd(PILOT.order_value_total)} ordered`);
+  set('p-visitors', '~' + PILOT.unique_visitors); set('p-visitors-sub', `${PILOT.visits} visits in ${PILOT.window.replace(', 2026', '')}`);
+  set('p-cart', `${PILOT.orders} of ${PILOT.cart_visitors}`); set('p-cart-sub', 'Visitors who added to cart, then ordered');
+
+  /* ---------- branch-off filter ---------- */
+  document.querySelectorAll('#beyond [data-h]').forEach((b) => { if (b.tagName !== 'BUTTON') return; b.addEventListener('click', () => {
+    const h = b.dataset.h;
+    document.querySelectorAll('#beyond button[data-h]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    document.querySelectorAll('#ideas .idea').forEach((c) => { c.hidden = !(h === 'all' || c.dataset.h === h); });
+  }); });
+
+  /* ---------- tooltips ---------- */
+  function tipFor(box) {
+    let t = box.querySelector('.tip');
+    if (!t) { t = document.createElement('div'); t.className = 'tip'; t.hidden = true; box.appendChild(t); }
+    return {
+      show(e, lines) {
+        t.replaceChildren(...lines.map((l, i) => { const d = document.createElement('div'); if (i === 0) d.style.fontWeight = '700'; d.textContent = l; return d; }));
+        t.hidden = false;
+        const r = box.getBoundingClientRect();
+        let x = e.clientX - r.left + 12, y = e.clientY - r.top + 12;
+        if (x + t.offsetWidth > r.width) x = Math.max(0, e.clientX - r.left - t.offsetWidth - 12);
+        if (y + t.offsetHeight > r.height) y = Math.max(0, r.height - t.offsetHeight);
+        t.style.left = x + 'px'; t.style.top = y + 'px';
+      },
+      hide() { t.hidden = true; }
+    };
+  }
+  const legend = (id, items) => { $(id).replaceChildren(...items.map(([l, c]) => { const s = document.createElement('span'); const i = document.createElement('i'); i.style.background = c; s.append(i, document.createTextNode(l)); return s; })); };
+
+  /* ---------- branch tree ---------- */
+  const MAP = [
+    { id: 'A', parent: '', name: 'Pilot as-is', kind: 'now' },
+    { id: 'B', parent: 'A', name: 'Wholesale sourcing', kind: 'fix' },
+    { id: 'E', parent: 'A', name: 'Holiday gift boxes', kind: 'seasonal' },
+    { id: 'C', parent: 'B', name: 'One zone + office drops', kind: 'fix' },
+    { id: 'D', parent: 'C', name: 'Subscriptions + helper', kind: 'grow' },
+    { id: 'F', parent: 'C', name: 'Food hub', kind: 'pivot' }
+  ];
+  const KIND = () => ({ now: ['Where it is', css('--muted')], fix: ['Fix the model', css('--leaf')], seasonal: ['Seasonal add-on', css('--accent-soft')], grow: ['Grow it', css('--fg')], pivot: ['Change the model', css('--accent')] });
+
+  function drawTree() {
+    const el = $('#tree'); if (!el.offsetParent) return;
+    el.querySelectorAll('svg').forEach((s) => s.remove());
+    const K = KIND();
+    legend('#tree-legend', Object.values(K).map(([l, c]) => [l, c]));
+    const root = d3.stratify().id((d) => d.id).parentId((d) => d.parent || null)(MAP);
+    const W = el.clientWidth || 800, horiz = W >= 640, pad = 6, depth = root.height + 1;
+    let nw, nh, H;
+    if (horiz) { nw = Math.min(210, (W - pad * 2 - (depth - 1) * 36) / depth); nh = 92; H = 360; d3.tree().size([H - nh - pad * 2, W - nw - pad * 2])(root); root.each((n) => { const t = n.x; n.x = n.y + pad; n.y = t + pad; }); }
+    else { nw = Math.min(160, (W - pad * 2 - 14) / 3); nh = 96; H = depth * (nh + 40); d3.tree().size([W - nw - pad * 2, H - nh - pad * 2])(root); root.each((n) => { n.x += pad; n.y += pad; }); }
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${W} ${H}`);
+    const link = horiz ? d3.linkHorizontal().source((l) => [l.source.x + nw, l.source.y + nh / 2]).target((l) => [l.target.x, l.target.y + nh / 2])
+                       : d3.linkVertical().source((l) => [l.source.x + nw / 2, l.source.y + nh]).target((l) => [l.target.x + nw / 2, l.target.y]);
+    svg.append('g').selectAll('path').data(root.links()).join('path').attr('d', link).attr('fill', 'none').attr('stroke', css('--fg')).attr('stroke-width', 1.5).attr('stroke-dasharray', '4 4');
+    const tip = tipFor(el);
+    const g = svg.append('g').selectAll('g').data(root.descendants()).join('g').attr('transform', (n) => `translate(${n.x},${n.y})`);
+    g.append('rect').attr('width', nw).attr('height', nh).attr('rx', 8).attr('fill', css('--bg')).attr('stroke', (n) => K[n.data.kind][1]).attr('stroke-width', 2.5);
+    const maxC = Math.floor((nw - 20) / 7.4);
+    g.each(function (n) {
+      const words = n.data.name.split(' '); const lines = []; let cur = '';
+      words.forEach((w) => { if ((cur + ' ' + w).trim().length > maxC && cur) { lines.push(cur); cur = w; } else cur = (cur + ' ' + w).trim(); }); if (cur) lines.push(cur);
+      const t = d3.select(this).append('text').attr('x', 12).attr('y', 20).attr('fill', css('--fg')).style('font', '700 13px Figtree, system-ui, sans-serif');
+      lines.slice(0, 2).forEach((l, i) => t.append('tspan').attr('x', 12).attr('dy', i ? 15 : 0).text(l));
+      const r = br(n.data.id, LV); const y = 20 + Math.min(2, lines.length) * 15 + 20;
+      d3.select(this).append('text').attr('x', 12).attr('y', y).attr('fill', n.data.kind === 'pivot' || n.data.kind === 'fix' ? K[n.data.kind][1] : css('--fg')).style('font', '22px "Bowlby One", "Arial Black", sans-serif').text(usd(r.profit_per_hour) + '/hr');
+      d3.select(this).append('text').attr('x', 12).attr('y', Math.min(nh - 8, y + 17)).attr('fill', css('--muted')).style('font', '11px "IBM Plex Mono", monospace').text(`${d3.format(',')(r.volume)} ${r.volume_unit.replace('orders per ', '/').replace('boxes per 6-week season', 'boxes/season')}`);
+    });
+    g.on('mousemove', (e, n) => { const r = br(n.data.id, LV); tip.show(e, [n.data.name, `${usd(r.profit_per_hour)} per hour`, `${usd(r.weekly_profit)} per week`, `${d3.format(',')(r.volume)} ${r.volume_unit}`]); }).on('mouseleave', () => tip.hide());
+  }
+
+  /* ---------- calculator ---------- */
+  const REV = 47.30, COST = 32.25;
+  const ctl = (id) => document.getElementById(id);
+  const presets = {
+    pilot: { orders: 15, disc: 0, stops: 3, days: 2, pack: false, help: false },
+    wholesale: { orders: 25, disc: 20, stops: 3, days: 2, pack: true, help: false },
+    zone: { orders: 25, disc: 20, stops: 1, days: 2, pack: true, help: false },
+    scale: { orders: 50, disc: 20, stops: 1, days: 2, pack: true, help: true }
+  };
+  function applyPreset(p) { const v = presets[p]; ctl('c-orders').value = v.orders; ctl('c-disc').value = v.disc; ctl('c-stops').value = v.stops; ctl('c-days').value = v.days; ctl('c-pack').checked = v.pack; ctl('c-help').checked = v.help; calc(); }
+  function calc() {
+    const o = +ctl('c-orders').value, d = +ctl('c-disc').value / 100, s = +ctl('c-stops').value, days = +ctl('c-days').value;
+    const pack = ctl('c-pack').checked, help = ctl('c-help').checked;
+    const cost = COST * (1 - d), per = REV - cost - 1;
+    const helper = help ? Math.max(0, o - 25) * 5 : 0;
+    const miles = 20 + 12.5 * (s - 1);
+    const dayProfit = o * per - helper - miles * 0.70;
+    const hours = 3 + 1.5 * s + o * (pack ? 3 : 6) / 60;
+    const hr = dayProfit / hours;
+    set('o-orders', o); set('o-disc', (d * 100) + '%'); set('o-stops', s); set('o-days', days === 1 ? '1 (Sat only)' : '2 (Wed + Sat)');
+    set('r-hour', usd(hr)); set('r-week', usd(dayProfit * days)); set('r-week-sub', `${days} market day${days > 1 ? 's' : ''}`);
+    set('r-per', usd2(per - (o ? helper / o : 0))); set('r-margin', d3.format('.1%')((REV - cost) / REV));
+    set('r-hours', d3.format('.1f')(hours)); set('r-farm', usd(o * cost * days));
+    const pct = Math.max(0, Math.min(1, hr / 140));
+    ctl('r-meter').style.width = (pct * 100) + '%';
+    const base = br('A', 'mid').profit_per_hour;
+    ctl('r-mark').style.left = (base / 140 * 100) + '%';
+    set('r-meter-note', `Line marks the pilot today (${usd(base)}/hr). ${hr >= 30 ? 'Clears the $30/hr milestone.' : 'Below the $30/hr milestone.'}`);
+  }
+  ['c-orders', 'c-disc', 'c-stops', 'c-days', 'c-pack', 'c-help'].forEach((id) => ctl(id).addEventListener('input', calc));
+  document.querySelectorAll('[data-preset]').forEach((b) => b.addEventListener('click', () => applyPreset(b.dataset.preset)));
+  calc();
+
+  /* ---------- horizontal bars ---------- */
+  function hbars(sel, rows, label, series, fmt) {
+    const el = $(sel); if (!el.offsetParent) return;
+    el.querySelectorAll('svg').forEach((s) => s.remove());
+    const W = el.clientWidth || 400, gh = series.length > 1 ? 50 : 34, H = rows.length * gh + 6;
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${W} ${H}`);
+    const probe = svg.append('text').style('font', '12px Figtree, sans-serif');
+    let L = 0, R = 0; rows.forEach((r) => { probe.text(r[label]); L = Math.max(L, probe.node().getComputedTextLength()); series.forEach((s) => { probe.text(fmt(r[s.f])); R = Math.max(R, probe.node().getComputedTextLength()); }); });
+    probe.remove(); L += 10; R += 8;
+    const max = d3.max(rows, (r) => d3.max(series, (s) => r[s.f])) || 1;
+    const x = d3.scaleLinear([0, max], [L, Math.max(L + 20, W - R)]);
+    const y0 = d3.scaleBand(rows.map((r) => r[label]), [2, H - 2]).padding(0.22);
+    const y1 = d3.scaleBand(series.map((s) => s.f), [0, y0.bandwidth()]).padding(0.1);
+    const tip = tipFor(el);
+    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r) => `translate(0,${y0(r[label])})`);
+    g.append('text').attr('x', L - 10).attr('y', y0.bandwidth() / 2).attr('dy', '.35em').attr('text-anchor', 'end').attr('fill', css('--muted')).style('font', '12px Figtree, sans-serif').text((r) => r[label]);
+    series.forEach((s) => {
+      g.append('rect').attr('x', L).attr('y', y1(s.f)).attr('height', y1.bandwidth()).attr('width', (r) => Math.max(2, x(r[s.f]) - L)).attr('rx', 4).attr('fill', css(s.c));
+      g.append('text').attr('x', (r) => x(r[s.f]) + 5).attr('y', y1(s.f) + y1.bandwidth() / 2).attr('dy', '.35em').attr('fill', css('--fg')).style('font', '12px "IBM Plex Mono", monospace').text((r) => fmt(r[s.f]));
+    });
+    g.on('mousemove', (e, r) => tip.show(e, [r[label], ...series.map((s) => `${s.l}: ${usd(r[s.f])}`)])).on('mouseleave', () => tip.hide());
+  }
+
+  function drawCBA() {
+    legend('#cba-legend', [['First-year cost', css('--muted')], ['Yearly profit', css('--leaf')]]);
+    const rows = DATA.cba.map((r) => Object.assign({}, r, { cost: r.one_time_cost + r.yearly_fixed_cost }));
+    hbars('#cba-chart', rows, 'branch', [{ f: 'cost', l: 'First-year cost', c: '--muted' }, { f: 'yearly_profit', l: 'Yearly profit', c: '--leaf' }], compact);
+    hbars('#farm-chart', DATA.cba.slice().sort((a, b) => a.farm_spend_per_year - b.farm_spend_per_year), 'branch', [{ f: 'farm_spend_per_year', l: 'To farms per year', c: '--accent' }], compact);
+  }
+  const tb = $('#cba-table tbody');
+  tb.replaceChildren(...DATA.cba.map((r) => { const tr = document.createElement('tr');
+    [r.branch, usd(r.one_time_cost), usd(r.yearly_fixed_cost), usd(r.yearly_profit), r.benefit_cost_ratio == null ? 'No cost' : r.benefit_cost_ratio.toFixed(2) + '×', r.payback_weeks == null ? '—' : r.payback_weeks === 0 ? 'Immediate' : r.payback_weeks + ' wks']
+      .forEach((v, i) => { const td = document.createElement('td'); if (i) td.className = 'r'; td.textContent = v; tr.appendChild(td); }); return tr; }));
+
+  /* ---------- season P&L ---------- */
+  function drawPL() {
+    const el = $('#pl-chart'); if (!el.offsetParent) return;
+    el.querySelectorAll('svg').forEach((s) => s.remove());
+    legend('#pl-legend', [['Revenue', css('--muted')], ['Operating profit', css('--accent')]]);
+    const rows = DATA.pl.filter((r) => r.month !== 'Season total');
+    const W = el.clientWidth || 600, H = 270;
+    const svg = d3.select(el).append('svg').attr('viewBox', `0 0 ${W} ${H}`);
+    const y = d3.scaleLinear([0, d3.max(rows, (r) => r.revenue)], [H - 26, 10]).nice();
+    const probe = svg.append('text').style('font', '12px "IBM Plex Mono", monospace');
+    let L = 0; y.ticks(4).forEach((t) => { probe.text(compact(t)); L = Math.max(L, probe.node().getComputedTextLength()); }); probe.remove(); L += 10;
+    const x0 = d3.scaleBand(rows.map((r) => r.month), [L, W - 2]).padding(0.25);
+    const x1 = d3.scaleBand(['revenue', 'operating_profit'], [0, x0.bandwidth()]).padding(0.08);
+    svg.append('g').selectAll('line').data(y.ticks(4)).join('line').attr('x1', L).attr('x2', W - 2).attr('y1', y).attr('y2', y).attr('stroke', css('--grid'));
+    svg.append('g').selectAll('text').data(y.ticks(4)).join('text').attr('x', L - 8).attr('y', y).attr('dy', '.35em').attr('text-anchor', 'end').attr('fill', css('--muted')).style('font', '12px "IBM Plex Mono", monospace').text(compact);
+    svg.append('g').selectAll('text').data(rows).join('text').attr('x', (r) => x0(r.month) + x0.bandwidth() / 2).attr('y', H - 6).attr('text-anchor', 'middle').attr('fill', css('--muted')).style('font', '12px Figtree, sans-serif').text((r) => r.month.slice(0, 3));
+    const tip = tipFor(el);
+    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r) => `translate(${x0(r.month)},0)`);
+    [['revenue', '--muted'], ['operating_profit', '--accent']].forEach(([f, c]) => g.append('rect').attr('x', x1(f)).attr('width', x1.bandwidth()).attr('y', (r) => y(Math.max(0, r[f]))).attr('height', (r) => Math.max(1, Math.abs(y(r[f]) - y(0)))).attr('rx', 3).attr('fill', css(c)));
+    g.append('rect').attr('width', x0.bandwidth()).attr('height', H).attr('fill', 'transparent')
+      .on('mousemove', (e, r) => tip.show(e, [r.month, `Revenue ${usd(r.revenue)}`, `Operating profit ${usd(r.operating_profit)}`, `${r.orders} orders · ${r.gift_boxes} gift boxes`])).on('mouseleave', () => tip.hide());
+  }
+
+  /* ---------- infrastructure ---------- */
+  function fillInfra() {
+    const cols = ['component', 'pilot', 'low', 'mid', 'high'];
+    $('#infra-table tbody').replaceChildren(...DATA.infra.map((r) => { const tr = document.createElement('tr'); cols.forEach((c) => { const td = document.createElement('td'); td.textContent = r[c]; if (c === 'component') td.style.fontWeight = '700'; tr.appendChild(td); }); return tr; }));
+    document.querySelectorAll('#infra-table tr').forEach((tr) => [...tr.children].forEach((c, i) => c.classList.toggle('on', cols[i] === LV)));
+  }
+
+  /* ---------- use of funds ---------- */
+  function drawUOF() {
+    const by = d3.rollups(DATA.uof, (v) => d3.sum(v, (r) => r.amount), (r) => r.category).map(([category, amount]) => ({ category, amount })).sort((a, b) => b.amount - a.amount);
+    hbars('#uof-chart', by, 'category', [{ f: 'amount', l: 'Amount', c: '--leaf' }], usd);
+  }
+  $('#uof-table tbody').replaceChildren(...DATA.uof.map((r) => { const tr = document.createElement('tr'); [r.item, r.phase, usd(r.amount)].forEach((v, i) => { const td = document.createElement('td'); if (i === 2) td.className = 'r'; td.textContent = v; tr.appendChild(td); }); return tr; }),
+    (() => { const tr = document.createElement('tr'); tr.className = 'total'; ['Total', '', usd(ask)].forEach((v, i) => { const td = document.createElement('td'); if (i === 2) td.className = 'r'; td.textContent = v; tr.appendChild(td); }); return tr; })());
+
+  /* ---------- level toggles ---------- */
+  document.querySelectorAll('[data-lv]').forEach((b) => b.addEventListener('click', () => { LV = b.dataset.lv; syncLevel(); drawTree(); fillInfra(); }));
+  function syncLevel() { document.querySelectorAll('[data-lv]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lv === LV))); }
+
+  /* ---------- deck navigation ---------- */
+  const app = $('#app');
+  const slides = [...document.querySelectorAll('.slide')];
+  const jump = $('#jump');
+  slides.forEach((s, i) => jump.appendChild(new Option(`${i + 1}. ${s.dataset.title}`, String(i))));
+  let cur = 0;
+  function drawAll() { drawTree(); drawCBA(); drawPL(); drawUOF(); }
+  function go(i, push) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, j) => s.classList.toggle('on', j === cur));
+    $('#prev').disabled = cur === 0; $('#next').disabled = cur === slides.length - 1;
+    jump.value = String(cur); set('count', `${cur + 1} / ${slides.length}`);
+    $('#prog').style.width = ((cur + 1) / slides.length * 100) + '%';
+    if (push !== false) { try { history.replaceState(null, '', '#' + slides[cur].id); } catch (e) {} }
+    drawAll();
+    if (app.classList.contains('deck-mode')) window.scrollTo({ top: 0 });
+  }
+  $('#prev').addEventListener('click', () => go(cur - 1));
+  $('#next').addEventListener('click', () => go(cur + 1));
+  jump.addEventListener('change', () => go(+jump.value));
+  document.addEventListener('keydown', (e) => {
+    if (!app.classList.contains('deck-mode')) return;
+    if (e.target.closest('input, select, textarea')) return;
+    if (['ArrowRight', 'PageDown'].includes(e.key) || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); go(cur + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key) || (e.key === ' ' && e.shiftKey)) { e.preventDefault(); go(cur - 1); }
+  });
+  let sx = null;
+  app.addEventListener('touchstart', (e) => { if (!e.target.closest('input, .chart')) sx = e.touches[0].clientX; }, { passive: true });
+  app.addEventListener('touchend', (e) => { if (sx == null || !app.classList.contains('deck-mode')) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 60) go(cur + (dx < 0 ? 1 : -1)); });
+
+  function mode(m) {
+    app.classList.toggle('deck-mode', m === 'deck'); app.classList.toggle('page-mode', m === 'page');
+    $('#mode-deck').setAttribute('aria-pressed', String(m === 'deck')); $('#mode-page').setAttribute('aria-pressed', String(m === 'page'));
+    try { localStorage.setItem('pup-mode', m); } catch (e) {}
+    drawAll();
+  }
+  $('#mode-deck').addEventListener('click', () => mode('deck'));
+  $('#mode-page').addEventListener('click', () => mode('page'));
+
+  fillInfra(); syncLevel();
+  const start = slides.findIndex((s) => s.id === location.hash.slice(1));
+  let saved = 'deck'; try { saved = localStorage.getItem('pup-mode') || 'deck'; } catch (e) {}
+  mode(saved === 'page' ? 'page' : 'deck');
+  go(start >= 0 ? start : 0, false);
+  if (saved === 'page' && start >= 0) slides[start].scrollIntoView();
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(drawAll, 150); });
+  const mq = window.matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', drawAll);
+  new MutationObserver(drawAll).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+</script>
+</body>
+</html>
