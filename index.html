@@ -326,7 +326,9 @@ details.terms[open] summary::after{content:"−"}
     <nav class="row tabs" role="tablist" aria-label="Menu sections">
       <button class="tab" role="tab" aria-selected="true" data-go="meat">Meat, fish &amp; eggs</button>
       <button class="tab" role="tab" aria-selected="false" data-go="bread">Bread &amp; bakery</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="cheese">Cheese</button>
       <button class="tab" role="tab" aria-selected="false" data-go="pantry">Pantry</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="flowers">Flowers</button>
     </nav>
     <div class="bin" id="meat">
       <h3>Meat, fish &amp; eggs</h3>
@@ -339,10 +341,19 @@ details.terms[open] summary::after{content:"−"}
       <div class="row boxes" id="breadboxes"></div>
       <div class="items" data-cat="bread"></div>
     </div>
+    <div class="bin" id="cheese">
+      <h3>Cheese</h3>
+      <p class="sub">Farmstead and cave-aged cheeses from small creameries in Illinois and Indiana. Kept cold from the stand to your handoff.</p>
+      <div class="items" data-cat="cheese"></div>
+    </div>
     <div class="bin" id="pantry">
       <h3>Pantry</h3>
       <p class="sub">Small-batch staples from orchards and farm kitchens. They keep, so stock up.</p>
       <div class="items" data-cat="pantry"></div>
+    </div>
+    <div class="bin" id="flowers">
+      <h3>Flowers</h3>
+      <p class="soon">Coming soon: seasonal bouquets from a local flower farm.</p>
     </div>
   </section>
 
@@ -354,6 +365,7 @@ details.terms[open] summary::after{content:"−"}
       <li><b>Food-safety trained</b>Produce Safety Alliance certified. Your order stays cool, clean and separate from purchase to handoff.</li>
       <li><b>One person you can text</b>No call center. You text the person who shopped for you.</li>
       <li><b>Quality guaranteed</b>If anything isn't right, tell us at handoff and we make it right.</li>
+      <li><b>No season commitment</b>Many farm shares ask you to pay for a whole season up front. Here you pay one order at a time, pick what you want, and skip any week.</li>
       <li><b>You can't lose money</b>Anything we can't get becomes a credit or a refund, your choice.</li>
     </ul>
     <p class="fomo"><b>Pilot spots are limited.</b> We only take as many orders as one person can hand-pick well, and the season ends November 21. When a market day fills, it's full.</p>
@@ -458,7 +470,9 @@ const BOXES=[
   {id:"halfpeck",name:"Half Peck",price:50,wt:"~9–10 lb",desc:"A week of sides and a couple of mains for two.",pick:"Most popular",
    has:["2 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","1 bunch kale","1 delicata squash"]},
   {id:"crate",name:"Full Crate",price:72,wt:"~14–15 lb",desc:"A full week of cooking for a household.",pick:"",
-   has:["4 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","Butternut squash","Brussels sprouts","Kale + collards"]}
+   has:["4 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","Butternut squash","Brussels sprouts","Kale + collards"]},
+  {id:"forever",name:"Foreverbox",price:68,wt:"~9 lb",desc:"Fully plant-based and all local. No dairy, egg, honey or fish sauce; swaps stay plant-based and local.",pick:"New · Plant-based",
+   has:["½ lb local mushrooms (or another local mushroom)","1 block local tofu (or local beans/grains)","2 lb sweet potatoes (or potatoes)","1 winter squash (or pie pumpkin)","Kale or collards (or chard, cabbage)","Onions + garlic (or leeks, shallots)","2 lb orchard apples (or pears)","Microgreens (or salad greens)"]}
 ];
 const PREFS=["Apples","Winter squash","Sweet potatoes","Kale & greens","Beets","Cabbage","Brussels sprouts","Onions & garlic","Peppers","Potatoes","Microgreens","Herbs"];
 const BREADBOXES=[
@@ -494,6 +508,12 @@ const ITEMS={
     {id:"bagels",nm:"Bagels, 4-pack",ds:"e.g. everything, sesame, Asiago, pretzel",p:15},
     {id:"pastry",nm:"Pastry",ds:"Each · e.g. croissant, scone, danish, muffin, monkey bun",p:8},
     {id:"cookie",nm:"Big cookie",ds:"Each · e.g. chocolate chip, sprinkle, oatmeal raisin",p:6}
+  ],
+  cheese:[
+    {id:"chevre",nm:"Fresh goat cheese",ds:"e.g. herbed chèvre, or feta with herbs in oil",p:14},
+    {id:"farmstead",nm:"Aged farmstead cheese",ds:"Wedge · e.g. goat's milk toma, Jersey cow tomme, cheddar-style blue",p:20},
+    {id:"cheddar",nm:"Cave-aged cheddar",ds:"Wedge · from an Illinois dairy farm",p:20},
+    {id:"brie",nm:"Bloomy-rind cheese, 7 oz",ds:"e.g. brie or camembert, cave-aged",p:26}
   ],
   pantry:[
     {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
@@ -783,8 +803,7 @@ document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{
 document.getElementById("barGo").addEventListener("click",()=>document.getElementById("checkout").scrollIntoView({behavior:"smooth",block:"start"}));
 document.addEventListener("click",e=>{if(e.target.closest('a[href="#terms"]'))document.getElementById("terms").open=true});
 
-/* Open in a realistic working state: Half Peck selected as an example pick. */
-state.box="halfpeck";
+/* Open with an empty cart: nothing is pre-selected. */
 
 /* Live Chicago date/time and next order deadline */
 function tickNow(){
@@ -804,7 +823,7 @@ const PHOTOS={"Grapes":WM+"7/7b/Concord_grapes.jpg/330px-Concord_grapes.jpg","Po
   "Apples": "img/apples.jpg", "Pears": "img/pears.jpg", "Winter squash": "img/squash.jpg", "Pumpkins": "img/pumpkins.jpg", "Sweet potatoes": "img/sweetpotato.jpg", "Brussels sprouts": "img/brussels.jpg", "Beets": "img/beets.jpg", "Carrots": "img/carrots.jpg"};
 const SEASON={
   9:{t:"September harvest",items:["Tomatoes","Sweet corn","Peppers","Eggplant","Melons","Apples","Pears","Grapes","Green beans","Summer squash","Kale","Potatoes","Onions","Herbs"]},
-  10:{t:"October harvest",items:["Apples","Pears","Grapes","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Cabbage","Cauliflower","Beets","Carrots","Radishes","Leeks & onions","Garlic","Fennel","Last peppers"]},
+  10:{t:"October harvest",items:["Apples","Pears","Grapes","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Cabbage","Cauliflower","Beets","Carrots","Radishes","Leeks & onions","Garlic","Fennel","Last peppers","Microgreens","Herbs","Fresh apple cider"]},
   11:{t:"November harvest",items:["Apples","Pears","Winter squash","Sweet potatoes","Potatoes","Brussels sprouts","Kale","Cabbage","Beets","Carrots","Parsnips","Turnips & rutabaga","Leeks & onions","Garlic","Celery root","Spinach","Microgreens"]},
   12:{t:"Winter market",items:["Storage apples","Winter squash","Potatoes","Sweet potatoes","Onions","Garlic","Carrots","Beets","Cabbage","Microgreens","Mushrooms"]}
 };
@@ -815,7 +834,7 @@ const FROM={
   "Brussels sprouts":"N. Illinois · SW Michigan","Kale & collards":"N. Illinois · Chicagoland urban farms","Kale":"N. Illinois · Chicagoland urban farms","Cabbage":"N. Illinois · S. Wisconsin","Cauliflower":"N. Illinois · SW Michigan",
   "Beets":"N. Illinois · S. Wisconsin","Carrots":"N. Illinois · S. Wisconsin","Radishes":"N. Illinois · Chicagoland urban farms","Parsnips":"S. Wisconsin · N. Illinois","Turnips & rutabaga":"S. Wisconsin · N. Illinois","Celery root":"N. Illinois",
   "Leeks & onions":"N. Illinois · S. Wisconsin","Onions":"N. Illinois · S. Wisconsin","Garlic":"N. Illinois · S. Wisconsin","Fennel":"N. Illinois","Last peppers":"N. Illinois · NW Indiana","Peppers":"N. Illinois · NW Indiana",
-  "Spinach":"N. Illinois hoop houses","Microgreens":"Chicagoland urban growers","Mushrooms":"Chicagoland growers","Herbs":"Chicagoland urban farms",
+  "Spinach":"N. Illinois hoop houses","Fresh apple cider":"SW Michigan · N. Illinois orchards","Microgreens":"Chicagoland urban growers","Mushrooms":"Chicagoland growers","Herbs":"Chicagoland urban farms",
   "Tomatoes":"N. Illinois · NW Indiana","Sweet corn":"N. Illinois · NW Indiana","Eggplant":"N. Illinois","Green beans":"N. Illinois · SW Michigan","Summer squash":"N. Illinois"
 };
 (function(){

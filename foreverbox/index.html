@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Foreverbox Soundcheck</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Layout: a one-screen game. A setlist of tracks (box slots) deals choice cards, a crowd meter fills, the encore adds extras, the finale prints the setlist. A "Make your own" panel edits the setlist and makes a share link. */
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--line:#d6c9ae;--chip:#e3d6bb;
+  --leaf:#2f6b3f;--leaf-ink:#ffffff;--tomato:#c4432b;--stage:#24392c;--stage-ink:#f4ecd9;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--line:#38443a;--chip:#2c362f;
+  --leaf:#79b98a;--leaf-ink:#0f1a12;--tomato:#e3654c;--stage:#2c4535;--stage-ink:#f4ecd9;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--line:#38443a;--chip:#2c362f;
+  --leaf:#79b98a;--leaf-ink:#0f1a12;--tomato:#e3654c;--stage:#2c4535;--stage-ink:#f4ecd9;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+.wrap{max-width:620px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:400 clamp(34px,9vw,50px)/1 var(--display);margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h2{font:400 clamp(26px,7vw,34px)/1.05 var(--display);margin:0;text-wrap:balance;overflow-wrap:anywhere}
+h3{margin:0;font-size:17px}
+p{margin:0}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.ghost{font:700 14px var(--body);min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.ghost[aria-expanded="true"]{background:var(--ink);color:var(--bg)}
+.meter{display:flex;flex-direction:column;gap:6px}
+.meter-row{display:flex;justify-content:space-between;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.bars{display:grid;gap:4px;align-items:end;height:30px}
+.bars i{display:block;background:var(--chip);border-radius:3px;height:30%}
+.bars i.on{background:var(--leaf)}
+.bars i.now{background:var(--tomato)}
+.stage{background:var(--stage);color:var(--stage-ink);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.stage .eyebrow{color:var(--stage-ink);opacity:.8}
+.stage h2{color:var(--stage-ink)}
+.deck{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.card{font:700 16px var(--body);text-align:left;min-height:84px;padding:14px;border-radius:14px;border:2px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;gap:6px;overflow-wrap:anywhere}
+.card small{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.card[aria-pressed="true"]{border-color:var(--leaf);background:var(--leaf);color:var(--leaf-ink)}
+.card[aria-pressed="true"] small{color:var(--leaf-ink)}
+.card.wild{border-style:dashed;background:transparent;color:var(--stage-ink);border-color:var(--stage-ink)}
+.card.wild small{color:var(--stage-ink)}
+.card:focus-visible,button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+.wildpick{display:flex;flex-direction:column;gap:6px}
+.wildpick label{font-weight:700;font-size:14px}
+select,textarea,input[type=text],input[type=number],input[type=url]{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px;width:100%;box-sizing:border-box}
+textarea{min-height:90px;resize:vertical}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.btn{font:700 16px var(--body);min-height:50px;padding:0 20px;border-radius:12px;border:2px solid var(--stage-ink);background:transparent;color:var(--stage-ink);cursor:pointer}
+.btn.go{background:var(--stage-ink);color:var(--stage)}
+.btn[disabled]{opacity:.4;cursor:default}
+.rules{background:var(--chip);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.45}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-weight:700;font-size:14px}
+.hint{font-size:13px;color:var(--muted)}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:460px){.row2{grid-template-columns:minmax(0,1fr)}}
+.addon{display:flex;gap:10px;align-items:center;min-height:48px;border:2px solid var(--stage-ink);border-radius:12px;padding:0 14px;font-size:15px;cursor:pointer}
+.addon input{width:20px;height:20px;accent-color:var(--leaf)}
+.addon em{margin-left:auto;font-style:normal;opacity:.8}
+.setlist{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;counter-reset:t}
+.setlist li{display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:8px;padding:9px 0;border-bottom:1px dashed var(--line);counter-increment:t}
+.stage .setlist li{border-bottom-color:rgba(244,236,217,.35)}
+.setlist li::before{content:counter(t,decimal-leading-zero);font:500 13px var(--mono);opacity:.75;padding-top:2px}
+.setlist b{display:block}
+.setlist span{font-size:14px;opacity:.85}
+.total{display:flex;justify-content:space-between;font-weight:700;font-variant-numeric:tabular-nums;gap:10px;flex-wrap:wrap}
+.status{font-size:14px}
+.howto{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px}
+.howto summary{font-weight:700;cursor:pointer;min-height:28px}
+.howto ol{margin:10px 0 8px;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+.num{user-select:all;font-family:var(--mono)}
+.stage a{color:var(--stage-ink);font-weight:700}
+/* editor */
+.editor{background:var(--panel);border:2px solid var(--ink);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.tr{border:1.5px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.tr-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.tr-head span{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mini{display:flex;gap:6px;flex-wrap:wrap}
+.mini button,.ed-actions button{font:600 14px var(--body);min-height:40px;padding:0 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.ed-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ed-actions button.main{background:var(--leaf);border-color:var(--leaf);color:var(--leaf-ink)}
+.share{display:flex;flex-direction:column;gap:6px}
+.share output{display:block;font:500 12px var(--mono);word-break:break-all;background:var(--bg);border:1.5px dashed var(--line);border-radius:10px;padding:10px;user-select:all;max-height:7em;overflow:auto}
+@media (prefers-reduced-motion:no-preference){
+  .stage{animation:in .25s ease-out}
+  @keyframes in{from{transform:translateY(6px);opacity:.6}to{transform:none;opacity:1}}
+  .card{transition:background .15s,border-color .15s}
+}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <div class="topbar">
+      <span class="eyebrow" id="eyebrow">Posted Up Produce</span>
+      <button type="button" class="ghost" id="toggleEd" aria-expanded="false" aria-controls="editor">Make your own</button>
+    </div>
+    <h1 id="title">Soundcheck</h1>
+    <p id="intro"></p>
+    <div class="rules" id="rules"></div>
+    <details class="howto" open>
+      <summary>How to play</summary>
+      <ol>
+        <li><b>Each track is one thing in your box.</b> The green card is what's planned. Tap another card to swap it.</li>
+        <li><b>Want something else?</b> Tap <i>Wild card</i> and pick a swap from the list.</li>
+        <li><b>Tap Lock it in</b> to move to the next track. The crowd meter fills as you go, and Back lets you change your mind.</li>
+        <li><b>Encore:</b> tell me what you'd love to see, add the extra if you want it, and pick your show date and venue (pickup day and meet-up spot).</li>
+        <li><b>Print the setlist</b>, tap <i>Copy my setlist</i>, and text it to <span class="num">773-807-9223</span>. I'll confirm and send payment details.</li>
+      </ol>
+      <p class="hint">Your picks stay on your device until you text them. Want your own version? Tap <i>Make your own</i> at the top.</p>
+    </details>
+  </header>
+
+  <section class="editor" id="editor" hidden aria-labelledby="edH">
+    <h2 id="edH" style="color:var(--ink)">Make your own box</h2>
+    <p class="hint">Name your box, set the tracks and swaps, then copy the box code and text it to your crew. They open this page, tap Make your own, and paste the code. Changes show up in the game right away. Prices are set by Posted Up for real orders; we confirm every custom box by text before you pay.</p>
+    <div class="row2">
+      <div class="field"><label for="e-box">Box name</label><input type="text" id="e-box" maxlength="40"></div>
+      <div class="field"><label for="e-for">Made for</label><input type="text" id="e-for" maxlength="40" placeholder="your band, crew or group"></div>
+    </div>
+    <div class="field"><label for="e-intro">One line about it</label><textarea id="e-intro" maxlength="240" style="min-height:64px"></textarea></div>
+    <div class="row2">
+      <div class="field"><label for="e-price">Price ($)</label><input type="number" id="e-price" min="10" max="300" step="1"></div>
+      <div class="field"><label for="e-meet">Meet-up price ($)</label><input type="number" id="e-meet" min="10" max="300" step="1"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px" id="e-tracks"></div>
+    <div class="ed-actions"><button type="button" id="e-addtrack">Add a track</button></div>
+    <div class="field"><label for="e-wild">Wild card swaps (one per line)</label><textarea id="e-wild"></textarea></div>
+    <div class="row2">
+      <div class="field"><label for="e-extra">Encore add-on</label><input type="text" id="e-extra" maxlength="60"></div>
+      <div class="field"><label for="e-extrap">Add-on price ($)</label><input type="number" id="e-extrap" min="0" max="100" step="1"></div>
+    </div>
+    <div class="share">
+      <span class="field"><label>Box code</label></span>
+      <output id="e-link"></output>
+      <div class="ed-actions">
+        <button type="button" class="main" id="e-copy">Copy box code</button>
+        <button type="button" id="e-reset">Start from the Foreverbox</button>
+      </div>
+      <span class="status" id="e-status" role="status"></span>
+    </div>
+    <div class="field"><label for="e-load">Open a box code</label><input type="text" id="e-load" placeholder="Paste a box code here"><span class="hint">Loads someone else's box so you can play it or remix it.</span></div>
+  </section>
+
+  <div class="meter" aria-hidden="true">
+    <div class="meter-row"><span>Crowd meter</span><span id="meterTxt"></span></div>
+    <div class="bars" id="bars"></div>
+  </div>
+
+  <section class="stage" id="stage" aria-live="polite"></section>
+</main>
+
+<script>
+const SITE="https://postedupproduce.github.io/foreverbox/";
+const PHONE="773-807-9223",PHONE_D="7738079223";
+const DEFAULT={v:1,box:"Foreverbox",for:"Foreverband",price:68,meet:61,
+  intro:"Build your plant-based box like a setlist. Every track is local and vegan. Lock in each one, play an encore, then send the final setlist.",
+  tracks:[
+    {n:"Local mushrooms",a:"½ lb",l:"The headliner. Meaty, earthy, does everything.",o:[["Shopper's choice","best of the day"],["Oyster","crispy, seared"],["Shiitake","savory, umami"],["Lion's mane","steak-like"]]},
+    {n:"Local protein",a:"1 item",l:"The rhythm section. Keeps the week steady.",o:[["Tofu block","fresh, local"],["Dried beans","farm-grown"],["Local grains or rice","Midwest-grown"]]},
+    {n:"Roots",a:"2 lb",l:"The bass line. Roast it, mash it, done.",o:[["Sweet potatoes","sweet"],["Potatoes","classic"],["Carrots","bright"],["Beets","deep red"]]},
+    {n:"Winter squash",a:"1",l:"The slow jam. Peak season right now.",o:[["Butternut","smooth"],["Delicata","eat the skin"],["Acorn","stuffable"],["Pie pumpkin","bake it"]]},
+    {n:"Hearty greens",a:"1 bunch",l:"The harmony. Goes in everything.",o:[["Kale","chips or sauté"],["Collards","braise"],["Chard","quick cook"],["Cabbage","slaw or roast"]]},
+    {n:"Onions + garlic",a:"1 bundle",l:"The tuning. Every song starts here.",o:[["Onions + garlic","the standard"],["Leeks + garlic","mellow"],["Shallots + garlic","sharp"]]},
+    {n:"Orchard fruit",a:"2 lb",l:"The hook. Sweet and stuck in your head.",o:[["Apples","crisp"],["Pears","soft, juicy"],["Mix","both"]]},
+    {n:"Something fresh",a:"1",l:"The closer. Green on top of everything.",o:[["Microgreens","clamshell"],["Salad greens","big bag"],["Radishes","crunch"]]}
+  ],
+  wild:["More mushrooms","Extra tofu","Brussels sprouts","Cauliflower","Fennel","Peppers (while they last)","Fresh herbs","Fresh apple cider","Surprise me"],
+  extra:{n:"Local vegan sourdough loaf",p:14}};
+const DAYS=["Wed, Oct 21","Sat, Oct 24","Wed, Oct 28","Sat, Oct 31","Sat, Nov 7","Sat, Nov 14","Sat, Nov 21"];
+const SPOTS=["Goose Island, 1–2 PM","Hyde Park, 3–4 PM","Rogers Park, 5–6 PM"];
+
+/* ---------- config: clean, encode, decode ---------- */
+const str=(v,max)=>typeof v==="string"?v.slice(0,max):"";
+const numIn=(v,lo,hi,d)=>{v=Math.round(Number(v));return Number.isFinite(v)?Math.min(hi,Math.max(lo,v)):d};
+function clean(c){
+  if(!c||typeof c!=="object")return null;
+  const tracks=(Array.isArray(c.tracks)?c.tracks:[]).slice(0,12).map(t=>({
+    n:str(t&&t.n,40)||"Track",a:str(t&&t.a,20),l:str(t&&t.l,120),
+    o:(Array.isArray(t&&t.o)?t.o:[]).slice(0,6).map(o=>[str(Array.isArray(o)?o[0]:o,40),str(Array.isArray(o)?o[1]:"",30)]).filter(o=>o[0])
+  })).filter(t=>t.o.length);
+  if(!tracks.length)return null;
+  return {v:1,box:str(c.box,40)||"Market Box",for:str(c.for,40),price:numIn(c.price,10,300,68),meet:numIn(c.meet,10,300,61),
+    intro:str(c.intro,240),tracks,wild:(Array.isArray(c.wild)?c.wild:[]).slice(0,15).map(w=>str(w,40)).filter(Boolean),
+    extra:{n:str(c.extra&&c.extra.n,60),p:numIn(c.extra&&c.extra.p,0,100,0)}};
+}
+const enc=c=>btoa(unescape(encodeURIComponent(JSON.stringify(c)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+function dec(s){try{s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";return clean(JSON.parse(decodeURIComponent(escape(atob(s)))))}catch(e){return null}}
+const fromUrl=u=>{try{u=String(u).trim();const m=/[?&#]b=([A-Za-z0-9_-]+)/.exec(u);return m?dec(m[1]):(/^[A-Za-z0-9_-]{20,}$/.test(u)?dec(u):null)}catch(e){return null}};
+const link=c=>enc(c);
+
+let C=fromUrl(location.search)||fromUrl(location.hash)||(()=>{try{return clean(JSON.parse(localStorage.getItem("pu-box-draft")||"null"))}catch(e){return null}})()||clean(DEFAULT);
+const saveDraft=()=>{try{localStorage.setItem("pu-box-draft",JSON.stringify(C))}catch(e){}};
+
+/* ---------- game state ---------- */
+let S;
+const keyFor=()=>"pu-box-play-"+enc({b:C.box,f:C.for,n:C.tracks.length}).slice(0,40);
+function loadState(){
+  S={step:0,picks:{},wild:{},wish:"",extra:false,day:DAYS[1],spot:SPOTS[0],locked:{}};
+  try{const s=JSON.parse(localStorage.getItem(keyFor())||"null");if(s&&typeof s==="object")S=Object.assign(S,s)}catch(e){}
+  if(S.step>C.tracks.length+1)S.step=0;
+}
+const save=()=>{try{localStorage.setItem(keyFor(),JSON.stringify(S))}catch(e){}};
+const stage=document.getElementById("stage"),bars=document.getElementById("bars");
+const h=(tag,attrs={},...kids)=>{const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==="on")for(const[ev,fn]of Object.entries(v))e.addEventListener(ev,fn);else if(k in e&&k!=="list")e[k]=v;else e.setAttribute(k,v)}for(const c of kids)if(c!=null)e.append(c);return e};
+const add=(...k)=>stage.append(...k.filter(x=>x!=null));
+const pick=(t,i)=>S.picks[i]||t.o[0][0];
+const N=()=>C.tracks.length;
+const pad=n=>String(n).padStart(2,"0");
+
+function header(){
+  document.getElementById("eyebrow").textContent="Posted Up Produce"+(C.for?" × "+C.for:"");
+  document.getElementById("title").textContent=C.box+" Soundcheck";
+  document.getElementById("intro").textContent=C.intro;
+  const r=document.getElementById("rules");r.textContent="";
+  r.append(h("b",{},"$"+C.price)," · ",N()+" tracks · ",h("b",{},"$"+C.meet)," at a meet-up. Everything is from farms and makers within 150 miles of Chicago. Custom boxes are confirmed by text before you pay.");
+  document.title=C.box+" Soundcheck";
+}
+function meter(){
+  bars.textContent="";bars.style.gridTemplateColumns="repeat("+N()+",minmax(0,1fr))";
+  C.tracks.forEach((t,i)=>{const b=document.createElement("i");if(S.locked[i]){b.className="on";b.style.height=(45+((i*37)%55))+"%"}else if(i===S.step)b.className="now";bars.append(b)});
+  document.getElementById("meterTxt").textContent=Object.keys(S.locked).filter(k=>k<N()).length+" of "+N()+" locked";
+}
+function go(n){S.step=n;save();render();stage.scrollIntoView({block:"nearest"})}
+function track(i){
+  const t=C.tracks[i],cur=pick(t,i);
+  const deck=h("div",{className:"deck",role:"group","aria-label":t.n});
+  t.o.forEach(([o,d],j)=>deck.append(h("button",{type:"button",className:"card","aria-pressed":String(cur===o),on:{click:()=>{S.picks[i]=o;save();render()}}},o,h("small",{},(d||"")+(j===0?(d?" · ":"")+"planned":"")))));
+  let wild=null;
+  if(C.wild.length){
+    deck.append(h("button",{type:"button",className:"card wild","aria-pressed":String(cur==="Wild card"),on:{click:()=>{S.picks[i]="Wild card";save();render()}}},"Wild card",h("small",{},"swap for something else")));
+    if(cur==="Wild card"){
+      const sel=h("select",{id:"wild-"+i,on:{change:e=>{S.wild[i]=e.target.value;save()}}});
+      for(const w of C.wild)sel.append(h("option",{},w));sel.value=S.wild[i]||C.wild[C.wild.length-1];
+      wild=h("div",{className:"wildpick"},h("label",{htmlFor:"wild-"+i},"Play this instead"),sel);
+    }
+  }
+  add(h("span",{className:"eyebrow"},"Track "+pad(i+1)+" of "+pad(N())+(t.a?" · "+t.a:"")),h("h2",{},t.n),t.l?h("p",{},t.l):null,deck,wild,
+    h("div",{className:"nav"},
+      h("button",{type:"button",className:"btn",disabled:i===0,on:{click:()=>go(i-1)}},"Back"),
+      h("button",{type:"button",className:"btn go",on:{click:()=>{S.locked[i]=true;go(i+1)}}},i===N()-1?"Lock it in · encore":"Lock it in")));
+}
+function encore(){
+  const ta=h("textarea",{id:"wish",placeholder:"e.g. more mushrooms, no cilantro, stuff for stir-fry",on:{input:e=>{S.wish=e.target.value;save()}}});ta.value=S.wish;
+  let addon=null;
+  if(C.extra.n){const cb=h("input",{type:"checkbox",id:"extra",on:{change:e=>{S.extra=e.target.checked;save()}}});cb.checked=S.extra;
+    addon=h("label",{className:"addon",htmlFor:"extra"},cb,"Add "+C.extra.n.charAt(0).toLowerCase()+C.extra.n.slice(1),h("em",{},"+$"+C.extra.p));}
+  const day=h("select",{id:"day",on:{change:e=>{S.day=e.target.value;save()}}});for(const d of DAYS)day.append(h("option",{},d));day.value=S.day;
+  const spot=h("select",{id:"spot",on:{change:e=>{S.spot=e.target.value;save()}}});for(const s of SPOTS)spot.append(h("option",{},s));spot.value=S.spot;
+  add(h("span",{className:"eyebrow"},"Encore"),h("h2",{},"If you had to choose"),
+    h("div",{className:"field"},h("label",{htmlFor:"wish"},"What would you love to see in your box?"),ta),addon,
+    h("div",{className:"row2"},h("div",{className:"field"},h("label",{htmlFor:"day"},"Show date"),day),h("div",{className:"field"},h("label",{htmlFor:"spot"},"Venue"),spot)),
+    h("p",{style:"font-size:14px;opacity:.85"},"Order and pay by 9 PM the night before (Zelle or Apple Cash)."),
+    h("div",{className:"nav"},h("button",{type:"button",className:"btn",on:{click:()=>go(N()-1)}},"Back"),h("button",{type:"button",className:"btn go",on:{click:()=>go(N()+1)}},"Print the setlist")));
+}
+const ex=()=>S.extra&&C.extra.n?C.extra.p:0;
+function text(){
+  const L=[C.box+" setlist"+(C.for?" ("+C.for+")":"")];
+  C.tracks.forEach((t,i)=>{const p=pick(t,i);L.push(pad(i+1)+". "+t.n+(t.a?" ("+t.a+")":"")+": "+(p==="Wild card"?"wild card, "+(S.wild[i]||C.wild[C.wild.length-1]):p))});
+  if(ex())L.push("Encore: "+C.extra.n+" (+$"+C.extra.p+")");
+  if(S.wish.trim())L.push("","Would love: "+S.wish.trim());
+  L.push("","Show: "+S.day+" · "+S.spot,"Ticket: $"+(C.price+ex())+" ($"+(C.meet+ex())+" at a meet-up)");
+  if(enc(C)!==enc(clean(DEFAULT)))L.push("Box code: "+link(C));
+  return L.join("\n");
+}
+function finale(){
+  const list=h("ol",{className:"setlist"});
+  C.tracks.forEach((t,i)=>{const p=pick(t,i),w=p==="Wild card";list.append(h("li",{},h("div",{},h("b",{},w?(S.wild[i]||C.wild[C.wild.length-1]):p),h("span",{},t.n+(t.a?" · "+t.a:"")+(w?" · wild card":"")))))});
+  const status=h("span",{className:"status",role:"status"});
+  add(h("span",{className:"eyebrow"},"Final setlist · "+S.day+" · "+S.spot),h("h2",{},C.box),list,
+    ex()?h("p",{},"Encore: "+C.extra.n):null,
+    S.wish.trim()?h("p",{},"Would love: "+S.wish.trim()):null,
+    h("div",{className:"total"},h("span",{},"Ticket"),h("span",{},"$"+(C.price+ex())+" · $"+(C.meet+ex())+" at a meet-up")),
+    h("div",{className:"nav"},
+      h("button",{type:"button",className:"btn",on:{click:()=>go(N())}},"Back"),
+      h("button",{type:"button",className:"btn go",on:{click:async()=>{try{await navigator.clipboard.writeText(text());status.textContent="Copied. Paste it into a text."}catch(e){status.textContent="Copy didn't work here. Long-press the setlist to copy it."}}}},"Copy my setlist")),
+    status,
+    h("p",{style:"font-size:14px"},"Text it to ",h("span",{className:"num"},PHONE),". On a phone you can also try ",h("a",{href:"sms:"+PHONE_D+"?&body="+encodeURIComponent(text())},"opening a text"),"."),
+    h("button",{type:"button",className:"btn",on:{click:()=>{S.locked={};go(0)}}},"Play again"));
+}
+function render(){
+  header();stage.textContent="";
+  if(S.step<N())track(S.step);else if(S.step===N())encore();else finale();
+  meter();
+}
+
+/* ---------- editor ---------- */
+const $=id=>document.getElementById(id);
+const optsToText=o=>o.map(([n,d])=>d?n+" - "+d:n).join("\n");
+const textToOpts=s=>s.split("\n").map(l=>l.trim()).filter(Boolean).slice(0,6).map(l=>{const k=l.indexOf(" - ");return k>0?[l.slice(0,k).trim().slice(0,40),l.slice(k+3).trim().slice(0,30)]:[l.slice(0,40),""]});
+function applyEdit(rebuild){
+  const c=clean(C);if(c){C=c;saveDraft();loadState();render()}
+  $("e-link").textContent=link(C);
+  if(rebuild)buildTracks();
+}
+function buildTracks(){
+  const w=$("e-tracks");w.textContent="";
+  C.tracks.forEach((t,i)=>{
+    const name=h("input",{type:"text",id:"t-n-"+i,maxLength:40,value:t.n,on:{input:e=>{C.tracks[i].n=e.target.value;applyEdit()}}});
+    const amt=h("input",{type:"text",id:"t-a-"+i,maxLength:20,value:t.a,on:{input:e=>{C.tracks[i].a=e.target.value;applyEdit()}}});
+    const line=h("input",{type:"text",id:"t-l-"+i,maxLength:120,value:t.l,on:{input:e=>{C.tracks[i].l=e.target.value;applyEdit()}}});
+    const opts=h("textarea",{id:"t-o-"+i,on:{input:e=>{const o=textToOpts(e.target.value);if(o.length){C.tracks[i].o=o;applyEdit()}}}});opts.value=optsToText(t.o);
+    const mv=(d)=>{const j=i+d;if(j<0||j>=C.tracks.length)return;[C.tracks[i],C.tracks[j]]=[C.tracks[j],C.tracks[i]];applyEdit(true)};
+    w.append(h("div",{className:"tr"},
+      h("div",{className:"tr-head"},h("span",{},"Track "+pad(i+1)),h("div",{className:"mini"},
+        h("button",{type:"button","aria-label":"Move track "+(i+1)+" up",disabled:i===0,on:{click:()=>mv(-1)}},"Up"),
+        h("button",{type:"button","aria-label":"Move track "+(i+1)+" down",disabled:i===C.tracks.length-1,on:{click:()=>mv(1)}},"Down"),
+        h("button",{type:"button","aria-label":"Remove track "+(i+1),disabled:C.tracks.length<2,on:{click:()=>{C.tracks.splice(i,1);applyEdit(true)}}},"Remove"))),
+      h("div",{className:"row2"},h("div",{className:"field"},h("label",{htmlFor:"t-n-"+i},"Name"),name),h("div",{className:"field"},h("label",{htmlFor:"t-a-"+i},"Amount"),amt)),
+      h("div",{className:"field"},h("label",{htmlFor:"t-l-"+i},"Tagline"),line),
+      h("div",{className:"field"},h("label",{htmlFor:"t-o-"+i},"Choices, one per line (first is the planned pick)"),opts,h("span",{className:"hint"},"Add a note after a dash, e.g. Oyster - crispy, seared"))));
+  });
+  $("e-addtrack").disabled=C.tracks.length>=12;
+}
+function fillEditor(){
+  $("e-box").value=C.box;$("e-for").value=C.for;$("e-intro").value=C.intro;$("e-price").value=C.price;$("e-meet").value=C.meet;
+  $("e-wild").value=C.wild.join("\n");$("e-extra").value=C.extra.n;$("e-extrap").value=C.extra.p;
+  buildTracks();$("e-link").textContent=link(C);
+}
+[["e-box","box"],["e-for","for"],["e-intro","intro"]].forEach(([id,k])=>$(id).addEventListener("input",e=>{C[k]=e.target.value;applyEdit()}));
+[["e-price","price"],["e-meet","meet"]].forEach(([id,k])=>$(id).addEventListener("change",e=>{C[k]=e.target.value;applyEdit()}));
+$("e-wild").addEventListener("input",e=>{C.wild=e.target.value.split("\n").map(s=>s.trim()).filter(Boolean);applyEdit()});
+$("e-extra").addEventListener("input",e=>{C.extra.n=e.target.value;applyEdit()});
+$("e-extrap").addEventListener("change",e=>{C.extra.p=e.target.value;applyEdit()});
+$("e-addtrack").addEventListener("click",()=>{C.tracks.push({n:"New track",a:"1",l:"",o:[["Shopper's choice",""]]});applyEdit(true)});
+$("e-reset").addEventListener("click",()=>{C=clean(DEFAULT);fillEditor();applyEdit();$("e-status").textContent="Back to the Foreverbox."});
+$("e-copy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(link(C));$("e-status").textContent="Box code copied. Text it to your crew."}catch(e){const r=document.createRange();r.selectNodeContents($("e-link"));const s=getSelection();s.removeAllRanges();s.addRange(r);$("e-status").textContent="Box code selected. Copy it with your device's copy option."}});
+$("e-load").addEventListener("change",e=>{const c=fromUrl(e.target.value);if(c){C=c;fillEditor();applyEdit();$("e-status").textContent="Loaded "+C.box+"."}else $("e-status").textContent="That isn't a box code. Check that you copied all of it."});
+$("toggleEd").addEventListener("click",e=>{const ed=$("editor"),open=ed.hidden;ed.hidden=!open;e.currentTarget.setAttribute("aria-expanded",String(open));if(open)fillEditor()});
+
+loadState();render();
+</script>
+
+</body>
+</html>
