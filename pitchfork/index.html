@@ -166,6 +166,46 @@ td.on, th.on { background: var(--chip); }
 }
 .note { border-left: 3px solid var(--accent); padding: 6px 0 6px 14px; font-size: var(--step--1); color: var(--muted); max-width: 70ch; }
 .tree-chip { font-family: var(--font-mono); }
+
+/* ---------- guide boxes ---------- */
+.guide { border: 1.5px solid var(--line); border-left: 4px solid var(--leaf); background: var(--panel); border-radius: 8px; padding: 10px 14px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; font-size: var(--step--1); max-width: 70ch; }
+.guide .g-badge { grid-row: span 2; align-self: start; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--chip); color: var(--fg); white-space: nowrap; }
+.guide[data-kind="actual"] { border-left-color: var(--leaf); } .guide[data-kind="actual"] .g-badge { background: var(--leaf); color: var(--bg); }
+.guide[data-kind="modeled"] { border-left-color: var(--accent); } .guide[data-kind="modeled"] .g-badge { background: var(--accent); color: #fff; }
+.guide[data-kind="plan"] { border-left-color: var(--fg); }
+.guide[data-kind="idea"] { border-left-color: var(--accent-soft); }
+.guide p { margin: 0; } .guide b { font-weight: 700; }
+body.guide-off .guide { display: none; }
+.mast-tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.guide-btn { font: 600 var(--step--1) var(--font-body); padding: 6px 14px; border: 1.5px solid var(--fg); border-radius: 999px; background: transparent; color: var(--fg); cursor: pointer; }
+.guide-btn[aria-pressed="true"] { background: var(--leaf); border-color: var(--leaf); color: var(--bg); }
+.kinds { display: flex; flex-wrap: wrap; gap: 8px; font-size: var(--step--1); }
+.kinds span { display: inline-flex; gap: 6px; align-items: center; }
+.kinds i { font-style: normal; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; background: var(--chip); }
+.kinds i.k-actual { background: var(--leaf); color: var(--bg); } .kinds i.k-modeled { background: var(--accent); color: #fff; }
+/* agenda */
+.agenda { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 14px; }
+.agenda .board { gap: 6px; }
+.agenda h3 { font-size: var(--step-0); }
+.agenda button { all: unset; cursor: pointer; display: block; padding: 3px 0; color: var(--fg); border-bottom: 1px dashed var(--line); font-size: var(--step--1); }
+.agenda button:hover { color: var(--accent); } .agenda button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 14px; }
+.keycap { font-family: var(--font-mono); font-size: .75rem; border: 1.5px solid var(--fg); border-bottom-width: 3px; border-radius: 5px; padding: 0 5px; }
+.fast { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.fast button { font: 600 var(--step--1) var(--font-body); padding: 6px 12px; border-radius: 999px; border: 1.5px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+.fast button:hover { background: var(--accent); color: #fff; }
+/* pay */
+.pay-out .fig-value { font-size: var(--step-2); }
+.path td:first-child { font-weight: 700; white-space: nowrap; }
+.seg.small button { padding: 5px 11px; }
+.ctl .seg { margin-top: 2px; }
+/* roles */
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 14px; }
+.role { background: var(--panel); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.role dl { margin: 4px 0 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3px 10px; font-size: var(--step--1); }
+.role dt { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.role dd { margin: 0; }
+
 /* ---------- welcome splash ---------- */
 .splash { position: fixed; inset: 0; z-index: 20; background: var(--splash); color: var(--fg); overflow-y: auto; display: flex; align-items: center; justify-content: center; padding: calc(24px + env(safe-area-inset-top, 0px)) 16px calc(24px + env(safe-area-inset-bottom, 0px)); cursor: pointer; }
 .splash-inner { width: 100%; max-width: 60rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(16px, 4vw, 48px); align-items: center; margin-block: auto; }
@@ -288,14 +328,48 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
       </svg>
       Posted Up Produce <span class="tag" style="font-family: var(--font-mono);">Beta</span>
     </div>
-    <div class="modes" role="group" aria-label="View">
-      <button type="button" id="mode-deck" aria-pressed="true">Present</button>
-      <button type="button" id="mode-page" aria-pressed="false">One page</button>
+    <div class="mast-tools">
+      <button type="button" class="guide-btn" id="guide-btn" aria-pressed="true" title="Show or hide the how-to notes on each page">Guide: on</button>
+      <div class="modes" role="group" aria-label="View">
+        <button type="button" id="mode-deck" aria-pressed="true">Present</button>
+        <button type="button" id="mode-page" aria-pressed="false">One page</button>
+      </div>
     </div>
   </header>
 
+  <section class="slide on" id="welcome" data-title="Welcome">
+    <div class="slide-head">
+      <span class="eyebrow">Welcome<span class="who-w-wrap" hidden>, <span class="who-w"></span></span></span>
+      <h2>Here's how this deck works.</h2>
+      <p class="lede">About 10 minutes start to finish. Every page has a short guide box that says what it tells you and how to use it. Turn those off with the Guide button at the top.</p>
+    </div>
+    <div class="howto">
+      <div class="board"><h3>Move around</h3><p class="small">Use <b>Next</b> and <b>Back</b> at the bottom, the <span class="keycap">←</span> <span class="keycap">→</span> keys, or swipe on a phone. The menu at the bottom jumps to any page.</p></div>
+      <div class="board"><h3>Play with it</h3><p class="small">Buttons like <b>Low / Mid / High</b> change the numbers. Sliders on the calculators move live. Hover or tap any bar or box in a chart to see its figures.</p></div>
+      <div class="board"><h3>Read it your way</h3><p class="small"><b>Present</b> shows one page at a time. <b>One page</b> stacks everything for scrolling, which works well for a careful second read.</p></div>
+    </div>
+    <div class="board">
+      <h3>How to tell what's real</h3>
+      <div class="kinds">
+        <span><i class="k-actual">Actual</i> results from the live beta</span>
+        <span><i class="k-modeled">Modeled</i> projections from the fall 2026 price sheet and researched costs</span>
+        <span><i>Plan</i> what we intend to do</span>
+        <span><i>Idea</i> possibilities, not modeled</span>
+        <span><i>Context</i> background and research</span>
+      </div>
+    </div>
+    <div class="agenda">
+      <div class="board"><h3>The idea</h3><button type="button" data-go="intro">At a glance</button><button type="button" data-go="problem">The gap</button><button type="button" data-go="how">How it works</button></div>
+      <div class="board"><h3>The proof so far</h3><button type="button" data-go="today">Where it stands</button><button type="button" data-go="truth">What the pilot teaches</button><button type="button" data-go="lessons">Why others stalled</button></div>
+      <div class="board"><h3>The plan</h3><button type="button" data-go="branches">Growth branches</button><button type="button" data-go="beyond">Where it can branch</button><button type="button" data-go="calculator">Try the numbers</button></div>
+      <div class="board"><h3>The money</h3><button type="button" data-go="cba">Cost-benefit</button><button type="button" data-go="season">2027 season P&amp;L</button><button type="button" data-go="pay">Paying the team</button><button type="button" data-go="ask">The ask</button></div>
+      <div class="board"><h3>Building it</h3><button type="button" data-go="needs">What it takes</button><button type="button" data-go="roles">Room to grow</button><button type="button" data-go="milestones">Milestones</button><button type="button" data-go="risks">Risks</button></div>
+    </div>
+    <div class="fast"><span class="small muted">Short on time? Start here:</span><button type="button" data-go="season">2027 P&amp;L</button><button type="button" data-go="pay">Paying the team</button><button type="button" data-go="ask">The ask</button><button type="button" data-go="risks">Risks</button></div>
+  </section>
+
   <!-- 1 -->
-  <section class="slide on" id="intro" data-title="Posted Up Produce">
+  <section class="slide" id="intro" data-title="At a glance">
     <div class="hero">
       <div class="slide-head">
         <span class="eyebrow">Funding proposal · 2027 proving season</span>
@@ -556,6 +630,45 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
     </div>
   </section>
 
+  <section class="slide" id="pay" data-title="Paying the team">
+    <div class="slide-head">
+      <span class="eyebrow">Paying the team</span>
+      <h2>What it takes to pay a CEO and a CFO.</h2>
+      <p class="muted">Set the pay, pick the business model, and see how many orders a week it takes to cover salaries, payroll costs and overhead.</p>
+    </div>
+    <div class="calc">
+      <div class="board">
+        <div class="ctl"><label for="pay-ceo">CEO salary (founder) <output id="o-ceo"></output></label><input type="range" id="pay-ceo" min="0" max="100000" step="5000" value="60000"></div>
+        <div class="ctl"><label for="pay-cfo">CFO pay <output id="o-cfo"></output></label><input type="range" id="pay-cfo" min="0" max="100000" step="5000" value="25000"><span class="small muted">$25k is about 8 hours a week at a fractional-CFO rate. $0 means equity only to start.</span></div>
+        <div class="ctl"><span class="small" style="font-weight:600;">Business model</span>
+          <div class="seg small" role="group" aria-label="Business model"><button type="button" data-pm="shopper" aria-pressed="true">Shopper, wholesale, one zone</button><button type="button" data-pm="hub" aria-pressed="false">Food hub</button></div></div>
+        <div class="ctl"><span class="small" style="font-weight:600;">Average order</span>
+          <div class="seg small" role="group" aria-label="Average order"><button type="button" data-aov="47.30" aria-pressed="true">$47 (model)</button><button type="button" data-aov="94.75" aria-pressed="false">$95 (week one)</button></div></div>
+        <div class="ctl"><span class="small" style="font-weight:600;">Weeks a year</span>
+          <div class="seg small" role="group" aria-label="Weeks a year"><button type="button" data-wk="26" aria-pressed="false">26 (outdoor only)</button><button type="button" data-wk="50" aria-pressed="true">50 (with winter)</button></div></div>
+      </div>
+      <div class="board pay-out">
+        <div class="figs">
+          <div class="fig"><span class="fig-label">Yearly cost to cover</span><span class="fig-value num" id="pay-need">—</span><span class="fig-sub" id="pay-need-sub">—</span></div>
+          <div class="fig accent"><span class="fig-label">Orders a week</span><span class="fig-value num" id="pay-week">—</span><span class="fig-sub" id="pay-week-sub">—</span></div>
+        </div>
+        <div class="meter" aria-hidden="true"><span id="pay-meter"></span><i id="pay-mark"></i></div>
+        <p class="small muted" id="pay-note">—</p>
+        <table><tbody>
+          <tr><td>Profit per order before salaries</td><td class="r" id="pay-per">—</td></tr>
+          <tr><td>Payroll taxes and costs (12%)</td><td class="r" id="pay-tax">—</td></tr>
+          <tr><td>Overhead per year</td><td class="r" id="pay-oh">—</td></tr>
+          <tr><td>Orders per year</td><td class="r" id="pay-year">—</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <div class="board">
+      <h3>A realistic pay path</h3>
+      <div class="tablewrap"><table class="path"><thead><tr><th>Stage</th><th>Volume</th><th>CEO</th><th>CFO</th></tr></thead><tbody id="path-body"></tbody></table></div>
+      <p class="small muted">The 2027 proving season covers a part-time founder draw, not two salaries. Full pay for both roles arrives with a second zone or the food hub. Until then, a founders' agreement with equity and vesting is the fair way to bring a CFO in.</p>
+    </div>
+  </section>
+
   <!-- 10 -->
   <section class="slide" id="needs" data-title="What it takes">
     <div class="slide-head">
@@ -568,6 +681,21 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
       <button type="button" data-lv="high" aria-pressed="false">High</button>
     </div>
     <div class="tablewrap"><table id="infra-table"><thead><tr><th>Component</th><th data-col="pilot">Pilot today</th><th data-col="low">Low</th><th data-col="mid">Mid</th><th data-col="high">High</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="slide" id="roles" data-title="Room to grow">
+    <div class="slide-head">
+      <span class="eyebrow">Room to grow</span>
+      <h2>Who we add, and when.</h2>
+      <p class="muted">Every role and outside expert is tied to a trigger, so spending follows volume. Costs are rough Chicago-area ranges to confirm with quotes.</p>
+    </div>
+    <div class="seg" role="group" aria-label="Type">
+      <button type="button" data-rt="all" aria-pressed="true">All</button>
+      <button type="button" data-rt="team" aria-pressed="false">Team</button>
+      <button type="button" data-rt="advisor" aria-pressed="false">Advisors</button>
+      <button type="button" data-rt="legal" aria-pressed="false">Legal &amp; compliance</button>
+    </div>
+    <div class="roles" id="roles-grid"></div>
   </section>
 
   <!-- 11 -->
@@ -673,6 +801,8 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
     document.querySelectorAll('.splash .who').forEach((el) => { el.textContent = pretty; });
     document.querySelectorAll('.splash .who-up').forEach((el) => { el.textContent = pretty.toUpperCase().replace(/\s+/g, ''); });
     document.title = pretty + ', this pitch has prongs · Posted Up Produce';
+    document.querySelectorAll('.who-w').forEach((el) => { el.textContent = pretty; });
+    document.querySelectorAll('.who-w-wrap').forEach((el) => { el.hidden = false; });
   }
   let role = '';
   try { role = (new URLSearchParams(location.search).get('role') || '').toLowerCase(); } catch (e) {}
@@ -687,7 +817,7 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
     set('sp-lastv', 'Assumptions listed. Poke holes.');
     const alt = document.getElementById('dig-numbers'); if (alt) alt.hidden = false;
   }
-  const deepLink = /^#[a-z]+$/.test(location.hash) && location.hash !== '#intro';
+  const deepLink = /^#[a-z]+$/.test(location.hash) && !['#intro', '#welcome'].includes(location.hash);
   if (deepLink) { splash.remove(); return; }
   document.body.classList.add('splash-open');
   let done = false;
@@ -759,6 +889,131 @@ const DATA = {"branches": [{"branch_id": "A", "step": 1, "branch": "Pilot as-is"
     const h = b.dataset.h;
     document.querySelectorAll('#beyond button[data-h]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     document.querySelectorAll('#ideas .idea').forEach((c) => { c.hidden = !(h === 'all' || c.dataset.h === h); });
+  }); });
+
+  /* ---------- guide boxes ---------- */
+  const GUIDE = {
+    intro: ['modeled', 'The one-line idea and the three numbers that matter most: the ask, money to farms, and farm dollars per grant dollar.', 'Read the headline, then the three tags. Press Next to start.'],
+    problem: ['context', 'Why this business should exist: busy households miss the market, and small farms miss those sales.', 'Read the three cards left to right: households, farms, then the opening.'],
+    how: ['plan', 'What a customer does from order to pickup, and how sell-outs are handled.', 'Read the four steps in order. This is how the beta runs today.'],
+    today: ['actual', 'Real results from the first week of beta (Oct 12–16, 2026), what is already built, and what we learned.', 'The top row is actual numbers. Left: what exists. Right: lessons that changed the plan.'],
+    truth: ['modeled', 'Why the pilot, as built, earns too little per hour, and which two free changes fix that.', 'Compare the three tiles left to right. Each one adds one change to the one before.'],
+    lessons: ['context', 'Why similar local-food delivery companies stalled and how this design avoids the same trap.', 'Read left to right: what pulled back, what survived, then our design.'],
+    branches: ['modeled', 'Six growth paths in the order we would test them, with what each earns per hour of founder time.', 'Switch Low / Mid / High to change volume. Hover or tap a box for weekly profit. Arrows show what each path builds on.'],
+    beyond: ['idea', 'Longer-range directions the same system could grow into.', 'Filter by Now, 2027 or Later. Each card says what it would take.'],
+    calculator: ['modeled', 'How profit per hour responds to each lever: volume, farm discount, stops, days and help.', 'Pick a preset, then drag the sliders. The line on the meter marks the pilot today.'],
+    cba: ['modeled', 'First-year cost against yearly profit for each branch, plus dollars that reach local farms.', 'Left chart: grey is cost, green is profit. Right chart: farm dollars. The table adds payback time.'],
+    season: ['modeled', 'A full 2027 season month by month, with every cost included, even the ones the grant would cover.', 'Hover or tap a month to see its revenue, profit and orders.'],
+    pay: ['modeled', 'How many orders a week it takes to pay a CEO and a CFO, and when that becomes realistic.', 'Drag the salary sliders and switch the model, order size and season length. The meter shows the target against the 2027 plan.'],
+    needs: ['plan', 'The equipment, space, people, licensing and insurance each volume level needs.', 'Switch Low / Mid / High to highlight that column.'],
+    roles: ['plan', 'The roles, outside experts and legal steps we add as we grow, each tied to a trigger and a rough cost.', 'Filter by Team, Advisors or Legal & compliance.'],
+    ask: ['plan', 'How much we are asking for, what each dollar pays for, and what it returns.', 'Read the chart by category, then open Line-item budget for every line.'],
+    milestones: ['plan', 'Checkpoints that show whether the model works, and what we do if one is missed.', 'Read top to bottom. Each row has a fallback.'],
+    risks: ['plan', 'What could go wrong and the plan for each.', 'Scan the bold lines first.'],
+    close: ['plan', 'The ask in one sentence and how to reach us.', 'Use the text line or the meeting form to follow up.']
+  };
+  const KIND_LABEL = { actual: 'Actual', modeled: 'Modeled', plan: 'Plan', idea: 'Idea', context: 'Context' };
+  Object.entries(GUIDE).forEach(([id, [kind, tells, use]]) => {
+    const sec = document.getElementById(id); if (!sec) return;
+    const head = sec.querySelector('.slide-head'); if (!head) return;
+    const g = document.createElement('aside'); g.className = 'guide'; g.dataset.kind = kind; g.setAttribute('aria-label', 'How to read this page');
+    const b = document.createElement('span'); b.className = 'g-badge'; b.textContent = KIND_LABEL[kind];
+    const p1 = document.createElement('p'); const s1 = document.createElement('b'); s1.textContent = 'What this tells you: '; p1.append(s1, document.createTextNode(tells));
+    const p2 = document.createElement('p'); const s2 = document.createElement('b'); s2.textContent = 'How to use it: '; p2.append(s2, document.createTextNode(use));
+    g.append(b, p1, p2); head.appendChild(g);
+  });
+  const gbtn = document.getElementById('guide-btn');
+  function setGuide(on) {
+    document.body.classList.toggle('guide-off', !on); gbtn.setAttribute('aria-pressed', String(on)); gbtn.textContent = on ? 'Guide: on' : 'Guide: off';
+    try { localStorage.setItem('pup-guide', on ? '1' : '0'); } catch (e) {}
+  }
+  gbtn.addEventListener('click', () => setGuide(document.body.classList.contains('guide-off')));
+  try { if (localStorage.getItem('pup-guide') === '0') setGuide(false); } catch (e) {}
+
+  /* ---------- paying the team ---------- */
+  const byId = (id) => document.getElementById(id);
+  const PAY = { model: 'shopper', aov: 47.30, weeks: 50 };
+  const OVERHEAD = { shopper: 15880, hub: 22848 };
+  const PLAN_WEEK = Math.round(total.orders / (total.market_days / 2));
+  function perOrder(model, aov) {
+    if (model === 'hub') return 0.15 * aov + 5 - (0.029 * (aov + 5) + 0.30);
+    const goods = 32.25 * 0.8 * (aov / 47.30);
+    return aov - goods - 1 - (0.029 * aov + 0.30);
+  }
+  function ordersNeeded(model, aov, weeks, ceo, cfo) {
+    const c = perOrder(model, aov), days = weeks * 2;
+    const need = (ceo + cfo) * 1.12 + OVERHEAD[model];
+    let n = need / c;
+    if (model === 'shopper' && n / days > 25) n = (need - 125 * days) / (c - 5);
+    return { c, need, n: Math.max(0, n) };
+  }
+  function payCalc() {
+    const ceo = +byId('pay-ceo').value, cfo = +byId('pay-cfo').value;
+    const r = ordersNeeded(PAY.model, PAY.aov, PAY.weeks, ceo, cfo);
+    const wk = r.n / PAY.weeks;
+    set('o-ceo', usd(ceo)); set('o-cfo', cfo ? usd(cfo) : 'Equity only');
+    set('pay-need', usd(r.need)); set('pay-need-sub', 'Salaries, payroll costs and overhead');
+    set('pay-week', d3.format(',')(Math.ceil(wk)));
+    set('pay-week-sub', PAY.model === 'hub' ? `Multi-farm orders over ${PAY.weeks} weeks` : `About ${Math.ceil(wk / 2)} per market day over ${PAY.weeks} weeks`);
+    set('pay-per', usd2(r.c)); set('pay-tax', usd((ceo + cfo) * 0.12)); set('pay-oh', usd(OVERHEAD[PAY.model])); set('pay-year', d3.format(',')(Math.ceil(r.n)));
+    const max = Math.max(260, wk * 1.15);
+    byId('pay-meter').style.width = Math.min(100, wk / max * 100) + '%';
+    byId('pay-mark').style.left = Math.min(100, PLAN_WEEK / max * 100) + '%';
+    const ratio = wk / PLAN_WEEK;
+    set('pay-note', `Line marks the 2027 plan (about ${PLAN_WEEK} orders a week). ` + (ratio <= 1 ? 'This pay level fits inside the plan.' : `This pay level needs about ${ratio.toFixed(1)}× the 2027 plan's weekly volume.`) + (PAY.model === 'shopper' ? ' Includes a packer at $5 an order above 25 a day.' : ' Hub staff beyond packing are not included.'));
+  }
+  ['pay-ceo', 'pay-cfo'].forEach((id) => byId(id).addEventListener('input', payCalc));
+  [['pm', 'model', (v) => v], ['aov', 'aov', Number], ['wk', 'weeks', Number]].forEach(([attr, key, cast]) => {
+    document.querySelectorAll(`[data-${attr}]`).forEach((b) => b.addEventListener('click', () => {
+      PAY[key] = cast(b.dataset[attr]);
+      document.querySelectorAll(`[data-${attr}]`).forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      payCalc();
+    }));
+  });
+  payCalc();
+  const stage = (label, vol, ceo, cfo) => { const tr = document.createElement('tr'); [label, vol, ceo, cfo].forEach((v) => { const td = document.createElement('td'); td.textContent = v; tr.appendChild(td); }); return tr; };
+  const twoZone = Math.ceil(ordersNeeded('shopper', 47.30, 50, 60000, 25000).n / 50);
+  const hubFull = Math.ceil(ordersNeeded('hub', 47.30, 50, 75000, 50000).n / 50);
+  document.getElementById('path-body').replaceChildren(
+    stage('Fall 2026 beta', 'Up to 5 orders a market day', 'Unpaid; builds equity', 'Equity, by founders’ agreement'),
+    stage('2027 proving season', `About ${PLAN_WEEK} orders a week in season`, `Draw from operating profit (about ${usd(total.operating_profit)} modeled) plus a small grant stipend`, 'Equity or deferred pay; a few hours a month'),
+    stage('Two zones, year-round', `About ${twoZone} orders a week`, '$60,000', '$25,000 fractional'),
+    stage('Food hub', `About ${hubFull} multi-farm orders a week`, '$75,000', '$50,000 part-time, plus a COO')
+  );
+
+  /* ---------- room to grow ---------- */
+  const ROLES = [
+    ['team', 'CFO', 'Now, fractional', 'Equity and deferred pay to start', 'Owns the model, books, pricing, grant budgets and the case to funders.'],
+    ['team', 'COO / operations lead', 'Past ~25 orders a market day or a second zone', '$22–30/hr part-time; ~$55k–70k full-time', 'Runs market days, packers, drivers and quality so the CEO can sell and fundraise.'],
+    ['team', 'Packers and drivers', 'Past ~25 orders a market day', '$5 an order or $18–22/hr', 'Keeps handoffs on time as volume grows.'],
+    ['team', 'Community and partnerships lead', 'When Host a Post-Up and office drops scale', 'Part-time or commission', 'Signs up hosts, offices and buildings; runs referrals.'],
+    ['advisor', 'GIS consultant', 'Before choosing a second zone or hub sites', 'Roughly $2k–6k per project', 'Maps customers, drive times, pickup sites and food-access gaps, so each new zone is chosen on data. Maps also strengthen grant applications.'],
+    ['advisor', 'Food safety consultant', 'Before more meat and dairy, or a commissary', 'Roughly $1k–3k', 'Writes the cold-chain and handling plan inspectors and insurers expect.'],
+    ['advisor', 'Bookkeeper and CPA', 'Now', 'Bookkeeping ~$300–600/month; tax prep ~$1k–2.5k/year', 'Clean books make grant reporting and any investment conversation possible.'],
+    ['advisor', 'Grant writer', 'When the next LFPP or GFPI round opens', 'Flat fee, roughly $2k–6k (avoid percentage fees)', 'Turns this deck into a fundable application.'],
+    ['advisor', 'Advisory board', '2027', 'Equity or none', 'A farmer, a chef and a food-access leader to open doors and check assumptions.'],
+    ['legal', 'Founders’ agreement', 'Now, before the CFO starts', 'Attorney, roughly $1.5k–4k', 'Sets roles, equity, vesting and what happens if someone leaves.'],
+    ['legal', 'Entity decision', 'Now', 'Filing fees plus attorney time', 'Decide whether Posted Up runs inside 123 Footprint, LLC or as its own company, keeping food liability separate.'],
+    ['legal', 'Trademark', 'After the logo vote closes Oct 24', 'USPTO filing fee per class plus attorney', 'Protects the Posted Up Produce name and mark before expanding or licensing.'],
+    ['legal', 'City licensing', 'Before scaling past friends and family', 'Fee depends on license type; confirm with the city', 'Confirms which City of Chicago food license applies to a shopper and delivery model.'],
+    ['legal', 'Insurance', 'Before the 2027 season', 'About $3.2k/year for liability plus commercial auto', 'General and product liability, plus auto coverage for deliveries.'],
+    ['legal', 'Farm and contractor agreements', 'Spring 2027', 'Templates plus attorney review', 'Wholesale terms with farms; written agreements for packers and drivers.'],
+    ['legal', 'Sales tax registration', 'Before holiday gift boxes', 'Registration is typically free', 'Groceries and gift boxes can be taxed differently in Illinois.']
+  ];
+  const RT_LABEL = { team: 'Team', advisor: 'Advisor', legal: 'Legal & compliance' };
+  const grid = document.getElementById('roles-grid');
+  grid.replaceChildren(...ROLES.map(([type, name, when, cost, why]) => {
+    const c = document.createElement('div'); c.className = 'role'; c.dataset.rt = type;
+    const tag = document.createElement('span'); tag.className = 'tag' + (type === 'legal' ? ' hot' : ''); tag.textContent = RT_LABEL[type];
+    const h = document.createElement('h3'); h.textContent = name;
+    const p = document.createElement('p'); p.className = 'small'; p.textContent = why;
+    const dl = document.createElement('dl');
+    [['When', when], ['Rough cost', cost]].forEach(([k, v]) => { const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); });
+    c.append(tag, h, p, dl); return c;
+  }));
+  document.querySelectorAll('[data-rt]').forEach((b) => { if (b.tagName !== 'BUTTON') return; b.addEventListener('click', () => {
+    document.querySelectorAll('button[data-rt]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    grid.querySelectorAll('.role').forEach((c) => { c.hidden = !(b.dataset.rt === 'all' || c.dataset.rt === b.dataset.rt); });
   }); });
 
   /* ---------- tooltips ---------- */
@@ -950,6 +1205,11 @@ const DATA = {"branches": [{"branch_id": "A", "step": 1, "branch": "Pilot as-is"
   $('#prev').addEventListener('click', () => go(cur - 1));
   $('#next').addEventListener('click', () => go(cur + 1));
   jump.addEventListener('change', () => go(+jump.value));
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-go]'); if (!b) return;
+    const i = slides.findIndex((el) => el.id === b.dataset.go); if (i < 0) return;
+    go(i); if (app.classList.contains('page-mode')) slides[i].scrollIntoView({ behavior: 'smooth' });
+  });
   document.addEventListener('keydown', (e) => {
     if (!app.classList.contains('deck-mode')) return;
     if (e.target.closest('input, select, textarea')) return;
