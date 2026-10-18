@@ -250,6 +250,8 @@ details.terms[open] summary::after{content:"−"}
 @media(max-width:420px){.two{grid-template-columns:1fr}}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .ok{color:var(--good);font-weight:700;margin:0;font-size:15px}
+.phchk{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px}
+.phchk input{width:22px;height:22px;min-height:0;margin:1px 0 0;flex:none;accent-color:var(--good)}
 </style>
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div></header>
@@ -402,6 +404,31 @@ details.terms[open] summary::after{content:"−"}
     <div class="ticket" id="ticket" aria-live="polite"><div id="ticketBody"></div></div>
   </section>
 
+  <section class="post talk" id="photo" aria-labelledby="photoH" hidden>
+    <h2 id="photoH">Show us your haul, get a treat</h2>
+    <form class="talkf" id="phForm" novalidate>
+      <p class="sub">Snap your Posted Up order at home and send it here. We'll add a thank-you to your next order: a fresh pastry or a small-batch hot sauce. One per person during the beta.</p>
+      <label for="phFile">Your photo<input id="phFile" type="file" accept="image/*" required></label>
+      <img id="phPrev" alt="Preview of your photo" hidden style="max-width:100%;max-height:260px;border-radius:10px;object-fit:cover">
+      <fieldset style="border:0;margin:0;padding:0;display:grid;gap:6px"><legend style="font-size:15px;font-weight:700;padding:0;margin-bottom:6px">Pick your thank-you</legend>
+        <div class="two" id="phPick"></div>
+      </fieldset>
+      <div class="two">
+        <label for="phName">Name<input id="phName" type="text" autocomplete="name" required></label>
+        <label for="phContact">Phone or email<input id="phContact" type="text" autocomplete="tel" required></label>
+      </div>
+      <div class="two">
+        <label for="phOrder">Order # (if handy)<input id="phOrder" type="text" inputmode="numeric" maxlength="12"></label>
+        <label for="phHandle">Tag you as (optional)<input id="phHandle" type="text" maxlength="40" placeholder="@yourhandle"></label>
+      </div>
+      <label for="phCap">Anything to say about it? (optional)<input id="phCap" type="text" maxlength="300" placeholder="Best squash I've had all year"></label>
+      <label class="phchk"><input id="phOk" type="checkbox" required> It's OK for Posted Up to share this photo on our site and social pages.</label>
+      <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="err" data-err></p>
+      <button class="cta" type="submit">Send my photo</button>
+    </form>
+  </section>
+
   <section class="post talk" id="talk" aria-labelledby="talkH">
     <h2 id="talkH">Help us build this</h2>
     <p class="sub">Posted Up is in beta, and your ideas shape what comes next: items, stops, days, anything.</p>
@@ -449,6 +476,7 @@ details.terms[open] summary::after{content:"−"}
           <li><b>Pickup days.</b> Pickups are on market days only, Wednesdays and Saturdays, the same day we shop. Wednesday delivery is same-day. Other days or times may be arranged by text.</li>
           <li><b>Beta founder rate.</b> Shopper's Choice boxes (produce and bread) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later.</li>
           <li><b>Feedback thank-you.</b> Leave feedback with your contact info during the beta and we'll add one bonus produce pick to your next order. One per person.</li>
+          <li id="photoTerm" hidden><b>Photo thank-you.</b> Send a photo of your Posted Up order with the form on this page and we&rsquo;ll add one free pastry or small-batch hot sauce to your next paid order. One per person during the beta. By sending a photo you confirm you took it and let us share it on our site and social pages, credited to you if you give a handle.</li>
           <li><b>Pickup and delivery.</b> Pick up during your chosen window. Orders not picked up by the end of the window aren't refunded, but text us and we'll try to arrange a late handoff or delivery for the delivery fee. Delivery fees are confirmed by text before you pay.</li>
           <li><b>Quality.</b> If something arrives damaged or spoiled, text us a photo within 24 hours. We refund or replace that item.</li>
           <li><b>Food safety.</b> Wash produce before eating. Keep frozen items frozen; they're your responsibility once handed off. Baked goods may contain wheat, dairy, eggs, nuts or other allergens and may be made in shared kitchens. Tell us about allergies in your order notes.</li>
@@ -913,6 +941,32 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   let fresh=true;try{fresh=!sessionStorage.getItem("pu-v");sessionStorage.setItem("pu-v","1")}catch(e){}
   if(fresh)send("visit");
   let carted=false;window.puCart=()=>{if(carted)return;carted=true;try{if(sessionStorage.getItem("pu-c"))return;sessionStorage.setItem("pu-c","1")}catch(e){}send("cart")};
+})();
+/* Haul photo thank-you: the photo is shrunk on the device, then sent to the sheet's Photos tab, a Drive folder, and Sol's email + text. */
+const PHOTO_ON=false; /* flip to true once the Apps Script photo handler is deployed */
+const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sauce"]];
+(function(){
+  const sec=document.getElementById("photo"),f=document.getElementById("phForm");if(!sec||!f||!PHOTO_ON||!ORDER_ENDPOINT)return;
+  sec.hidden=false;const tm=document.getElementById("photoTerm");if(tm)tm.hidden=false;
+  const pick=document.getElementById("phPick");
+  PHOTO_REWARDS.forEach((r,i)=>{const x=el("input",{type:"radio",name:"phR",value:r[0]});if(i===0)x.checked=true;pick.append(el("label",{class:"phchk"},x," "+r[1]))});
+  const fileIn=document.getElementById("phFile"),prev=document.getElementById("phPrev"),err=f.querySelector("[data-err]");let shot="";
+  const shrink=file=>new Promise((ok,no)=>{const u=URL.createObjectURL(file),im=new Image();
+    im.onload=()=>{const k=Math.min(1,1600/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement("canvas");c.width=Math.round(im.naturalWidth*k);c.height=Math.round(im.naturalHeight*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",0.82))};
+    im.onerror=()=>{URL.revokeObjectURL(u);no()};im.src=u});
+  fileIn.addEventListener("change",async()=>{err.textContent="";shot="";prev.hidden=true;const fl=fileIn.files&&fileIn.files[0];if(!fl)return;
+    try{shot=await shrink(fl);prev.src=shot;prev.hidden=false}catch(x){err.textContent="That photo didn't open here. Try a screenshot of it, or text it to 773-807-9223."}});
+  f.addEventListener("submit",async e=>{e.preventDefault();err.textContent="";
+    const n=f.querySelector("#phName").value.trim(),c=f.querySelector("#phContact").value.trim();
+    if(!shot){err.textContent="Add a photo first.";return}
+    if(!n||c.length<7){err.textContent="Add your name and a phone number or email so we can match your thank-you.";return}
+    if(!f.querySelector("#phOk").checked){err.textContent="Check the box so we can share it.";return}
+    const r={type:"photo",name:n,contact:c,order:f.querySelector("#phOrder").value.trim(),handle:f.querySelector("#phHandle").value.trim(),caption:f.querySelector("#phCap").value.trim(),reward:(f.querySelector('input[name="phR"]:checked')||{}).value||PHOTO_REWARDS[0][0],consent:true,data:shot.split(",")[1],hp:f.querySelector('input[name="website"]').value};
+    const btn=f.querySelector("button[type=submit]");btn.disabled=true;btn.textContent="Sending…";
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(r)});
+      f.replaceChildren(el("h3",{},"Got it. Thank you!"),el("p",{class:"ok"},"Your "+(r.reward==="Pastry"?"pastry":"hot sauce")+" will be in your next order."))}
+    catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text the photo to 773-807-9223."}
+  });
 })();
 renderBoxes();renderItems();renderTicket();loadCounts();
 </script>
