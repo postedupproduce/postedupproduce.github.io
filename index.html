@@ -943,7 +943,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   let carted=false;window.puCart=()=>{if(carted)return;carted=true;try{if(sessionStorage.getItem("pu-c"))return;sessionStorage.setItem("pu-c","1")}catch(e){}send("cart")};
 })();
 /* Haul photo thank-you: the photo is shrunk on the device, then sent to the sheet's Photos tab, a Drive folder, and Sol's email + text. */
-const PHOTO_ON=false; /* flip to true once the Apps Script photo handler is deployed */
+const PHOTO_ON=true; /* backend live: Apps Script v8 */
 const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sauce"]];
 (function(){
   const sec=document.getElementById("photo"),f=document.getElementById("phForm");if(!sec||!f||!PHOTO_ON||!ORDER_ENDPOINT)return;
