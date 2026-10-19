@@ -477,6 +477,7 @@ details.terms[open] summary::after{content:"−"}
           <li><b>Beta founder rate.</b> Shopper's Choice boxes (produce and bread) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later.</li>
           <li><b>Feedback thank-you.</b> Leave feedback with your contact info during the beta and we'll add one bonus produce pick to your next order. One per person.</li>
           <li id="photoTerm" hidden><b>Photo thank-you.</b> Send a photo of your Posted Up order with the form on this page and we&rsquo;ll add one free pastry or small-batch hot sauce to your next paid order. One per person during the beta. By sending a photo you confirm you took it and let us share it on our site and social pages, credited to you if you give a handle.</li>
+          <li><b>Free early drop-off.</b> On meet-up orders you can opt in to a free early drop-off at your door. It&rsquo;s never guaranteed: we text you first when our route allows it. If we don&rsquo;t text, pick up at your meet-up window as usual.</li>
           <li><b>Pickup and delivery.</b> Pick up during your chosen window. Orders not picked up by the end of the window aren't refunded, but text us and we'll try to arrange a late handoff or delivery for the delivery fee. Delivery fees are confirmed by text before you pay.</li>
           <li><b>Quality.</b> If something arrives damaged or spoiled, text us a photo within 24 hours. We refund or replace that item.</li>
           <li><b>Food safety.</b> Wash produce before eating. Keep frozen items frozen; they're your responsibility once handed off. Baked goods may contain wheat, dairy, eggs, nuts or other allergens and may be made in shared kitchens. Tell us about allergies in your order notes.</li>
@@ -575,13 +576,15 @@ const ZELLE="leeks.sabrosa@gmail.com";
 const APPLE_CASH="773-807-9223";
 const DELIVERY_FEE=8, FLAT_MILES=3, PER_MILE=1.5;
 function isDel(){return state.fulfill.startsWith("del-")}
+/* Opt-in: free early door drop-off for meet-up orders if it fits Sol's route that day. Not a promise; Sol texts to set it up. */
+function earlyOK(){return !isDel()&&state.early}
 function delStop(){return STOPS.find(x=>"del-"+x.id===state.fulfill)}
 const STOPS=[
   {id:"goose",name:"Goose Island",time:"1:00–2:00 PM"},
   {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM"},
   {id:"rogers",name:"Rogers Park",time:"5:00–6:00 PM"}
 ];
-const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:""};
+const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false};
 const PICK_ONLY=["produce","bread"];
 
 /* Pickup dates: Wed (outdoor Wednesday market runs through Oct 28, 2026) and Sat (through Nov 21, 2026). */
@@ -676,6 +679,7 @@ function orderText(id){
   const adds=ALL.filter(i=>state.qty[i.id]);
   if(adds.length){L.push("Add-ons:");for(const i of adds)L.push("  "+state.qty[i.id]+" × "+i.nm+" — $"+state.qty[i.id]*i.p)}
   L.push("","If unavailable: "+(state.sub==="replace"?"Replace with equal or greater value":state.sub==="refund"?"Refund me":"Credit my next order"));
+  if(earlyOK())L.push("Early drop-off: Yes, open to a free early drop-off at my door (text me first)");
   if(state.notes)L.push("Notes: "+state.notes);
   if(state.logo&&voteOpen()){L.push("Logo vote: "+logoName());if(state.reward)L.push("Thank-you: "+rewardName()+(discount()?" (−$5)":state.reward==="5off"?" (needs a $30+ order, not applied)":""));if(state.why.trim())L.push("Why: "+state.why.trim())}
   if(founderOff())L.push("Beta founder rate (meet-up, "+FOUNDER_PCT+"% off boxes) — −$"+founderOff());
@@ -695,7 +699,7 @@ function orderPayload(id){
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
     notes:state.notes.trim(),items,deliveryFee:fee(),total:total(),
-    logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":state.reward==="pastry"?"Pastry":state.reward==="produce"?"Produce pick":""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),waitlist:isWait()?"Yes":""};
+    logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":state.reward==="pastry"?"Pastry":state.reward==="produce"?"Produce pick":""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),earlyDrop:earlyOK()?"Yes":"",waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
   if(!ORDER_ENDPOINT)return false;
@@ -772,6 +776,9 @@ function renderTicket(){
   if(isDel()){
     const a=el("input",{id:"address",type:"text",placeholder:"Street, unit, zip",autocomplete:"street-address"});a.value=state.address;a.addEventListener("input",()=>state.address=a.value);
     f.append(el("label",{for:"address"},"Delivery address",a));
+  } else {
+    const ed=el("input",{id:"early",type:"checkbox"});ed.checked=state.early;ed.addEventListener("change",()=>{state.early=ed.checked});
+    f.append(el("label",{for:"early",class:"agree"},ed,el("span",{},el("b",{},"Free early drop-off, if it fits my route"),el("br"),"Sometimes we finish early and can bring your order to your door before your meet-up time, at no charge. Check this and we'll text you first if it works out that day. If not, pick up at your meet-up as planned.")));
   }
   const ds=datesFor();
   const sel=el("select",{id:"date"});
