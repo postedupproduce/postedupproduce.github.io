@@ -474,7 +474,7 @@ details.terms[open] summary::after{content:"−"}
           <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the pilot (November 21) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
           <li><b>Pickup days.</b> Pickups are on market days only, Wednesdays and Saturdays, the same day we shop. Wednesday delivery is same-day. Other days or times may be arranged by text.</li>
-          <li><b>Beta founder rate.</b> Shopper's Choice boxes (produce and bread) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later.</li>
+          <li><b>Beta founder rate.</b> Boxes (produce, bread, Meat Lovers Box and Lake Haul) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later.</li>
           <li><b>Feedback thank-you.</b> Leave feedback with your contact info during the beta and we'll add one bonus produce pick to your next order. One per person.</li>
           <li id="photoTerm" hidden><b>Photo thank-you.</b> Send a photo of your Posted Up order with the form on this page and we&rsquo;ll add one free pastry or small-batch hot sauce to your next paid order. One per person during the beta. By sending a photo you confirm you took it and let us share it on our site and social pages, credited to you if you give a handle.</li>
           <li><b>Free early drop-off.</b> On meet-up orders you can opt in to a free early drop-off at your door. It&rsquo;s never guaranteed: we text you first when our route allows it. If we don&rsquo;t text, pick up at your meet-up window as usual.</li>
@@ -506,7 +506,7 @@ const BOXES=[
    has:["2 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","1 bunch kale","1 delicata squash"]},
   {id:"crate",name:"Full Crate",price:72,wt:"~14–15 lb",desc:"A full week of cooking for a household.",pick:"",
    has:["4 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","Butternut squash","Brussels sprouts","Kale + collards"]},
-  {id:"forever",name:"Foreverbox",price:68,wt:"~9 lb",desc:"Fully plant-based and all local. No dairy, egg, honey or fish sauce; swaps stay plant-based and local.",pick:"New · Plant-based",
+  {id:"forever",name:"The Vegan Box",price:68,wt:"~9 lb",desc:"Fully vegan and all local. No dairy, egg, honey or fish sauce; swaps stay vegan and local.",pick:"New · Vegan",
    has:["½ lb local mushrooms (or another local mushroom)","1 block local tofu (or local beans/grains)","2 lb sweet potatoes (or potatoes)","1 winter squash (or pie pumpkin)","Kale or collards (or chard, cabbage)","Onions + garlic (or leeks, shallots)","2 lb orchard apples (or pears)","Microgreens (or salad greens)"]}
 ];
 const PREFS=["Apples","Winter squash","Sweet potatoes","Kale & greens","Beets","Cabbage","Brussels sprouts","Onions & garlic","Peppers","Potatoes","Microgreens","Herbs"];
@@ -528,6 +528,8 @@ const ITEMS={
     {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. bell, poblano, shishito, fennel, celery",p:8}
   ],
   meat:[
+    {id:"meatbox",nm:"Meat Lovers Box",ds:"Box · steak night (10–12 oz), an everyday cut, 1 lb ground and 1 lb sausage · save $10 vs. buying each",p:89},
+    {id:"lakehaul",nm:"Lake Haul",ds:"Box · 2 wild Great Lakes fish fillets plus smoked fish or pâté · save $8 vs. buying each",p:70},
     {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10},
     {id:"ground",nm:"Ground meat, 1 lb",ds:"e.g. grass-fed beef or pastured pork",p:17},
     {id:"everyday",nm:"Everyday cut, about 1 lb",ds:"e.g. pork chops, tenderloin, beef stew meat, fajita meat",p:24},
@@ -710,7 +712,9 @@ function count(){return (state.box?1:0)+(state.breadBox?1:0)+Object.values(state
 function subtotal(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(bb?bb.price:0)+ALL.reduce((s,i)=>s+(state.qty[i.id]||0)*i.p,0)}
 function fee(){return isDel()&&count()?DELIVERY_FEE:0}
 const FOUNDER_PCT=10;
-function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(bb?bb.price:0)}
+/* Protein boxes (Meat Lovers Box, Lake Haul) live in the Meat tab as items but count as boxes for the founder rate. */
+const PROTEIN_BOXES=["meatbox","lakehaul"];
+function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);let s=(b?b.price:0)+(bb?bb.price:0);for(const id of PROTEIN_BOXES){const it=ITEMS.meat.find(x=>x.id===id);if(it&&state.qty[id])s+=it.p*state.qty[id]}return s}
 /* Beta founder rate: 10% off boxes on meet-up orders, rounded to whole dollars. */
 function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
 function total(){return subtotal()+fee()-discount()-founderOff()}
