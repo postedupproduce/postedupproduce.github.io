@@ -65,11 +65,27 @@ a{color:inherit}
 .cta{display:block;text-align:center;text-decoration:none;background:var(--tomato);color:#fff;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;min-height:52px}
 .ghost{display:block;text-align:center;text-decoration:none;border:1.5px solid var(--ink);border-radius:10px;padding:13px 14px;font-weight:700;min-height:48px}
 .foot{font-size:13px;color:var(--muted);margin:0}
+
+/* Site tabs: same bar on every customer page, sticky under the logo. */
+.topbar{position:sticky;top:0;z-index:6;margin:-14px -16px 0;padding:12px 16px 0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:grid;gap:6px}
+.tabs{display:flex;gap:2px;margin:0 -6px;padding-bottom:8px}
+.tabs a{flex:none;font:700 13px/1 var(--body);color:var(--muted);text-decoration:none;padding:8px 8px;border-radius:999px;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+@media(max-width:374px){.tabs a{font-size:12px;padding:8px 6px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="top"><a class="brand" id="home" href="../">Posted Up Produce <span class="beta">Beta</span></a></header>
+  <div class="topbar">
+    <header class="top"><a class="brand" id="home" href="../">Posted Up Produce <span class="beta">Beta</span></a></header>
+    <nav class="tabs" aria-label="Site pages">
+      <a href="/">Home</a>
+      <a href="/how/" aria-current="page">How it works</a>
+      <a href="/#shop">Boxes</a>
+      <a href="/join/">Get first pick</a>
+      <a href="/play/">Play</a>
+    </nav>
+  </div>
 
   <section class="sign">
     <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
@@ -127,10 +143,13 @@ a{color:inherit}
 </div>
 <script>
 /* Carry the ?s= tag through so Visits (site) and Contacts (sign-up) still show who sent them. */
-const s=(new URLSearchParams(location.search).get("s")||"how").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"how";
+const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
+const s=raw||"how";
 document.getElementById("shop").href="../?s="+s+"#shop";
 document.getElementById("join").href="../join/?s="+s;
 document.getElementById("home").href="../?s="+s;
+/* Same for the site tabs: only when a tag actually came in. */
+if(raw)document.querySelectorAll(".tabs a").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",raw);a.setAttribute("href",u.pathname+u.search+u.hash)});
 </script>
 </body>
 </html>

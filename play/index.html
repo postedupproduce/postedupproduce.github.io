@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Market Catch · Posted Up Produce</title>
+<meta name="description" content="Market Catch: a 30-second farmers-market game from Posted Up Produce. Catch produce, dodge the bugs, beat your friends.">
+<meta property="og:title" content="Market Catch · Posted Up Produce">
+<meta property="og:description" content="30 seconds. Catch produce, grab the golden pumpkin, dodge the bugs. Think you can beat my score?">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
+  --tomato:#c4432b;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;--star:#d89a1c;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;--star:#f0b94a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;--star:#f0b94a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 40px;display:grid;gap:22px}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:env(safe-area-inset-top,0px)}
+.brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none}
+.beta{font:700 11px/1 var(--body);background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
+
+/* Site tabs: same bar on every customer page, sticky under the logo. */
+.topbar{position:sticky;top:0;z-index:6;margin:-14px -16px 0;padding:12px 16px 0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:grid;gap:6px}
+.tabs{display:flex;gap:2px;margin:0 -6px;padding-bottom:8px}
+.tabs a{flex:none;font:700 13px/1 var(--body);color:var(--muted);text-decoration:none;padding:8px 8px;border-radius:999px;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+@media(max-width:374px){.tabs a{font-size:12px;padding:8px 6px}}
+
+.sign{background:var(--board);color:var(--board-ink);border-radius:14px;padding:22px 20px;display:grid;gap:10px}
+.sign h1{font-size:clamp(30px,9vw,44px);line-height:1.04}
+.sign p{margin:0;font-size:17px;color:color-mix(in srgb,var(--board-ink) 92%,transparent)}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:18px 16px;display:grid;gap:12px}
+.card h2{font-size:23px;line-height:1.15}
+.sub{margin:0;color:var(--muted);font-size:15px}
+.cta{display:block;text-align:center;text-decoration:none;background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;min-height:52px}
+.cta:disabled{opacity:.5}
+.ghost{display:block;text-align:center;text-decoration:none;background:transparent;border:1.5px solid var(--ink);color:var(--ink);border-radius:10px;padding:13px 14px;font-weight:700;min-height:48px}
+.ok{color:var(--good);font-weight:700;margin:0}
+.foot{font-size:13px;color:var(--muted);margin:0}
+.game{display:grid;gap:10px}
+.game canvas{width:100%;aspect-ratio:3/4;max-height:70vh;background:linear-gradient(var(--panel),var(--bg));border:1.5px solid var(--line);border-radius:12px;touch-action:none;display:block}
+.ghud{display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <header class="top"><a class="brand" id="home" href="../">Posted Up Produce <span class="beta">Beta</span></a></header>
+    <nav class="tabs" aria-label="Site pages">
+      <a href="/">Home</a>
+      <a href="/how/">How it works</a>
+      <a href="/#shop">Boxes</a>
+      <a href="/join/">Get first pick</a>
+      <a href="/play/" aria-current="page">Play</a>
+    </nav>
+  </div>
+
+  <section class="sign">
+    <h1>Market Catch.</h1>
+    <p>30 seconds at the farmers market. Catch produce (+1), grab the golden pumpkin (+5), dodge the bugs (&minus;3). Then send your score to a friend and make them beat it.</p>
+  </section>
+
+  <section class="card game" aria-labelledby="gH">
+    <h2 id="gH">Grab your basket</h2>
+    <p class="sub">Drag or tap to move the basket. Arrow keys work too.</p>
+    <div class="ghud"><span id="gScore">Score 0</span><span id="gTime">0:30</span><span id="gBest"></span></div>
+    <canvas id="gC" width="360" height="480" aria-label="Market Catch game"></canvas>
+    <button class="cta" type="button" id="gGo">Play</button>
+    <button class="ghost" type="button" id="gShare" hidden>Beat my score: share it</button>
+    <a class="cta" id="gShop" href="../#shop" hidden>Shop the real haul</a>
+    <a class="ghost" id="gJoin" href="../join/" hidden>Get first pick of the harvest</a>
+    <p class="ok" id="gMsg" aria-live="polite"></p>
+  </section>
+
+  <p class="foot">Your score stays on this device; nothing is sent anywhere unless you tap share. Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+</div>
+<script>
+/* Market Catch, the shareable edition. Same game as the /join thank-you screen.
+   No data leaves the device: best score in localStorage (pu_catch_best), and the only network thing is the share sheet if you tap share. */
+const SHARE_URL="https://postedupproduce.github.io/play/?s=play-share";
+const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
+const src=raw||"play";
+/* Carry the incoming ?s= tag onto every site tab so Visits/Contacts attribution survives. */
+if(raw)document.querySelectorAll(".tabs a").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",raw);a.setAttribute("href",u.pathname+u.search+u.hash)});
+document.getElementById("home").href="../?s="+src;
+document.getElementById("gShop").href="../?s="+src+"#shop";
+document.getElementById("gJoin").href="../join/?s="+src;
+
+const c=document.getElementById("gC"),x=c.getContext("2d"),go=document.getElementById("gGo"),sc=document.getElementById("gScore"),tm=document.getElementById("gTime"),bs=document.getElementById("gBest"),msg=document.getElementById("gMsg"),share=document.getElementById("gShare");
+const W=360,H=480,GOOD=["🍎","🥕","🥬","🍅","🌽","🍐","🧅","🫑","🍇"],BW=74,BH=40;
+let best=0;try{best=+localStorage.getItem("pu_catch_best")||0}catch(e){}
+const showBest=()=>bs.textContent=best?"Best "+best:"";showBest();
+let items,bx,score,left,run=false,last,spawnT,keys={},lastScore=0;
+function fit(){const r=Math.min(window.devicePixelRatio||1,2);c.width=W*r;c.height=H*r;x.setTransform(r,0,0,r,0,0)}
+fit();
+function idle(){x.clearRect(0,0,W,H);x.font="64px system-ui";x.textAlign="center";x.textBaseline="middle";x.fillText("🧺",W/2,H/2-20);x.font="600 18px system-ui";x.fillStyle=getComputedStyle(document.body).color;x.fillText("Tap Play to start",W/2,H/2+40)}
+idle();
+function start(){items=[];bx=W/2;score=0;left=30;spawnT=0;run=true;last=performance.now();go.disabled=true;go.textContent="Playing…";msg.textContent="";requestAnimationFrame(loop)}
+function spawn(){const r=Math.random(),k=r<.07?"gold":r<.25?"bug":"good";
+  items.push({k,e:k==="gold"?"🎃":k==="bug"?"🐛":GOOD[Math.random()*GOOD.length|0],x:20+Math.random()*(W-40),y:-20,v:(110+Math.random()*70)*(1+(30-left)/30)})}
+function loop(t){if(!run)return;const dt=Math.min((t-last)/1000,.05);last=t;left-=dt;
+  if(keys.ArrowLeft)bx-=360*dt;if(keys.ArrowRight)bx+=360*dt;bx=Math.max(BW/2,Math.min(W-BW/2,bx));
+  spawnT-=dt;if(spawnT<=0){spawn();spawnT=Math.max(.28,.75-(30-left)*.015)}
+  const by=H-BH/2-8;
+  for(const i of items){i.y+=i.v*dt;
+    if(!i.hit&&i.y>by-BH/2-6&&i.y<by+BH/2&&Math.abs(i.x-bx)<BW/2+6){i.hit=true;score+=i.k==="gold"?5:i.k==="bug"?-3:1;if(score<0)score=0;
+      if(navigator.vibrate&&i.k==="bug")try{navigator.vibrate(40)}catch(e){}}}
+  items=items.filter(i=>!i.hit&&i.y<H+30);
+  x.clearRect(0,0,W,H);x.textAlign="center";x.textBaseline="middle";x.font="34px system-ui";
+  for(const i of items)x.fillText(i.e,i.x,i.y);
+  x.font="50px system-ui";x.fillText("🧺",bx,by);
+  sc.textContent="Score "+score;tm.textContent="0:"+String(Math.max(0,Math.ceil(left))).padStart(2,"0");
+  if(left<=0)return end();requestAnimationFrame(loop)}
+function end(){run=false;go.disabled=false;go.textContent="Play again";lastScore=score;
+  share.hidden=false;document.getElementById("gShop").hidden=false;document.getElementById("gJoin").hidden=false;
+  const nb=score>best;if(nb){best=score;try{localStorage.setItem("pu_catch_best",best)}catch(e){}}showBest();
+  msg.textContent=score>=40?"Market legend: "+score+"! You'd shop circles around us.":score>=20?"Nice haul: "+score+" picked!":"You caught "+score+". The real box is easier, we pick it for you.";
+  x.clearRect(0,0,W,H);x.font="56px system-ui";x.fillText(score>=20?"🏆":"🧺",W/2,H/2-30);x.font="700 22px system-ui";x.fillStyle=getComputedStyle(document.body).color;x.fillText((nb?"New best! ":"")+score+" caught",W/2,H/2+30)}
+function moveTo(cx){const r=c.getBoundingClientRect();bx=(cx-r.left)/r.width*W}
+c.addEventListener("pointerdown",e=>{if(run){moveTo(e.clientX);c.setPointerCapture(e.pointerId)}});
+c.addEventListener("pointermove",e=>{if(run)moveTo(e.clientX)});
+addEventListener("keydown",e=>{if(run&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){keys[e.key]=true;e.preventDefault()}});
+addEventListener("keyup",e=>{keys[e.key]=false});
+go.addEventListener("click",start);
+
+/* Beat-my-score share: Web Share API with a copy-the-link fallback. */
+share.addEventListener("click",async()=>{
+  const n=Math.max(lastScore,best);
+  const text="I caught "+n+" in Market Catch 🧺 30 seconds, think you can beat me?";
+  try{
+    if(navigator.share){await navigator.share({title:"Market Catch · Posted Up Produce",text,url:SHARE_URL});return}
+  }catch(e){if(e&&e.name==="AbortError")return}
+  try{await navigator.clipboard.writeText(text+" "+SHARE_URL);msg.textContent="Copied! Paste it to a friend."}
+  catch(e){msg.textContent="Share this link: "+SHARE_URL}
+});
+</script>
+</body>
+</html>

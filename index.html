@@ -38,7 +38,7 @@
   --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
   --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}
 *{box-sizing:border-box}
-html{scroll-padding-top:64px}
+html{scroll-padding-top:100px}
 body{background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);padding:0;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));-webkit-text-size-adjust:100%}
 h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;letter-spacing:.01em}
 button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -52,6 +52,12 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .beta{font:700 11px/1 var(--body);letter-spacing:.04em;background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
 @media(max-width:420px){.brand-p{display:none}}.close{flex:none}
 .close{font-size:13px;font-weight:600;color:var(--ink);background:var(--chip);border-radius:999px;padding:6px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+
+/* Site tabs: same bar on every customer page, sticky under the logo. */
+.tabs{max-width:var(--col);margin:0 auto;padding:0 10px 8px;display:flex;gap:2px}
+.tabs a{flex:none;font:700 13px/1 var(--body);color:var(--muted);text-decoration:none;padding:8px 8px;border-radius:999px;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+@media(max-width:374px){.tabs a{font-size:12px;padding:8px 6px}}
 
 /* Feed */
 .feed{max-width:var(--col);margin:0 auto;padding:14px 16px 0;display:grid;gap:34px}
@@ -257,7 +263,14 @@ details.terms[open] summary::after{content:"−"}
 .phchk input{width:22px;height:22px;min-height:0;margin:1px 0 0;flex:none;accent-color:var(--good)}
 </style>
 
-<header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div></header>
+<header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
+<nav class="tabs" aria-label="Site pages">
+  <a href="/" aria-current="page">Home</a>
+  <a href="/how/">How it works</a>
+  <a href="/#shop">Boxes</a>
+  <a href="/join/">Get first pick</a>
+  <a href="/play/">Play</a>
+</nav></header>
 
 <main class="feed" id="start">
   <section class="post">
@@ -944,6 +957,12 @@ talkForm("mtForm",f=>{const n=f.querySelector("#mtName").value.trim(),c=f.queryS
   return {type:"meeting",name:n,contact:c,message:f.querySelector("#mtMsg").value.trim(),times:[fmtT(t1),fmtT(t2)].filter(Boolean).join(" | ")}});
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
+/* Carry the incoming ?s= tag onto every site tab so Visits/Contacts attribution survives. */
+(function(){
+  const s=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
+  if(!s)return;
+  document.querySelectorAll(".tabs a").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",s);a.setAttribute("href",u.pathname+u.search+u.hash)});
+})();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
    Open the site once with ?me on your own phone/computer to stop counting your visits. Share links like ?s=ig or ?s=fam to tag sources. */
 (function(){
