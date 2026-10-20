@@ -963,6 +963,15 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   if(!s)return;
   document.querySelectorAll(".tabs a").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",s);a.setAttribute("href",u.pathname+u.search+u.hash)});
 })();
+/* Boxes is the #shop section of this page: light it up when you're there, Home otherwise. */
+(function(){
+  const t=[...document.querySelectorAll(".tabs a")];if(!t.length)return;
+  const home=t[0],shop=t.find(a=>a.hash==="#shop");if(!shop)return;
+  const set=()=>{const on=location.hash==="#shop";
+    (on?home:shop).removeAttribute("aria-current");
+    (on?shop:home).setAttribute("aria-current","page")};
+  set();addEventListener("hashchange",set);
+})();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
    Open the site once with ?me on your own phone/computer to stop counting your visits. Share links like ?s=ig or ?s=fam to tag sources. */
 (function(){
