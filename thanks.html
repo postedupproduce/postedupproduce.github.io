@@ -82,6 +82,8 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
 .tabs a{flex:none;font:700 13px/1 var(--body);color:var(--muted);text-decoration:none;padding:8px 8px;border-radius:999px;white-space:nowrap}
 .tabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
 @media(max-width:374px){.tabs a{font-size:12px;padding:8px 6px}}
+@media(hover:hover) and (pointer:fine){.tabs a:hover{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--ink)}.tabs a[aria-current="page"]:hover{background:var(--ink);color:var(--bg)}}
+@media(min-width:700px){.wrap{max-width:640px}.tabs a{font-size:14px;padding:9px 12px}}
 </style>
 </head>
 <body>

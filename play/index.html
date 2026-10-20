@@ -43,6 +43,8 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .tabs a{flex:none;font:700 13px/1 var(--body);color:var(--muted);text-decoration:none;padding:8px 8px;border-radius:999px;white-space:nowrap}
 .tabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
 @media(max-width:374px){.tabs a{font-size:12px;padding:8px 6px}}
+@media(hover:hover) and (pointer:fine){.tabs a:hover{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--ink)}.tabs a[aria-current="page"]:hover{background:var(--ink);color:var(--bg)}}
+@media(min-width:700px){.wrap{max-width:640px}.tabs a{font-size:14px;padding:9px 12px}}
 
 .sign{background:var(--board);color:var(--board-ink);border-radius:14px;padding:22px 20px;display:grid;gap:10px}
 .sign h1{font-size:clamp(30px,9vw,44px);line-height:1.04}
