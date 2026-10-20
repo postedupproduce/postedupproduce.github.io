@@ -188,7 +188,7 @@ f.addEventListener("submit",async e=>{
    Catch produce (+1), golden pumpkin (+5), dodge the bugs (-3). No data leaves the device; best score kept locally. */
 function marketCatch(){
   const wrap=document.createElement("section");wrap.className="card game";wrap.setAttribute("aria-labelledby","gH");
-  wrap.innerHTML='<h2 id="gH">While you\'re here: Market Catch</h2><p class="sub">30 seconds. Drag or tap to move the basket. Catch produce, grab the golden pumpkin for +5, dodge the bugs.</p><div class="ghud"><span id="gScore">Score 0</span><span id="gTime">0:30</span><span id="gBest"></span></div><canvas id="gC" width="360" height="480" aria-label="Market Catch game"></canvas><button class="cta" type="button" id="gGo">Play</button><p class="ok" id="gMsg" aria-live="polite"></p>';
+  wrap.innerHTML='<h2 id="gH">While you\'re here: Market Catch</h2><p class="sub">30 seconds. Drag or tap to move the basket. Catch produce, grab the golden pumpkin for +5, dodge the bugs.</p><div class="ghud"><span id="gScore">Score 0</span><span id="gTime">0:30</span><span id="gBest"></span></div><canvas id="gC" width="360" height="480" aria-label="Market Catch game"></canvas><button class="cta" type="button" id="gGo">Play</button><a class="cta" id="gShop" href="../?s=survey-game" style="text-align:center;text-decoration:none" hidden>Now shop the real haul</a><p class="ok" id="gMsg" aria-live="polite"></p>';
   const c=wrap.querySelector("#gC"),x=c.getContext("2d"),go=wrap.querySelector("#gGo"),sc=wrap.querySelector("#gScore"),tm=wrap.querySelector("#gTime"),bs=wrap.querySelector("#gBest"),msg=wrap.querySelector("#gMsg");
   const W=360,H=480,GOOD=["🍎","🥕","🥬","🍅","🌽","🍐","🧅","🫑","🍇"],BW=74,BH=40;
   let best=0;try{best=+localStorage.getItem("pu_catch_best")||0}catch(e){}
@@ -214,7 +214,7 @@ function marketCatch(){
     x.font="50px system-ui";x.fillText("🧺",bx,by);
     sc.textContent="Score "+score;tm.textContent="0:"+String(Math.max(0,Math.ceil(left))).padStart(2,"0");
     if(left<=0)return end();requestAnimationFrame(loop)}
-  function end(){run=false;go.disabled=false;go.textContent="Play again";
+  function end(){run=false;go.disabled=false;go.textContent="Play again";wrap.querySelector("#gShop").hidden=false;
     const nb=score>best;if(nb){best=score;try{localStorage.setItem("pu_catch_best",best)}catch(e){}}showBest();
     msg.textContent=score>=40?"Market legend: "+score+"! You'd shop circles around us.":score>=20?"Nice haul: "+score+" picked!":"You caught "+score+". The real box is easier, we pick it for you.";
     x.clearRect(0,0,W,H);x.font="56px system-ui";x.fillText(score>=20?"🏆":"🧺",W/2,H/2-30);x.font="700 22px system-ui";x.fillStyle=getComputedStyle(document.body).color;x.fillText((nb?"New best! ":"")+score+" caught",W/2,H/2+30)}
