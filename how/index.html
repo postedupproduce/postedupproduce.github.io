@@ -38,9 +38,10 @@ a{color:inherit}
 .beta{font:700 11px/1 var(--body);background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
 .sign{position:relative;background:var(--board);color:var(--board-ink);border-radius:14px;padding:24px 20px;display:grid;gap:12px;overflow:hidden}
 .kicker{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--star)}
-.sign h1{font-size:clamp(32px,9.5vw,44px);line-height:1.04;max-width:13ch}
+.sign h1{font-size:clamp(30px,9vw,44px);line-height:1.04}
+.kicker{padding-right:90px}
 .sign p{margin:0;font-size:17px}
-.stamp{position:absolute;right:14px;top:18px;transform:rotate(8deg);border:2px solid var(--star);color:var(--star);border-radius:6px;padding:4px 7px;font:700 11px/1.15 var(--body);text-align:center;letter-spacing:.04em}
+.stamp{position:absolute;right:14px;top:14px;transform:rotate(8deg);border:2px solid var(--star);color:var(--star);border-radius:6px;padding:4px 7px;font:700 11px/1.15 var(--body);text-align:center;letter-spacing:.04em}
 .card{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:18px 16px;display:grid;gap:12px}
 .card h2{font-size:24px;line-height:1.15}
 .sub{margin:0;color:var(--muted);font-size:15px}
@@ -54,7 +55,7 @@ a{color:inherit}
 .boxes li{display:grid;grid-template-columns:1fr auto;gap:4px 10px;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:12px}
 .boxes b{font-size:16px}
 .boxes .p{font:400 20px/1 var(--display);color:var(--tomato)}
-.boxes span{grid-column:1/-1;font-size:14px;color:var(--muted)}
+.boxes span:not(.p){grid-column:1/-1;font-size:14px;color:var(--muted)}
 .tag{font:700 11px/1 var(--body);background:var(--good);color:#fff;border-radius:999px;padding:3px 6px;margin-left:6px;vertical-align:2px}
 .chain{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .chain li{border-left:4px solid var(--line);padding:4px 0 4px 12px;font-size:15px}
@@ -71,9 +72,9 @@ a{color:inherit}
   <header class="top"><a class="brand" id="home" href="../">Posted Up Produce <span class="beta">Beta</span></a></header>
 
   <section class="sign">
-    <span class="kicker">What it is</span>
     <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
-    <h1>Your personal shopper at the farmers market.</h1>
+    <span class="kicker">What it is</span>
+    <h1 style="margin-top:22px">Your personal shopper at the farmers market.</h1>
     <p>We shop small farms and makers at the Chicago farmers market, pick the best of the week for you, and hand it off the same day at a meet-up near you.</p>
     <p>No subscription. No season commitment. Order the weeks you want.</p>
   </section>
