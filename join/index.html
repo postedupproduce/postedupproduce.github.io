@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>First pick · Posted Up Produce</title>
+<meta name="description" content="Get first pick of the harvest: tell us your spot, your day and how often to text you. 30 seconds.">
+<meta property="og:title" content="Posted Up Produce: market haul, picked for you">
+<meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, pick up same day Wed and Sat.">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
+  --tomato:#c4432b;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;--star:#d89a1c;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;--star:#f0b94a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;--star:#f0b94a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 40px;display:grid;gap:22px}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:env(safe-area-inset-top,0px)}
+.brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none}
+.beta{font:700 11px/1 var(--body);background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
+.sign{background:var(--board);color:var(--board-ink);border-radius:14px;padding:24px 20px;display:grid;gap:12px}
+.sign h1{font-size:clamp(34px,10vw,46px);line-height:1.02}
+.sign p{margin:0;font-size:17px;color:color-mix(in srgb,var(--board-ink) 92%,transparent)}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:18px 16px;display:grid;gap:12px}
+.card h2{font-size:23px;line-height:1.15}
+.sub{margin:0;color:var(--muted);font-size:15px}
+label{display:grid;gap:5px;font-size:15px;font-weight:700}
+input,textarea{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:11px 12px;width:100%;min-height:48px}
+textarea{min-height:76px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:420px){.two{grid-template-columns:1fr}}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:6px;min-width:0}
+legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
+.stars{display:flex;gap:6px}
+.stars label{position:relative;display:block;cursor:pointer}
+.stars input{position:absolute;opacity:0;width:1px;height:1px;min-height:0}
+.stars span{display:grid;place-items:center;width:48px;height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-size:26px;line-height:1;color:var(--line)}
+.stars label.on span{color:var(--star);border-color:var(--star)}
+.stars input:focus-visible + span{outline:3px solid var(--tomato);outline-offset:2px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px}
+.check input{width:24px;height:24px;min-height:0;margin:1px 0 0;flex:none;accent-color:var(--good)}
+.cta{background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;min-height:52px}
+.cta:disabled{opacity:.5}
+.ghost{background:transparent;border:1.5px solid var(--ink);color:var(--ink);border-radius:10px;padding:13px 14px;font-weight:700;min-height:48px}
+.err{color:var(--tomato);font-size:15px;font-weight:600;margin:0}
+.ok{color:var(--good);font-weight:700;margin:0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.share pre{margin:0;white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;font:500 15px/1.5 var(--body);user-select:all}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.chip{border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:10px 6px;font-weight:700;min-height:46px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.payto{display:grid;gap:8px}
+.payto div{display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:15px}
+.payto span{font-weight:700}
+.payto code{font:600 15px var(--body);overflow-wrap:anywhere;user-select:all}
+.ghost.sm{padding:8px 12px;min-height:40px;font-size:14px}
+.foot{font-size:13px;color:var(--muted);margin:0}
+.foot a{color:var(--muted)}
+
+.opts{display:grid;gap:8px}
+.opt{position:relative;display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:12px;min-height:50px;font-weight:600;font-size:16px;cursor:pointer}
+.opt input{width:22px;height:22px;min-height:0;margin:0;flex:none;accent-color:var(--good)}
+.opt:has(input:checked){border-color:var(--good);background:color-mix(in srgb,var(--good) 10%,var(--bg))}
+.opt small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:420px){.row3{grid-template-columns:1fr}}
+.perks{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.perks li{padding-left:22px;position:relative}
+.perks li::before{content:"✓";position:absolute;left:0;color:var(--star);font-weight:700}
+.sign .perks li{color:var(--board-ink)}
+.done .cta{display:block;text-align:center;text-decoration:none}
+.game{display:grid;gap:10px}
+.game canvas{width:100%;aspect-ratio:3/4;max-height:70vh;background:linear-gradient(var(--panel),var(--bg));border:1.5px solid var(--line);border-radius:12px;touch-action:none;display:block}
+.ghud{display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a class="brand" href="../?s=join">Posted Up Produce <span class="beta">Beta</span></a></header>
+
+  <section class="sign">
+    <h1>Get first pick of the harvest.</h1>
+    <p>Tell us your spot, your day, and how often you want to hear from us. 30 seconds, mostly taps.</p>
+    <ul class="perks">
+      <li>Only texts that fit your week. No group blasts, no spam.</li>
+      <li>Boxes planned around your stop and your taste.</li>
+      <li>We shop smarter at market, so less goes to waste.</li>
+    </ul>
+  </section>
+
+  <form class="card" id="sv" novalidate>
+    <fieldset>
+      <legend>How much do you want to hear from us?</legend>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="freq" value="Heads-up before each pickup at my spot"><span>A heads-up before each pickup at my spot</span></label>
+        <label class="opt"><input type="radio" name="freq" value="Only when something special is in"><span>Only when something special is in season</span></label>
+        <label class="opt"><input type="radio" name="freq" value="Only if I reach out"><span>Only if I reach out<small>I'll check the site myself</small></span></label>
+      </div>
+      <p class="sub">We'll only text you the way you pick here. Reply STOP anytime. We never share your number.</p>
+    </fieldset>
+
+    <div class="two">
+      <label for="nm">First name<input id="nm" type="text" autocomplete="given-name" maxlength="60" required></label>
+      <label for="ph">Mobile<input id="ph" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" required></label>
+    </div>
+
+    <fieldset>
+      <legend>Where works?</legend>
+      <div class="opts">
+        <label class="opt"><input type="checkbox" name="spot" value="Goose Island"><span>Goose Island<small>1–2 PM</small></span></label>
+        <label class="opt"><input type="checkbox" name="spot" value="Hyde Park"><span>Hyde Park<small>3–4 PM</small></span></label>
+        <label class="opt"><input type="checkbox" name="spot" value="Rogers Park"><span>Rogers Park<small>5–6 PM, after work</small></span></label>
+        <label class="opt"><input type="checkbox" name="spot" value="Delivery"><span>Delivery</span></label>
+        <label class="opt"><input type="checkbox" name="spot" value="None yet"><span>None of these yet</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Which day?</legend>
+      <div class="row3">
+        <label class="opt"><input type="radio" name="day" value="Wednesday"><span>Wed</span></label>
+        <label class="opt"><input type="radio" name="day" value="Saturday"><span>Sat</span></label>
+        <label class="opt"><input type="radio" name="day" value="Either"><span>Either</span></label>
+      </div>
+    </fieldset>
+
+
+    <label for="taste">Anything you love or never want? (optional)<input id="taste" type="text" maxlength="300" placeholder="Love honeycrisp, no beets"></label>
+
+    <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+    <p class="err" id="err" aria-live="polite"></p>
+    <button class="cta" type="submit">Save my spot on the list</button>
+  </form>
+
+  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+</div>
+<script>
+const ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+/* Sign-up -> sheet's Feedback tab as type "feedback" with Contact left blank (so no bonus pick is flagged).
+   Unknown types would land in All Orders as fake orders, so don't change the type without an Apps Script update. */
+const src=(new URLSearchParams(location.search).get("s")||"direct").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"direct";
+const f=document.getElementById("sv"),err=document.getElementById("err");
+const picked=n=>[...f.querySelectorAll('input[name="'+n+'"]:checked')].map(i=>i.value);
+f.addEventListener("submit",async e=>{
+  e.preventDefault();err.textContent="";
+  const name=f.querySelector("#nm").value.trim(),phone=f.querySelector("#ph").value.trim();
+  const spots=picked("spot"),day=picked("day")[0],freq=picked("freq")[0],taste=f.querySelector("#taste").value.trim();
+  if(!name)return void(err.textContent="Add your first name.");
+  if(phone.replace(/\D/g,"").length<10)return void(err.textContent="Add a 10-digit mobile number.");
+  if(!spots.length)return void(err.textContent="Pick at least one spot.");
+  if(!day)return void(err.textContent="Pick a day.");
+  if(!freq)return void(err.textContent="Pick how often to hear from us.");
+  const message=["SURVEY SIGN-UP","Mobile: "+phone,"Spot: "+spots.join(", "),"Day: "+day,"Texts: "+freq,taste&&"Taste: "+taste,"Source: "+src].filter(Boolean).join(" · ");
+  const body={type:"feedback",name,contact:"",message,times:"",hp:f.querySelector('input[name="website"]').value};
+  const btn=f.querySelector(".cta");btn.disabled=true;btn.textContent="Saving…";
+  try{
+    await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
+    const h=document.createElement("h2");h.textContent="You're on the list, "+name+"!";
+    const p1=document.createElement("p");p1.className="sub";p1.textContent="You'll only hear from us the way you picked. Nothing that doesn't fit your spot and day.";
+    const p2=document.createElement("p");p2.className="sub";p2.textContent="Orders close 9 PM the night before pickup. Prepay by Zelle or Apple Cash and your box is hand-picked at market that morning.";
+    const a=document.createElement("a");a.className="cta";a.href="../?s=survey";a.textContent="See what's in season this week";
+    f.classList.add("done");f.replaceChildren(h,p1,a,p2);
+    h.setAttribute("tabindex","-1");h.focus();
+    f.after(marketCatch());
+  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+});
+
+/* Market Catch: a 30-second bonus game on the thank-you screen. Drag, tap or use arrow keys to move the basket.
+   Catch produce (+1), golden pumpkin (+5), dodge the bugs (-3). No data leaves the device; best score kept locally. */
+function marketCatch(){
+  const wrap=document.createElement("section");wrap.className="card game";wrap.setAttribute("aria-labelledby","gH");
+  wrap.innerHTML='<h2 id="gH">While you\'re here: Market Catch</h2><p class="sub">30 seconds. Drag or tap to move the basket. Catch produce, grab the golden pumpkin for +5, dodge the bugs.</p><div class="ghud"><span id="gScore">Score 0</span><span id="gTime">0:30</span><span id="gBest"></span></div><canvas id="gC" width="360" height="480" aria-label="Market Catch game"></canvas><button class="cta" type="button" id="gGo">Play</button><p class="ok" id="gMsg" aria-live="polite"></p>';
+  const c=wrap.querySelector("#gC"),x=c.getContext("2d"),go=wrap.querySelector("#gGo"),sc=wrap.querySelector("#gScore"),tm=wrap.querySelector("#gTime"),bs=wrap.querySelector("#gBest"),msg=wrap.querySelector("#gMsg");
+  const W=360,H=480,GOOD=["🍎","🥕","🥬","🍅","🌽","🍐","🧅","🫑","🍇"],BW=74,BH=40;
+  let best=0;try{best=+localStorage.getItem("pu_catch_best")||0}catch(e){}
+  const showBest=()=>bs.textContent=best?"Best "+best:"";showBest();
+  let items,bx,score,left,run=false,last,spawnT,keys={};
+  function fit(){const r=Math.min(window.devicePixelRatio||1,2);c.width=W*r;c.height=H*r;x.setTransform(r,0,0,r,0,0)}
+  fit();
+  function idle(){x.clearRect(0,0,W,H);x.font="64px system-ui";x.textAlign="center";x.textBaseline="middle";x.fillText("🧺",W/2,H/2-20);x.font="600 18px system-ui";x.fillStyle=getComputedStyle(document.body).color;x.fillText("Tap Play to start",W/2,H/2+40)}
+  idle();
+  function start(){items=[];bx=W/2;score=0;left=30;spawnT=0;run=true;last=performance.now();go.disabled=true;go.textContent="Playing…";msg.textContent="";requestAnimationFrame(loop)}
+  function spawn(){const r=Math.random(),k=r<.07?"gold":r<.25?"bug":"good";
+    items.push({k,e:k==="gold"?"🎃":k==="bug"?"🐛":GOOD[Math.random()*GOOD.length|0],x:20+Math.random()*(W-40),y:-20,v:(110+Math.random()*70)*(1+(30-left)/30)})}
+  function loop(t){if(!run)return;const dt=Math.min((t-last)/1000,.05);last=t;left-=dt;
+    if(keys.ArrowLeft)bx-=360*dt;if(keys.ArrowRight)bx+=360*dt;bx=Math.max(BW/2,Math.min(W-BW/2,bx));
+    spawnT-=dt;if(spawnT<=0){spawn();spawnT=Math.max(.28,.75-(30-left)*.015)}
+    const by=H-BH/2-8;
+    for(const i of items){i.y+=i.v*dt;
+      if(!i.hit&&i.y>by-BH/2-6&&i.y<by+BH/2&&Math.abs(i.x-bx)<BW/2+6){i.hit=true;score+=i.k==="gold"?5:i.k==="bug"?-3:1;if(score<0)score=0;
+        if(navigator.vibrate&&i.k==="bug")try{navigator.vibrate(40)}catch(e){}}}
+    items=items.filter(i=>!i.hit&&i.y<H+30);
+    x.clearRect(0,0,W,H);x.textAlign="center";x.textBaseline="middle";x.font="34px system-ui";
+    for(const i of items)x.fillText(i.e,i.x,i.y);
+    x.font="50px system-ui";x.fillText("🧺",bx,by);
+    sc.textContent="Score "+score;tm.textContent="0:"+String(Math.max(0,Math.ceil(left))).padStart(2,"0");
+    if(left<=0)return end();requestAnimationFrame(loop)}
+  function end(){run=false;go.disabled=false;go.textContent="Play again";
+    const nb=score>best;if(nb){best=score;try{localStorage.setItem("pu_catch_best",best)}catch(e){}}showBest();
+    msg.textContent=score>=40?"Market legend: "+score+"! You'd shop circles around us.":score>=20?"Nice haul: "+score+" picked!":"You caught "+score+". The real box is easier, we pick it for you.";
+    x.clearRect(0,0,W,H);x.font="56px system-ui";x.fillText(score>=20?"🏆":"🧺",W/2,H/2-30);x.font="700 22px system-ui";x.fillStyle=getComputedStyle(document.body).color;x.fillText((nb?"New best! ":"")+score+" caught",W/2,H/2+30)}
+  function moveTo(cx){const r=c.getBoundingClientRect();bx=(cx-r.left)/r.width*W}
+  c.addEventListener("pointerdown",e=>{if(run){moveTo(e.clientX);c.setPointerCapture(e.pointerId)}});
+  c.addEventListener("pointermove",e=>{if(run)moveTo(e.clientX)});
+  addEventListener("keydown",e=>{if(run&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){keys[e.key]=true;e.preventDefault()}});
+  addEventListener("keyup",e=>{keys[e.key]=false});
+  go.addEventListener("click",start);
+  return wrap;
+}
+</script>
+</body>
+</html>
