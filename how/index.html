@@ -74,6 +74,7 @@ a{color:inherit}
 @media(max-width:374px){.tabs a{font-size:12px;padding:8px 6px}}
 @media(hover:hover) and (pointer:fine){.tabs a:hover{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--ink)}.tabs a[aria-current="page"]:hover{background:var(--ink);color:var(--bg)}}
 @media(min-width:700px){.wrap{max-width:640px}.tabs a{font-size:14px;padding:9px 12px}}
+.top .tabs{overflow-x:auto;scrollbar-width:none}@media(max-width:430px){.top .tabs{gap:0;padding:0 6px 8px}.top .tabs a{font-size:12px;padding:8px 6px}}.top .tabs::-webkit-scrollbar{display:none}
 </style>
 </head>
 <body>
@@ -84,6 +85,7 @@ a{color:inherit}
       <a href="/">Home</a>
       <a href="/how/" aria-current="page">How it works</a>
       <a href="/#shop">Boxes</a>
+  <a href="/#inventory">Inventory</a>
       <a href="/join/">Get first pick</a>
       <a href="/play/">Play</a>
     </nav>

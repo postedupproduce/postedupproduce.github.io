@@ -264,6 +264,10 @@ details.terms[open] summary::after{content:"−"}
 .ok{color:var(--good);font-weight:700;margin:0;font-size:15px}
 .phchk{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px}
 .phchk input{width:22px;height:22px;min-height:0;margin:1px 0 0;flex:none;accent-color:var(--good)}
+/* Page views: Home, Boxes (#shop) and Inventory (#inventory) are separate screens on this one page so the cart and checkout carry across. */
+.offview{display:none!important}
+.hop{display:block;margin-top:14px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font-weight:700;text-decoration:none;text-align:center}
+.top .tabs{overflow-x:auto;scrollbar-width:none}@media(max-width:430px){.top .tabs{gap:0;padding:0 6px 8px}.top .tabs a{font-size:12px;padding:8px 6px}}.top .tabs::-webkit-scrollbar{display:none}
 </style>
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
@@ -271,12 +275,13 @@ details.terms[open] summary::after{content:"−"}
   <a href="/" aria-current="page">Home</a>
   <a href="/how/">How it works</a>
   <a href="/#shop">Boxes</a>
+  <a href="/#inventory">Inventory</a>
   <a href="/join/">Get first pick</a>
   <a href="/play/">Play</a>
 </nav></header>
 
 <main class="feed" id="start">
-  <section class="post">
+  <section class="post" data-view="home">
     <div class="sign">
       <span class="kicker">Now in beta: pilot season in Chicago, fall 2026</span>
       <h1>Market haul, picked for you.</h1>
@@ -287,7 +292,7 @@ details.terms[open] summary::after{content:"−"}
     </div>
   </section>
 
-  <section class="post" aria-labelledby="plugH">
+  <section class="post" data-view="home" aria-labelledby="plugH">
     <div class="plug">
       <h2 id="plugH">Your produce plug, straight from the farm</h2>
       <p class="q">Would you rather pay the middleman, or the people who grew it?</p>
@@ -301,7 +306,7 @@ details.terms[open] summary::after{content:"−"}
     </div>
   </section>
 
-  <section class="post" id="how" aria-labelledby="howH">
+  <section class="post" data-view="home" id="how" aria-labelledby="howH">
     <h2 id="howH">How it works</h2>
     <ol class="steps">
       <li><span><b>Order and pay by 9 PM</b> the night before, by Zelle or Apple Cash. Pick a box or build your own.</span></li>
@@ -321,7 +326,7 @@ details.terms[open] summary::after{content:"−"}
     <p class="firstpick"><span><b>Not ready to order?</b> Get first pick: tell us your spot and how often to text you. 30 seconds.</span><a href="join/?s=site-how">Get first pick</a></p>
   </section>
 
-  <section class="post" aria-labelledby="seasonTitle">
+  <section class="post" data-view="home" aria-labelledby="seasonTitle">
     <h2 id="seasonTitle">October harvest</h2>
     <p class="sub" id="seasonNote">What local farms are bringing to market right now, and the part of the Midwest it usually comes from. Boxes are built from whatever is peaking that week.</p>
     <div class="swipe"><span>Scrolling on its own. Tap or swipe to look closer.</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
@@ -329,7 +334,7 @@ details.terms[open] summary::after{content:"−"}
     <p class="tickhint">Want to know exactly which farm grew something in your bag? Ask at handoff and we'll tell you.</p>
   </section>
 
-  <section class="post" id="shop" aria-labelledby="shopH">
+  <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
     <h2 id="shopH">Pick your haul</h2>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
       <button type="button" role="radio" data-mode="box" aria-checked="true">Shopper's Choice</button>
@@ -341,9 +346,10 @@ details.terms[open] summary::after{content:"−"}
       <div class="row boxes" id="boxes"></div>
       <div class="items" data-cat="produce"></div>
     </div>
+    <a class="hop" href="#inventory">Add meat, bread, cheese and more <span aria-hidden="true">&rarr;</span></a>
   </section>
 
-  <section class="post" aria-labelledby="addH">
+  <section class="post" data-view="inventory" id="inventory" aria-labelledby="addH">
     <h2 id="addH">Add to your order</h2>
     <nav class="row tabs" role="tablist" aria-label="Menu sections">
       <button class="tab" role="tab" aria-selected="true" data-go="meat">Meat, fish &amp; eggs</button>
@@ -383,9 +389,10 @@ details.terms[open] summary::after{content:"−"}
       <h3>Flowers</h3>
       <p class="soon">Coming soon: seasonal bouquets from a local flower farm.</p>
     </div>
+    <a class="hop" href="#shop"><span aria-hidden="true">&larr;</span> Back to produce boxes</a>
   </section>
 
-  <section class="post" aria-labelledby="whyH">
+  <section class="post" data-view="home" aria-labelledby="whyH">
     <h2 id="whyH">A shopper who knows the farmers</h2>
     <p class="sub">Delivery apps send whoever is free to a warehouse store. We spend market mornings with growers we've known for years.</p>
     <ul class="trust">
@@ -399,7 +406,7 @@ details.terms[open] summary::after{content:"−"}
     <p class="fomo"><b>Pilot spots are limited.</b> We only take as many orders as one person can hand-pick well, and the season ends November 21. When a market day fills, it's full.</p>
   </section>
 
-  <section class="post" aria-labelledby="milesH">
+  <section class="post" data-view="home" aria-labelledby="milesH">
     <h2 id="milesH">Everything within 150 miles</h2>
     <svg viewBox="0 0 320 200" role="img" aria-labelledby="rTitle rDesc" class="rings">
       <title id="rTitle">Sourcing radius from downtown Chicago</title>
@@ -420,11 +427,11 @@ details.terms[open] summary::after{content:"−"}
     </ul>
   </section>
 
-  <section class="post" id="checkout" aria-label="Checkout">
+  <section class="post" data-view="shop inventory" id="checkout" aria-label="Checkout">
     <div class="ticket" id="ticket" aria-live="polite"><div id="ticketBody"></div></div>
   </section>
 
-  <section class="post talk" id="photo" aria-labelledby="photoH" hidden>
+  <section class="post talk" data-view="home" id="photo" aria-labelledby="photoH" hidden>
     <h2 id="photoH">Show us your haul, get a treat</h2>
     <form class="talkf" id="phForm" novalidate>
       <p class="sub">Snap your Posted Up order at home and send it here. We'll add a thank-you to your next order: a fresh pastry or a small-batch hot sauce. One per person during the beta.</p>
@@ -449,7 +456,7 @@ details.terms[open] summary::after{content:"−"}
     </form>
   </section>
 
-  <section class="post talk" id="talk" aria-labelledby="talkH">
+  <section class="post talk" data-view="home" id="talk" aria-labelledby="talkH">
     <h2 id="talkH">Help us build this</h2>
     <p class="sub">Posted Up is in beta, and your ideas shape what comes next: items, stops, days, anything.</p>
     <form class="talkf" id="fbForm" novalidate>
@@ -872,7 +879,7 @@ document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{
   document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",String(x===b)));
   document.getElementById(b.dataset.go).scrollIntoView({behavior:"smooth",block:"start"});
 }));
-document.getElementById("barGo").addEventListener("click",()=>document.getElementById("checkout").scrollIntoView({behavior:"smooth",block:"start"}));
+document.getElementById("barGo").addEventListener("click",()=>{if(document.getElementById("checkout").classList.contains("offview"))location.hash="#checkout";else document.getElementById("checkout").scrollIntoView({behavior:"smooth",block:"start"})});
 document.addEventListener("click",e=>{if(e.target.closest('a[href="#terms"]'))document.getElementById("terms").open=true});
 
 /* Open with an empty cart: nothing is pre-selected. */
@@ -966,14 +973,26 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   if(!s)return;
   document.querySelectorAll(".top .tabs a").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",s);a.setAttribute("href",u.pathname+u.search+u.hash)});
 })();
-/* Boxes is the #shop section of this page: light it up when you're there, Home otherwise. */
+/* Page views: Home, Boxes (#shop) and Inventory (#inventory) show one at a time. Any other #id opens the view that holds it. */
 (function(){
-  const t=[...document.querySelectorAll(".top .tabs a")];if(!t.length)return;
-  const home=t[0],shop=t.find(a=>a.hash==="#shop");if(!shop)return;
-  const set=()=>{const on=location.hash==="#shop";
-    (on?home:shop).removeAttribute("aria-current");
-    (on?shop:home).setAttribute("aria-current","page")};
-  set();addEventListener("hashchange",set);
+  const secs=[...document.querySelectorAll("main [data-view]")],tabs=[...document.querySelectorAll(".top .tabs a")];
+  let cur="";
+  const go=(first)=>{
+    const h=decodeURIComponent(location.hash.slice(1));
+    let v="home",el=h?document.getElementById(h):null;
+    if(h==="shop"||h==="boxes")v="shop";
+    else if(h==="inventory")v="inventory";
+    else if(h==="checkout"||h==="ticket")v=cur&&cur!=="home"?cur:"shop";
+    else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
+    const changed=v!==cur;cur=v;
+    secs.forEach(s=>s.classList.toggle("offview",!s.dataset.view.split(" ").includes(v)));
+    tabs.forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);const on=u.pathname==="/"&&((v==="home"&&!["#shop","#inventory"].includes(u.hash))||(v==="shop"&&u.hash==="#shop")||(v==="inventory"&&u.hash==="#inventory"));on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+    const deep=el&&!["shop","boxes","inventory","start"].includes(h);
+    if(deep)requestAnimationFrame(()=>el.scrollIntoView({behavior:first?"auto":"smooth",block:"start"}));
+    else if(changed&&!first)scrollTo(0,0);
+    else if(first&&(h==="shop"||h==="inventory"))scrollTo(0,0);
+  };
+  go(true);addEventListener("hashchange",()=>go(false));
 })();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
    Open the site once with ?me on your own phone/computer to stop counting your visits. Share links like ?s=ig or ?s=fam to tag sources. */
