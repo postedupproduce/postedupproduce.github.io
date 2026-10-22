@@ -134,7 +134,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
 .item .nm{font-weight:700}
 .item .ds{font-size:14px;color:var(--muted)}
-.ip{font-weight:700;color:var(--ink)}
+.iprice{display:block;margin-top:4px;font-weight:700;color:var(--ink)}
 .qty{display:flex;align-items:center;gap:4px}
 .qty button{width:44px;height:44px;font-size:20px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-weight:700;line-height:1}
 .qty output{min-width:22px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
@@ -264,6 +264,21 @@ details.terms[open] summary::after{content:"−"}
 .ok{color:var(--good);font-weight:700;margin:0;font-size:15px}
 .phchk{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px}
 .phchk input{width:22px;height:22px;min-height:0;margin:1px 0 0;flex:none;accent-color:var(--good)}
+/* Checkout: optional extras folded away; one-tap add-on suggestions in the cart. */
+details.more{border:1.5px solid var(--line);border-radius:12px;padding:0 14px;background:var(--panel)}
+details.more summary{cursor:pointer;list-style:none;min-height:48px;display:flex;flex-direction:column;justify-content:center;font-weight:700;font-size:15px;padding:8px 22px 8px 0;position:relative}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:22px}
+details.more[open] summary::after{content:"−"}
+details.more summary small{font-weight:400;color:var(--muted);font-size:13px}
+.more-in{display:grid;gap:10px;padding:4px 0 14px}
+details.vdet .vote{border:0;padding:0 0 14px}
+.ups{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 12px}
+.ups-h{width:100%;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.upb{min-height:40px;padding:8px 12px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font:700 14px/1 var(--body);cursor:pointer}
+.from{margin:10px 0 0;text-align:center;font-size:14px;font-weight:700;opacity:.85}
+.trust+.fomo a,.fomo a{color:var(--tomato);font-weight:700}
+.ups-more{font-size:14px;font-weight:700;color:var(--tomato);text-decoration:none;padding:8px 4px}
 /* Page views: Home, Boxes (#shop) and Inventory (#inventory) are separate screens on this one page so the cart and checkout carry across. */
 .offview{display:none!important}
 .hop{display:block;margin-top:14px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font-weight:700;text-decoration:none;text-align:center}
@@ -289,20 +304,7 @@ details.terms[open] summary::after{content:"−"}
       <p class="now" id="now" aria-live="polite">Chicago time</p>
       <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
       <a class="go" href="#shop">Start my order</a>
-    </div>
-  </section>
-
-  <section class="post" data-view="home" aria-labelledby="plugH">
-    <div class="plug">
-      <h2 id="plugH">Your produce plug, straight from the farm</h2>
-      <p class="q">Would you rather pay the middleman, or the people who grew it?</p>
-      <ul class="chain">
-        <li><b>Grocery</b><span>Farm → packer → distributor → warehouse → store → you. At the grocery store, farmers get about 18¢ of every food dollar (USDA, 2024).</span></li>
-        <li><b>Posted Up</b><span>Farm stand → your shopper → you. That's it.</span></li>
-      </ul>
-      <p><b>The farmer gets their full price.</b> We buy at the stand at the farmer's own retail price. No wholesale squeeze, no distributor cut. Every dollar we spend on your food goes straight to the farm or maker who grew or baked it.</p>
-      <p><b>Farm to table, for real.</b> Picked days before you get it, by the person who grew it, chosen by someone who knows them.</p>
-      <small>Our shopping and handoff fee is built into our prices, and we'd rather tell you than hide it. It's how we can afford to do this right.</small>
+      <p class="from">Boxes from $25 · meat, bread &amp; cheese add-ons · no subscription</p>
     </div>
   </section>
 
@@ -357,7 +359,6 @@ details.terms[open] summary::after{content:"−"}
       <button class="tab" role="tab" aria-selected="false" data-go="cheese">Cheese</button>
       <button class="tab" role="tab" aria-selected="false" data-go="specialty">Specialty</button>
       <button class="tab" role="tab" aria-selected="false" data-go="pantry">Pantry</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="flowers">Flowers</button>
     </nav>
     <div class="bin" id="meat">
       <h3>Meat, fish &amp; eggs</h3>
@@ -385,7 +386,7 @@ details.terms[open] summary::after{content:"−"}
       <p class="sub">Small-batch staples from orchards and farm kitchens. They keep, so stock up.</p>
       <div class="items" data-cat="pantry"></div>
     </div>
-    <div class="bin" id="flowers">
+    <div class="bin" id="flowers" hidden>
       <h3>Flowers</h3>
       <p class="soon">Coming soon: seasonal bouquets from a local flower farm.</p>
     </div>
@@ -396,35 +397,13 @@ details.terms[open] summary::after{content:"−"}
     <h2 id="whyH">A shopper who knows the farmers</h2>
     <p class="sub">Delivery apps send whoever is free to a warehouse store. We spend market mornings with growers we've known for years.</p>
     <ul class="trust">
-      <li><b>20+ years in Chicago food</b>Your shopper has worked in Chicago's farms, markets and food systems for two decades and knows which stand has the best of each thing that week.</li>
-      <li><b>Food-safety trained</b>Produce Safety Alliance certified. Your order stays cool, clean and separate from purchase to handoff.</li>
-      <li><b>One person you can text</b>No call center. You text the person who shopped for you.</li>
-      <li><b>Quality guaranteed</b>If anything isn't right, tell us at handoff and we make it right.</li>
-      <li><b>No season commitment</b>Many farm shares ask you to pay for a whole season up front. Here you pay one order at a time, pick what you want, and skip any week.</li>
-      <li><b>You can't lose money</b>Anything we can't get becomes a credit or a refund, your choice.</li>
+      <li><b>20+ years in Chicago food</b>Your shopper knows which stand has the best of each thing that week.</li>
+      <li><b>Farmers get their full price</b>We buy at the stand at the farmer's own price. Our fee is built into ours, not taken from theirs.</li>
+      <li><b>One person you can text</b>No call center. Food-safety trained (Produce Safety Alliance).</li>
+      <li><b>Pay per order, skip any week</b>No season up front. Anything we can't get becomes a credit or refund.</li>
     </ul>
-    <p class="fomo"><b>Pilot spots are limited.</b> We only take as many orders as one person can hand-pick well, and the season ends November 21. When a market day fills, it's full.</p>
-  </section>
-
-  <section class="post" data-view="home" aria-labelledby="milesH">
-    <h2 id="milesH">Everything within 150 miles</h2>
-    <svg viewBox="0 0 320 200" role="img" aria-labelledby="rTitle rDesc" class="rings">
-      <title id="rTitle">Sourcing radius from downtown Chicago</title>
-      <desc id="rDesc">Bakeries are within 15 miles, produce and orchard farms 60 to 100 miles, and meat and fish farms about 120 miles from the Loop.</desc>
-      <circle cx="160" cy="190" r="170" class="ring r3"/>
-      <circle cx="160" cy="190" r="125" class="ring r2"/>
-      <circle cx="160" cy="190" r="40" class="ring r1"/>
-      <circle cx="160" cy="190" r="6" class="dot"/>
-      <text x="160" y="176" class="rl">The Loop</text>
-      <text x="160" y="140" class="rl">Bakeries, under 15 mi</text>
-      <text x="160" y="92" class="rl">Produce and orchards, 60–100 mi</text>
-      <text x="160" y="40" class="rl">Meat and fish, about 120 mi</text>
-    </svg>
-    <ul class="quality">
-      <li><b>Picked days, not weeks, before you get it.</b> We buy the morning of pickup from the people who grew or baked it.</li>
-      <li><b>Hand-selected.</b> We pass on anything we wouldn't take home.</li>
-      <li><b>Your money stays close.</b> Every order supports small farms and makers from Illinois, Indiana, Michigan and Wisconsin.</li>
-    </ul>
+    <p class="fomo"><b>Pilot spots are limited.</b> We take about 5 orders per market day so each one is hand-picked, through November 21. <a href="/how/">Why it's different &rarr;</a></p>
+    <a class="go" href="#shop">See this week's boxes</a>
   </section>
 
   <section class="post" data-view="shop inventory" id="checkout" aria-label="Checkout">
@@ -490,7 +469,7 @@ details.terms[open] summary::after{content:"−"}
   </section>
 
   <section class="post">
-    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items, stops and even the name may change as we learn. Tell us what works with the feedback form above, or text 773-807-9223.</p>
+    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items, stops and even the name may change as we learn. Tell us what works with the feedback form on <a href="#talk">Home</a>, or text 773-807-9223.</p>
     <details class="terms" id="terms">
       <summary>Order Terms</summary>
       <p class="note">Version: October 2026. By paying for an order, you agree to these terms.</p>
@@ -517,7 +496,7 @@ details.terms[open] summary::after{content:"−"}
     <details class="credits"><summary>Photo credits</summary><p>Apples: <a href="https://commons.wikimedia.org/wiki/File:Apples_in_basket_2018_G1.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pears: <a href="https://commons.wikimedia.org/wiki/File:Pears_in_basket_2022_G1.jpg" rel="noopener">George Chernilevsky</a>, CC BY-SA 4.0; Winter squash: <a href="https://commons.wikimedia.org/wiki/File:Cucurbita_moschata_Butternut_2012_G2.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pumpkins: <a href="https://commons.wikimedia.org/wiki/File:Pumpkins_galore_(8083328403).jpg" rel="noopener">Maya Maceka</a>, CC BY 2.0; Sweet potatoes: <a href="https://commons.wikimedia.org/wiki/File:Sweet_Potato.jpg" rel="noopener">Gaurav Dhwaj Khadka</a>, CC BY-SA 4.0; Brussels sprouts: <a href="https://commons.wikimedia.org/wiki/File:Roasted_Brussels_sprouts_-_December_2023_-_Sarah_Stierch_01.jpg" rel="noopener">Missvain</a>, CC BY 4.0; Beets: <a href="https://commons.wikimedia.org/wiki/File:Beta_vulgaris,_San_Francisco_farmers_market.jpg" rel="noopener">Frank Schulenburg</a>, CC0; Carrots: <a href="https://commons.wikimedia.org/wiki/File:Carrots_at_Ljubljana_Central_Market.JPG" rel="noopener">domdomegg</a>, CC BY 4.0.; Concord grapes: <a href="https://commons.wikimedia.org/wiki/File:Concord_grapes.jpg" rel="noopener">Joli Rumi</a>, CC BY-SA 4.0; Red potatoes: <a href="https://commons.wikimedia.org/wiki/File:Red_potatoes_-_Heart_of_the_City_Farmers%27_Market_-_San_Francisco.jpg" rel="noopener">Daderot</a>, CC0; Kale: <a href="https://commons.wikimedia.org/wiki/File:SNAP*_Benefit_Feeds_Housholds_in_Need_(20120414-DM-LSC-2819).jpg" rel="noopener">USDA</a>, Public domain; Cabbage: <a href="https://commons.wikimedia.org/wiki/File:Cabbage_in_a_stack.jpg" rel="noopener">Jeffery Martin</a>, CC0; Cauliflower, leeks and garlic: <a href="https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Fresh_Garlic.jpg" rel="noopener">HaJunkiyada</a>, CC BY-SA 4.0; Radishes: <a href="https://commons.wikimedia.org/wiki/File:Radish_bunches.jpg" rel="noopener">Jeffery Martin</a>, CC0; Fennel: <a href="https://commons.wikimedia.org/wiki/File:Au_march%C3%A9_-_Fenouil.JPG" rel="noopener">Dinkum</a>, CC0; Peppers: <a href="https://commons.wikimedia.org/wiki/File:Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg" rel="noopener">Missvain</a>, CC BY 4.0. Via Wikimedia Commons; cropped. Real market photos coming soon.</p></details>
     <div class="ip">
       <p><b>&copy; 2026 123 Footprint, LLC. All rights reserved.</b> Posted Up Produce&trade;, The Post-Up&trade;, the logos, the box and ordering system, menu, written content and site design belong to 123 Footprint, LLC. Don't copy, adapt or resell them without written permission. Produce photos belong to their photographers and are used under their own licenses (see Photo credits).</p>
-      <p><b>Want to build something together?</b> We're open to collaborations with farms, makers, markets and community groups. Use "Pick a time to meet" above.</p>
+      <p><b>Want to build something together?</b> We're open to collaborations with farms, makers, markets and community groups. Use "Pick a time to meet" on <a href="#talk">Home</a>.</p>
     </div>
     <p class="foot">Fresh produce should always be washed before eating, even when farm-direct. Availability depends on weather, harvest and which makers are at market that day.</p>
   </section>
@@ -685,7 +664,7 @@ function renderItems(){
       const q=state.qty[it.id]||0;
       const set=n=>{if(n>q&&window.puCart)puCart();state.qty[it.id]=Math.max(0,Math.min(9,n));if(!state.qty[it.id])delete state.qty[it.id];renderItems();renderTicket()};
       w.append(el("div",{class:"item"},
-        el("div",{style:"min-width:0"},el("div",{class:"nm"},it.nm),el("div",{class:"ds"},it.ds+" · ",el("b",{class:"ip"},"$"+it.p))),
+        el("div",{style:"min-width:0"},el("div",{class:"nm"},it.nm),el("div",{class:"ds"},it.ds,el("b",{class:"iprice"},"$"+it.p))),
         el("div",{class:"qty"},
           el("button",{type:"button","aria-label":"Remove one "+it.nm,onclick:()=>set(q-1)},"−"),
           el("output",{},String(q)),
@@ -794,10 +773,20 @@ function renderTicket(){
   if(state.logo&&state.reward&&state.reward!=="5off"&&voteOpen())lines.append(el("div",{class:"line"},el("span",{},"Thank-you: "+rewardName()),el("span",{},"Free")));
   if(fee())lines.append(el("div",{class:"line"},el("span",{},"Delivery (from)"),el("span",{},"$"+fee())));
   t.append(lines);
+  if(n){const sug=[];
+    if(state.mode==="box"&&!state.breadBox)sug.push({t:"Bread Bag",p:23,go:()=>{state.breadBox="bread1";renderBoxes()}});
+    for(const id of ["eggs","hsmild","cider"]){const it=ALL.find(x=>x.id===id);if(it&&!state.qty[id])sug.push({t:id==="hsmild"?"Hot sauce":id==="cider"?"Apple cider":it.nm,p:it.p,go:()=>{state.qty[id]=1;renderItems()}})}
+    if(sug.length){const row=el("div",{class:"ups"},el("span",{class:"ups-h"},"Add to this order"));
+      for(const x of sug.slice(0,3))row.append(el("button",{type:"button",class:"upb",onclick:()=>{x.go();if(window.puCart)puCart();renderTicket()}},"+ "+x.t+" $"+x.p));
+      row.append(el("a",{href:"#inventory",class:"ups-more"},"See all add-ons →"));t.append(row)}}
   t.append(el("div",{class:"total"},el("span",{},"Total"),el("span",{},"$"+total())));
   const f=el("form",{novalidate:"",style:"display:grid;gap:10px"});
   const inp=(id,lab,type,ph)=>{const i=el("input",{id,type,placeholder:ph,autocomplete:id==="phone"?"tel":id==="email"?"email":"name"});i.value=state[id];i.addEventListener("input",()=>state[id]=i.value);return el("label",{for:id},lab,i)};
-  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"),inp("email","Email for order updates (optional)","email","We email you at each step: paid, shopped, ready"));
+  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
+  const more=el("details",{class:"more"});if(state.moreOpen)more.open=true;more.addEventListener("toggle",()=>state.moreOpen=more.open);
+  more.append(el("summary",{},"More options (optional)",el("small",{},"Email updates, swaps, notes"+(isDel()?"":", early drop-off"))));
+  const mb=el("div",{class:"more-in"});more.append(mb);
+  mb.append(inp("email","Email for order updates","email","We email you at each step: paid, shopped, ready"));
   const fs=el("select",{id:"fulfill"});
   for(const s of STOPS)fs.append(el("option",{value:s.id},"Meet-up · "+s.name+", "+s.time));
   for(const st of STOPS)fs.append(el("option",{value:"del-"+st.id},"Delivery from "+st.name+" · Wed, after "+st.time.split("–")[1]+" (from $"+DELIVERY_FEE+")"));
@@ -809,7 +798,7 @@ function renderTicket(){
     f.append(el("label",{for:"address"},"Delivery address",a));
   } else {
     const ed=el("input",{id:"early",type:"checkbox"});ed.checked=state.early;ed.addEventListener("change",()=>{state.early=ed.checked});
-    f.append(el("label",{for:"early",class:"agree"},ed,el("span",{},el("b",{},"Free early drop-off, if it fits my route"),el("br"),"Sometimes we finish early and can bring your order to your door before your meet-up time, at no charge. Check this and we'll text you first if it works out that day. If not, pick up at your meet-up as planned.")));
+    mb.append(el("label",{for:"early",class:"agree"},ed,el("span",{},el("b",{},"Free early drop-off, if it fits my route"),el("br"),"If we finish early, we may bring it to your door before your meet-up, free. We text first; if not, pick up as planned.")));
   }
   const ds=datesFor();
   const sel=el("select",{id:"date"});
@@ -820,15 +809,16 @@ function renderTicket(){
   const ss=el("select",{id:"sub"});
   ss.append(el("option",{value:"credit"},"Credit it to my next order"),el("option",{value:"replace"},"Replace it with equal or greater value"),el("option",{value:"refund"},"Refund me for it"));
   ss.value=state.sub;ss.addEventListener("change",()=>state.sub=ss.value);
-  f.append(el("label",{for:"sub"},"If something isn't at market",ss));
+  mb.append(el("label",{for:"sub"},"If something isn't at market",ss));
   const ta=el("textarea",{id:"notes",placeholder:"Allergies, things you'd never want as a swap, ripeness…"});ta.value=state.notes;ta.addEventListener("input",()=>state.notes=ta.value);
-  f.append(el("label",{for:"notes"},"Notes (optional)",ta));
-  const ag=el("input",{id:"agree",type:"checkbox"});ag.checked=state.agree;ag.addEventListener("change",()=>{state.agree=ag.checked});
-  f.append(el("label",{for:"agree",class:"agree"},ag,el("span",{},"I agree to the ",el("a",{href:"#terms"},"Order Terms"),", including credits for unavailable items and no refunds on cancellations after 9 PM the night before.")));
-  const pa=el("input",{id:"payAck",type:"checkbox"});pa.checked=state.payAck;pa.addEventListener("change",()=>{state.payAck=pa.checked});
-  f.append(el("label",{for:"payAck",class:"agree"},pa,el("span",{},el("b",{},"I understand my order isn't shopped until payment arrives."),el("br"),"Pay by Zelle or Apple Cash by 9 PM the night before pickup. No payment at pickup.")));
+  mb.append(el("label",{for:"notes"},"Notes",ta));
+  f.append(more);
+  const ag=el("input",{id:"agree",type:"checkbox"});ag.checked=state.agree&&state.payAck;ag.addEventListener("change",()=>{state.agree=state.payAck=ag.checked});
+  f.append(el("label",{for:"agree",class:"agree"},ag,el("span",{},"I agree to the ",el("a",{href:"#terms"},"Order Terms")," and understand my order is shopped only once I pay by Zelle or Apple Cash by 9 PM the night before.")));
   if(voteOpen()){
-    const fs=el("fieldset",{class:"vote"});
+    const vd=el("details",{class:"more vdet"});if(state.logo||state.voteOpen)vd.open=true;vd.addEventListener("toggle",()=>state.voteOpen=vd.open);
+    vd.append(el("summary",{},"Pick our logo, get a thank-you",el("small",{},"Optional · voting closes Sat, Oct 24")));
+    const fs=el("fieldset",{class:"vote"});vd.append(fs);
     fs.append(el("legend",{},"Help pick our logo"),el("p",{class:"vsub"},"Optional, and it takes 5 seconds. Pick your favorite and we'll say thanks with a little something in this order. Voting closes Sat, Oct 24."));
     const g=el("div",{class:"logos"});
     for(const l of LOGOS){
@@ -851,7 +841,7 @@ function renderTicket(){
       rw.append(el("button",{type:"button",class:"vskip",onclick:()=>{state.logo="";state.reward="";state.why="";renderTicket()}},"Clear my vote"));
       fs.append(rw);
     }
-    f.append(fs);
+    f.append(vd);
   }
   const err=el("p",{class:"err",id:"err"});
   f.append(err,el("button",{class:"cta",type:"submit"},isWait()?"Join the waitlist":"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Pay up front by Zelle or Apple Cash; no payment at pickup."));
@@ -861,7 +851,7 @@ function renderTicket(){
     if(state.email.trim()&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email.trim())){err.textContent="That email doesn't look right. Fix it or leave it blank.";return}
     if(isDel()&&state.address.trim().length<6){err.textContent="Add a delivery address so we can confirm it's in our area.";return}
     if(!state.agree){err.textContent="Tick the box to agree to the Order Terms before getting your ticket.";return}
-    if(!state.payAck&&!isWait()){err.textContent="Tick the payment box: orders are only shopped once payment arrives.";return}
+    
     DATES=pickupDates();if(state.date&&!DATES.some(d=>d.v===state.date)){const nx=datesFor()[0];state.date=nx?nx.v:"";renderTicket();document.getElementById("err").textContent="Orders for that day closed at 9 PM the night before. "+(nx?"We moved you to "+nx.label+". Check it and tap again.":"No pickup day is open right now.");return}
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
     /* Duplicate guard: same phone + same date + same items within an hour on this device → show the existing ticket */
