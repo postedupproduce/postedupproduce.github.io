@@ -279,6 +279,33 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .from{margin:10px 0 0;text-align:center;font-size:14px;font-weight:700;opacity:.85}
 .trust+.fomo a,.fomo a{color:var(--tomato);font-weight:700}
 .ups-more{font-size:14px;font-weight:700;color:var(--tomato);text-decoration:none;padding:8px 4px}
+/* First-visit splash: stamp slams in, background pulses and a ring ripples once a second, fades after ~3 s. Tap to skip.
+   SPLASH_LOGO = "" shows the "Posted Up" type stamp; set it to an SVG string once the logo vote has a winner. */
+#pu-splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;padding:24px;background:var(--bg);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:pu-pulse 1s ease-in-out infinite,pu-out .4s ease-in 2.6s forwards}
+#pu-splash .pu-wrap{position:relative;display:grid;place-items:center;width:min(62vw,250px);aspect-ratio:1}
+#pu-splash .pu-mark{width:100%;height:100%;display:grid;place-items:center;filter:drop-shadow(0 10px 18px rgba(36,57,44,.25));animation:pu-stamp .55s cubic-bezier(.2,1.5,.45,1) .1s both}
+#pu-splash .pu-mark svg{width:100%;height:100%;display:block}
+#pu-splash .pu-type{width:100%;height:100%;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-content:center;text-align:center;box-shadow:inset 0 0 0 8px var(--ink),inset 0 0 0 11px var(--bg);font:400 clamp(30px,10vw,42px)/.95 var(--display);transform:rotate(-6deg)}
+#pu-splash .pu-type small{display:block;font:700 12px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;margin-top:10px;color:#F3D58A}
+#pu-splash .pu-ring{position:absolute;inset:0;border-radius:50%;border:3px solid var(--ink);opacity:0;animation:pu-ring 1s ease-out .45s infinite both}
+#pu-splash .pu-tag{margin:0;font:400 clamp(22px,6.5vw,28px)/1.1 var(--display);color:var(--ink);text-align:center;animation:pu-up .5s ease-out .6s both}
+#pu-splash .pu-cut{margin:0;font:700 14px/1.3 var(--body);color:var(--tomato);text-align:center;animation:pu-up .5s ease-out .9s both}
+#pu-splash .pu-skip{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));font:700 13px/1 var(--body);color:var(--ink);opacity:.55}
+@keyframes pu-stamp{0%{transform:scale(2.4) rotate(-14deg);opacity:0}60%{transform:scale(.94) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+@keyframes pu-ring{0%{transform:scale(.95);opacity:.55}100%{transform:scale(1.6);opacity:0}}
+@keyframes pu-pulse{0%,100%{background-color:#EFE6D4}50%{background-color:#E3CC9C}}
+@keyframes pu-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes pu-out{to{opacity:0;visibility:hidden}}
+@media (prefers-reduced-motion:reduce){#pu-splash,#pu-splash *{animation:none!important}#pu-splash{animation:pu-out .2s linear 1.5s forwards!important}}
+/* Box spotlight on Home */
+.spot{display:grid;gap:10px}
+.spot .k{font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--tomato)}
+.spot h2{margin:0}
+.spot .meta{font-weight:700;color:var(--muted);font-size:15px;margin:0}
+.spot ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.spot li{background:var(--chip);border-radius:999px;padding:6px 10px;font-size:14px;font-weight:600}
+.spot .row2{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spot .row2 a{color:var(--tomato);font-weight:700;text-decoration:none;font-size:15px}
 /* Page views: Home, Boxes (#shop) and Inventory (#inventory) are separate screens on this one page so the cart and checkout carry across. */
 .offview{display:none!important}
 .hop{display:block;margin-top:14px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font-weight:700;text-decoration:none;text-align:center}
@@ -306,6 +333,14 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <a class="go" href="#shop">Start my order</a>
       <p class="from">Boxes from $25 · meat, bread &amp; cheese add-ons · no subscription</p>
     </div>
+  </section>
+
+  <section class="post spot" data-view="home" aria-labelledby="spotH">
+    <span class="k">Most popular this week</span>
+    <h2 id="spotH">Half Peck · $50</h2>
+    <p class="meta">~9–10 lb · a week of sides and a couple of mains for two</p>
+    <ul id="spotList"></ul>
+    <div class="row2"><button type="button" class="go" id="spotAdd" style="flex:1 1 200px">Add the Half Peck</button><a href="#shop">Compare all boxes &rarr;</a></div>
   </section>
 
   <section class="post" data-view="home" id="how" aria-labelledby="howH">
@@ -983,6 +1018,26 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
     else if(first&&(h==="shop"||h==="inventory"))scrollTo(0,0);
   };
   go(true);addEventListener("hashchange",()=>go(false));
+})();
+/* Box spotlight: fills from BOXES so contents and price stay in sync with Pick your haul. */
+(function(){
+  const b=BOXES.find(x=>x.id==="halfpeck");const ul=document.getElementById("spotList");if(!b||!ul)return;
+  document.getElementById("spotH").textContent=b.name+" · $"+b.price;
+  for(const h of b.has)ul.append(el("li",{},h));
+  document.getElementById("spotAdd").addEventListener("click",()=>{state.box=b.id;state.mode="box";if(window.puCart)puCart();renderBoxes();renderTicket();location.hash="#shop"});
+})();
+/* First-visit splash (remembered on the device as pu-splash). Skipped for ?me, deep links (#...) and repeat visitors. */
+const SPLASH_LOGO="";
+(function(){
+  let seen=false;try{seen=!!localStorage.getItem("pu-splash")||!!localStorage.getItem("pu-me");localStorage.setItem("pu-splash","1")}catch(e){}
+  if(seen||location.hash||/[?&]me(=|&|$)/.test(location.search))return;
+  const ct=(document.getElementById("closeTop")||{}).textContent||"";
+  const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");
+  d.innerHTML='<div class="pu-wrap"><span class="pu-ring"></span><div class="pu-mark">'+(SPLASH_LOGO||'<div class="pu-type">Posted<br>Up<small>Produce</small></div>')+'</div></div><p class="pu-tag">Market haul, picked for you.</p>'+(ct?'<p class="pu-cut"></p>':'')+'<span class="pu-skip">Tap to skip</span>';
+  if(ct)d.querySelector(".pu-cut").textContent=/^closes /i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):ct;
+  const done=()=>d.remove();
+  d.addEventListener("click",done);d.addEventListener("animationend",e=>{if(e.target===d&&e.animationName==="pu-out")done()});
+  document.body.append(d);
 })();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
    Open the site once with ?me on your own phone/computer to stop counting your visits. Share links like ?s=ig or ?s=fam to tag sources. */
