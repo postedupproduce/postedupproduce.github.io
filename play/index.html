@@ -116,7 +116,7 @@ const showBest=()=>bs.textContent=best?"Best "+best:"";showBest();
 let items,bx,score,left,run=false,last,spawnT,keys={},lastScore=0;
 function fit(){const r=Math.min(window.devicePixelRatio||1,2);c.width=W*r;c.height=H*r;x.setTransform(r,0,0,r,0,0)}
 fit();
-function idle(){x.clearRect(0,0,W,H);x.font="64px system-ui";x.textAlign="center";x.textBaseline="middle";x.fillText("🧺",W/2,H/2-20);x.font="600 18px system-ui";x.fillStyle=getComputedStyle(document.body).color;x.fillText("Tap Play to start",W/2,H/2+40)}
+function idle(){x.clearRect(0,0,W,H);x.font="64px system-ui";x.textAlign="center";x.textBaseline="middle";x.fillText("🧺",W/2,H/2-20);x.font="600 18px system-ui";x.fillStyle=getComputedStyle(document.body).color;x.fillText("Tap here to start",W/2,H/2+40)}
 idle();
 function start(){items=[];bx=W/2;score=0;left=30;spawnT=0;run=true;last=performance.now();go.disabled=true;go.textContent="Playing…";msg.textContent="";requestAnimationFrame(loop)}
 function spawn(){const r=Math.random(),k=r<.07?"gold":r<.25?"bug":"good";
@@ -140,7 +140,7 @@ function end(){run=false;go.disabled=false;go.textContent="Play again";lastScore
   msg.textContent=score>=40?"Market legend: "+score+"! You'd shop circles around us.":score>=20?"Nice haul: "+score+" picked!":"You caught "+score+". The real box is easier, we pick it for you.";
   x.clearRect(0,0,W,H);x.font="56px system-ui";x.fillText(score>=20?"🏆":"🧺",W/2,H/2-30);x.font="700 22px system-ui";x.fillStyle=getComputedStyle(document.body).color;x.fillText((nb?"New best! ":"")+score+" caught",W/2,H/2+30)}
 function moveTo(cx){const r=c.getBoundingClientRect();bx=(cx-r.left)/r.width*W}
-c.addEventListener("pointerdown",e=>{if(run){moveTo(e.clientX);c.setPointerCapture(e.pointerId)}});
+c.addEventListener("pointerdown",e=>{if(run){moveTo(e.clientX);c.setPointerCapture(e.pointerId)}else if(!go.disabled&&!c.dataset.played){c.dataset.played=1;start()}});
 c.addEventListener("pointermove",e=>{if(run)moveTo(e.clientX)});
 addEventListener("keydown",e=>{if(run&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){keys[e.key]=true;e.preventDefault()}});
 addEventListener("keyup",e=>{keys[e.key]=false});
