@@ -1028,7 +1028,10 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
 })();
 /* First-visit splash (remembered on the device as pu-splash). Skipped for ?me, deep links (#...) and repeat visitors. */
 const SPLASH_LOGO="";
+/* Splash switched off by Sol on 2026-10-23. Set SPLASH_ON=true to bring it back. */
+const SPLASH_ON=false;
 (function(){
+  if(!SPLASH_ON)return;
   let seen=false;try{seen=!!localStorage.getItem("pu-splash")||!!localStorage.getItem("pu-me");localStorage.setItem("pu-splash","1")}catch(e){}
   if(seen||location.hash||/[?&]me(=|&|$)/.test(location.search))return;
   const ct=(document.getElementById("closeTop")||{}).textContent||"";
