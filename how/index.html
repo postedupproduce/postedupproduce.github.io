@@ -75,6 +75,12 @@ a{color:inherit}
 @media(hover:hover) and (pointer:fine){.tabs a:hover{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--ink)}.tabs a[aria-current="page"]:hover{background:var(--ink);color:var(--bg)}}
 @media(min-width:700px){.wrap{max-width:640px}.tabs a{font-size:14px;padding:9px 12px}}
 .tabs{overflow-x:auto;scrollbar-width:none;max-width:calc(100% + 12px)}.tabs::-webkit-scrollbar{display:none}@media(max-width:430px){.tabs{gap:0}.tabs a{font-size:12px;padding:8px 6px}}
+
+/* Personal welcome: ?for=Name (their own link) or ?from=Name (a friend's share link). Names live only in the URL. */
+.hello{background:var(--panel);border:2px solid var(--tomato);border-radius:14px;padding:16px 18px;display:grid;gap:4px}
+.hello b{font:400 clamp(24px,7vw,30px)/1.1 var(--display)}
+.hello span{color:var(--muted);font-size:16px}
+button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.2 var(--body);cursor:pointer}
 </style>
 </head>
 <body>
@@ -90,6 +96,8 @@ a{color:inherit}
       <a href="/play/">Play</a>
     </nav>
   </div>
+
+  <div class="hello" id="hello" role="status" hidden><b id="helloName"></b><span id="helloSub"></span></div>
 
   <section class="sign">
     <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
@@ -141,6 +149,7 @@ a{color:inherit}
   <section class="ctas" aria-label="Next steps">
     <a class="cta" id="shop" href="../#shop">See this week's boxes</a>
     <a class="ghost" id="join" href="../join/">Not ready? Get first pick</a>
+    <button class="ghost" id="shareBtn" type="button" hidden>Send this to a friend</button>
   </section>
 
   <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
@@ -154,6 +163,33 @@ document.getElementById("join").href="../join/?s="+s;
 document.getElementById("home").href="../?s="+s;
 /* Same for the site tabs: only when a tag actually came in. */
 if(raw)document.querySelectorAll(".tabs a").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",raw);a.setAttribute("href",u.pathname+u.search+u.hash)});
+/* Personal welcome. ?for= greets the person the link was made for; ?from= says which friend sent it. */
+const P=new URLSearchParams(location.search);
+const clean=v=>(v||"").replace(/\+/g," ").replace(/[^A-Za-z\u00C0-\u017F' &-]/g,"").replace(/\s+/g," ").trim().slice(0,40)
+  .split(" ").map(w=>w==="and"||w==="&"?w:w.charAt(0).toUpperCase()+w.slice(1)).join(" ");
+const forName=clean(P.get("for")),fromName=clean(P.get("from"));
+const hello=document.getElementById("hello");
+if(forName){
+  document.getElementById("helloName").textContent="Welcome, "+forName+"!";
+  document.getElementById("helloSub").textContent="Thanks for taking a look. Here's the one-minute version of how it works.";
+  hello.hidden=false;document.title="Welcome, "+forName+" · Posted Up Produce";
+}else if(fromName){
+  document.getElementById("helloName").textContent="Welcome! "+fromName+" sent you.";
+  document.getElementById("helloSub").textContent="They thought you'd like this. Here's the one-minute version of how it works.";
+  hello.hidden=false;
+}
+/* Share button: builds a friend link that says who sent it, instead of forwarding their own personal link. */
+if(forName){
+  const btn=document.getElementById("shareBtn");btn.hidden=false;
+  const slug=raw.startsWith("p-")?raw.slice(2):(raw||"friend");
+  const url=location.origin+"/how/?s=ref-"+slug+"&from="+encodeURIComponent(forName);
+  const msg=forName+" thought you'd like this: a personal shopper for the Chicago farmers market. "+url;
+  btn.addEventListener("click",async()=>{
+    if(navigator.share){try{await navigator.share({title:"Posted Up Produce",text:msg});return}catch(e){if(e&&e.name==="AbortError")return}}
+    try{await navigator.clipboard.writeText(msg);btn.textContent="Link copied. Paste it in a text!"}
+    catch(e){location.href="sms:?&body="+encodeURIComponent(msg)}
+  });
+}
 </script>
 </body>
 </html>
