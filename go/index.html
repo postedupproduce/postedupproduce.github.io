@@ -67,6 +67,16 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .choice.main{background:var(--tomato);border-color:var(--tomato);color:#fff}
 .choice.main span{color:color-mix(in srgb,#fff 88%,transparent)}
 @media(hover:hover) and (pointer:fine){.choice:hover{border-color:var(--ink)}.choice.main:hover{filter:brightness(1.05)}}
+.keep{display:grid;gap:12px}
+.keep h2{font-size:22px}
+.keep .row{display:grid;grid-template-columns:1fr 1.3fr;gap:8px}
+.keep input[type=text],.keep input[type=tel]{font:inherit;font-size:16px;width:100%;min-width:0;padding:12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.keep .opts{display:grid;gap:8px}
+.keep .opt{display:flex;gap:10px;align-items:center;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-size:15px}
+.keep .opt:has(input:checked){border-color:var(--tomato);background:color-mix(in srgb,var(--tomato) 10%,transparent)}
+.keep .opt input{accent-color:var(--tomato);width:18px;height:18px;margin:0}
+.keep .err{color:var(--tomato);font-size:14px;margin:0;min-height:0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 </style>
 </head>
 <body>
@@ -93,6 +103,23 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
     <a class="choice" id="goPlay" href="../play/"><span class="ico" aria-hidden="true">🎮</span><b>Play for first dibs</b><span>30-second Market Catch. Then get first pick of the harvest.</span></a>
   </nav>
 
+
+  <form class="card keep" id="kp" novalidate>
+    <h2>Not this week? Keep me posted</h2>
+    <p class="sub">Name and number, one tap. That's it.</p>
+    <div class="row">
+      <input type="text" id="nm" autocomplete="given-name" placeholder="First name" aria-label="First name">
+      <input type="tel" id="ph" autocomplete="tel" inputmode="tel" placeholder="Mobile" aria-label="Mobile number">
+    </div>
+    <div class="opts" role="radiogroup" aria-label="How often">
+      <label class="opt"><input type="radio" name="freq" value="Heads-up before each pickup at my spot" checked><span>Text me before market days</span></label>
+      <label class="opt"><input type="radio" name="freq" value="Only when something special is in"><span>Only when something special's in</span></label>
+    </div>
+    <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+    <p class="err" id="err" role="alert"></p>
+    <button class="cta" type="submit">Keep me posted</button>
+  </form>
+
   <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
 </div>
 <script>
@@ -103,6 +130,25 @@ document.querySelectorAll(".tabs a").forEach(a=>{const u=new URL(a.getAttribute(
 document.getElementById("home").href="../?s="+src;
 document.getElementById("goShop").href="../?s="+src+"#shop";
 document.getElementById("goPlay").href="../play/?s="+src;
+const ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+/* Quick sign-up -> Feedback tab as type "feedback" (same SURVEY SIGN-UP format as /join, so it shows on the Contacts tab). Don't change the type. */
+const kp=document.getElementById("kp"),err=document.getElementById("err");
+kp.addEventListener("submit",async e=>{
+  e.preventDefault();err.textContent="";
+  const name=kp.querySelector("#nm").value.trim(),phone=kp.querySelector("#ph").value.trim(),freq=(kp.querySelector('input[name="freq"]:checked')||{}).value||"Heads-up before each pickup at my spot";
+  if(!name)return void(err.textContent="Add your first name.");
+  if(phone.replace(/\D/g,"").length<10)return void(err.textContent="Add a 10-digit mobile number.");
+  const message=["SURVEY SIGN-UP","Mobile: "+phone,"Spot: Not picked","Day: Either","Texts: "+freq,"Source: go-"+src].join(" · ");
+  const body={type:"feedback",name,contact:"",message,times:"",hp:kp.querySelector('input[name="website"]').value};
+  const btn=kp.querySelector(".cta");btn.disabled=true;btn.textContent="Saving…";
+  try{
+    await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
+    const h=document.createElement("h2");h.textContent="You're on the list, "+name+" 🙏";
+    const p=document.createElement("p");p.className="sub";p.textContent="I'll only text you the way you picked. Want first dibs? Play the game above.";
+    kp.replaceChildren(h,p);h.setAttribute("tabindex","-1");h.focus();
+  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+});
+
 </script>
 </body>
 </html>
