@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shop or play · Posted Up Produce</title>
+<meta name="description" content="Shop this week's farmers-market haul or play Market Catch for first dibs.">
+<meta property="og:title" content="Posted Up Produce · shop or play">
+<meta property="og:description" content="Hand-picked farmers-market boxes, handed off same day. Shop this week's haul or play for first dibs.">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
+  --tomato:#c4432b;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;--star:#d89a1c;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;--star:#f0b94a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--chip:#2c362f;--good:#79b98a;--star:#f0b94a;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 40px;display:grid;gap:22px}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:env(safe-area-inset-top,0px)}
+.brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none}
+.beta{font:700 11px/1 var(--body);background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
+
+/* Site tabs: same bar on every customer page, sticky under the logo. */
+.topbar{position:sticky;top:0;z-index:6;margin:-14px -16px 0;padding:12px 16px 0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:grid;gap:6px}
+.tabs{display:flex;gap:2px;margin:0 -6px;padding-bottom:8px}
+.tabs a{flex:none;font:700 13px/1 var(--body);color:var(--muted);text-decoration:none;padding:8px 8px;border-radius:999px;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+@media(max-width:374px){.tabs a{font-size:12px;padding:8px 6px}}
+@media(hover:hover) and (pointer:fine){.tabs a:hover{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--ink)}.tabs a[aria-current="page"]:hover{background:var(--ink);color:var(--bg)}}
+@media(min-width:700px){.wrap{max-width:640px}.tabs a{font-size:14px;padding:9px 12px}}
+
+.sign{background:var(--board);color:var(--board-ink);border-radius:14px;padding:22px 20px;display:grid;gap:10px}
+.sign h1{font-size:clamp(30px,9vw,44px);line-height:1.04}
+.sign p{margin:0;font-size:17px;color:color-mix(in srgb,var(--board-ink) 92%,transparent)}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:18px 16px;display:grid;gap:12px}
+.card h2{font-size:23px;line-height:1.15}
+.sub{margin:0;color:var(--muted);font-size:15px}
+.cta{display:block;text-align:center;text-decoration:none;background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;min-height:52px}
+.cta:disabled{opacity:.5}
+.ghost{display:block;text-align:center;text-decoration:none;background:transparent;border:1.5px solid var(--ink);color:var(--ink);border-radius:10px;padding:13px 14px;font-weight:700;min-height:48px}
+.ok{color:var(--good);font-weight:700;margin:0}
+.foot{font-size:13px;color:var(--muted);margin:0}
+.tabs{overflow-x:auto;scrollbar-width:none;max-width:calc(100% + 12px)}.tabs::-webkit-scrollbar{display:none}@media(max-width:430px){.tabs{gap:0}.tabs a{font-size:12px;padding:8px 6px}}
+.pick{display:grid;gap:14px}
+.choice{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;text-decoration:none;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:20px 18px;min-height:96px}
+.choice .ico{grid-row:span 2;font-size:40px;line-height:1}
+.choice b{font:400 24px/1.1 var(--display)}
+.choice span{color:var(--muted);font-size:15px}
+.choice.main{background:var(--tomato);border-color:var(--tomato);color:#fff}
+.choice.main span{color:color-mix(in srgb,#fff 88%,transparent)}
+@media(hover:hover) and (pointer:fine){.choice:hover{border-color:var(--ink)}.choice.main:hover{filter:brightness(1.05)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <header class="top"><a class="brand" id="home" href="../">Posted Up Produce <span class="beta">Beta</span></a></header>
+    <nav class="tabs" aria-label="Site pages">
+      <a href="/">Home</a>
+      <a href="/how/">How it works</a>
+      <a href="/#shop">Boxes</a>
+      <a href="/#inventory">Add-ons</a>
+      <a href="/join/">Get first pick</a>
+      <a href="/play/">Play</a>
+    </nav>
+  </div>
+
+  <section class="sign">
+    <h1>Shop or play?</h1>
+    <p>I hand-pick a farmers-market box and hand it off same day at a meet-up near you. Orders close 9 PM the night before pickup.</p>
+  </section>
+
+  <nav class="pick" aria-label="Choose one">
+    <a class="choice main" id="goShop" href="../#shop"><span class="ico" aria-hidden="true">🧺</span><b>Shop this week's haul</b><span>Pick a box, add extras, check out.</span></a>
+    <a class="choice" id="goPlay" href="../play/"><span class="ico" aria-hidden="true">🎮</span><b>Play for first dibs</b><span>30-second Market Catch. Then get first pick of the harvest.</span></a>
+  </nav>
+
+  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+</div>
+<script>
+/* Shop-or-play landing for texts. Carries the incoming ?s= tag onto every outbound link so Visits/Contacts attribution survives. */
+const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
+const src=raw||"go";
+document.querySelectorAll(".tabs a").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",src);a.setAttribute("href",u.pathname+u.search+u.hash)});
+document.getElementById("home").href="../?s="+src;
+document.getElementById("goShop").href="../?s="+src+"#shop";
+document.getElementById("goPlay").href="../play/?s="+src;
+</script>
+</body>
+</html>
