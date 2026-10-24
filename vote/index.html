@@ -127,8 +127,10 @@ textarea{min-height:84px;resize:vertical}
     <p class="sub">Goes on your next order, any market day through Nov 21.</p>
     <div class="gifts" role="radiogroup" aria-label="Thank-you">
       <label class="gopt"><input type="radio" name="gift" value="$5 off next order" checked><span>$5 off your next order<small>On orders of $30 and up</small></span></label>
-      <label class="gopt"><input type="radio" name="gift" value="Free pastry"><span>A free pastry<small>Tucked into your bag</small></span></label>
+      <label class="gopt"><input type="radio" name="gift" value="Small hot sauce"><span>A small hot sauce<small>Mild, fruity or extra hot</small></span></label>
       <label class="gopt"><input type="radio" name="gift" value="Surprise produce pick"><span>A surprise produce pick<small>Our favorite thing at market that week</small></span></label>
+      <label class="gopt"><input type="radio" name="gift" value="Free pastry"><span>A free pastry<small>Tucked into your bag</small></span></label>
+      <label class="gopt"><input type="radio" name="gift" value="Local tofu"><span>A block of local tofu<small>Tucked into your bag</small></span></label>
     </div>
 
     <h2 style="margin-top:10px">3 · So we know it's you</h2>
@@ -182,6 +184,18 @@ const src=(new URLSearchParams(location.search).get("s")||"vote").replace(/[^a-z
 const $=s=>document.querySelector(s);
 const digits=s=>s.replace(/\D/g,"");
 if(src!=="vote"){const u=$("#shop");u.href="../?s="+encodeURIComponent(src);$("#home").href="../?s="+encodeURIComponent(src)}
+
+/* Visit counting to the sheet's Visits tab, same as the order page: no cookies, no IP, no names; random ID on this device.
+   Source = the ?s= tag (e.g. ubuntu-vote), default "vote". Devices opened once with ?me anywhere on the site aren't counted.
+   Only type "visit" is sent here; unknown types would land in All Orders as fake orders. */
+(function(){
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
+  let vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  let fresh=true;try{fresh=!sessionStorage.getItem("pu-v-vote");sessionStorage.setItem("pu-v-vote","1")}catch(e){}
+  if(!fresh)return;
+  const dev=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?"Phone":"Computer";
+  fetch(ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:src,device:dev,returning:ret,vid})}).catch(()=>{});
+})();
 
 /* Splash, once per browser session */
 (function(){
