@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pick our logo · Posted Up Produce</title>
+<meta name="description" content="Last day to vote on the Posted Up Produce logo. Vote, get a thank-you on your next order. Got a better idea? Send it in.">
+<meta property="og:title" content="Last day: pick the Posted Up Produce logo">
+<meta property="og:description" content="4 options, 10 seconds. Vote and get a thank-you on your next order. Better idea? Send it in.">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;--board-mute:#d3cbb8;
+  --tomato:#c4432b;--tomato-ink:#a8361f;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;--board-mute:#c9c2b0;
+  --tomato:#e3654c;--tomato-ink:#f08a74;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;--board-mute:#c9c2b0;
+  --tomato:#e3654c;--tomato-ink:#f08a74;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--tomato-ink)}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 44px;display:grid;gap:26px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:env(safe-area-inset-top,0px)}
+.brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none}
+.beta{font:700 11px/1 var(--body);background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
+.sign{background:var(--board);color:var(--board-ink);border-radius:14px;padding:22px 20px;display:grid;gap:12px}
+.sign .eyebrow{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#F3D58A}
+.sign h1{font-size:clamp(32px,9.4vw,44px);line-height:1.05}
+.sign p{color:var(--board-mute);font-size:17px}
+.clock{display:flex;gap:8px;align-items:baseline;font-weight:700;font-size:15px;color:var(--board-ink)}
+.clock b{font:400 22px/1 var(--display);font-variant-numeric:tabular-nums;color:#F3D58A}
+.sec{display:grid;gap:12px}
+.sec>h2{font-size:24px;line-height:1.15}
+.sub{color:var(--muted);font-size:15px}
+.logos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.lopt{position:relative;display:grid;gap:8px;justify-items:center;border:2px solid var(--line);background:var(--panel);border-radius:14px;padding:12px 10px 14px;cursor:pointer;text-align:center}
+.lopt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.lopt img{width:100%;max-width:170px;aspect-ratio:1;display:block}
+.lopt .nm{font-weight:700;font-size:15px;line-height:1.25}
+.lopt .ltr{font:400 15px/1 var(--display);color:var(--tomato-ink)}
+.lopt:has(input:checked){border-color:var(--tomato);box-shadow:inset 0 0 0 2px var(--tomato);background:var(--bg)}
+.lopt:has(input:checked)::after{content:"Your pick";position:absolute;top:8px;right:8px;background:var(--tomato);color:#fff;font:700 11px/1 var(--body);letter-spacing:.04em;border-radius:999px;padding:5px 8px}
+.lopt:has(input:focus-visible){outline:3px solid var(--tomato);outline-offset:2px}
+.gifts{display:grid;gap:8px}
+.gopt{position:relative;display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid var(--line);background:var(--panel);border-radius:10px;padding:12px 14px;min-height:56px;cursor:pointer;font-weight:700;font-size:16px}
+.gopt small{display:block;font-weight:500;font-size:13px;color:var(--muted)}
+.gopt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.gopt:has(input:checked){border-color:var(--good);box-shadow:inset 0 0 0 2px var(--good)}
+.gopt:has(input:checked)::after{content:"\2713";color:var(--good);font-size:20px}
+.gopt:has(input:focus-visible){outline:3px solid var(--tomato);outline-offset:2px}
+label.f{display:grid;gap:5px;font-size:15px;font-weight:700}
+input[type=text],input[type=tel],textarea{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:11px 12px;width:100%;min-height:48px}
+textarea{min-height:84px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:420px){.two{grid-template-columns:1fr}}
+.cta{display:flex;align-items:center;justify-content:center;background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:14px 16px;font-weight:700;font-size:17px;min-height:52px;width:100%;text-decoration:none}
+.cta:disabled{opacity:.5;cursor:not-allowed}
+.cta.alt{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.err{color:var(--tomato-ink);font-size:15px;font-weight:600}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.idea{border:2px dashed var(--line);border-radius:14px;padding:18px 16px;display:grid;gap:12px}
+.done{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:20px 18px;display:grid;gap:12px}
+.done h2{font-size:26px}
+.ok{color:var(--good);font-weight:700}
+.fine{font-size:13px;color:var(--muted)}
+.foot{font-size:13px;color:var(--muted)}
+/* Splash: stamp + rings, once per browser session. Tap to skip. */
+#pu-splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;padding:24px;background:var(--bg);cursor:pointer;animation:pu-pulse 1s ease-in-out infinite,pu-out .4s ease-in 3s forwards}
+/* All four logo candidates stamp in one after another, each with its own ripple rings. */
+#pu-splash .pu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:min(80vw,340px)}
+#pu-splash .pu-cell{position:relative;display:grid;place-items:center;aspect-ratio:1}
+#pu-splash .pu-cell img{width:100%;height:100%;display:block;filter:drop-shadow(0 8px 14px rgba(36,57,44,.25));animation:pu-stamp .5s cubic-bezier(.2,1.5,.45,1) both}
+#pu-splash .pu-ring{position:absolute;inset:4%;border-radius:50%;border:3px solid var(--ink);opacity:0;animation:pu-ring 1s ease-out infinite both}
+#pu-splash .c1 img{animation-delay:.1s}#pu-splash .c1 .pu-ring{animation-delay:.4s}#pu-splash .c1 .r2{animation-delay:.9s}
+#pu-splash .c2 img{animation-delay:.4s}#pu-splash .c2 .pu-ring{animation-delay:.7s}#pu-splash .c2 .r2{animation-delay:1.2s}
+#pu-splash .c3 img{animation-delay:.7s}#pu-splash .c3 .pu-ring{animation-delay:1s}#pu-splash .c3 .r2{animation-delay:1.5s}
+#pu-splash .c4 img{animation-delay:1s}#pu-splash .c4 .pu-ring{animation-delay:1.3s}#pu-splash .c4 .r2{animation-delay:1.8s}
+#pu-splash .pu-tag{font:400 clamp(22px,6.5vw,28px)/1.1 var(--display);color:var(--ink);text-align:center;animation:pu-up .5s ease-out 1.3s both}
+#pu-splash .pu-cut{font:700 14px/1.3 var(--body);color:var(--tomato-ink);text-align:center;animation:pu-up .5s ease-out 1.6s both}
+#pu-splash .pu-skip{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));font:700 13px/1 var(--body);color:var(--ink);opacity:.55}
+@keyframes pu-stamp{0%{opacity:0;transform:scale(2.2) rotate(-14deg)}70%{opacity:1;transform:scale(.94) rotate(-5deg)}100%{opacity:1;transform:scale(1) rotate(-6deg)}}
+@keyframes pu-ring{0%{opacity:.55;transform:scale(1)}100%{opacity:0;transform:scale(1.55)}}
+@keyframes pu-pulse{0%,100%{background:var(--bg)}50%{background:color-mix(in srgb,var(--bg) 82%,#e3b23c)}}
+@keyframes pu-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes pu-out{to{opacity:0;visibility:hidden}}
+@media (prefers-reduced-motion:reduce){#pu-splash,#pu-splash *{animation:none!important}#pu-splash{animation:pu-out .2s linear 1.5s forwards!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a class="brand" id="home" href="../">Posted Up Produce <span class="beta">Beta</span></a></header>
+
+  <section class="sign" aria-labelledby="h1">
+    <span class="eyebrow" id="eyebrow">Last day to vote</span>
+    <h1 id="h1">Pick our logo.</h1>
+    <p>Four options, ten seconds. Vote and we'll put a little thank-you in your next order. Got a better idea? Send it in below.</p>
+    <p class="clock" id="clock" aria-live="off">Voting closes in <b id="left">--</b></p>
+  </section>
+
+  <form class="sec" id="vf" novalidate>
+    <h2>1 · Which one feels like Posted Up?</h2>
+    <div class="logos" role="radiogroup" aria-label="Logo options">
+      <label class="lopt"><input type="radio" name="logo" value="A Market Stamp"><img src="../logos/a-stamp.svg" alt="Option A: Market Stamp, a round stamp reading Posted Up, Picked for You" width="170" height="170"><span class="ltr">A</span><span class="nm">Market Stamp</span></label>
+      <label class="lopt"><input type="radio" name="logo" value="B Posted on the Corner"><img src="../logos/b-corner.svg" alt="Option B: Posted on the Corner, a produce crate under a street lamp" width="170" height="170"><span class="ltr">B</span><span class="nm">Posted on the Corner</span></label>
+      <label class="lopt"><input type="radio" name="logo" value="C Seasonal Harvest"><img src="../logos/c-harvest.svg" alt="Option C: Seasonal Harvest, a crate of vegetables under a sun" width="170" height="170"><span class="ltr">C</span><span class="nm">Seasonal Harvest</span></label>
+      <label class="lopt"><input type="radio" name="logo" value="D The Meet-up Spot"><img src="../logos/d-meetup.svg" alt="Option D: The Meet-up Spot, a map pin with a sprout at a street crossing" width="170" height="170"><span class="ltr">D</span><span class="nm">The Meet-up Spot</span></label>
+    </div>
+    <label class="f">Why that one? (optional)<input type="text" id="why" maxlength="200" placeholder="It looks like the market"></label>
+
+    <h2 style="margin-top:10px">2 · Pick your thank-you</h2>
+    <p class="sub">Goes on your next order, any market day through Nov 21.</p>
+    <div class="gifts" role="radiogroup" aria-label="Thank-you">
+      <label class="gopt"><input type="radio" name="gift" value="$5 off next order" checked><span>$5 off your next order<small>On orders of $30 and up</small></span></label>
+      <label class="gopt"><input type="radio" name="gift" value="Free pastry"><span>A free pastry<small>Tucked into your bag</small></span></label>
+      <label class="gopt"><input type="radio" name="gift" value="Surprise produce pick"><span>A surprise produce pick<small>Our favorite thing at market that week</small></span></label>
+    </div>
+
+    <h2 style="margin-top:10px">3 · So we know it's you</h2>
+    <div class="two">
+      <label class="f">First name<input type="text" id="nm" autocomplete="given-name"></label>
+      <label class="f">Mobile<input type="tel" id="ph" autocomplete="tel" inputmode="tel"></label>
+    </div>
+    <p class="fine">Your number is only used to match your thank-you to your next order. One vote per person.</p>
+    <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+    <p class="err" id="err" aria-live="polite"></p>
+    <button class="cta" type="submit" id="vbtn">Cast my vote</button>
+  </form>
+
+  <section class="done" id="thanks" hidden tabindex="-1" aria-labelledby="th">
+    <h2 id="th">Vote counted.</h2>
+    <p class="ok" id="tmsg"></p>
+    <p class="sub">Winner gets announced after tonight. Your thank-you rides along on your next order through Nov 21; mention it or we'll match it by your number.</p>
+    <a class="cta" id="shop" href="../?s=vote">See this week's boxes</a>
+    <button class="cta alt" type="button" id="share">Send the vote to a friend</button>
+    <p class="fine" id="shmsg" aria-live="polite"></p>
+  </section>
+
+  <section class="done" id="closed" hidden aria-labelledby="ch">
+    <h2 id="ch">Voting's closed.</h2>
+    <p class="sub">Thanks to everyone who voted. The winner goes up on the site soon. You can still send us a logo idea below.</p>
+    <a class="cta" href="../?s=vote-closed">See this week's boxes</a>
+  </section>
+
+  <form class="idea" id="idf" novalidate aria-labelledby="ih">
+    <h2 id="ih" style="font-size:22px">Got a better idea?</h2>
+    <p class="sub">None of these quite right? Tell us what you'd change or describe your own. Have a sketch? Text a photo of it to 773-807-9223.</p>
+    <label class="f">Your idea<textarea id="idea" maxlength="600" placeholder="B, but with the Chicago star. Or: a crate on a stoop..."></textarea></label>
+    <div class="two">
+      <label class="f">First name<input type="text" id="inm" autocomplete="given-name"></label>
+      <label class="f">Mobile (optional)<input type="tel" id="iph" autocomplete="tel" inputmode="tel"></label>
+    </div>
+    <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+    <p class="err" id="ierr" aria-live="polite"></p>
+    <button class="cta alt" type="submit" id="ibtn">Send my idea</button>
+  </form>
+
+  <p class="foot">Posted Up Produce is a beta personal-shopping service at Chicago farmers markets, run by 123 Footprint, LLC. Logo artwork © 123 Footprint, LLC. Ideas you send may be used to shape the final logo. Questions? Text 773-807-9223.</p>
+</div>
+
+<script>
+const ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+/* Votes and ideas post as type "feedback" (Contact blank, details in the message) so they land on the Feedback tab.
+   Unknown types would land in All Orders as fake orders. Message prefixes: "LOGO VOTE" and "LOGO IDEA". */
+const CLOSES=new Date("2026-10-25T00:00:00-05:00"); /* end of Sat Oct 24, Chicago */
+const src=(new URLSearchParams(location.search).get("s")||"vote").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"vote";
+const $=s=>document.querySelector(s);
+const digits=s=>s.replace(/\D/g,"");
+if(src!=="vote"){const u=$("#shop");u.href="../?s="+encodeURIComponent(src);$("#home").href="../?s="+encodeURIComponent(src)}
+
+/* Splash, once per browser session */
+(function(){
+  let seen=false;try{seen=sessionStorage.getItem("pu_vote_splash")==="1";sessionStorage.setItem("pu_vote_splash","1")}catch(e){}
+  if(seen)return;
+  const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");
+  const cells=["a-stamp","b-corner","c-harvest","d-meetup"].map((f,i)=>'<div class="pu-cell c'+(i+1)+'"><span class="pu-ring"></span><span class="pu-ring r2"></span><img src="../logos/'+f+'.svg" alt=""></div>').join("");
+  d.innerHTML='<div class="pu-grid">'+cells+'</div><p class="pu-tag">Pick our logo.</p><p class="pu-cut">Last day to vote</p><span class="pu-skip">Tap to skip</span>';
+  const kill=()=>{d.remove()};d.addEventListener("click",kill);d.addEventListener("animationend",e=>{if(e.animationName==="pu-out")kill()});
+  document.body.append(d);setTimeout(kill,3800);
+})();
+
+function isOpen(){return new Date()<CLOSES}
+function tick(){
+  const ms=CLOSES-new Date();
+  if(ms<=0){showClosed();return}
+  const h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000),s=Math.floor(ms%60000/1000);
+  $("#left").textContent=h+"h "+String(m).padStart(2,"0")+"m "+String(s).padStart(2,"0")+"s";
+}
+function showClosed(){
+  clearInterval(timer);$("#vf").hidden=true;$("#closed").hidden=false;
+  $("#eyebrow").textContent="Voting closed";$("#clock").hidden=true;
+}
+const timer=setInterval(tick,1000);tick();
+
+let voted=null;try{voted=JSON.parse(localStorage.getItem("pu_logo_vote")||"null")}catch(e){}
+function showThanks(v,focus){
+  $("#vf").hidden=true;$("#thanks").hidden=false;
+  $("#tmsg").textContent="You picked "+v.logo+". Your thank-you: "+v.gift.toLowerCase()+".";
+  if(focus)$("#thanks").focus();
+}
+if(voted&&isOpen())showThanks(voted,false);
+
+const vf=$("#vf");
+vf.addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#err");err.textContent="";
+  if(!isOpen())return void showClosed();
+  const logo=(vf.querySelector('input[name="logo"]:checked')||{}).value,gift=(vf.querySelector('input[name="gift"]:checked')||{}).value;
+  const name=$("#nm").value.trim(),ph=$("#ph").value.trim(),why=$("#why").value.trim();
+  if(!logo)return void(err.textContent="Tap the logo you like best.");
+  if(!name)return void(err.textContent="Add your first name.");
+  if(digits(ph).length<10)return void(err.textContent="Add a 10-digit mobile so we can match your thank-you.");
+  const message=["LOGO VOTE","Pick: "+logo,"Thank-you: "+gift,"Mobile: "+ph,why&&"Why: "+why,"Source: "+src].filter(Boolean).join(" · ");
+  const btn=$("#vbtn");btn.disabled=true;btn.textContent="Counting…";
+  try{
+    await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name,contact:"",message,times:"",hp:vf.querySelector('input[name="website"]').value})});
+    const v={logo,gift};try{localStorage.setItem("pu_logo_vote",JSON.stringify(v))}catch(x){}
+    showThanks(v,true);
+  }catch(x){btn.disabled=false;btn.textContent="Cast my vote";err.textContent="That didn't go through. Try again, or text your pick to 773-807-9223."}
+});
+
+$("#share").addEventListener("click",async()=>{
+  const url=location.origin+"/vote/?s=vote-share";
+  const text="Last day to pick the Posted Up Produce logo. Takes 10 seconds and you get a thank-you on your next order:";
+  try{
+    if(navigator.share){await navigator.share({title:"Pick the Posted Up logo",text,url});return}
+    await navigator.clipboard.writeText(text+" "+url);$("#shmsg").textContent="Link copied. Paste it to a friend.";
+  }catch(e){if(e&&e.name!=="AbortError")$("#shmsg").textContent=url}
+});
+
+const idf=$("#idf");
+idf.addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#ierr");err.textContent="";
+  const idea=$("#idea").value.trim(),name=$("#inm").value.trim(),ph=$("#iph").value.trim();
+  if(idea.length<3)return void(err.textContent="Tell us your idea first.");
+  if(!name)return void(err.textContent="Add your first name.");
+  if(ph&&digits(ph).length<10)return void(err.textContent="Mobile should be 10 digits, or leave it blank.");
+  const message=["LOGO IDEA","Idea: "+idea,ph&&"Mobile: "+ph,"Source: "+src].filter(Boolean).join(" · ");
+  const btn=$("#ibtn");btn.disabled=true;btn.textContent="Sending…";
+  try{
+    await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name,contact:"",message,times:"",hp:idf.querySelector('input[name="website"]').value})});
+    const h=document.createElement("h2");h.textContent="Got it, thank you!";h.style.fontSize="22px";h.tabIndex=-1;
+    const p=document.createElement("p");p.className="sub";p.textContent="Every idea gets a look before the final logo is set.";
+    idf.replaceChildren(h,p);h.focus();
+  }catch(x){btn.disabled=false;btn.textContent="Send my idea";err.textContent="That didn't go through. Try again, or text it to 773-807-9223."}
+});
+</script>
+</body>
+</html>
