@@ -286,40 +286,45 @@ textarea{min-height:80px;resize:vertical}
 <!-- AT WORK -->
 <section class="view" id="v-work" aria-labelledby="h-work" hidden>
   <div class="hero">
-    <span class="eyebrow">Post-Up at Work</span>
+    <span class="eyebrow">Post-Up at Work &amp; at Home</span>
     <h1 id="h-work">Eight orders. One door. Free drop.</h1>
-    <p class="lede">Get 8 or more coworkers ordering for the same market day and we drop every box at your front desk, labeled by name. Delivery is on us.</p>
-    <a class="cta" href="#w-form">Request an office drop</a>
-    <p class="small">Drops run on our market days: Saturdays, plus other fall markets as we add them.</p>
+    <p class="lede">Get 8 or more coworkers or neighbors ordering for the same market day and we drop every box at one door, your front desk or your building lobby, labeled by name. Delivery is on us.</p>
+    <a class="cta" href="#w-form">Request a group drop</a>
+  </div>
+
+  <div class="sec">
+    <div class="card"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--good)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg><div><b>Office drops</b><span>Weekday test runs Tue, Nov 3 and Wed, Nov 4. Back on weekdays when spring markets open.</span></div></div>
+    <div class="card"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--good)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg><div><b>Building drops</b><span>Apartment and condo lobbies, Saturdays all season, including winter.</span></div></div>
   </div>
 
   <div class="sec" style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 16px" aria-label="Example team progress">
-    <div class="row"><b>Your office · next drop</b><span class="small">closes 9 PM the night before</span></div>
+    <div class="row"><b>Your group · next drop</b><span class="small">closes 9 PM the night before</span></div>
     <div class="bar" role="img" aria-label="5 of 8 orders in"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
     <p><b>5 of 8 in.</b> 3 more and the drop is free for everyone.</p>
-    <p class="small">Example of the team tracker each office gets.</p>
+    <p class="small">Example of the tracker each group gets.</p>
   </div>
 
   <div class="sec">
     <h2>How it works</h2>
     <ol class="steps">
-      <li><span class="num">1</span><div><b>You get a team link</b><span>Share it in your group chat or the break room. Every order through it counts toward your drop.</span></div></li>
+      <li><span class="num">1</span><div><b>You get a group link</b><span>Share it in the office chat, the break room or your building's group text. Every order through it counts toward your drop.</span></div></li>
       <li><span class="num">2</span><div><b>Hit 8 by 9 PM the night before</b><span>Each person picks and pays for their own box. Short of 8? Everyone can still meet up or get door delivery.</span></div></li>
       <li><span class="num hot">3</span><div><b>Same-day drop</b><span>Shopped that morning at the market, at your door that afternoon.</span></div></li>
     </ol>
   </div>
 
   <div class="board">
-    <h2>Team standing orders</h2>
-    <p>Once your office has 8 Standing Orders, your drop is held every market day and nobody has to rally again.</p>
+    <h2>Group standing orders</h2>
+    <p>Once your office or building has 8 Standing Orders, your drop is held every week and nobody has to rally again.</p>
     <a href="#standing">How Standing Order works →</a>
   </div>
 
   <form class="sec" id="w-form" novalidate>
-    <h2>Request an office drop</h2>
+    <h2>Request a group drop</h2>
     <label class="f">Your name<input type="text" id="w-nm" autocomplete="name"></label>
     <label class="f">Mobile<input type="tel" id="w-ph" autocomplete="tel"></label>
-    <label class="f">Company or building<input type="text" id="w-co"></label>
+    <label class="f">Drop type<select id="w-type"><option>Building lobby (Saturdays)</option><option>Office (weekday test, Nov 3 or 4)</option><option>Office (spring weekdays)</option></select></label>
+    <label class="f">Company or building name<input type="text" id="w-co"></label>
     <label class="f">Neighborhood<select id="w-area"><option>Near Goose Island / West Loop</option><option>Hyde Park / South Side</option><option>Rogers Park / North Side</option><option>Somewhere else</option></select></label>
     <label class="f">About how many people?<select id="w-size"><option>8–15</option><option>16–30</option><option>30+</option><option>Not sure yet</option></select></label>
     <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
@@ -466,7 +471,7 @@ wf.addEventListener("submit",async e=>{
   if(!nm)return void(err.textContent="Add your name.");
   if(digits(ph).length<10)return void(err.textContent="Add a 10-digit mobile number.");
   if(!co)return void(err.textContent="Add your company or building.");
-  const msg=["OFFICE DROP REQUEST","Mobile: "+ph,"Where: "+co,"Area: "+$("#w-area").value,"People: "+$("#w-size").value,"Source: "+src].join(" · ");
+  const msg=["GROUP DROP REQUEST","Mobile: "+ph,"Type: "+$("#w-type").value,"Where: "+co,"Area: "+$("#w-area").value,"People: "+$("#w-size").value,"Source: "+src].join(" · ");
   const btn=$("#w-btn");btn.disabled=true;btn.textContent="Sending…";
   try{await send(nm,msg,wf.querySelector('input[name="website"]').value);done(wf,"Got it, "+nm+"!","We'll text you to set up your team link and drop spot.")}
   catch(x){btn.disabled=false;btn.textContent="Send request";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
