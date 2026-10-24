@@ -206,6 +206,21 @@ body.guide-off .guide { display: none; }
 .role dt { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
 .role dd { margin: 0; }
 
+
+/* ---------- winter ---------- */
+.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.tl li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--line); align-items: baseline; }
+.tl li:last-child { border-bottom: 0; }
+.tl .when { font-family: var(--font-mono); font-size: var(--step--1); color: var(--accent); font-weight: 500; }
+.tl .what { font-size: var(--step--1); }
+.tl .what b { font-size: var(--step-0); display: block; }
+@media (max-width: 520px) { .tl li { grid-template-columns: 1fr; gap: 2px; } }
+.levers { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 14px; }
+.levers .board { gap: 6px; }
+.levers .lv-n { font-family: var(--font-display); font-size: var(--step-2); color: var(--accent); line-height: 1; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { font-size: var(--step--1); padding: 3px 10px; border-radius: 999px; background: var(--chip); }
+
 /* ---------- welcome splash ---------- */
 .splash { position: fixed; inset: 0; z-index: 20; background: var(--splash); color: var(--fg); overflow-y: auto; display: flex; align-items: center; justify-content: center; padding: calc(24px + env(safe-area-inset-top, 0px)) 16px calc(24px + env(safe-area-inset-bottom, 0px)); cursor: pointer; }
 .splash-inner { width: 100%; max-width: 60rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(16px, 4vw, 48px); align-items: center; margin-block: auto; }
@@ -362,10 +377,10 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
       <div class="board"><h3>The idea</h3><button type="button" data-go="intro">At a glance</button><button type="button" data-go="problem">The gap</button><button type="button" data-go="how">How it works</button></div>
       <div class="board"><h3>The proof so far</h3><button type="button" data-go="today">Where it stands</button><button type="button" data-go="truth">What the pilot teaches</button><button type="button" data-go="lessons">Why others stalled</button></div>
       <div class="board"><h3>The plan</h3><button type="button" data-go="branches">Growth branches</button><button type="button" data-go="beyond">Where it can branch</button><button type="button" data-go="calculator">Try the numbers</button></div>
-      <div class="board"><h3>The money</h3><button type="button" data-go="cba">Cost-benefit</button><button type="button" data-go="season">2027 season P&amp;L</button><button type="button" data-go="pay">Paying the team</button><button type="button" data-go="ask">The ask</button></div>
+      <div class="board"><h3>The money</h3><button type="button" data-go="cba">Cost-benefit</button><button type="button" data-go="season">2027 season P&amp;L</button><button type="button" data-go="winter">Winter</button><button type="button" data-go="pay">Paying the team</button><button type="button" data-go="ask">The ask</button></div>
       <div class="board"><h3>Building it</h3><button type="button" data-go="needs">What it takes</button><button type="button" data-go="roles">Room to grow</button><button type="button" data-go="milestones">Milestones</button><button type="button" data-go="risks">Risks</button></div>
     </div>
-    <div class="fast"><span class="small muted">Short on time? Start here:</span><button type="button" data-go="season">2027 P&amp;L</button><button type="button" data-go="pay">Paying the team</button><button type="button" data-go="ask">The ask</button><button type="button" data-go="risks">Risks</button></div>
+    <div class="fast"><span class="small muted">Short on time? Start here:</span><button type="button" data-go="season">2027 P&amp;L</button><button type="button" data-go="winter">Winter</button><button type="button" data-go="pay">Paying the team</button><button type="button" data-go="ask">The ask</button><button type="button" data-go="risks">Risks</button></div>
   </section>
 
   <!-- 1 -->
@@ -649,6 +664,79 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
     </div>
   </section>
 
+  <section class="slide" id="winter" data-title="Winter">
+    <div class="slide-head">
+      <span class="eyebrow">Winter · Nov 22 to April</span>
+      <h2>Fewer market days, same customers.</h2>
+      <p class="lede">Outdoor markets close Nov 21. Winter is where small food businesses lose their customers. The plan is to stay open on Saturdays, keep cash positive, and walk into May with a bigger list instead of starting over.</p>
+    </div>
+    <div class="cols">
+      <div class="board">
+        <h3>The winter calendar</h3>
+        <ul class="tl">
+          <li><span class="when">Nov 21</span><span class="what"><b>Last outdoor Saturday</b>Thanksgiving boxes go out on this run: sides, squash, pies, bread.</span></li>
+          <li><span class="when">Nov 28</span><span class="what"><b>First indoor Saturday</b>A North Side indoor farmers market opens for the winter, about 12 dates into 2027.</span></li>
+          <li><span class="when">Dec 5 – Mar 20</span><span class="what"><b>The city's biggest market moves indoors</b>Saturdays all winter, with many of the same growers and makers.</span></li>
+          <li><span class="when">December</span><span class="what"><b>Gift season</b>4-week gift boxes and shelf-stable maker boxes for families and offices.</span></li>
+          <li><span class="when">Jan – Mar</span><span class="what"><b>Standing Orders carry the volume</b>Weekly regulars and building-lobby drops, one Saturday at a time.</span></li>
+          <li><span class="when">May 2027</span><span class="what"><b>Outdoor season returns</b>Weekday market days and office drops come back.</span></li>
+        </ul>
+        <p class="small muted">Dates come from market announcements and past seasons. Some winter dates for 2026–27 aren't posted yet; we confirm each one before taking orders.</p>
+      </div>
+      <div class="board">
+        <h3>What changes in the box</h3>
+        <ul class="ticks">
+          <li><strong>Saturdays only.</strong> Weekday markets end Nov 4, so every winter order runs through one Saturday market trip.</li>
+          <li><strong>Heartier menu.</strong> Storage crops, mushrooms, microgreens, eggs, meat, Great Lakes fish, cheese, bread and pantry goods from local makers.</li>
+          <li><strong>Themed boxes keep it exciting.</strong> A simple produce list gets thin in January, so the box tells a story instead.</li>
+        </ul>
+        <div class="chips" aria-label="Winter box ideas">
+          <span>Thanksgiving Sides</span><span>Soup Night</span><span>Holiday Baking</span><span>Weekend Brunch</span><span>Lunar New Year (Feb)</span><span>The Vegan Box</span><span>Meat Lovers Box</span><span>Lake Haul</span>
+        </div>
+        <ul class="ticks">
+          <li><strong>Handoffs move indoors.</strong> Building lobbies take 8-order group drops, and insulated cooler bags keep food from freezing on the way home, not just from warming up.</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Four things that keep money coming in</h3>
+    <div class="levers">
+      <div class="board"><span class="lv-n">1</span><h3>Standing Orders</h3><p class="small">Weekly regulars get a held spot, free delivery and a free add-on every 4th box. Skip any week by 9 PM the night before. Predictable volume is what makes a single Saturday worth the trip.</p></div>
+      <div class="board"><span class="lv-n">2</span><h3>Holiday gifting</h3><p class="small">4-week gift boxes with a cooler bag, plus shelf-stable maker boxes (jam, honey, maple, hot sauce). Gifts are modeled at about 43% margin, higher than weekly produce.</p></div>
+      <div class="board"><span class="lv-n">3</span><h3>Building-lobby drops</h3><p class="small">8 orders in one building means one free drop at one door. Apartment and condo lobbies are open on Saturdays when offices aren't.</p></div>
+      <div class="board"><span class="lv-n">4</span><h3>Keep the list warm</h3><p class="small">Two texts a week, first-pick sign-ups and photo thank-yous. In May we restart with regulars instead of a cold start.</p></div>
+    </div>
+    <div class="calc">
+      <div class="board">
+        <h3>Try a winter</h3>
+        <div class="ctl"><label for="w-orders">Orders per Saturday <output id="o-w-orders"></output></label><input type="range" id="w-orders" min="3" max="40" step="1" value="10"></div>
+        <div class="ctl"><label for="w-gifts">Gift boxes in December <output id="o-w-gifts"></output></label><input type="range" id="w-gifts" min="0" max="200" step="10" value="40"></div>
+        <div class="ctl"><span class="small" style="font-weight:600;">Average order</span>
+          <div class="seg small" role="group" aria-label="Winter average order"><button type="button" data-waov="47.30" aria-pressed="true">$47 (model)</button><button type="button" data-waov="94.75" aria-pressed="false">$95 (pilot so far)</button></div></div>
+        <div class="ctl"><span class="small" style="font-weight:600;">Buying from farms at</span>
+          <div class="seg small" role="group" aria-label="Winter sourcing"><button type="button" data-wsrc="1" aria-pressed="true">Retail price</button><button type="button" data-wsrc="0.8" aria-pressed="false">Wholesale (20% off)</button></div></div>
+        <p class="small muted">17 Saturdays from Nov 28 to Mar 20, one zone, 20 miles of driving each Saturday at the IRS rate. Holiday weekends may close a market, so treat this as an upper bound.</p>
+      </div>
+      <div class="board pay-out">
+        <div class="figs">
+          <div class="fig accent"><span class="fig-label">Winter profit</span><span class="fig-value num" id="w-total">—</span><span class="fig-sub" id="w-total-sub">—</span></div>
+          <div class="fig"><span class="fig-label">Per hour</span><span class="fig-value num" id="w-hour">—</span><span class="fig-sub" id="w-hour-sub">—</span></div>
+        </div>
+        <table><tbody>
+          <tr><td>Profit per Saturday</td><td class="r" id="w-sat">—</td></tr>
+          <tr><td>Profit from December gifts</td><td class="r" id="w-gift">—</td></tr>
+          <tr><td>Spent with local farms and makers</td><td class="r" id="w-farm">—</td></tr>
+          <tr><td>Orders per Saturday to earn $25/hr</td><td class="r" id="w-be">—</td></tr>
+        </tbody></table>
+        <p class="small muted" id="w-note">—</p>
+      </div>
+    </div>
+    <div class="board">
+      <span class="tag hot">The long-term fix</span>
+      <h3>Year-round indoor markets</h3>
+      <p class="small">In October 2026 the City of Chicago announced its Market City Action Plan: support for existing farmers markets and a network of year-round indoor public markets, starting on the South and West Sides. A request for information on sites and operators is expected around late November. A year-round market is a year-round source and pickup point, which would end the winter gap for good. Posted Up plans to respond as a shopper and pickup partner.</p>
+    </div>
+  </section>
+
   <section class="slide" id="pay" data-title="Paying the team">
     <div class="slide-head">
       <span class="eyebrow">Paying the team</span>
@@ -757,6 +845,7 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
           <tr><td class="mono">Oct 2026</td><td>Beta live; first paid orders across all three meet-up stops <span class="tag hot">Done</span></td><td>—</td></tr>
           <tr><td class="mono">Oct 24, 2026</td><td>Customer logo vote closes; brand locked for the 2027 season</td><td>Keep the working mark through the pilot</td></tr>
           <tr><td class="mono">Dec 2026</td><td>Pilot results published (ends Nov 21); 60+ holiday gift boxes pre-sold</td><td>Rework pricing and the offer before spending any grant money</td></tr>
+          <tr><td class="mono">Winter 2026–27</td><td>Winter Saturdays stay cash positive after driving; 15+ Standing Orders by March 20</td><td>Pause winter service and restart in May with the text list</td></tr>
           <tr><td class="mono">May 2027</td><td>3+ farms on written wholesale or pre-order terms</td><td>Keep retail sourcing and cap volume; profit per hour stays near pilot levels</td></tr>
           <tr><td class="mono">Jul 2027</td><td>25 orders per market day in one zone; half on subscription</td><td>Add a second zone only after the first fills</td></tr>
           <tr><td class="mono">Sep 2027</td><td>$30+ profit per founder hour; 50%+ customers reorder</td><td>Pause scaling and fix retention first</td></tr>
@@ -775,7 +864,7 @@ body.splash-open .strip, body.splash-open .progress { visibility: hidden; }
     <div class="cols">
       <div class="board"><ul class="ticks risk">
         <li><strong>Farms won't discount.</strong> Start with farms that already sell to restaurants; standing weekly orders give them a reason to.</li>
-        <li><strong>Demand is seasonal.</strong> Holiday gift boxes and shelf-stable pantry goods carry income past the outdoor season.</li>
+        <li><strong>Demand is seasonal.</strong> Winter runs on Saturdays only, carried by Standing Orders, gifting and building-lobby drops (see the Winter page). If a winter Saturday can't cover its driving, we skip it and keep the list warm by text.</li>
         <li><strong>One person is the bottleneck.</strong> Farms pre-pack, one zone, and a paid helper above 25 orders a day.</li>
       </ul></div>
       <div class="board"><ul class="ticks risk">
@@ -945,6 +1034,7 @@ const DATA = {"branches": [{"branch_id": "A", "step": 1, "branch": "Pilot as-is"
     calculator: ['modeled', 'How profit per hour responds to each lever: volume, farm discount, stops, days and help.', 'Pick a preset, then drag the sliders. The line on the meter marks the pilot today.'],
     cba: ['modeled', 'First-year cost against yearly profit for each branch, plus dollars that reach local farms.', 'Left chart: grey is cost, green is profit. Right chart: farm dollars. The table adds payback time.'],
     season: ['modeled', 'A full 2027 season month by month, with every cost included, even the ones the grant would cover.', 'Hover or tap a month to see its revenue, profit and orders.'],
+    winter: ['modeled', 'How Posted Up keeps serving customers and stays cash positive from the last outdoor market (Nov 21) until spring.', 'Read the calendar, then the four money levers. Move the winter sliders to see profit for the 17 indoor Saturdays.'],
     pay: ['modeled', 'How many orders a week it takes to pay a CEO and a CFO, and when that becomes realistic.', 'Drag the salary sliders and switch the model, order size and season length. The meter shows the target against the 2027 plan.'],
     needs: ['plan', 'The equipment, space, people, licensing and insurance each volume level needs.', 'Switch Low / Mid / High to highlight that column.'],
     roles: ['plan', 'The roles, outside experts and legal steps we add as we grow, each tied to a trigger and a rough cost.', 'Filter by Team, Advisors or Legal & compliance.'],
@@ -1056,6 +1146,38 @@ const DATA = {"branches": [{"branch_id": "A", "step": 1, "branch": "Pilot as-is"
     document.querySelectorAll('button[data-rt]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     grid.querySelectorAll('.role').forEach((c) => { c.hidden = !(b.dataset.rt === 'all' || c.dataset.rt === b.dataset.rt); });
   }); });
+
+  /* ---------- winter ---------- */
+  const W = { aov: 47.30, src: 1 };
+  const W_SATS = 17, W_MILES = 20, W_RATE = 0.725, GIFT_PROFIT = 29.93, GIFT_GOODS = 42.6;
+  function winterCalc() {
+    const o = +byId('w-orders').value, g = +byId('w-gifts').value;
+    const goods = 32.25 * W.src * (W.aov / 47.30);
+    const c = W.aov - goods - 1 - (0.029 * W.aov + 0.30);
+    const perMin = W.src < 1 ? 3 : 6;
+    const satProfit = o * c - W_MILES * W_RATE;
+    const satHours = 4.5 + o * perMin / 60;
+    const giftProfit = g * GIFT_PROFIT, giftHours = g ? 18 + g * 8 / 60 : 0;
+    const total = W_SATS * satProfit + giftProfit, hours = W_SATS * satHours + giftHours;
+    const money = (v) => v < 0 ? '−' + usd(-v) : usd(v);
+    set('o-w-orders', o); set('o-w-gifts', g);
+    set('w-total', money(total)); set('w-total-sub', `Nov 28 – Mar 20, before taxes and fixed costs`);
+    set('w-hour', money(total / hours) + '/hr'); set('w-hour-sub', `About ${d3.format(',')(Math.round(hours))} hours of founder time`);
+    set('w-sat', money(satProfit)); set('w-gift', usd(giftProfit));
+    set('w-farm', usd(W_SATS * o * goods + g * GIFT_GOODS));
+    const be = (25 * 4.5 + W_MILES * W_RATE) / (c - 25 * perMin / 60);
+    set('w-be', be > 0 && isFinite(be) ? String(Math.ceil(be)) : 'Not reachable');
+    set('w-note', satProfit < 0 ? 'At this volume a Saturday doesn’t cover its driving. Skip it and keep the list warm.' : (o >= be ? 'This volume pays the founder at least $25 an hour, before salaries for anyone else.' : `Below $25 an hour. Each Saturday needs about ${Math.ceil(be)} orders at this order size to get there.`));
+  }
+  ['w-orders', 'w-gifts'].forEach((id) => byId(id).addEventListener('input', winterCalc));
+  [['waov', 'aov'], ['wsrc', 'src']].forEach(([attr, key]) => {
+    document.querySelectorAll(`[data-${attr}]`).forEach((b) => b.addEventListener('click', () => {
+      W[key] = Number(b.dataset[attr]);
+      document.querySelectorAll(`[data-${attr}]`).forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      winterCalc();
+    }));
+  });
+  winterCalc();
 
   /* ---------- tooltips ---------- */
   function tipFor(box) {
