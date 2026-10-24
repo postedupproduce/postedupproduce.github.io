@@ -40,7 +40,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none}
 .pill{font:700 11px/1 var(--body);letter-spacing:.06em;background:var(--tomato);color:#fff;border-radius:999px;padding:5px 9px}
 .tabs{display:flex;gap:2px}
-.tabs a{flex:1;text-align:center;padding:12px 2px;font-size:14px;font-weight:700;color:var(--muted);text-decoration:none;border-bottom:3px solid transparent;min-height:44px}
+.tabs a{flex:1;text-align:center;padding:12px 1px;font-size:13.5px;white-space:nowrap;font-weight:700;color:var(--muted);text-decoration:none;border-bottom:3px solid transparent;min-height:44px}
 .tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--tomato)}
 .view{display:grid;gap:32px;padding-top:24px}
 .eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--tomato-ink);text-transform:uppercase}
@@ -131,6 +131,32 @@ textarea{min-height:80px;resize:vertical}
 .gate .cta{width:auto;padding:0 20px}
 .gate .err{color:#f3a998}
 .gate .small{color:var(--board-mute)}
+/* Home: one tile per tab with a one-line description */
+.tiles{display:grid;gap:10px}
+.tile{display:flex;align-items:center;gap:14px;background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:16px;color:var(--ink);text-decoration:none;min-height:76px}
+.tile:hover{border-color:var(--tomato)}
+.tile .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--board);color:var(--board-ink);display:grid;place-items:center}
+.tile .tx{flex:1;min-width:0;display:grid;gap:2px}
+.tile b{font:400 19px/1.15 var(--display)}
+.tile span.d{font-size:15px;line-height:1.4;color:var(--muted)}
+.tile .ar{flex:none;color:var(--tomato-ink);font-weight:700}
+/* Splash (same stamp + rings as the order site): once per browser session, tap to skip */
+#pu-splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;padding:24px;background:var(--bg);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:pu-pulse 1s ease-in-out infinite,pu-out .4s ease-in 2.6s forwards}
+#pu-splash .pu-wrap{position:relative;display:grid;place-items:center;width:min(62vw,250px);aspect-ratio:1}
+#pu-splash .pu-mark{width:100%;height:100%;display:grid;place-items:center;filter:drop-shadow(0 10px 18px rgba(36,57,44,.25));animation:pu-stamp .55s cubic-bezier(.2,1.5,.45,1) .1s both}
+#pu-splash .pu-type{width:100%;height:100%;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-content:center;text-align:center;box-shadow:inset 0 0 0 8px var(--ink),inset 0 0 0 11px var(--bg);font:400 clamp(30px,10vw,42px)/.95 var(--display);transform:rotate(-6deg)}
+#pu-splash .pu-type small{display:block;font:700 12px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;margin-top:10px;color:#F3D58A}
+#pu-splash .pu-ring{position:absolute;inset:0;border-radius:50%;border:3px solid var(--ink);opacity:0;animation:pu-ring 1s ease-out .45s infinite both}
+#pu-splash .pu-ring.r2{animation-delay:.95s}
+#pu-splash .pu-tag{margin:0;font:400 clamp(22px,6.5vw,28px)/1.1 var(--display);color:var(--ink);text-align:center;animation:pu-up .5s ease-out .6s both}
+#pu-splash .pu-cut{margin:0;font:700 14px/1.3 var(--body);color:var(--tomato-ink);text-align:center;animation:pu-up .5s ease-out .9s both}
+#pu-splash .pu-skip{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));font:700 13px/1 var(--body);color:var(--ink);opacity:.55}
+@keyframes pu-stamp{0%{transform:scale(2.4) rotate(-14deg);opacity:0}60%{transform:scale(.94) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+@keyframes pu-ring{0%{transform:scale(.95);opacity:.55}100%{transform:scale(1.6);opacity:0}}
+@keyframes pu-pulse{0%,100%{background-color:var(--bg)}50%{background-color:color-mix(in srgb,var(--bg) 70%,#D9B76A)}}
+@keyframes pu-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes pu-out{to{opacity:0;visibility:hidden}}
+@media (prefers-reduced-motion:reduce){#pu-splash,#pu-splash *{animation:none!important}#pu-splash{animation:pu-out .2s linear 1.5s forwards!important}}
 </style>
 </head>
 <body>
@@ -157,6 +183,7 @@ textarea{min-height:80px;resize:vertical}
   <div class="top-in">
     <div class="row"><a class="brand" href="../">Posted Up Produce</a><span class="pill">PREVIEW</span></div>
     <nav class="tabs" aria-label="Preview pages">
+      <a href="#home" data-v="home">Home</a>
       <a href="#standing" data-v="standing">Standing</a>
       <a href="#gift" data-v="gift">Gift</a>
       <a href="#work" data-v="work">At Work</a>
@@ -167,8 +194,23 @@ textarea{min-height:80px;resize:vertical}
 
 <main class="wrap">
 
+<!-- HOME -->
+<section class="view" id="v-home" aria-labelledby="h-home">
+  <div class="hero">
+    <span class="eyebrow">What's next for Posted Up</span>
+    <h1 id="h-home">Picked at the market this morning. Yours this afternoon.</h1>
+    <p class="lede">Four new ways to get your market haul. Tap one to see how it works.</p>
+  </div>
+  <nav class="tiles" aria-label="Preview pages">
+    <a class="tile" href="#standing"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></span><span class="tx"><b>Standing Order</b><span class="d">Set your box once. We shop it fresh every market day; skip any week.</span></span><span class="ar" aria-hidden="true">→</span></a>
+    <a class="tile" href="#gift"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-1 6-1.5S14 4 12 8z"/></svg></span><span class="tx"><b>Gift 4 weeks</b><span class="d">Give a month of fresh hauls, cooler bag included.</span></span><span class="ar" aria-hidden="true">→</span></a>
+    <a class="tile" href="#work"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/></svg></span><span class="tx"><b>At Work &amp; at Home</b><span class="d">Get 8 coworkers or neighbors in and we drop every box at one door, free.</span></span><span class="ar" aria-hidden="true">→</span></a>
+    <a class="tile" href="#promise"><span class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="tx"><b>Our promise</b><span class="d">Hand-picked or it's on us, haul updates by text, and our cooler bag.</span></span><span class="ar" aria-hidden="true">→</span></a>
+  </nav>
+</section>
+
 <!-- STANDING ORDER -->
-<section class="view" id="v-standing" aria-labelledby="h-standing">
+<section class="view" id="v-standing" aria-labelledby="h-standing" hidden>
   <div class="hero">
     <span class="eyebrow">New · Standing Order</span>
     <h1 id="h-standing">Picked at the market this morning. Yours this afternoon.</h1>
@@ -386,6 +428,16 @@ const CODE="picked";
 const src=(new URLSearchParams(location.search).get("s")||"preview").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"preview";
 const $=s=>document.querySelector(s);
 const gate=$("#gate"),app=$("#app");
+/* Splash: stamp + rings, once per browser session (sessionStorage pu_preview_splash). Tap to skip. */
+(function(){
+  let seen=false;try{seen=sessionStorage.getItem("pu_preview_splash")==="1";sessionStorage.setItem("pu_preview_splash","1")}catch(e){}
+  if(seen)return;
+  const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");
+  d.innerHTML='<div class="pu-wrap"><span class="pu-ring"></span><span class="pu-ring r2"></span><div class="pu-mark"><div class="pu-type">Posted<br>Up<small>Produce</small></div></div></div><p class="pu-tag">Picked this morning.<br>Yours this afternoon.</p><p class="pu-cut">Preview · what’s next</p><span class="pu-skip">Tap to skip</span>';
+  const done=()=>d.remove();
+  d.addEventListener("click",done);d.addEventListener("animationend",e=>{if(e.target===d&&e.animationName==="pu-out")done()});
+  document.body.append(d);
+})();
 function unlock(){gate.hidden=true;app.hidden=false;route()}
 let saved=false;try{saved=sessionStorage.getItem("pu_preview")==="1"}catch(e){}
 if(saved)unlock();
@@ -395,12 +447,12 @@ $("#gf").addEventListener("submit",e=>{
   else{$("#gerr").textContent="That's not it. Ask whoever sent you the link.";$("#pc").select()}
 });
 
-const VIEWS=["standing","gift","work","promise"];
+const VIEWS=["home","standing","gift","work","promise"];
 const ANCHOR={"so-build":"standing","w-form":"work"};
 function route(){
   if(app.hidden)return;
   const h=location.hash.slice(1);
-  const v=VIEWS.includes(h)?h:(ANCHOR[h]||"standing");
+  const v=VIEWS.includes(h)?h:(ANCHOR[h]||"home");
   VIEWS.forEach(x=>{$("#v-"+x).hidden=x!==v});
   document.querySelectorAll(".tabs a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   if(ANCHOR[h]){const el=document.getElementById(h);if(el)el.scrollIntoView()}else window.scrollTo(0,0);

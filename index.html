@@ -288,6 +288,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 #pu-splash .pu-type{width:100%;height:100%;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-content:center;text-align:center;box-shadow:inset 0 0 0 8px var(--ink),inset 0 0 0 11px var(--bg);font:400 clamp(30px,10vw,42px)/.95 var(--display);transform:rotate(-6deg)}
 #pu-splash .pu-type small{display:block;font:700 12px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;margin-top:10px;color:#F3D58A}
 #pu-splash .pu-ring{position:absolute;inset:0;border-radius:50%;border:3px solid var(--ink);opacity:0;animation:pu-ring 1s ease-out .45s infinite both}
+#pu-splash .pu-ring.r2{animation-delay:.95s}
 #pu-splash .pu-tag{margin:0;font:400 clamp(22px,6.5vw,28px)/1.1 var(--display);color:var(--ink);text-align:center;animation:pu-up .5s ease-out .6s both}
 #pu-splash .pu-cut{margin:0;font:700 14px/1.3 var(--body);color:var(--tomato);text-align:center;animation:pu-up .5s ease-out .9s both}
 #pu-splash .pu-skip{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));font:700 13px/1 var(--body);color:var(--ink);opacity:.55}
@@ -1028,15 +1029,15 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
 })();
 /* First-visit splash (remembered on the device as pu-splash). Skipped for ?me, deep links (#...) and repeat visitors. */
 const SPLASH_LOGO="";
-/* Splash switched off by Sol on 2026-10-23. Set SPLASH_ON=true to bring it back. */
-const SPLASH_ON=false;
+/* Splash back on 2026-10-24 (Sol): type stamp + rings. Set SPLASH_ON=false to switch it off. */
+const SPLASH_ON=true;
 (function(){
   if(!SPLASH_ON)return;
   let seen=false;try{seen=!!localStorage.getItem("pu-splash")||!!localStorage.getItem("pu-me");localStorage.setItem("pu-splash","1")}catch(e){}
   if(seen||location.hash||/[?&]me(=|&|$)/.test(location.search))return;
   const ct=(document.getElementById("closeTop")||{}).textContent||"";
   const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");
-  d.innerHTML='<div class="pu-wrap"><span class="pu-ring"></span><div class="pu-mark">'+(SPLASH_LOGO||'<div class="pu-type">Posted<br>Up<small>Produce</small></div>')+'</div></div><p class="pu-tag">Market haul, picked for you.</p>'+(ct?'<p class="pu-cut"></p>':'')+'<span class="pu-skip">Tap to skip</span>';
+  d.innerHTML='<div class="pu-wrap"><span class="pu-ring"></span><span class="pu-ring r2"></span><div class="pu-mark">'+(SPLASH_LOGO||'<div class="pu-type">Posted<br>Up<small>Produce</small></div>')+'</div></div><p class="pu-tag">Market haul, picked for you.</p>'+(ct?'<p class="pu-cut"></p>':'')+'<span class="pu-skip">Tap to skip</span>';
   if(ct)d.querySelector(".pu-cut").textContent=/^closes /i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):ct;
   const done=()=>d.remove();
   d.addEventListener("click",done);d.addEventListener("animationend",e=>{if(e.target===d&&e.animationName==="pu-out")done()});
