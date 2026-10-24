@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Posted Up Produce</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#24392c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Hidden preview of planned pages: Standing Order, Gift 4 weeks, Post-Up at Work, Our promise.
+   Not linked from any page. The passcode is a soft lock only (anyone reading the source can see it). */
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;--board-mute:#d3cbb8;
+  --tomato:#c4432b;--tomato-ink:#a8361f;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;--board-mute:#c9c2b0;
+  --tomato:#e3654c;--tomato-ink:#f08a74;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;--board-mute:#c9c2b0;
+  --tomato:#e3654c;--tomato-ink:#f08a74;--line:#38443a;--chip:#2c362f;--good:#79b98a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+p{margin:0}
+a{color:var(--tomato-ink)}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 48px}
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top-in{max-width:560px;margin:0 auto;padding:12px 16px 0;display:grid;gap:6px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none}
+.pill{font:700 11px/1 var(--body);letter-spacing:.06em;background:var(--tomato);color:#fff;border-radius:999px;padding:5px 9px}
+.tabs{display:flex;gap:2px}
+.tabs a{flex:1;text-align:center;padding:12px 2px;font-size:14px;font-weight:700;color:var(--muted);text-decoration:none;border-bottom:3px solid transparent;min-height:44px}
+.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--tomato)}
+.view{display:grid;gap:32px;padding-top:24px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--tomato-ink);text-transform:uppercase}
+.hero{display:grid;gap:14px}
+.hero h1{font-size:clamp(30px,8.6vw,40px);line-height:1.1}
+.lede{font-size:17px}
+.small{font-size:14px;color:var(--muted)}
+.cta{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:14px 16px;font-weight:700;font-size:17px;min-height:52px;text-decoration:none;width:100%}
+.cta:disabled{opacity:.5;cursor:not-allowed}
+.ghost{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:2px solid var(--ink);border-radius:999px;background:transparent;color:var(--ink);font-weight:700;font-size:15px}
+.board{background:var(--board);color:var(--board-ink);border-radius:14px;padding:20px 18px;display:grid;gap:16px}
+.board h2{font-size:22px}
+.board p,.board .m{color:var(--board-mute)}
+.board a{color:var(--board-ink);font-weight:700}
+.perk{display:flex;gap:14px;align-items:flex-start}
+.perk svg{flex:none;margin-top:2px}
+.perk b{display:block;font-size:16px}
+.perk span{font-size:15px;color:var(--board-mute)}
+.sec{display:grid;gap:12px}
+.sec>h2{font-size:24px}
+.sec>h3{font-family:var(--body);font-weight:700;font-size:15px;margin-top:4px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px;min-height:48px;cursor:pointer;text-align:left}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.opt:has(input:checked){border-color:var(--tomato);box-shadow:inset 0 0 0 1px var(--tomato);background:var(--panel)}
+.opt:has(input:focus-visible){outline:3px solid var(--tomato);outline-offset:2px}
+.opt b{font-size:16px}
+.opt .n{font-size:13px;color:var(--muted)}
+.opt .p{font:400 20px/1.1 var(--display);color:var(--tomato-ink)}
+.opts-row{display:flex;gap:8px}
+.opts-row .opt{flex:1;align-items:center;justify-content:center;border-radius:999px;font-weight:700;font-size:15px;padding:10px 6px}
+.opts-col{display:grid;gap:8px}
+.opts-col .opt{flex-direction:row;justify-content:space-between;align-items:center;font-weight:700;padding:0 14px;min-height:50px}
+.opts-col .opt .n{font-weight:500;font-size:14px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.steps li{display:flex;gap:14px}
+.num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--board);color:var(--board-ink);display:grid;place-items:center;font-weight:700}
+.num.hot{background:var(--tomato);color:#fff}
+.steps b{display:block;font-size:16px}
+.steps span{font-size:15px;color:var(--muted)}
+.cmp{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);font-size:14px}
+.cmp>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.cmp>div+div{border-top:1px solid var(--line)}
+.cmp span{padding:10px}
+.cmp .h{background:var(--chip);font-weight:700}
+.cmp .k{font-weight:700}
+.cmp .o{color:var(--muted)}
+.ticket{background:var(--panel);border:2px solid var(--ink);border-radius:8px;padding:18px 16px;display:grid;gap:12px}
+.ticket .line{display:flex;justify-content:space-between;gap:10px;font-size:15px}
+.ticket .line b{font-variant-numeric:tabular-nums}
+.ticket .sum{font-size:17px;font-weight:700}
+.free{color:var(--good)}
+label.f{display:grid;gap:5px;font-size:15px;font-weight:700}
+input[type=text],input[type=tel],input[type=password],select,textarea{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:11px 12px;width:100%;min-height:48px}
+textarea{min-height:80px;resize:vertical}
+.err{color:var(--tomato-ink);font-size:15px;font-weight:600;min-height:0}
+.ok{color:var(--good);font-size:16px;font-weight:700}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:14px;align-items:flex-start}
+.card b{display:block;font-size:16px}
+.card span{font-size:15px;color:var(--muted)}
+.gift{background:var(--board);color:var(--board-ink);border-radius:16px;padding:22px 20px;display:grid;gap:12px;transform:rotate(-1.2deg)}
+.gift .t{font:400 25px/1.15 var(--display)}
+.gift .m{font-size:15px;color:var(--board-mute)}
+.gift .from{border-top:1px dashed color-mix(in srgb,var(--board-ink) 35%,transparent);padding-top:12px;display:grid;gap:2px}
+.bar{display:flex;gap:6px}
+.bar span{flex:1;height:14px;border-radius:4px;background:var(--line)}
+.bar span.on{background:var(--good)}
+.texts{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px 14px;display:grid;gap:10px}
+.bub{justify-self:start;max-width:85%;background:var(--chip);border-radius:16px 16px 16px 4px;padding:10px 13px;font-size:15px;line-height:1.4}
+.dep{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.dep div{background:color-mix(in srgb,var(--board) 70%,#000);border-radius:10px;padding:12px;display:grid;gap:2px}
+.dep b{font:400 22px/1.1 var(--display)}
+.bul{margin:0;padding-left:20px;display:grid;gap:8px;font-size:16px}
+.foot{font-size:13px;color:var(--muted);padding-top:28px}
+/* Gate */
+.gate{min-height:100vh;background:var(--board);color:var(--board-ink);display:flex}
+.gate-in{max-width:560px;width:100%;margin:0 auto;padding:28px 24px 32px;display:flex;flex-direction:column;gap:24px}
+.gate-mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px}
+.stamp{width:128px;height:128px;border:3px solid var(--board-ink);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-8deg)}
+.stamp b{font:400 22px/1 var(--display)}
+.stamp span{font-size:11px;font-weight:700;letter-spacing:.12em}
+.gate h1{font-size:clamp(30px,8.6vw,40px);line-height:1.1}
+.gate p{color:var(--board-mute)}
+.gate form{display:grid;gap:10px}
+.gate .in{display:flex;gap:8px}
+.gate input{flex:1;min-width:0;background:color-mix(in srgb,var(--board) 75%,#000);border:2px solid color-mix(in srgb,var(--board-ink) 30%,transparent);color:var(--board-ink)}
+.gate .cta{width:auto;padding:0 20px}
+.gate .err{color:#f3a998}
+.gate .small{color:var(--board-mute)}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="gate-in">
+    <div class="row"><span class="brand" style="color:var(--board-ink)">Posted Up Produce</span><span class="pill">PREVIEW</span></div>
+    <div class="gate-mid">
+      <div class="stamp" aria-hidden="true"><b>Picked</b><span>THIS MORNING</span></div>
+      <h1>Picked at the market this morning. Yours this afternoon.</h1>
+      <p>New pages in the works: Standing Order, gift weeks, Post-Up at Work and our promise. Enter the passcode you were sent.</p>
+      <form id="gf" novalidate>
+        <label for="pc" style="font-size:14px;font-weight:700">Passcode</label>
+        <div class="in"><input id="pc" type="password" autocomplete="off" autocapitalize="none" spellcheck="false"><button class="cta" type="submit">Enter</button></div>
+        <p class="err" id="gerr" role="alert"></p>
+      </form>
+    </div>
+    <p class="small">Preview only. Not linked from the order site.</p>
+  </div>
+</div>
+
+<div id="app" hidden>
+<header class="top">
+  <div class="top-in">
+    <div class="row"><a class="brand" href="../">Posted Up Produce</a><span class="pill">PREVIEW</span></div>
+    <nav class="tabs" aria-label="Preview pages">
+      <a href="#standing" data-v="standing">Standing</a>
+      <a href="#gift" data-v="gift">Gift</a>
+      <a href="#work" data-v="work">At Work</a>
+      <a href="#promise" data-v="promise">Promise</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- STANDING ORDER -->
+<section class="view" id="v-standing" aria-labelledby="h-standing">
+  <div class="hero">
+    <span class="eyebrow">New · Standing Order</span>
+    <h1 id="h-standing">Picked at the market this morning. Yours this afternoon.</h1>
+    <p class="lede">Set your box once. Every market day we shop it fresh and hand it off the same afternoon. Skip any week by 9 PM the night before.</p>
+    <a class="cta" href="#so-build">Start my Standing Order</a>
+    <p class="small">No season prepay · pay week by week · stop anytime</p>
+  </div>
+
+  <div class="board">
+    <h2>What standing gets you</h2>
+    <div class="perk"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><div><b>Your spot is held</b><span>Market days cap out. Standing orders are booked before the waitlist opens.</span></div></div>
+    <div class="perk"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><div><b>Free delivery</b><span>To your door from any meet-up route, every week you're standing.</span></div></div>
+    <div class="perk"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-1 6-1.5S14 4 12 8z"/></svg><div><b>Every 4th box: a free add-on</b><span>Your pick of a pastry, a hot sauce or fresh cider.</span></div></div>
+  </div>
+
+  <form class="sec" id="so-build" novalidate>
+    <h2>Set it once</h2>
+    <h3>1 · Your box</h3>
+    <div class="grid2" role="radiogroup" aria-label="Box">
+      <label class="opt"><input type="radio" name="box" value="Sampler" data-p="25"><b>Sampler</b><span class="n">A taste of the week</span><span class="p">$25</span></label>
+      <label class="opt"><input type="radio" name="box" value="Half Peck" data-p="50" checked><b>Half Peck</b><span class="n">~9–10 lb · for two</span><span class="p">$50</span></label>
+      <label class="opt"><input type="radio" name="box" value="Full Crate" data-p="72"><b>Full Crate</b><span class="n">Family-size haul</span><span class="p">$72</span></label>
+      <label class="opt"><input type="radio" name="box" value="The Vegan Box" data-p="68"><b>The Vegan Box</b><span class="n">All local, plant-based</span><span class="p">$68</span></label>
+    </div>
+    <h3>2 · Your day</h3>
+    <div class="opts-row" role="radiogroup" aria-label="Day">
+      <label class="opt"><input type="radio" name="day" value="Saturdays" checked>Saturdays</label>
+      <label class="opt"><input type="radio" name="day" value="Every market day">Every market day</label>
+    </div>
+    <h3>3 · Where you get it</h3>
+    <div class="opts-col" role="radiogroup" aria-label="Pickup">
+      <label class="opt"><input type="radio" name="stop" value="Goose Island">Goose Island<span class="n">1–2 PM</span></label>
+      <label class="opt"><input type="radio" name="stop" value="Hyde Park" checked>Hyde Park<span class="n">3–4 PM</span></label>
+      <label class="opt"><input type="radio" name="stop" value="Rogers Park">Rogers Park<span class="n">5–6 PM</span></label>
+      <label class="opt"><input type="radio" name="stop" value="My door">My door<span class="n">free for standing</span></label>
+    </div>
+
+    <div class="ticket" style="margin-top:12px">
+      <span class="eyebrow" style="color:var(--muted)">Your Standing Order</span>
+      <p class="sum" id="so-sum">Half Peck · Saturdays · Hyde Park</p>
+      <div class="line"><span>Each box</span><b id="so-price">$50</b></div>
+      <div class="line"><span>Delivery</span><b class="free">Free</b></div>
+      <div class="line"><span>Every 4th box</span><b>+ free add-on</b></div>
+      <label class="f">First name<input type="text" id="so-name" autocomplete="given-name"></label>
+      <label class="f">Mobile<input type="tel" id="so-ph" autocomplete="tel"></label>
+      <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="err" id="so-err" aria-live="polite"></p>
+      <button class="cta" type="submit" id="so-btn">Start standing · $50 a box</button>
+      <p class="small">You pay each week by Zelle or Apple Pay when the link arrives. Skip or stop by 9 PM the night before. Not paid by then = no box, no charge.</p>
+    </div>
+  </form>
+
+  <div class="sec">
+    <h2>How a week works</h2>
+    <ol class="steps">
+      <li><span class="num">1</span><div><b>Early in the week</b><span>A text with what's coming into season. Swap anything you like.</span></div></li>
+      <li><span class="num">2</span><div><b>Night before, 9 PM</b><span>Your pay link arrives earlier that day. Paid = shopped. Skipped or unpaid = no box, no charge.</span></div></li>
+      <li><span class="num">3</span><div><b>Market morning</b><span>Your shopper walks the whole market and picks your box stand by stand.</span></div></li>
+      <li><span class="num hot">4</span><div><b>Same afternoon</b><span>Handed to you at your meet-up, or at your door.</span></div></li>
+    </ol>
+  </div>
+
+  <div class="sec">
+    <h2>Not a farm box. Fresher.</h2>
+    <div class="cmp">
+      <div class="h"><span></span><span>Standing Order</span><span>Typical farm-box delivery</span></div>
+      <div><span class="k">Order to in hand</span><span>Same day</span><span class="o">Days later</span></div>
+      <div><span class="k">Picked from</span><span>The whole market, stand by stand</span><span class="o">One warehouse</span></div>
+      <div><span class="k">Who you text</span><span>Your shopper</span><span class="o">A support inbox</span></div>
+      <div><span class="k">Commitment</span><span>Week by week</span><span class="o">Varies</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GIFT -->
+<section class="view" id="v-gift" aria-labelledby="h-gift" hidden>
+  <div class="hero">
+    <span class="eyebrow">Gift a Standing Order</span>
+    <h1 id="h-gift">Give 4 weeks of the market.</h1>
+    <p class="lede">A fresh haul every week for a month, picked the morning of. You choose the box. They choose the day and where to meet.</p>
+  </div>
+
+  <div class="gift" aria-label="Gift card preview">
+    <div class="row"><span style="font:400 16px var(--display)">Posted Up Produce</span><span style="border:2px solid currentColor;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;letter-spacing:.08em">4 WEEKS</span></div>
+    <p class="t">Someone's got your groceries this month.</p>
+    <p class="m" id="g-cardline">Four Half Peck hauls, shopped fresh at the farmers market and handed to you the same afternoon. Plus a Posted Up cooler bag to keep.</p>
+    <div class="from"><span class="m" style="font-size:13px">From</span><b id="g-from">Your name</b><span class="m" id="g-note" style="font-style:italic"></span></div>
+  </div>
+
+  <form class="sec" id="g-form" novalidate>
+    <h2>Pick the box</h2>
+    <div class="opts-col" role="radiogroup" aria-label="Gift box">
+      <label class="opt"><input type="radio" name="gbox" value="Sampler" data-p="25">Sampler × 4<span class="n">$100</span></label>
+      <label class="opt"><input type="radio" name="gbox" value="Half Peck" data-p="50" checked>Half Peck × 4<span class="n">$200</span></label>
+      <label class="opt"><input type="radio" name="gbox" value="The Vegan Box" data-p="68">The Vegan Box × 4<span class="n">$272</span></label>
+      <label class="opt"><input type="radio" name="gbox" value="Full Crate" data-p="72">Full Crate × 4<span class="n">$288</span></label>
+    </div>
+    <p class="small">Delivery included. Every gift comes with a Posted Up cooler bag ($15 value) and the 4th-box free add-on.</p>
+
+    <h2 style="margin-top:12px">Who's it for?</h2>
+    <label class="f">Their name<input type="text" id="g-to"></label>
+    <label class="f">Their mobile<input type="tel" id="g-toph"></label>
+    <label class="f">Your name<input type="text" id="g-nm" autocomplete="name"></label>
+    <label class="f">Your mobile<input type="tel" id="g-ph" autocomplete="tel"></label>
+    <label class="f">A note for the card (optional)<textarea id="g-msg" maxlength="240"></textarea></label>
+    <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+    <p class="err" id="g-err" aria-live="polite"></p>
+    <button class="cta" type="submit" id="g-btn">Request this gift · $200</button>
+    <p class="small">We text you to confirm and send a payment link, then text them the card and set up their first pickup. Nothing renews after week 4; they can keep it going as their own Standing Order.</p>
+  </form>
+
+  <a class="card" href="#work" style="text-decoration:none;color:var(--ink);border-style:dashed"><div><b>Gifting a whole team?</b><span>See Post-Up at Work →</span></div></a>
+</section>
+
+<!-- AT WORK -->
+<section class="view" id="v-work" aria-labelledby="h-work" hidden>
+  <div class="hero">
+    <span class="eyebrow">Post-Up at Work</span>
+    <h1 id="h-work">Eight orders. One door. Free drop.</h1>
+    <p class="lede">Get 8 or more coworkers ordering for the same market day and we drop every box at your front desk, labeled by name. Delivery is on us.</p>
+    <a class="cta" href="#w-form">Request an office drop</a>
+    <p class="small">Drops run on our market days: Saturdays, plus other fall markets as we add them.</p>
+  </div>
+
+  <div class="sec" style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 16px" aria-label="Example team progress">
+    <div class="row"><b>Your office · next drop</b><span class="small">closes 9 PM the night before</span></div>
+    <div class="bar" role="img" aria-label="5 of 8 orders in"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
+    <p><b>5 of 8 in.</b> 3 more and the drop is free for everyone.</p>
+    <p class="small">Example of the team tracker each office gets.</p>
+  </div>
+
+  <div class="sec">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><span class="num">1</span><div><b>You get a team link</b><span>Share it in your group chat or the break room. Every order through it counts toward your drop.</span></div></li>
+      <li><span class="num">2</span><div><b>Hit 8 by 9 PM the night before</b><span>Each person picks and pays for their own box. Short of 8? Everyone can still meet up or get door delivery.</span></div></li>
+      <li><span class="num hot">3</span><div><b>Same-day drop</b><span>Shopped that morning at the market, at your door that afternoon.</span></div></li>
+    </ol>
+  </div>
+
+  <div class="board">
+    <h2>Team standing orders</h2>
+    <p>Once your office has 8 Standing Orders, your drop is held every market day and nobody has to rally again.</p>
+    <a href="#standing">How Standing Order works →</a>
+  </div>
+
+  <form class="sec" id="w-form" novalidate>
+    <h2>Request an office drop</h2>
+    <label class="f">Your name<input type="text" id="w-nm" autocomplete="name"></label>
+    <label class="f">Mobile<input type="tel" id="w-ph" autocomplete="tel"></label>
+    <label class="f">Company or building<input type="text" id="w-co"></label>
+    <label class="f">Neighborhood<select id="w-area"><option>Near Goose Island / West Loop</option><option>Hyde Park / South Side</option><option>Rogers Park / North Side</option><option>Somewhere else</option></select></label>
+    <label class="f">About how many people?<select id="w-size"><option>8–15</option><option>16–30</option><option>30+</option><option>Not sure yet</option></select></label>
+    <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+    <p class="err" id="w-err" aria-live="polite"></p>
+    <button class="cta" type="submit" id="w-btn">Send request</button>
+    <p class="small">We'll text you back to set up your team link and drop spot.</p>
+  </form>
+</section>
+
+<!-- PROMISE -->
+<section class="view" id="v-promise" aria-labelledby="h-promise" hidden>
+  <div class="hero">
+    <span class="eyebrow">Our promise</span>
+    <h1 id="h-promise">Hand-picked, or it's on us.</h1>
+    <p class="lede">One shopper, at the market, choosing every item like it's going home with them.</p>
+  </div>
+
+  <div class="sec">
+    <div class="card"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--good)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><div><b>Not happy with an item?</b><span>Credit or refund. Your choice, no back-and-forth.</span></div></div>
+    <div class="card"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--good)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><div><b>Not at market that day?</b><span>It becomes credit on your next order, or a refund if you ask.</span></div></div>
+  </div>
+
+  <div class="sec">
+    <h2>You'll always know where your haul is</h2>
+    <div class="texts" role="img" aria-label="Example texts: shopping now, on the way, handed off">
+      <span class="small" style="justify-self:center;font-size:12px">Market day</span>
+      <div class="bub"><b>Morning</b> · Shopping your Half Peck now. Peppers look great today.</div>
+      <div class="bub"><b>Afternoon</b> · On the way. Hyde Park meet-up, 3–4 PM.</div>
+      <div class="bub"><b>Handoff</b> · Handed off. Send us a photo of your haul for a free treat next time.</div>
+    </div>
+  </div>
+
+  <div class="board">
+    <h2>The Posted Up cooler bag</h2>
+    <p>Insulated, with our name on it. We pack your haul straight into it each week: less packaging, colder greens.</p>
+    <div class="dep"><div><span class="m" style="font-size:13px">Deposit</span><b>$15</b></div><div><span class="m" style="font-size:13px">Bring it back</span><b>$15 credit</b></div></div>
+    <p style="font-size:14px">Done with it? Hand it back at any meet-up and the full $15 goes on your next order. Free with every gift.</p>
+  </div>
+
+  <div class="sec">
+    <h2>The rest of the deal</h2>
+    <ul class="bul">
+      <li>The farmer gets their full stand price.</li>
+      <li>Pay per order. Skip any week. No season commitment.</li>
+      <li>One person you can text, trained in produce safety.</li>
+    </ul>
+  </div>
+</section>
+
+<p class="foot">Preview of planned features. Prices, perks and policies may change before launch. Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+</main>
+</div>
+
+<script>
+const ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+/* Requests post as type "feedback" (Contact blank, details in the message) so they land on the Feedback tab.
+   Unknown types would land in All Orders as fake orders. */
+const CODE="picked";
+const src=(new URLSearchParams(location.search).get("s")||"preview").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"preview";
+const $=s=>document.querySelector(s);
+const gate=$("#gate"),app=$("#app");
+function unlock(){gate.hidden=true;app.hidden=false;route()}
+let saved=false;try{saved=sessionStorage.getItem("pu_preview")==="1"}catch(e){}
+if(saved)unlock();
+$("#gf").addEventListener("submit",e=>{
+  e.preventDefault();
+  if($("#pc").value.trim().toLowerCase()===CODE){try{sessionStorage.setItem("pu_preview","1")}catch(e){}unlock();window.scrollTo(0,0)}
+  else{$("#gerr").textContent="That's not it. Ask whoever sent you the link.";$("#pc").select()}
+});
+
+const VIEWS=["standing","gift","work","promise"];
+const ANCHOR={"so-build":"standing","w-form":"work"};
+function route(){
+  if(app.hidden)return;
+  const h=location.hash.slice(1);
+  const v=VIEWS.includes(h)?h:(ANCHOR[h]||"standing");
+  VIEWS.forEach(x=>{$("#v-"+x).hidden=x!==v});
+  document.querySelectorAll(".tabs a").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  if(ANCHOR[h]){const el=document.getElementById(h);if(el)el.scrollIntoView()}else window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+
+const val=(f,n)=>{const i=f.querySelector('input[name="'+n+'"]:checked');return i?i:null};
+const digits=s=>s.replace(/\D/g,"");
+async function send(name,message,hp){
+  await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name,contact:"",message,times:"",hp})});
+}
+function done(form,title,msg){
+  const h=document.createElement("h2");h.textContent=title;h.tabIndex=-1;
+  const p=document.createElement("p");p.className="ok";p.textContent=msg;
+  form.replaceChildren(h,p);h.focus();
+}
+
+/* Standing Order */
+const so=$("#so-build");
+function soUpdate(){
+  const b=val(so,"box"),d=val(so,"day"),s=val(so,"stop");
+  $("#so-sum").textContent=[b.value,d.value,s.value].join(" · ");
+  $("#so-price").textContent="$"+b.dataset.p;
+  $("#so-btn").textContent="Start standing · $"+b.dataset.p+" a box";
+}
+so.addEventListener("change",soUpdate);
+so.addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#so-err");err.textContent="";
+  const name=$("#so-name").value.trim(),ph=$("#so-ph").value.trim();
+  if(!name)return void(err.textContent="Add your first name.");
+  if(digits(ph).length<10)return void(err.textContent="Add a 10-digit mobile number.");
+  const b=val(so,"box"),d=val(so,"day"),s=val(so,"stop");
+  const msg=["STANDING ORDER REQUEST","Mobile: "+ph,"Box: "+b.value+" ($"+b.dataset.p+")","Day: "+d.value,"Where: "+s.value,"Source: "+src].join(" · ");
+  const btn=$("#so-btn");btn.disabled=true;btn.textContent="Sending…";
+  try{await send(name,msg,so.querySelector('input[name="website"]').value);done(so,"You're on the list, "+name+"!","We'll text you to confirm your Standing Order and your first pickup.")}
+  catch(x){btn.disabled=false;soUpdate();err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+});
+
+/* Gift */
+const gf=$("#g-form");
+function gUpdate(){
+  const b=val(gf,"gbox");const total=4*b.dataset.p;
+  $("#g-btn").textContent="Request this gift · $"+total;
+  $("#g-cardline").textContent="Four "+b.value+" hauls, shopped fresh at the farmers market and handed to you the same afternoon. Plus a Posted Up cooler bag to keep.";
+  $("#g-from").textContent=$("#g-nm").value.trim()||"Your name";
+  const n=$("#g-msg").value.trim();$("#g-note").textContent=n?"“"+n+"”":"";
+}
+gf.addEventListener("change",gUpdate);gf.addEventListener("input",gUpdate);
+gf.addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#g-err");err.textContent="";
+  const to=$("#g-to").value.trim(),toph=$("#g-toph").value.trim(),nm=$("#g-nm").value.trim(),ph=$("#g-ph").value.trim(),note=$("#g-msg").value.trim();
+  if(!to)return void(err.textContent="Add their name.");
+  if(digits(toph).length<10)return void(err.textContent="Add their 10-digit mobile.");
+  if(!nm)return void(err.textContent="Add your name.");
+  if(digits(ph).length<10)return void(err.textContent="Add your 10-digit mobile.");
+  const b=val(gf,"gbox");
+  const msg=["GIFT REQUEST","From mobile: "+ph,"Box: "+b.value+" x 4 ($"+(4*b.dataset.p)+") + cooler bag","To: "+to+" "+toph,note&&"Note: "+note,"Source: "+src].filter(Boolean).join(" · ");
+  const btn=$("#g-btn");btn.disabled=true;btn.textContent="Sending…";
+  try{await send(nm,msg,gf.querySelector('input[name="website"]').value);done(gf,"Thanks, "+nm+"!","We'll text you to confirm the gift and send a payment link. Nothing goes to "+to+" until you've paid.")}
+  catch(x){btn.disabled=false;gUpdate();err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+});
+
+/* Office drop */
+const wf=$("#w-form");
+wf.addEventListener("submit",async e=>{
+  e.preventDefault();const err=$("#w-err");err.textContent="";
+  const nm=$("#w-nm").value.trim(),ph=$("#w-ph").value.trim(),co=$("#w-co").value.trim();
+  if(!nm)return void(err.textContent="Add your name.");
+  if(digits(ph).length<10)return void(err.textContent="Add a 10-digit mobile number.");
+  if(!co)return void(err.textContent="Add your company or building.");
+  const msg=["OFFICE DROP REQUEST","Mobile: "+ph,"Where: "+co,"Area: "+$("#w-area").value,"People: "+$("#w-size").value,"Source: "+src].join(" · ");
+  const btn=$("#w-btn");btn.disabled=true;btn.textContent="Sending…";
+  try{await send(nm,msg,wf.querySelector('input[name="website"]').value);done(wf,"Got it, "+nm+"!","We'll text you to set up your team link and drop spot.")}
+  catch(x){btn.disabled=false;btn.textContent="Send request";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+});
+</script>
+</body>
+</html>
