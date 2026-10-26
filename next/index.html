@@ -368,7 +368,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
         <a class="act a3" href="#standing"><span>Set a Standing Order<small>Same box every Saturday · free delivery · skip any week</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="stops">
-        <div class="stop"><b>This Wed, Oct 28</b>Goose Island from 10:30 AM, or delivery</div>
+        <div class="stop"><b>This Wed, Oct 28</b>Goose Island 11:30–1:30, or delivery</div>
         <div class="stop"><b>Saturdays</b>Hyde Park 3–4 PM, or delivery</div>
         <div class="stop"><b>Order by</b>9 PM the night before</div>
       </div>
@@ -389,14 +389,14 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <ol class="steps">
       <li><span><b>Order and pay by 9 PM</b> the night before, by Zelle or Apple Cash. Pick a box or build your own.</span></li>
       <li><span><b>We shop the morning market</b> and hand-select what's peaking.</span></li>
-      <li><span><b>Pick it up or get it delivered</b> the same day: Wednesday at Goose Island from 10:30 AM, Saturday in Hyde Park 3–4 PM.</span></li>
+      <li><span><b>Pick it up or get it delivered</b> the same day: Wednesday at Goose Island 11:30 AM–1:30 PM, Saturday in Hyde Park 3–4 PM.</span></li>
     </ol>
     <div class="stops">
-      <div class="stop"><b>Wed Oct 28</b>Goose Island 10:30–11:30 AM</div>
+      <div class="stop"><b>Wed Oct 28</b>Goose Island 11:30 AM–1:30 PM</div>
       <div class="stop"><b>Saturdays</b>Hyde Park 3–4 PM</div>
       <div class="stop"><b>Delivery</b>Same day, both days · from $8</div>
     </div>
-    <p class="days"><b>This Wednesday, Oct 28:</b> Goose Island pickup from 10:30 AM or delivery, order by 9 PM Tuesday. <b>Then Saturdays</b> through Nov 21. Want a stop near you? Get 8 neighbors in and we drop at your door, free. Text us and we'll work something out.</p>
+    <p class="days"><b>This Wednesday, Oct 28:</b> Goose Island pickup 11:30 AM–1:30 PM, or delivery from 10:30 AM, order by 9 PM Tuesday. <b>Then Saturdays</b> through Nov 21. Want a stop near you? Get 8 neighbors in and we drop at your door, free. Text us and we'll work something out.</p>
     <div class="founder">
       <b class="k">Beta founder rate: 10% off boxes</b>
       <p>Pick up your box at the meet-up during the beta and it's 10% off. Complete one paid meet-up order and you're a Founding Member: you keep 10% off boxes through the 2027 season if Posted Up keeps growing. Thanks for being here first.</p>
@@ -605,7 +605,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
           <li><b>What you get.</b> You get the box or item groups you ordered, chosen by us at market that day. Examples on the menu are typical, not promised. Weights are approximate.</li>
           <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the pilot (November 21) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
-          <li><b>Pickup days.</b> Pickups are on the day we shop: Wednesday, October 28 at Goose Island (10:30–11:30 AM), then Saturdays at Hyde Park (3–4 PM) through November 21. Delivery is same-day. Other days or times may be arranged by text.</li>
+          <li><b>Pickup days.</b> Pickups are on the day we shop: Wednesday, October 28 at Goose Island (11:30 AM–1:30 PM), then Saturdays at Hyde Park (3–4 PM) through November 21. Delivery is same-day. Other days or times may be arranged by text.</li>
           <li><b>Beta founder rate.</b> Boxes (produce, bread, Meat Lovers Box and Lake Haul) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later, and it doesn't stack with free Standing Order delivery: meet up and save 10%, or take free delivery, each week.</li>
           <li><b>Standing Order.</b> A Standing Order is a weekly order we set up by text. Each week we send a pay link; your box is shopped only once it's paid by 9 PM the night before. Skip any week by 9 PM the night before, or stop anytime, by text. Unpaid by the cutoff means no box and no charge. Standing Order delivery is free within 3 miles of the meet-up stop; beyond that we text you the per-mile add before you pay. Every 4th paid Standing Order box includes a free add-on (pastry, hot sauce or cider) of our choosing from what's at market.</li>
           <li><b>Cooler bag deposit.</b> If we pack your order in a Posted Up cooler bag, we add a $15 deposit to that order. Hand the bag back at any meet-up or delivery and the full $15 becomes a credit on your next order.</li>
@@ -714,7 +714,7 @@ function earlyOK(){return !isDel()&&state.early}
 function delStop(){return STOPS.find(x=>"del-"+x.id===state.fulfill)}
 /* Stops are tied to a market day (Oct 26, Sol): Wed = Goose Island, ready 10:30 AM; Sat = Hyde Park 3–4 PM. */
 const STOPS=[
-  {id:"goose",name:"Goose Island",time:"10:30–11:30 AM",day:3,dayName:"Wed",delAfter:"10:30 AM"},
+  {id:"goose",name:"Goose Island",time:"11:30 AM–1:30 PM",day:3,dayName:"Wed",delAfter:"10:30 AM"},
   {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM",day:6,dayName:"Sat",delAfter:"4:00 PM"}
 ];
 const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false};
