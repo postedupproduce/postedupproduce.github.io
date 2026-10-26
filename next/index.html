@@ -236,6 +236,17 @@ details.terms[open] summary::after{content:"−"}
 .tickhint{font-size:13px;color:var(--muted);margin:-4px 0 0}
 
 /* Pickup days + founder perk */
+.acts{display:grid;gap:10px}
+.act{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:12px;padding:14px 16px;min-height:60px;text-decoration:none;font-weight:800;font-size:18px;line-height:1.15;border:2px solid transparent}
+.act small{display:block;font-weight:500;font-size:14px;opacity:.85;margin-top:2px}
+.act .ar{font-size:24px;flex:none}
+.act.a1{background:var(--tomato);color:#fff}
+.act.a2{background:#F3D58A;color:#24392C}
+.act.a3{background:transparent;color:var(--board-ink);border-color:color-mix(in srgb,var(--board-ink) 60%,transparent)}
+.sign .stops{grid-template-columns:repeat(3,1fr)}
+.sign .stop{background:color-mix(in srgb,var(--board-ink) 12%,transparent);border-color:transparent;color:var(--board-ink)}
+.ticket .where{display:grid;gap:10px;background:var(--chip);border-radius:12px;padding:12px}
+.ticket .where>b{font-size:17px}
 .prev{margin:0 0 4px;background:#ffb4a3;color:#3a1309;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;text-align:center}
 .cmp{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);font-size:14px}
 .cmp>div{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr}
@@ -348,8 +359,17 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <p class="lede">We shop small farms and makers at the farmers market, then hand you the best of the week at a meet-up near you.</p>
       <p class="now" id="now" aria-live="polite">Chicago time</p>
       <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
-      <a class="go" href="#shop">Start my order</a>
-      <p class="from">Boxes from $50 · bread, cheese &amp; pantry add-ons · pay per order, or set a Standing Order</p>
+      <div class="acts">
+        <a class="act a1" href="#shop"><span>Order this week's box<small>Half Peck $50 · Full Crate $72 · Vegan $68</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+        <a class="act a2" href="#shop" data-del><span>Get it delivered<small>Same day, to your door · from $8</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+        <a class="act a3" href="#standing"><span>Set a Standing Order<small>Same box every Saturday · free delivery · skip any week</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="stops">
+        <div class="stop"><b>Hyde Park</b>Sat 3–4 PM meet-up</div>
+        <div class="stop"><b>Wed delivery</b>Same day · Oct 28</div>
+        <div class="stop"><b>Sat delivery</b>Same day · through Nov 21</div>
+      </div>
+      <p class="from">Pay by 9 PM the night before · bread, cheese &amp; pantry add-ons · no subscription needed</p>
     </div>
   </section>
 
@@ -370,8 +390,8 @@ details.vdet .vote{border:0;padding:0 0 14px}
     </ol>
     <div class="stops">
       <div class="stop"><b>Hyde Park meet-up</b>Saturdays 3–4 PM</div>
-      <div class="stop"><b>Delivery</b>Same day · from $8</div>
-      <div class="stop"><b>Standing Order</b>Free delivery</div>
+      <div class="stop"><b>Delivery</b>Same day · Wed Oct 28 + Saturdays · from $8</div>
+      <div class="stop"><b>Standing Order</b>Free delivery every week</div>
     </div>
     <p class="days"><b>Pickup days: Saturdays,</b> same day as market, through Nov 21. One last Wednesday: Oct 28. Want a stop near you? Get 8 neighbors in and we drop at your door, free. Text us and we'll work something out.</p>
     <div class="founder">
@@ -883,27 +903,28 @@ function renderTicket(){
   t.append(el("div",{class:"total"},el("span",{},"Total"),el("span",{},"$"+total())));
   const f=el("form",{novalidate:"",style:"display:grid;gap:10px"});
   const inp=(id,lab,type,ph)=>{const i=el("input",{id,type,placeholder:ph,autocomplete:id==="phone"?"tel":id==="email"?"email":"name"});i.value=state[id];i.addEventListener("input",()=>state[id]=i.value);return el("label",{for:id},lab,i)};
-  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
+  const where=el("div",{class:"where"},el("b",{},"Where and when"));f.append(where);
   const more=el("details",{class:"more"});if(state.moreOpen)more.open=true;more.addEventListener("toggle",()=>state.moreOpen=more.open);
   more.append(el("summary",{},"More options (optional)",el("small",{},"Email updates, swaps, notes")));
   const mb=el("div",{class:"more-in"});more.append(mb);
   mb.append(inp("email","Email for order updates","email","We email you at each step: paid, shopped, ready"));
   const fs=el("select",{id:"fulfill"});
   for(const s of STOPS)fs.append(el("option",{value:s.id},"Meet-up · "+s.name+", "+s.time));
-  for(const st of STOPS)fs.append(el("option",{value:"del-"+st.id},"Delivery from "+st.name+" · same day, after "+st.time.split("–")[1]+" (from $"+DELIVERY_FEE+")"));
+  for(const st of STOPS)fs.append(el("option",{value:"del-"+st.id},"Delivery to my door · same day, after "+st.time.split("–")[1]+" (from $"+DELIVERY_FEE+")"));
   fs.value=state.fulfill;
   fs.addEventListener("change",()=>{state.fulfill=fs.value;const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()});
-  f.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of the stop, then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window.":"We text the exact meet-up spot after you order."));
+  where.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of the stop, then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window.":"We text the exact meet-up spot after you order."));
   if(isDel()){
     const a=el("input",{id:"address",type:"text",placeholder:"Street, unit, zip",autocomplete:"street-address"});a.value=state.address;a.addEventListener("input",()=>state.address=a.value);
-    f.append(el("label",{for:"address"},"Delivery address",a));
+    where.append(el("label",{for:"address"},"Delivery address",a));
   }
   const ds=datesFor();
   const sel=el("select",{id:"date"});
   if(!ds.length)sel.append(el("option",{value:""},isDel()?"No deliveries open right now":"No pickups open right now"));
   for(const d of ds){const l=spotsLeft(d.v);const o=el("option",{value:d.v},d.label+(l===0?" · full, join the waitlist":l!=null&&l<=3?" · "+l+" spot"+(l>1?"s":"")+" left":""));if(d.v===state.date)o.selected=true;sel.append(o)}
   sel.addEventListener("change",()=>{state.date=sel.value;renderTicket()});
-  f.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
+  where.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
+  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
   const ss=el("select",{id:"sub"});
   ss.append(el("option",{value:"credit"},"Credit it to my next order"),el("option",{value:"replace"},"Replace it with equal or greater value"),el("option",{value:"refund"},"Refund me for it"));
   ss.value=state.sub;ss.addEventListener("change",()=>state.sub=ss.value);
@@ -1060,6 +1081,7 @@ talkForm("soForm",f=>{const n=f.querySelector("#soName").value.trim(),p=f.queryS
   const b=f.querySelector('input[name="soBox"]:checked'),w=f.querySelector('input[name="soWhere"]:checked');
   const src=(new URLSearchParams(location.search).get("s")||"next").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"next";
   return {type:"feedback",name:n,contact:"",message:["STANDING ORDER REQUEST","Mobile: "+p,"Box: "+b.value+" ($"+b.dataset.p+")","Day: Saturdays","Where: "+w.value,"Source: "+src].join(" · "),times:"",ok:"We'll text you to confirm your Standing Order and your first Saturday."}});
+document.querySelectorAll("[data-del]").forEach(a=>a.addEventListener("click",()=>{state.fulfill="del-hyde";const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}));
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
 /* Carry the incoming ?s= tag onto every site tab so Visits/Contacts attribution survives. */
@@ -1102,8 +1124,9 @@ const SPLASH_LOGO='<img src="/logos/harvest-stamp.png" alt="Posted Up: picked fo
 const SPLASH_ON=true;
 (function(){
   if(!SPLASH_ON)return;
-  let seen=false;try{seen=!!localStorage.getItem("pu-splash")||!!localStorage.getItem("pu-me");localStorage.setItem("pu-splash","1")}catch(e){}
-  if(seen||location.hash||/[?&]me(=|&|$)/.test(location.search))return;
+  /* Shows on every visit (Sol, Oct 26). Skipped only for ?me devices and #deep links. */
+  let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
+  if(me||location.hash||/[?&]me(=|&|$)/.test(location.search))return;
   const ct=(document.getElementById("closeTop")||{}).textContent||"";
   const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");
   d.innerHTML='<div class="pu-wrap"><span class="pu-ring"></span><span class="pu-ring r2"></span><div class="pu-mark">'+(SPLASH_LOGO||'<div class="pu-type">Posted<br>Up<small>Produce</small></div>')+'</div></div><p class="pu-tag">Pick a box. Pay by 9&nbsp;PM the night before.<br>Meet us in Hyde Park, Sat&nbsp;3–4&nbsp;PM, or get it delivered.</p>'+(ct?'<p class="pu-cut"></p>':'')+'<span class="pu-skip">Tap to skip</span>';
