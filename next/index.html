@@ -4,7 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Pilot season: personal shopping from Chicago farmers markets. Produce, meat, bread and pantry goods from farms and makers within 150 miles of the Loop.">
-<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}
+/* Oct 26 accessibility pass: 44px tap targets, readable small text, footer links */
+.top .tabs a{display:inline-flex;align-items:center;min-height:44px}
+.brand{display:inline-flex;align-items:center;min-height:44px}
+.spot .row2 a,.fomo a{display:inline-flex;align-items:center;min-height:44px}
+.arw{min-width:44px;min-height:44px}
+.chips li.ph small,.chips li.tx small,.chips li.tx span.soonph{color:var(--ink)}
+.more-links{display:grid;gap:4px;margin:12px 0}
+.more-links a{display:flex;align-items:center;min-height:44px;color:var(--tomato);font-weight:700;text-decoration:none}
+.bar[hidden]{display:none}
+.pay{display:grid;gap:10px;border:3px solid var(--good);border-radius:14px;padding:14px;background:var(--panel)}
+.pay-amt{display:flex;justify-content:space-between;align-items:baseline}
+.pay-amt span{font-weight:800;font-size:18px}
+.pay-amt b{font:400 32px/1 var(--display)}
+.pay-memo{margin:0;font-size:16px}
+.pay-btn{display:grid;gap:2px;text-align:left;border:0;border-radius:12px;padding:14px 16px;min-height:56px;font:800 18px/1.2 var(--body);text-decoration:none;cursor:pointer}
+.pay-btn small{font-weight:500;font-size:14px}
+.pay-btn.ac{background:#111;color:#fff}
+.pay-btn.zl{background:#6D1ED4;color:#fff}
+</style>
 <meta property="og:title" content="Posted Up Produce: market haul, picked for you">
 <meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, we hand-pick the best of the week, meet us in Goose Island (Wed) or Hyde Park (Sat), or get it delivered same day.">
 <meta property="og:type" content="website">
@@ -27,7 +46,7 @@
    The memorable element: produce boxes as swipeable crate tags with a hang-tag price. Everything else stays quiet. */
 :root{
   --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
-  --tomato:#c4432b;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;
+  --tomato:#A9361F;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;
   --display:"Alfa Slab One","Rockwell",Georgia,serif;
   --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
   --col:600px;
@@ -74,7 +93,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .sign h1{font-size:clamp(40px,12vw,58px);line-height:1}
 .sign .lede{margin:0;font-size:18px;color:color-mix(in srgb,var(--board-ink) 90%,transparent)}
 .sign .now{margin:0;font-size:14px;font-weight:500;background:color-mix(in srgb,var(--board-ink) 12%,transparent);border-radius:8px;padding:9px 11px}
-.stamp{justify-self:start;border:2px solid var(--tomato);color:var(--tomato);font:400 13px/1.15 var(--display);padding:7px 11px;transform:rotate(-6deg);text-align:center;letter-spacing:.04em;margin-top:2px}
+.stamp{justify-self:start;border:2px solid #ffb4a3;color:#ffb4a3;font:400 13px/1.15 var(--display);padding:7px 11px;transform:rotate(-6deg);text-align:center;letter-spacing:.04em;margin-top:2px}
 .go{justify-self:stretch;text-align:center;background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;text-decoration:none}
 @media (prefers-reduced-motion:no-preference){
   .stamp{animation:stamp .5s .4s cubic-bezier(.3,1.6,.5,1) both}
@@ -147,6 +166,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .trust b{display:block;font-size:18px}
 .fomo{margin:0;padding:14px 16px;border-radius:12px;background:var(--board);color:var(--board-ink);font-size:16px}
 .fomo b{color:#ffb4a3}
+.fomo a{color:#ffb4a3;font-weight:700}
 
 /* Radius */
 .rings{width:100%;max-width:420px;display:block;margin:0 auto}
@@ -229,16 +249,16 @@ details.terms[open] summary::after{content:"−"}
 
 /* Season ticker: auto-scrolls slowly, stops the moment you touch it */
 .ticker .ph,.ticker li{display:grid;align-content:start}
-.chips li.ph small,.chips li.tx small{display:block;padding:0 10px 9px;font-size:12.5px;line-height:1.3;color:var(--muted);font-weight:500;white-space:normal}
+.chips li.ph small,.chips li.tx small{display:block;padding:0 10px 9px;font-size:14px;line-height:1.3;color:var(--ink);font-weight:500;white-space:normal}
 .chips li.tx{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 0 0;width:150px;min-height:112px;white-space:normal;align-self:stretch}
 .chips li.tx span{display:block;padding:0 10px 4px;font-weight:700;font-size:15px}
-.chips li.tx span.soonph{margin:-10px 0 8px;height:78px;display:grid;place-items:center;background:var(--chip);color:var(--muted);font-size:12.5px;font-weight:600;padding:0}
+.chips li.tx span.soonph{margin:-10px 0 8px;height:78px;display:grid;place-items:center;background:var(--chip);color:var(--ink);font-size:14px;font-weight:600;padding:0}
 .tickhint{font-size:13px;color:var(--muted);margin:-4px 0 0}
 
 /* Pickup days + founder perk */
 .acts{display:grid;gap:10px}
 .act{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:12px;padding:14px 16px;min-height:60px;text-decoration:none;font-weight:800;font-size:18px;line-height:1.15;border:2px solid transparent}
-.act small{display:block;font-weight:500;font-size:14px;opacity:.85;margin-top:2px}
+.act small{display:block;font-weight:600;font-size:14px;margin-top:2px}
 .act .ar{font-size:24px;flex:none}
 .act.a1{background:var(--tomato);color:#fff}
 .act.a2{background:#F3D58A;color:#24392C}
@@ -304,7 +324,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .ups-h{width:100%;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .upb{min-height:40px;padding:8px 12px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font:700 14px/1 var(--body);cursor:pointer}
 .from{margin:10px 0 0;text-align:center;font-size:14px;font-weight:700;opacity:.85}
-.trust+.fomo a,.fomo a{color:var(--tomato);font-weight:700}
+.trust+.fomo a,.fomo a{color:#ffb4a3;font-weight:700}
 .ups-more{font-size:14px;font-weight:700;color:var(--tomato);text-decoration:none;padding:8px 4px}
 /* First-visit splash: stamp slams in, background pulses and a ring ripples once a second, fades after ~3 s. Tap to skip.
    SPLASH_LOGO = "" shows the "Posted Up" type stamp; set it to an SVG string once the logo vote has a winner. */
@@ -331,9 +351,9 @@ details.vdet .vote{border:0;padding:0 0 14px}
 /* Box spotlight on Home */
 .spot{display:grid;gap:10px}
 .spot.hw{border:3px solid #E0782F;border-radius:14px;padding:18px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
-.spot.hw .k{color:#B4561A}
+.spot.hw .k{color:#7A3510}
 .spot.hw .price{font:400 22px/1 var(--display)}
-.spot.hw .go{background:#E0782F}
+.spot.hw .go{background:#A84E14}
 .spot .k{font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--tomato)}
 .spot h2{margin:0}
 .spot .meta{font-weight:700;color:var(--muted);font-size:15px;margin:0}
@@ -349,12 +369,10 @@ details.vdet .vote{border:0;padding:0 0 14px}
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
 <nav class="tabs" aria-label="Site pages">
-  <a href="/" aria-current="page">Home</a>
-  <a href="/how/">How it works</a>
+  <a href="#start" aria-current="page">Home</a>
   <a href="#shop">Boxes</a>
   <a href="#inventory">Add-ons</a>
-  <a href="/join/">Get first pick</a>
-  <a href="/play/">Play</a>
+  <a href="#how">How it works</a>
 </nav></header>
 
 <main class="feed" id="start">
@@ -363,7 +381,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <div class="sign">
       <span class="kicker">Now in beta: pilot season in Chicago, fall 2026</span>
       <h1>Market haul, picked for you.</h1>
-      <p class="lede">We shop small farms and makers at the farmers market, then hand you the best of the week at a meet-up near you.</p>
+      <p class="lede">We shop small farms and makers at the farmers market, then hand you the best of the week the same day: picked up or delivered.</p>
       <p class="now" id="now" aria-live="polite">Chicago time</p>
       <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
       <div class="acts">
@@ -402,14 +420,8 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <ol class="steps">
       <li><span><b>Order and pay by 9 PM</b> the night before, by Zelle or Apple Cash. Pick a box or build your own.</span></li>
       <li><span><b>We shop the morning market</b> and hand-select what's peaking.</span></li>
-      <li><span><b>Pick it up or get it delivered</b> the same day: Wednesday at Goose Island 11:30 AM–1:30 PM, Saturday in Hyde Park 3–4 PM.</span></li>
+      <li><span><b>Pick it up or get it delivered</b> the same day: Wednesday at Goose Island 11:30 AM–1:30 PM, Saturday in Hyde Park 3–4 PM. Delivery from $8.</span></li>
     </ol>
-    <div class="stops">
-      <div class="stop"><b>Wed Oct 28</b>Goose Island 11:30 AM–1:30 PM</div>
-      <div class="stop"><b>Saturdays</b>Hyde Park 3–4 PM</div>
-      <div class="stop"><b>Delivery</b>Same day, both days · from $8</div>
-    </div>
-    <p class="days"><b>This Wednesday, Oct 28:</b> Goose Island pickup 11:30 AM–1:30 PM, or delivery from 10:30 AM, order by 9 PM Tuesday. <b>Then Saturdays</b> through Nov 21. Want a stop near you? Get 8 neighbors in and we drop at your door, free. Text us and we'll work something out.</p>
     <div class="founder">
       <b class="k">Beta founder rate: 10% off boxes</b>
       <p>Pick up your box at the meet-up during the beta and it's 10% off. Complete one paid meet-up order and you're a Founding Member: you keep 10% off boxes through the 2027 season if Posted Up keeps growing. Thanks for being here first.</p>
@@ -421,8 +433,8 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <section class="post" data-view="home" aria-labelledby="seasonTitle">
     <h2 id="seasonTitle">October harvest</h2>
     <p class="sub" id="seasonNote">What local farms are bringing to market right now, and the part of the Midwest it usually comes from. Boxes are built from whatever is peaking that week.</p>
-    <div class="swipe"><span>Scrolling on its own. Tap or swipe to look closer.</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
-    <ul class="row chips ticker" id="seasonList" aria-label="In season now"></ul>
+    <div class="swipe"><span>Swipe or use the arrows to see more.</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
+    <ul class="row chips ticker" id="seasonList" aria-label="In season now" tabindex="0"></ul>
     <p class="tickhint">Want to know exactly which farm grew something in your bag? Ask at handoff and we'll tell you.</p>
   </section>
 
@@ -473,18 +485,18 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <h2 id="whyH">A shopper who knows the farmers</h2>
     <p class="sub">Delivery apps send whoever is free to a warehouse store. We spend market mornings with growers we've known for years.</p>
     <div class="cmp" role="table" aria-label="Posted Up compared with a grocery delivery app and a season farm box">
-      <div class="h" role="row"><span></span><span>Posted Up</span><span>Delivery app</span><span>Season farm box</span></div>
-      <div role="row"><span class="k">Order to in hand</span><span class="u">Same day</span><span class="o">Hours, from a store</span><span class="o">Days, from a cooler</span></div>
-      <div role="row"><span class="k">Picked from</span><span class="u">The whole market, stand by stand</span><span class="o">One warehouse</span><span class="o">One farm</span></div>
-      <div role="row"><span class="k">Your say</span><span class="u">Pick a box, build your own, or swap</span><span class="o">Any item, no one tasting it</span><span class="o">What the farm packs</span></div>
-      <div role="row"><span class="k">Commitment</span><span class="u">Per order. Skip any week</span><span class="o">Membership fee</span><span class="o">Whole season up front</span></div>
-      <div role="row"><span class="k">Who you text</span><span class="u">Your shopper</span><span class="o">A support inbox</span><span class="o">A newsletter</span></div>
+      <div class="h" role="row"><span role="columnheader"></span><span role="columnheader">Posted Up</span><span role="columnheader">Delivery app</span><span role="columnheader">Season farm box</span></div>
+      <div role="row"><span role="rowheader" class="k">Order to in hand</span><span role="cell" class="u">Same day</span><span role="cell" class="o">Hours, from a store</span><span role="cell" class="o">Days, from a cooler</span></div>
+      <div role="row"><span role="rowheader" class="k">Picked from</span><span role="cell" class="u">The whole market, stand by stand</span><span role="cell" class="o">One warehouse</span><span role="cell" class="o">One farm</span></div>
+      <div role="row"><span role="rowheader" class="k">Your say</span><span role="cell" class="u">Pick a box, build your own, or swap</span><span role="cell" class="o">Any item, no one tasting it</span><span role="cell" class="o">What the farm packs</span></div>
+      <div role="row"><span role="rowheader" class="k">Commitment</span><span role="cell" class="u">Per order. Skip any week</span><span role="cell" class="o">Membership fee</span><span role="cell" class="o">Whole season up front</span></div>
+      <div role="row"><span role="rowheader" class="k">Who you text</span><span role="cell" class="u">Your shopper</span><span role="cell" class="o">A support inbox</span><span role="cell" class="o">A newsletter</span></div>
     </div>
     <ul class="trust">
       <li><b>20+ years in Chicago food</b>Your shopper knows which stand has the best of each thing that week. Food-safety trained (Produce Safety Alliance).</li>
       <li><b>Farmers get their full price</b>We buy at the stand at the farmer's own price. Our fee is built into ours, not taken from theirs.</li>
     </ul>
-    <p class="fomo"><b>Pilot spots are limited.</b> We take about 5 orders per market day so each one is hand-picked, through November 21. <a href="/how/">Why it's different &rarr;</a></p>
+    <p class="fomo"><b>Pilot spots are limited.</b> We take about 5 orders per market day so each one is hand-picked, through November 21. <a href="#how">How it works &rarr;</a></p>
     <a class="go" href="#shop">See this week's boxes</a>
   </section>
 
@@ -539,7 +551,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <div class="ticket" id="ticket" aria-live="polite"><div id="ticketBody"></div></div>
   </section>
 
-  <section class="post talk" data-view="home" id="photo" aria-labelledby="photoH" hidden>
+  <section class="post talk" data-view="extra" id="photo" aria-labelledby="photoH" hidden>
     <h2 id="photoH">Show us your haul, get a treat</h2>
     <form class="talkf" id="phForm" novalidate>
       <p class="sub">Snap your Posted Up order at home and send it here. We'll add a thank-you to your next order: a fresh pastry or a small-batch hot sauce. One per person during the beta.</p>
@@ -564,7 +576,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     </form>
   </section>
 
-  <section class="post talk" data-view="home" id="talk" aria-labelledby="talkH">
+  <section class="post talk" data-view="extra" id="talk" aria-labelledby="talkH">
     <h2 id="talkH">Help us build this</h2>
     <p class="sub">Posted Up is in beta, and your ideas shape what comes next: items, stops, days, anything.</p>
     <form class="talkf" id="fbForm" novalidate>
@@ -598,7 +610,13 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 
   <section class="post">
-    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items and even the name may change as we learn. Tell us what works with the feedback form on <a href="#talk">Home</a>, or text 773-807-9223.</p>
+    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items and even the name may change as we learn. Questions? Text 773-807-9223.</p>
+    <nav class="more-links" aria-label="More">
+      <a href="#photo">Send a haul photo, get a treat</a>
+      <a href="#talk">Share feedback or pick a time to meet</a>
+      <a href="/join/">Not ready? Get first pick</a>
+      <a href="/play/">Play Market Catch</a>
+    </nav>
     <details class="terms" id="terms">
       <summary>Order Terms</summary>
       <p class="note">Version: October 2026. By paying for an order, you agree to these terms.</p>
@@ -632,7 +650,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 </main>
 
-<div class="bar" id="bar"><div class="bar-in"><span id="barText">No items yet</span><button type="button" id="barGo">Review order</button></div></div>
+<div class="bar" id="bar" role="region" aria-label="Your order" hidden><div class="bar-in"><span id="barText">No items yet</span><button type="button" id="barGo">Review order</button></div></div>
 
 <script>
 const BOXES=[
@@ -858,6 +876,7 @@ function renderTicket(){
   const t=document.getElementById("ticketBody");t.textContent="";
   const n=count(),b=BOXES.find(x=>x.id===state.box);
   document.getElementById("barText").textContent=n?n+" item"+(n>1?"s":"")+" · $"+total():"No items yet";
+  document.getElementById("bar").hidden=!n||!!state.sent;
   if(state.sent){
     const txt=state.sent;
     const pre=el("pre",{id:"orderPre"},txt);
@@ -869,6 +888,7 @@ function renderTicket(){
       el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.wait?"You're on the waitlist for that day. Don't pay yet. If a spot opens, we'll text you to confirm and send payment details. Want a sure spot? Pick another day.":state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
         "Your order is in. Last step: pay by 9 PM the night before (we can't take payment at pickup). "+(ZELLE?"Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
+      ...(!state.wait&&state.sendStatus==="sent"&&ZELLE?[payBlock(txt)]:[]),
       pre,
       el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
       msg,
@@ -1036,8 +1056,8 @@ const FROM={
   const fill=()=>{for(const i of withPh)ul.append(el("li",{class:"ph"},el("img",{src:PHOTOS[i],alt:i,loading:"lazy",width:"150",height:"112"}),el("span",{},i),from(i)));
     for(const i of rest)ul.append(el("li",{class:"tx"},el("span",{class:"soonph"},"Photo coming soon"),el("span",{},i),from(i)))};
   fill();
-  /* Ticker: second copy (hidden from screen readers) so the loop is seamless. Pauses on touch, hover or focus; off for reduced motion. */
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  /* Auto-scroll off (Oct 26 accessibility pass): a static, swipeable row. */
+  return;
   const n=ul.children.length;fill();for(let k=n;k<ul.children.length;k++)ul.children[k].setAttribute("aria-hidden","true");
   ul.style.scrollSnapType="none";
   let paused=false,resume=0,last=0,pos=0;
@@ -1104,7 +1124,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
     else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
     const changed=v!==cur;cur=v;
     secs.forEach(s=>s.classList.toggle("offview",!s.dataset.view.split(" ").includes(v)));
-    tabs.forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);const on=u.pathname==="/"&&((v==="home"&&!["#shop","#inventory"].includes(u.hash))||(v==="shop"&&u.hash==="#shop")||(v==="inventory"&&u.hash==="#inventory"));on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+    tabs.forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);const on=u.pathname==="/"&&((v==="home"&&!["#shop","#inventory","#how"].includes(u.hash))||(v==="shop"&&u.hash==="#shop")||(v==="inventory"&&u.hash==="#inventory"));on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
     const deep=el&&!["shop","boxes","inventory","start"].includes(h);
     if(deep)requestAnimationFrame(()=>el.scrollIntoView({behavior:first?"auto":"smooth",block:"start"}));
     else if(changed&&!first)scrollTo(0,0);
@@ -1112,6 +1132,25 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   };
   go(true);addEventListener("hashchange",()=>go(false));
 })();
+/* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
+   Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
+function payBlock(txt){
+  const amt=(txt.match(/TOTAL: \$([\d.]+)/)||[])[1]||"",no=(txt.match(/#(\d+)/)||[])[1]||"";
+  const memo="POSTED #"+no;
+  const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
+  const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);st.textContent=m}catch(e){st.textContent="Copy this: "+v}};
+  const tel=APPLE_CASH.replace(/\D/g,"");
+  const box=el("div",{class:"pay"},
+    el("div",{class:"pay-amt"},el("span",{},"Pay now"),el("b",{},"$"+amt)),
+    el("p",{class:"pay-memo"},"Memo: ",el("b",{},memo)),
+    el("a",{class:"pay-btn ac",href:"sms:+1"+tel+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash")},"Pay with Apple Cash",el("small",{},"Opens Messages · tap the $"+amt+" to pay")),
+    el("button",{type:"button",class:"pay-btn zl",onclick:()=>copy(ZELLE+"  "+memo,"Copied: "+ZELLE+" and memo "+memo+". Open your bank app → Zelle → paste.")},"Pay with Zelle",el("small",{},"Copies "+ZELLE+" + memo")),
+    st,
+    el("button",{type:"button",class:"ghost",onclick:async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
+      try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · Mobile: "+state.phone.trim()+(SRC_TAG?" · Source: "+SRC_TAG:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
+      catch(x){b.disabled=false;b.textContent="I've paid"}}},"I've paid"));
+  return box;
+}
 /* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
 const HW_END=new Date(2026,10,1,0,0);
 function hwOn(){return chiNow()<HW_END}
