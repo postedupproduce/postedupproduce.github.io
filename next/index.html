@@ -14,6 +14,11 @@
 .more-links{display:grid;gap:4px;margin:12px 0}
 .more-links a{display:flex;align-items:center;min-height:44px;color:var(--tomato);font-weight:700;text-decoration:none}
 .bar[hidden]{display:none}
+.hauls{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hauls figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.hauls img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.hauls figcaption{padding:10px 12px 12px;font-size:15px;color:var(--ink)}
+.hauls figcaption b{display:block;font-size:17px}
 .pay{display:grid;gap:10px;border:3px solid var(--good);border-radius:14px;padding:14px;background:var(--panel)}
 .pay-amt{display:flex;justify-content:space-between;align-items:baseline}
 .pay-amt span{font-weight:800;font-size:18px}
@@ -405,6 +410,14 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <p class="meta">A Half Peck with a pie pumpkin swapped in, a jug of fresh-pressed cider and a fresh pastry.</p>
     <ul><li>Pie pumpkin</li><li>2 lb orchard apples</li><li>2 lb sweet potatoes</li><li>2 lb beets</li><li>Onions</li><li>1 bunch kale</li><li>Apple cider jug</li><li>1 pastry</li></ul>
     <div class="row2"><button type="button" class="go" id="hwAdd" style="flex:1 1 200px">Add the Halloween Haul</button><a href="#shop">Or pick a box &rarr;</a></div>
+  </section>
+
+  <section class="post" data-view="home" id="hauls" aria-labelledby="realH">
+    <h2 id="realH">Real hauls from this pilot</h2>
+    <div class="hauls">
+      <figure><img src="/img/haul-vegan.jpg" width="1000" height="750" loading="lazy" alt="A Vegan Box laid out on a picnic table: oyster mushrooms, local tofu, a green squash, sweet potatoes, onions, garlic, pears and apples, greens, microgreens and a frosted pastry."><figcaption><b>The Vegan Box</b>Mushrooms, local tofu, squash, sweet potatoes, apples, greens and a pastry.</figcaption></figure>
+      <figure><img src="/img/haul-byo.jpg" width="1000" height="750" loading="lazy" alt="A build-your-own order on a kitchen table: sourdough loaf, peppers, apples, sweet potatoes, potatoes, red and yellow onions, eggs, microgreens, garlic and butter."><figcaption><b>Build your own</b>Sourdough, eggs, butter, apples, peppers, sweet potatoes, onions and microgreens.</figcaption></figure>
+    </div>
   </section>
 
   <section class="post spot" data-view="home" aria-labelledby="spotH">
