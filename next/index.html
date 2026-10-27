@@ -754,13 +754,13 @@ const PICK_ONLY=["produce","bread"];
 /* Order attribution (Oct 26): the link tag (?s=p-name etc.) rides along on the order's Notes as "[via tag]", kept for the browser session. */
 const SRC_TAG=(()=>{let t=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();try{if(t)sessionStorage.setItem("pu-src",t);else t=sessionStorage.getItem("pu-src")||""}catch(e){}return t})();
 
-/* Pickup dates: Wed (outdoor Wednesday market runs through Oct 28, 2026) and Sat (through Nov 21, 2026). */
+/* Pickup dates follow the market: last Wednesday Oct 28 (GCM newsletter Oct 23, 2026); Saturdays through Nov 21; indoor market Dec 5–Mar 20. */
 /* Chicago wall-clock time, whatever the visitor's device time zone is. */
 function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
 const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 function pickupDates(){
   const out=[],now=chiNow(),wedEnd=new Date(2026,9,28,23,59),satEnd=new Date(2026,10,21,23,59);
-  for(let i=0;i<35&&out.length<6;i++){
+  for(let i=0;i<40&&out.length<10;i++){
     const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i);
     const day=d.getDay();
     const isWed=day===3&&d<=wedEnd, isSat=day===6&&d<=satEnd;
@@ -1181,12 +1181,13 @@ function payBlock(txt){
 }
 /* Hook (Oct 27, Sol: "get em in, get em ordering, get em hooked, get em out"): after ordering, one tap asks for this box every Saturday.
    Posts a STANDING ORDER REQUEST to the Feedback tab (same format as the Standing Order form); Sol confirms by text. */
+function hookDay(){return "Saturday"} /* Standing Orders are Saturdays: the market's last Wednesday is Oct 28 (GCM newsletter, Oct 23). */
 function hookBlock(txt){
   const b=BOXES.find(x=>x.id===state.box);if(!b)return el("span");
   const no=(txt.match(/#(\d+)/)||[])[1]||"";
   const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
   const btn=el("button",{type:"button",class:"go",onclick:async()=>{btn.disabled=true;btn.textContent="Sending…";
-    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["STANDING ORDER REQUEST","Mobile: "+state.phone.trim(),"Box: "+b.name+" ($"+b.price+")","Day: Saturdays","Where: "+(isDel()?"My door":"Hyde Park meet-up"),"From order #"+no,"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["STANDING ORDER REQUEST","Mobile: "+state.phone.trim(),"Box: "+b.name+" ($"+b.price+")","Day: "+hookDay()+"s","Where: "+(isDel()?"My door":(STOPS.find(x=>x.id===state.fulfill)||{name:"Hyde Park"}).name+" meet-up"),"From order #"+no,"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
       btn.remove();st.textContent="You're in. We'll text you to confirm your weekly "+b.name+". Skip or stop any week by 9 PM the night before."}
     catch(x){btn.disabled=false;btn.textContent="Yes, make it weekly";st.textContent="That didn't go through. Text 773-807-9223."}}},"Yes, make it weekly");
   return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name+" every Saturday. Your spot is held, delivery is free, every 4th box gets a free add-on. Skip any week."),btn,st);
