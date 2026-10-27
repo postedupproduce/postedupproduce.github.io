@@ -1294,7 +1294,9 @@ function hookBlock(txt){
   return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name+" every Saturday. Your spot is held, delivery is free, every 4th box gets a free add-on. Skip any week."),btn,st);
 }
 /* Get 'em back (Oct 27): a device that ordered before sees "Reorder your last haul" on Home; one tap refills the cart, name and phone, then opens checkout. */
+const REORDER_ON=false; /* Off for now (Sol, Oct 27). Set true to bring back the welcome-back reorder card. */
 (function(){
+  if(!REORDER_ON)return;
   let c=null;try{c=JSON.parse(localStorage.getItem("pu-cart")||"null")}catch(e){}
   if(!c||(!c.box&&!c.breadBox&&!Object.keys(c.qty||{}).length))return;
   const b=BOXES.find(x=>x.id===c.box),bb=BREADBOXES.find(x=>x.id===c.breadBox);
