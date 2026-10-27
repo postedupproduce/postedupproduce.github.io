@@ -4,9 +4,44 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Pilot season: personal shopping from Chicago farmers markets. Produce, meat, bread and pantry goods from farms and makers within 150 miles of the Loop.">
-<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}
+/* Oct 26 accessibility pass: 44px tap targets, readable small text, footer links */
+.top .tabs a{display:inline-flex;align-items:center;min-height:44px}
+.brand{display:inline-flex;align-items:center;min-height:44px}
+.spot .row2 a,.fomo a{display:inline-flex;align-items:center;min-height:44px}
+.arw{min-width:44px;min-height:44px}
+.chips li.ph small,.chips li.tx small,.chips li.tx span.soonph{color:var(--ink)}
+.more-links{display:grid;gap:4px;margin:12px 0}
+.more-links a{display:flex;align-items:center;min-height:44px;color:var(--tomato);font-weight:700;text-decoration:none}
+.bar[hidden]{display:none}
+#orderPre{white-space:pre-wrap;overflow-wrap:anywhere}
+.hook{display:grid;gap:8px;border:3px solid var(--tomato);border-radius:14px;padding:14px;background:var(--panel)}
+.hook b{font:400 22px/1.1 var(--display)}
+.hook span{font-size:16px}
+.spot.back{border:3px solid var(--good);border-radius:14px;padding:18px;background:var(--panel)}
+.spot.back .k{color:var(--good)}
+.hwbar{display:flex;align-items:center;justify-content:space-between;gap:12px;border:3px solid #E0782F;border-radius:12px;padding:12px 14px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
+.hwbar[hidden]{display:none}
+.hwbar span{font-size:14px;line-height:1.35;color:var(--ink)}
+.hwbar b{display:block;font-size:18px}
+.hwbar .go{background:#A84E14;flex:none;padding:12px 16px;min-height:44px}
+.hauls{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.hauls figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.hauls img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.hauls figcaption{padding:10px 12px 12px;font-size:15px;color:var(--ink)}
+.hauls figcaption b{display:block;font-size:17px}
+.pay{display:grid;gap:10px;border:3px solid var(--good);border-radius:14px;padding:14px;background:var(--panel)}
+.pay-amt{display:flex;justify-content:space-between;align-items:baseline}
+.pay-amt span{font-weight:800;font-size:18px}
+.pay-amt b{font:400 32px/1 var(--display)}
+.pay-memo{margin:0;font-size:16px}
+.pay-btn{display:grid;gap:2px;text-align:left;border:0;border-radius:12px;padding:14px 16px;min-height:56px;font:800 18px/1.2 var(--body);text-decoration:none;cursor:pointer}
+.pay-btn small{font-weight:500;font-size:14px}
+.pay-btn.ac{background:#111;color:#fff}
+.pay-btn.zl{background:#6D1ED4;color:#fff}
+</style>
 <meta property="og:title" content="Posted Up Produce: market haul, picked for you">
-<meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, we hand-pick the best of the week, meet us in Goose Island, Hyde Park or Rogers Park.">
+<meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, we hand-pick the best of the week, meet us in Goose Island (Wed) or Hyde Park (Sat), or get it delivered same day.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://postedupproduce.github.io/">
 <link rel="canonical" href="https://postedupproduce.github.io/">
@@ -26,7 +61,7 @@
    The memorable element: produce boxes as swipeable crate tags with a hang-tag price. Everything else stays quiet. */
 :root{
   --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
-  --tomato:#c4432b;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;
+  --tomato:#A9361F;--line:#d6c9ae;--chip:#e3d6bb;--good:#2f6b3f;
   --display:"Alfa Slab One","Rockwell",Georgia,serif;
   --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
   --col:600px;
@@ -73,7 +108,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .sign h1{font-size:clamp(40px,12vw,58px);line-height:1}
 .sign .lede{margin:0;font-size:18px;color:color-mix(in srgb,var(--board-ink) 90%,transparent)}
 .sign .now{margin:0;font-size:14px;font-weight:500;background:color-mix(in srgb,var(--board-ink) 12%,transparent);border-radius:8px;padding:9px 11px}
-.stamp{justify-self:start;border:2px solid var(--tomato);color:var(--tomato);font:400 13px/1.15 var(--display);padding:7px 11px;transform:rotate(-6deg);text-align:center;letter-spacing:.04em;margin-top:2px}
+.stamp{justify-self:start;border:2px solid #ffb4a3;color:#ffb4a3;font:400 13px/1.15 var(--display);padding:7px 11px;transform:rotate(-6deg);text-align:center;letter-spacing:.04em;margin-top:2px}
 .go{justify-self:stretch;text-align:center;background:var(--tomato);color:#fff;border:0;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;text-decoration:none}
 @media (prefers-reduced-motion:no-preference){
   .stamp{animation:stamp .5s .4s cubic-bezier(.3,1.6,.5,1) both}
@@ -146,6 +181,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .trust b{display:block;font-size:18px}
 .fomo{margin:0;padding:14px 16px;border-radius:12px;background:var(--board);color:var(--board-ink);font-size:16px}
 .fomo b{color:#ffb4a3}
+.fomo a{color:#ffb4a3;font-weight:700}
 
 /* Radius */
 .rings{width:100%;max-width:420px;display:block;margin:0 auto}
@@ -228,13 +264,39 @@ details.terms[open] summary::after{content:"−"}
 
 /* Season ticker: auto-scrolls slowly, stops the moment you touch it */
 .ticker .ph,.ticker li{display:grid;align-content:start}
-.chips li.ph small,.chips li.tx small{display:block;padding:0 10px 9px;font-size:12.5px;line-height:1.3;color:var(--muted);font-weight:500;white-space:normal}
+.chips li.ph small,.chips li.tx small{display:block;padding:0 10px 9px;font-size:14px;line-height:1.3;color:var(--ink);font-weight:500;white-space:normal}
 .chips li.tx{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 0 0;width:150px;min-height:112px;white-space:normal;align-self:stretch}
 .chips li.tx span{display:block;padding:0 10px 4px;font-weight:700;font-size:15px}
-.chips li.tx span.soonph{margin:-10px 0 8px;height:78px;display:grid;place-items:center;background:var(--chip);color:var(--muted);font-size:12.5px;font-weight:600;padding:0}
+.chips li.tx span.soonph{margin:-10px 0 8px;height:78px;display:grid;place-items:center;background:var(--chip);color:var(--ink);font-size:14px;font-weight:600;padding:0}
 .tickhint{font-size:13px;color:var(--muted);margin:-4px 0 0}
 
 /* Pickup days + founder perk */
+.acts{display:grid;gap:10px}
+.act{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:12px;padding:14px 16px;min-height:60px;text-decoration:none;font-weight:800;font-size:18px;line-height:1.15;border:2px solid transparent}
+.act small{display:block;font-weight:600;font-size:14px;margin-top:2px}
+.act .ar{font-size:24px;flex:none}
+.act.a1{background:var(--tomato);color:#fff}
+.act.a2{background:#F3D58A;color:#24392C}
+.act.a3{background:transparent;color:var(--board-ink);border-color:color-mix(in srgb,var(--board-ink) 60%,transparent)}
+.sign .stops{grid-template-columns:repeat(3,1fr)}
+.sign .stop{background:color-mix(in srgb,var(--board-ink) 12%,transparent);border-color:transparent;color:var(--board-ink)}
+.ticket .where{display:grid;gap:10px;background:var(--chip);border-radius:12px;padding:12px}
+.ticket .where>b{font-size:17px}
+.prev{margin:0 0 4px;background:#ffb4a3;color:#3a1309;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;text-align:center}
+.cmp{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);font-size:14px}
+.cmp>div{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr}
+.cmp>div+div{border-top:1px solid var(--line)}
+.cmp span{padding:9px 8px;line-height:1.3}
+.cmp .h{background:var(--chip);font-weight:700}
+.cmp .k{font-weight:700}
+.cmp .o{color:var(--muted)}
+.cmp .u{font-weight:700;color:var(--good)}
+.so-opts{display:grid;gap:8px}
+.so-opts .ropt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.so-opts .ropt:has(input:focus-visible){outline:3px solid var(--tomato);outline-offset:2px}
+.so-opts .ropt span{display:flex;flex-direction:column;gap:2px}
+.so-opts .ropt .p{font:400 20px/1.1 var(--display);white-space:nowrap}
+.so-rule{margin:0;background:var(--chip);border-radius:10px;padding:11px 13px;font-size:15px}
 .days{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font-size:15px}
 .founder{margin:0;border:2px solid var(--tomato);border-radius:12px;padding:14px 16px;display:grid;gap:6px}
 .founder b.k{font:400 19px/1.15 var(--display);color:var(--tomato)}
@@ -277,29 +339,36 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .ups-h{width:100%;font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .upb{min-height:40px;padding:8px 12px;border-radius:999px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font:700 14px/1 var(--body);cursor:pointer}
 .from{margin:10px 0 0;text-align:center;font-size:14px;font-weight:700;opacity:.85}
-.trust+.fomo a,.fomo a{color:var(--tomato);font-weight:700}
+.trust+.fomo a,.fomo a{color:#ffb4a3;font-weight:700}
 .ups-more{font-size:14px;font-weight:700;color:var(--tomato);text-decoration:none;padding:8px 4px}
 /* First-visit splash: stamp slams in, background pulses and a ring ripples once a second, fades after ~3 s. Tap to skip.
    SPLASH_LOGO = "" shows the "Posted Up" type stamp; set it to an SVG string once the logo vote has a winner. */
-#pu-splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;padding:24px;background:var(--bg);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:pu-pulse 1s ease-in-out infinite,pu-out .4s ease-in 2.6s forwards}
-#pu-splash .pu-wrap{position:relative;display:grid;place-items:center;width:min(62vw,250px);aspect-ratio:1}
+#pu-splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;padding:24px;background:#EFE6D4;cursor:pointer;-webkit-tap-highlight-color:transparent;animation:pu-out .4s ease-in 3.5s forwards}
+#pu-splash .pu-wrap{position:relative;display:grid;place-items:center;width:min(52vw,210px);aspect-ratio:1}
 #pu-splash .pu-mark{width:100%;height:100%;display:grid;place-items:center;filter:drop-shadow(0 10px 18px rgba(36,57,44,.25));animation:pu-stamp .55s cubic-bezier(.2,1.5,.45,1) .1s both}
-#pu-splash .pu-mark svg{width:100%;height:100%;display:block}
+#pu-splash .pu-mark svg,#pu-splash .pu-mark img{width:100%;height:100%;display:block;object-fit:contain}
 #pu-splash .pu-type{width:100%;height:100%;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-content:center;text-align:center;box-shadow:inset 0 0 0 8px var(--ink),inset 0 0 0 11px var(--bg);font:400 clamp(30px,10vw,42px)/.95 var(--display);transform:rotate(-6deg)}
 #pu-splash .pu-type small{display:block;font:700 12px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;margin-top:10px;color:#F3D58A}
-#pu-splash .pu-ring{position:absolute;inset:0;border-radius:50%;border:3px solid var(--ink);opacity:0;animation:pu-ring 1s ease-out .45s infinite both}
+#pu-splash .pu-ring{position:absolute;inset:0;border-radius:50%;border:3px solid #24392C;opacity:0;animation:pu-ring 1.4s ease-out .45s 2 both;z-index:0}
+#pu-splash .pu-mark{position:relative;z-index:1}
 #pu-splash .pu-ring.r2{animation-delay:.95s}
-#pu-splash .pu-tag{margin:0;font:400 clamp(22px,6.5vw,28px)/1.1 var(--display);color:var(--ink);text-align:center;animation:pu-up .5s ease-out .6s both}
-#pu-splash .pu-cut{margin:0;font:700 14px/1.3 var(--body);color:var(--tomato);text-align:center;animation:pu-up .5s ease-out .9s both}
-#pu-splash .pu-skip{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));font:700 13px/1 var(--body);color:var(--ink);opacity:.55}
+#pu-splash .pu-tag{position:relative;z-index:2;margin:0;width:min(100%,360px);display:grid;gap:10px;background:#24392C;color:#FFFFFF;border-radius:14px;padding:16px 18px;font:700 20px/1.35 var(--body);text-align:left;animation:pu-up .4s ease-out .5s both}
+#pu-splash .pu-tag span{display:flex;gap:10px;align-items:flex-start}
+#pu-splash .pu-tag i{font-style:normal;flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#F3D58A;color:#24392C;font-size:16px;line-height:1}
+#pu-splash .pu-cut{position:relative;z-index:2;margin:0;background:#F3D58A;color:#24392C;border-radius:999px;padding:8px 16px;font:800 17px/1.3 var(--body);text-align:center;animation:pu-up .4s ease-out .7s both}
+#pu-splash .pu-skip{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));font:700 16px/1 var(--body);color:#24392C;background:#fff;border:2px solid #24392C;border-radius:999px;padding:12px 20px}
 @keyframes pu-stamp{0%{transform:scale(2.4) rotate(-14deg);opacity:0}60%{transform:scale(.94) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(0)}}
-@keyframes pu-ring{0%{transform:scale(.95);opacity:.55}100%{transform:scale(1.6);opacity:0}}
+@keyframes pu-ring{0%{transform:scale(.95);opacity:.5}100%{transform:scale(1.25);opacity:0}}
 @keyframes pu-pulse{0%,100%{background-color:#EFE6D4}50%{background-color:#E3CC9C}}
 @keyframes pu-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes pu-out{to{opacity:0;visibility:hidden}}
 @media (prefers-reduced-motion:reduce){#pu-splash,#pu-splash *{animation:none!important}#pu-splash{animation:pu-out .2s linear 1.5s forwards!important}}
 /* Box spotlight on Home */
 .spot{display:grid;gap:10px}
+.spot.hw{border:3px solid #E0782F;border-radius:14px;padding:18px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
+.spot.hw .k{color:#7A3510}
+.spot.hw .price{font:400 22px/1 var(--display)}
+.spot.hw .go{background:#A84E14}
 .spot .k{font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--tomato)}
 .spot h2{margin:0}
 .spot .meta{font-weight:700;color:var(--muted);font-size:15px;margin:0}
@@ -311,32 +380,121 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .offview{display:none!important}
 .hop{display:block;margin-top:14px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font-weight:700;text-decoration:none;text-align:center}
 .top .tabs{overflow-x:auto;scrollbar-width:none}@media(max-width:430px){.top .tabs{gap:0;padding:0 6px 8px}.top .tabs a{font-size:12px;padding:8px 6px}}.top .tabs::-webkit-scrollbar{display:none}
+
+/* Dark mode (Oct 27 walkthrough): white on the dark-mode red fails contrast, so red buttons get dark text; labels re-tinted. */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  .beta,.act.a1,.act.a1 small,.go,.cta,.bar button,.box[aria-pressed="true"] .add{color:#1b0e0a}
+  .spot.hw .go,.hwbar .go{color:#fff}
+  .spot.hw .row2 a{color:#F2A36B}
+  .spot.hw .k{color:#F2A36B}
+  .pick{color:var(--ink)}
+}}
+:root[data-theme="dark"] :is(.beta,.act.a1,.act.a1 small,.go,.cta,.bar button,.box[aria-pressed="true"] .add){color:#1b0e0a}
+:root[data-theme="dark"] :is(.spot.hw .go,.hwbar .go){color:#fff}
+:root[data-theme="dark"] .spot.hw .k{color:#F2A36B}
+:root[data-theme="dark"] .pick{color:var(--ink)}
+.nextv .vopts{display:grid;gap:8px}
+.nextv .ropt input{position:absolute;opacity:0;width:1px;height:1px}
+.nextv .ropt:has(input:focus-visible){outline:3px solid var(--tomato);outline-offset:2px}
+.nextv input[type=text]{font:inherit;padding:12px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);min-height:48px}
+
+/* Craving menu (option D) */
+.jumps{position:sticky;top:var(--toph,117px);z-index:5;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px 0;background:var(--bg)}
+.jumps button{min-height:44px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 16px var(--body);cursor:pointer}
+.jumps button[aria-current="true"]{background:var(--ink);color:var(--bg)}
+.bsec{display:grid;gap:8px;scroll-margin-top:calc(var(--toph,117px) + 70px)}
+.bsec-h{margin:8px 0 0;font:800 14px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.blist{display:grid;gap:10px}
+.blist[hidden]{display:none}
+.bcard{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:6px}
+.bcard.on{border-color:var(--good)}
+.bcard-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.bcard h3{margin:0;font:800 19px/1.2 var(--body)}
+.bprice{font:800 19px var(--body);white-space:nowrap}
+.bwhat{margin:0;font-size:15px;color:var(--ink)}
+.btag{margin:0;font-size:14px;font-weight:700;color:var(--good)}
+.bin-in{border-top:1px dashed var(--line);padding-top:2px}
+.bin-in summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;font-weight:700;font-size:16px;cursor:pointer}
+.bin-in summary::-webkit-details-marker{display:none}
+.bin-in .chev{font-size:20px;transition:transform .15s}
+.bin-in[open] .chev{transform:rotate(180deg)}
+.bin-in ul{margin:2px 0 6px;padding-left:20px;display:grid;gap:3px;font-size:15px}
+.bnote{margin:0 0 6px;font-size:13px;color:var(--ink)}
+.badd{min-height:48px;border-radius:10px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 17px var(--body);cursor:pointer}
+.badd[aria-pressed="true"]{background:var(--good);border-color:var(--good);color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .badd[aria-pressed="true"]{color:#0f1f12}}
+:root[data-theme="dark"] .badd[aria-pressed="true"]{color:#0f1f12}
+@media (prefers-reduced-motion: reduce){.bin-in .chev{transition:none}}
+
+/* Oct 27 audit pass */
+.vh1{font-size:clamp(26px,7vw,32px);line-height:1.1;margin:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.spot .k,.spot.hw .k{font-size:14px}
+.so-opts .ropt small,.more summary small{font-size:14px}
+.credits{font-size:14px}.credits summary{min-height:44px;display:flex;align-items:center}
+.agree{min-height:44px;align-items:center}.agree input{width:30px;height:30px}
+.tix{border:1.5px solid var(--line);border-radius:12px;padding:0 12px;background:var(--panel)}
+.tix summary{min-height:48px;display:flex;align-items:center;font-weight:700;cursor:pointer}
+.tix[open]{padding-bottom:12px}.tix[open] summary{margin-bottom:6px}
+.tix .cta{margin-top:10px;width:100%}
+.sofold summary{list-style:none;display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:12px;background:var(--tomato);color:#fff;font-weight:800;font-size:18px;cursor:pointer}
+.sofold summary::-webkit-details-marker{display:none}
+.sofold[open] summary{margin-bottom:12px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sofold summary{color:#1b0e0a}}
+:root[data-theme="dark"] .sofold summary{color:#1b0e0a}
 </style>
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
 <nav class="tabs" aria-label="Site pages">
-  <a href="/" aria-current="page">Home</a>
-  <a href="/how/">How it works</a>
-  <a href="/#shop">Boxes</a>
-  <a href="/#inventory">Add-ons</a>
-  <a href="/join/">Get first pick</a>
-  <a href="/play/">Play</a>
+  <a href="#start" aria-current="page">Home</a>
+  <a href="#shop">Boxes</a>
+  <a href="#inventory">Add-ons</a>
+  <a href="#how">How it works</a>
 </nav></header>
 
 <main class="feed" id="start">
+  <section class="post spot back" data-view="home" id="welcomeBack" aria-labelledby="wbH" hidden>
+    <span class="k">Welcome back</span>
+    <h2 id="wbH">Reorder your last haul?</h2>
+    <p class="meta" id="wbWhat"></p>
+    <div class="row2"><button type="button" class="go" id="wbGo" style="flex:1 1 200px">Reorder in one tap</button><a href="#shop">Change it up &rarr;</a></div>
+  </section>
+
   <section class="post" data-view="home">
     <div class="sign">
-      <span class="kicker">Now in beta: pilot season in Chicago, fall 2026</span>
       <h1>Market haul, picked for you.</h1>
-      <p class="lede">We shop small farms and makers at the farmers market, then hand you the best of the week at a meet-up near you.</p>
-      <p class="now" id="now" aria-live="polite">Chicago time</p>
-      <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
-      <a class="go" href="#shop">Start my order</a>
-      <p class="from">Boxes from $25 · meat, bread &amp; cheese add-ons · no subscription</p>
+      <p class="lede">We shop small farms and makers at the farmers market, then hand you the best of the week the same day: picked up or delivered.</p>
+      <p class="now" id="now" aria-live="polite" hidden>Chicago time</p>
+      <div class="acts">
+        <a class="act a1" href="#shop"><span>Order this week's box<small id="actSmall">Half Peck $50 · Full Crate $72 · Vegan $68</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+        <a class="act a2" href="#shop" data-del><span>Get it delivered<small>Same day, to your door · from $8</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+        <a class="act a3" href="#standing"><span>Set a Standing Order<small>Same box every Saturday · free delivery · skip any week</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="stops">
+        <div class="stop"><b>This Wed, Oct 28</b>Goose Island 11:30–1:30, or delivery</div>
+        <div class="stop"><b>Saturdays</b>Hyde Park 3–4 PM, or delivery</div>
+        <div class="stop"><b>Order by</b>9 PM the night before</div>
+      </div>
     </div>
   </section>
 
-  <section class="post spot" data-view="home" aria-labelledby="spotH">
+  <section class="post spot hw" data-view="home" id="halloween" aria-labelledby="hwH" hidden>
+    <span class="k">🎃 Halloween special · Wed 10/28 + Sat 10/31</span>
+    <h2 id="hwH">Halloween Haul · $67</h2>
+    <p class="meta" style="color:var(--ink)">$62 at a pickup with the beta founder rate</p>
+    <p class="meta">A Half Peck with a pie pumpkin swapped in, a jug of fresh-pressed cider and a fresh pastry.</p>
+    <div class="row2"><button type="button" class="go" id="hwAdd" style="flex:1 1 200px">Add the Halloween Haul</button><a href="#shop">Or pick a box &rarr;</a></div>
+  </section>
+
+  <section class="post" data-view="home" id="hauls" aria-labelledby="realH">
+    <h2 id="realH">Real hauls from this pilot</h2>
+    <div class="hauls">
+      <figure><img src="/img/haul-vegan.jpg" width="1000" height="750" loading="lazy" alt="A Vegan Box laid out on a picnic table: oyster mushrooms, local tofu, a green squash, sweet potatoes, onions, garlic, pears and apples, greens, microgreens and a frosted pastry."><figcaption><b>The Vegan Box</b>Mushrooms, local tofu, squash, sweet potatoes, apples, greens and a pastry.</figcaption></figure>
+      <figure><img src="/img/haul-byo.jpg" width="1000" height="750" loading="lazy" alt="A build-your-own order on a kitchen table: sourdough loaf, peppers, apples, sweet potatoes, potatoes, red and yellow onions, eggs, microgreens, garlic and butter."><figcaption><b>Build your own</b>Sourdough, eggs, butter, apples, peppers, sweet potatoes, onions and microgreens.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="post spot" data-view="home" id="spotlight" aria-labelledby="spotH">
     <span class="k">Most popular this week</span>
     <h2 id="spotH">Half Peck · $50</h2>
     <p class="meta">~9–10 lb · a week of sides and a couple of mains for two</p>
@@ -349,52 +507,50 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <ol class="steps">
       <li><span><b>Order and pay by 9 PM</b> the night before, by Zelle or Apple Cash. Pick a box or build your own.</span></li>
       <li><span><b>We shop the morning market</b> and hand-select what's peaking.</span></li>
-      <li><span><b>Meet us at The Post-Up</b>, or get same-day delivery on Wednesdays.</span></li>
+      <li><span><b>Pick it up or get it delivered</b> the same day: Wednesday at Goose Island 11:30 AM–1:30 PM, Saturday in Hyde Park 3–4 PM. Delivery from $8.</span></li>
     </ol>
-    <div class="stops">
-      <div class="stop"><b>Goose Island</b>1–2 PM</div>
-      <div class="stop"><b>Hyde Park</b>3–4 PM</div>
-      <div class="stop"><b>Rogers Park</b>5–6 PM</div>
-    </div>
-    <p class="days"><b>Pickup days: Wednesdays and Saturdays,</b> same day as market. Wednesdays run through Oct 28, Saturdays through Nov 21. Need a different day or time? Text us and we'll work something out.</p>
-    <div class="founder">
-      <b class="k">Beta founder rate: 10% off boxes</b>
-      <p>Pick up your box at a meet-up during the beta and it's 10% off. Complete one paid meet-up order and you're a Founding Member: you keep 10% off boxes through the 2027 season if Posted Up keeps growing. Thanks for being here first.</p>
-    </div>
-    <p class="firstpick"><span><b>Not ready to order?</b> Get first pick: tell us your spot and how often to text you. 30 seconds.</span><a href="join/?s=site-how">Get first pick</a></p>
+    <p class="days"><b>Beta founder rate:</b> 10% off boxes when you pick up. Or set a <a href="#standing">Standing Order</a> for free delivery.</p>
   </section>
 
-  <section class="post" data-view="home" aria-labelledby="seasonTitle">
+  <section class="post" data-view="home" aria-labelledby="seasonTitle" hidden>
     <h2 id="seasonTitle">October harvest</h2>
     <p class="sub" id="seasonNote">What local farms are bringing to market right now, and the part of the Midwest it usually comes from. Boxes are built from whatever is peaking that week.</p>
-    <div class="swipe"><span>Scrolling on its own. Tap or swipe to look closer.</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
-    <ul class="row chips ticker" id="seasonList" aria-label="In season now"></ul>
+    <div class="swipe"><span>Swipe or use the arrows to see more.</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
+    <ul class="row chips ticker" id="seasonList" aria-label="In season now" tabindex="0"></ul>
     <p class="tickhint">Want to know exactly which farm grew something in your bag? Ask at handoff and we'll tell you.</p>
   </section>
 
   <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
-    <h2 id="shopH">Pick your haul</h2>
+    <h1 id="shopH" class="vh1">What are you craving?</h1>
+    <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Wed 10/28 + Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
       <button type="button" role="radio" data-mode="box" aria-checked="true">Shopper's Choice</button>
       <button type="button" role="radio" data-mode="pick" aria-checked="false">Build Your Own</button>
     </div>
+    <nav class="jumps" aria-label="Jump to">
+      <button type="button" data-jump="produce" aria-current="true">Produce</button>
+      <button type="button" data-jump="meat" aria-current="false">Meat</button>
+      <button type="button" data-jump="fish" aria-current="false">Fish</button>
+    </nav>
     <p class="seg-note" id="produceNote">We pick the best of the week. Boxes cost less than itemizing.</p>
     <div class="bin" id="produce">
-      <div class="swipe" id="boxHint"><span>&larr; Swipe left or right to compare sizes &rarr;</span><span><button type="button" class="arw" data-row="boxes" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="boxes" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
-      <div class="row boxes" id="boxes"></div>
-      <div class="items" data-cat="produce"></div>
+      <section class="bsec" id="sec-produce" aria-labelledby="hProduce"><h2 class="bsec-h" id="hProduce">Produce</h2>
+        <div class="blist" id="boxes"></div>
+        <div class="items" data-cat="produce"></div>
+      </section>
+      <section class="bsec" id="sec-meat" aria-labelledby="hMeat"><h2 class="bsec-h" id="hMeat">Meat</h2><div class="blist" id="meatList"></div></section>
+      <section class="bsec" id="sec-fish" aria-labelledby="hFish"><h2 class="bsec-h" id="hFish">Fish</h2><div class="blist" id="fishList"></div></section>
+      <p class="seg-note">Pair any produce box with meat or fish: one handoff, 10% off boxes at pickup. Meat and fish come frozen.</p>
     </div>
-    <a class="hop" href="#inventory">Add meat, bread, cheese and more <span aria-hidden="true">&rarr;</span></a>
+    <a class="hop" href="#inventory">Add eggs, meat, bread, cider and more <span aria-hidden="true">&rarr;</span></a>
   </section>
 
   <section class="post" data-view="inventory" id="inventory" aria-labelledby="addH">
-    <h2 id="addH">Add to your order</h2>
+    <h1 id="addH" class="vh1">Add to your order</h1>
     <nav class="row tabs" role="tablist" aria-label="Menu sections">
       <button class="tab" role="tab" aria-selected="true" data-go="meat">Meat, fish &amp; eggs</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="bread">Bread &amp; bakery</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="cheese">Cheese</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="specialty">Specialty</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="pantry">Pantry</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="bread">Bread &amp; cheese</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="pantry">Cider, sauce &amp; pantry</button>
     </nav>
     <div class="bin" id="meat">
       <h3>Meat, fish &amp; eggs</h3>
@@ -402,51 +558,82 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <div class="items" data-cat="meat"></div>
     </div>
     <div class="bin" id="bread">
-      <h3>Bread &amp; bakery</h3>
-      <p class="sub">Baked by local makers the morning of market.</p>
+      <h3>Bread &amp; cheese</h3>
+      <p class="sub">Baked by local makers the morning of market, plus small-creamery cheese kept cold to your handoff.</p>
       <div class="row boxes" id="breadboxes"></div>
       <div class="items" data-cat="bread"></div>
-    </div>
-    <div class="bin" id="cheese">
-      <h3>Cheese</h3>
-      <p class="sub">Farmstead and cave-aged cheeses from small creameries in Illinois and Indiana. Kept cold from the stand to your handoff.</p>
       <div class="items" data-cat="cheese"></div>
     </div>
-    <div class="bin" id="specialty">
-      <h3>Specialty</h3>
-      <p class="sub">Small-batch hot sauces from a southern Wisconsin farm kitchen, plus mushroom tinctures, teas and coffee from a Chicagoland mushroom grower.</p>
-      <div class="items" data-cat="specialty"></div>
-    </div>
     <div class="bin" id="pantry">
-      <h3>Pantry</h3>
-      <p class="sub">Small-batch staples from orchards and farm kitchens. They keep, so stock up.</p>
+      <h3>Cider, sauce &amp; pantry</h3>
+      <p class="sub">Fresh-pressed cider, small-batch hot sauce and farm-kitchen staples.</p>
       <div class="items" data-cat="pantry"></div>
-    </div>
-    <div class="bin" id="flowers" hidden>
-      <h3>Flowers</h3>
-      <p class="soon">Coming soon: seasonal bouquets from a local flower farm.</p>
+      <div class="items" data-cat="specialty"></div>
     </div>
     <a class="hop" href="#shop"><span aria-hidden="true">&larr;</span> Back to produce boxes</a>
   </section>
 
   <section class="post" data-view="home" aria-labelledby="whyH">
-    <h2 id="whyH">A shopper who knows the farmers</h2>
-    <p class="sub">Delivery apps send whoever is free to a warehouse store. We spend market mornings with growers we've known for years.</p>
+    <h2 id="whyH">Why Posted Up</h2>
+    <div class="cmp" role="table" aria-label="Posted Up compared with a grocery delivery app and a season farm box">
+      <div class="h" role="row"><span role="columnheader"><span class="sr">Compare</span></span><span role="columnheader">Posted Up</span><span role="columnheader">Delivery app</span><span role="columnheader">Season farm box</span></div>
+      <div role="row"><span role="rowheader" class="k">Order to in hand</span><span role="cell" class="u">Same day</span><span role="cell" class="o">Hours, from a store</span><span role="cell" class="o">Days, from a cooler</span></div>
+      <div role="row"><span role="rowheader" class="k">Picked from</span><span role="cell" class="u">The whole market, stand by stand</span><span role="cell" class="o">One warehouse</span><span role="cell" class="o">One farm</span></div>
+      <div role="row"><span role="rowheader" class="k">Your say</span><span role="cell" class="u">Pick a box, build your own, or swap</span><span role="cell" class="o">Any item, no one tasting it</span><span role="cell" class="o">What the farm packs</span></div>
+      <div role="row"><span role="rowheader" class="k">Commitment</span><span role="cell" class="u">Per order. Skip any week</span><span role="cell" class="o">Membership fee</span><span role="cell" class="o">Whole season up front</span></div>
+      <div role="row"><span role="rowheader" class="k">Who you text</span><span role="cell" class="u">Your shopper</span><span role="cell" class="o">A support inbox</span><span role="cell" class="o">A newsletter</span></div>
+    </div>
     <ul class="trust">
-      <li><b>20+ years in Chicago food</b>Your shopper knows which stand has the best of each thing that week.</li>
-      <li><b>Farmers get their full price</b>We buy at the stand at the farmer's own price. Our fee is built into ours, not taken from theirs.</li>
-      <li><b>One person you can text</b>No call center. Food-safety trained (Produce Safety Alliance).</li>
-      <li><b>Pay per order, skip any week</b>No season up front. Anything we can't get becomes a credit or refund.</li>
+      <li><b>A shopper who knows the farmers</b>20+ years in Chicago food, food-safety trained. Farmers get their full stand price; our fee is built into ours.</li>
+      <li><b>Hand-picked, or it's on us</b>Not happy with an item, or it wasn't at market? Credit or refund, your choice.</li>
+      <li><b>You always know where your haul is</b>A text when we shop it, when we're on the way, and at handoff.</li>
     </ul>
-    <p class="fomo"><b>Pilot spots are limited.</b> We take about 5 orders per market day so each one is hand-picked, through November 21. <a href="/how/">Why it's different &rarr;</a></p>
     <a class="go" href="#shop">See this week's boxes</a>
+  </section>
+
+  <section class="post" data-view="home" id="standing" aria-labelledby="soH">
+    <p class="days" style="margin-bottom:10px"><b>Coming soon:</b> weekly boxes, office drops, gift boxes and boxes all winter from the indoor market. Order once and you get a vote, plus a treat.</p>
+    <span class="k" style="display:block;font-size:14px;font-weight:700;color:var(--muted);margin-bottom:4px">New · Standing Order</span>
+    <h2 id="soH">Set your box once. Skip any week.</h2>
+    <p class="sub">Every Saturday we shop it fresh and hand it off the same afternoon. No season prepay: you pay week by week, and you can skip or stop by 9 PM Friday.</p>
+    <ul class="trust">
+      <li><b>Your spot is held</b>Saturdays cap at about 5 orders. Standing orders are booked before the waitlist opens.</li>
+      <li><b>Free delivery</b>To your door, within 3 miles of the Hyde Park stop, every week you're standing. Farther out, we text you the small per-mile add.</li>
+      <li><b>Every 4th box: a free add-on</b>Your pick of a pastry, a hot sauce or fresh cider.</li>
+    </ul>
+    <p class="so-rule"><b>Meet up and save 10%, or take free delivery.</b> Standing customers choose each week; the two don't stack.</p>
+    <details class="sofold"><summary>Start a Standing Order</summary>
+    <form class="talkf" id="soForm" novalidate>
+      <fieldset style="border:0;margin:0;padding:0;display:grid;gap:6px"><legend style="font-size:15px;font-weight:700;padding:0;margin-bottom:6px">1 · Your box</legend>
+        <div class="so-opts">
+          <label class="ropt"><input type="radio" name="soBox" value="Half Peck" data-p="50" checked><span>Half Peck<small>~9–10 lb · for two · most popular</small></span><span class="p">$50</span></label>
+          <label class="ropt"><input type="radio" name="soBox" value="Full Crate" data-p="72"><span>Full Crate<small>~14–15 lb · a household's week</small></span><span class="p">$72</span></label>
+          <label class="ropt"><input type="radio" name="soBox" value="The Vegan Box" data-p="68"><span>The Vegan Box<small>~9 lb · all local, plant-based</small></span><span class="p">$68</span></label>
+        </div>
+      </fieldset>
+      <fieldset style="border:0;margin:0;padding:0;display:grid;gap:6px"><legend style="font-size:15px;font-weight:700;padding:0;margin-bottom:6px">2 · Where you get it</legend>
+        <div class="so-opts">
+          <label class="ropt"><input type="radio" name="soWhere" value="Hyde Park meet-up" checked><span>Hyde Park meet-up<small>Saturdays 3–4 PM · 10% founder rate</small></span></label>
+          <label class="ropt"><input type="radio" name="soWhere" value="My door"><span>My door<small>Free delivery within 3 miles of the stop</small></span></label>
+        </div>
+      </fieldset>
+      <div class="two">
+        <label for="soName">Name<input id="soName" type="text" autocomplete="name" required></label>
+        <label for="soPhone">Mobile number<input id="soPhone" type="tel" autocomplete="tel" required></label>
+      </div>
+      <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="err" data-err></p>
+      <button class="cta" type="submit" id="soBtn">Start standing · $50 a box</button>
+      <p class="cutoff">We text to confirm and set up your first Saturday. Each week your pay link comes Friday morning; paid by 9 PM = shopped. Skipped or unpaid = no box, no charge.</p>
+    </form>
+    </details>
   </section>
 
   <section class="post" data-view="shop inventory" id="checkout" aria-label="Checkout">
     <div class="ticket" id="ticket" aria-live="polite"><div id="ticketBody"></div></div>
   </section>
 
-  <section class="post talk" data-view="home" id="photo" aria-labelledby="photoH" hidden>
+  <section class="post talk" data-view="extra" id="photo" aria-labelledby="photoH" hidden>
     <h2 id="photoH">Show us your haul, get a treat</h2>
     <form class="talkf" id="phForm" novalidate>
       <p class="sub">Snap your Posted Up order at home and send it here. We'll add a thank-you to your next order: a fresh pastry or a small-batch hot sauce. One per person during the beta.</p>
@@ -471,7 +658,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     </form>
   </section>
 
-  <section class="post talk" data-view="home" id="talk" aria-labelledby="talkH">
+  <section class="post talk" data-view="extra" id="talk" aria-labelledby="talkH">
     <h2 id="talkH">Help us build this</h2>
     <p class="sub">Posted Up is in beta, and your ideas shape what comes next: items, stops, days, anything.</p>
     <form class="talkf" id="fbForm" novalidate>
@@ -505,7 +692,13 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 
   <section class="post">
-    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items, stops and even the name may change as we learn. Tell us what works with the feedback form on <a href="#talk">Home</a>, or text 773-807-9223.</p>
+    <p class="pilot"><b>We're in beta.</b> We're testing Posted Up with a small group of neighbors through November 21. Prices, items and even the name may change as we learn. Questions? Text 773-807-9223.</p>
+    <nav class="more-links" aria-label="More">
+      <a href="#photo">Send a haul photo, get a treat</a>
+      <a href="#talk">Share feedback or pick a time to meet</a>
+      <a href="/join/">Not ready? Get first pick</a>
+      <a href="/play/">Play Market Catch</a>
+    </nav>
     <details class="terms" id="terms">
       <summary>Order Terms</summary>
       <p class="note">Version: October 2026. By paying for an order, you agree to these terms.</p>
@@ -515,11 +708,13 @@ details.vdet .vote{border:0;padding:0 0 14px}
           <li><b>What you get.</b> You get the box or item groups you ordered, chosen by us at market that day. Examples on the menu are typical, not promised. Weights are approximate.</li>
           <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the pilot (November 21) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
-          <li><b>Pickup days.</b> Pickups are on market days only, Wednesdays and Saturdays, the same day we shop. Wednesday delivery is same-day. Other days or times may be arranged by text.</li>
-          <li><b>Beta founder rate.</b> Boxes (produce, bread, Meat Lovers Box and Lake Haul) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later.</li>
+          <li><b>Pickup days.</b> Pickups are on the day we shop: Wednesday, October 28 at Goose Island (11:30 AM–1:30 PM), then Saturdays at Hyde Park (3–4 PM) through November 21. Delivery is same-day. Other days or times may be arranged by text.</li>
+          <li><b>Beta founder rate.</b> Boxes (produce, bread, Meat Lovers Box and Lake Haul) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later, and it doesn't stack with free Standing Order delivery: meet up and save 10%, or take free delivery, each week.</li>
+          <li><b>Free early drop-off.</b> On pickup orders you can opt in to a free early drop-off at your door. It's never guaranteed: we text you first when our route allows it. If we don't text, pick up at your meet-up window as usual. Questions: text 773-807-9223.</li>
+          <li><b>Standing Order.</b> A Standing Order is a weekly order we set up by text. Each week we send a pay link; your box is shopped only once it's paid by 9 PM the night before. Skip any week by 9 PM the night before, or stop anytime, by text. Unpaid by the cutoff means no box and no charge. Standing Order delivery is free within 3 miles of the meet-up stop; beyond that we text you the per-mile add before you pay. Every 4th paid Standing Order box includes a free add-on (pastry, hot sauce or cider) of our choosing from what's at market.</li>
+          <li><b>Cooler bag deposit.</b> If we pack your order in a Posted Up cooler bag, we add a $15 deposit to that order. Hand the bag back at any meet-up or delivery and the full $15 becomes a credit on your next order.</li>
           <li><b>Feedback thank-you.</b> Leave feedback with your contact info during the beta and we'll add one bonus produce pick to your next order. One per person.</li>
           <li id="photoTerm" hidden><b>Photo thank-you.</b> Send a photo of your Posted Up order with the form on this page and we&rsquo;ll add one free pastry or small-batch hot sauce to your next paid order. One per person during the beta. By sending a photo you confirm you took it and let us share it on our site and social pages, credited to you if you give a handle.</li>
-          <li><b>Free early drop-off.</b> On meet-up orders you can opt in to a free early drop-off at your door. It&rsquo;s never guaranteed: we text you first when our route allows it. If we don&rsquo;t text, pick up at your meet-up window as usual.</li>
           <li><b>Pickup and delivery.</b> Pick up during your chosen window. Orders not picked up by the end of the window aren't refunded, but text us and we'll try to arrange a late handoff or delivery for the delivery fee. Delivery fees are confirmed by text before you pay.</li>
           <li><b>Quality.</b> If something arrives damaged or spoiled, text us a photo within 24 hours. We refund or replace that item.</li>
           <li><b>Food safety.</b> Wash produce before eating. Keep frozen items frozen; they're your responsibility once handed off. Baked goods may contain wheat, dairy, eggs, nuts or other allergens and may be made in shared kitchens. Tell us about allergies in your order notes.</li>
@@ -538,12 +733,10 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 </main>
 
-<div class="bar" id="bar"><div class="bar-in"><span id="barText">No items yet</span><button type="button" id="barGo">Review order</button></div></div>
+<div class="bar" id="bar" role="region" aria-label="Your order" hidden><div class="bar-in"><span id="barText">No items yet</span><button type="button" id="barGo">Review order</button></div></div>
 
 <script>
 const BOXES=[
-  {id:"sampler",name:"Sampler",price:25,wt:"~4 lb",desc:"A taste of the season for one.",pick:"",
-   has:["2 lb orchard apples","1 bunch kale","1 honeynut squash"]},
   {id:"halfpeck",name:"Half Peck",price:50,wt:"~9–10 lb",desc:"A week of sides and a couple of mains for two.",pick:"Most popular",
    has:["2 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","1 bunch kale","1 delicata squash"]},
   {id:"crate",name:"Full Crate",price:72,wt:"~14–15 lb",desc:"A full week of cooking for a household.",pick:"",
@@ -567,48 +760,34 @@ const ITEMS={
     {id:"salad",nm:"Salad greens & microgreens",ds:"e.g. spinach, arugula, pea shoots, sunflower shoots",p:8},
     {id:"brassica",nm:"Cabbage family",ds:"e.g. Brussels sprouts, cabbage, broccoli, cauliflower",p:8},
     {id:"alliums",nm:"Onions & garlic",ds:"e.g. sweet or red onions, leeks, shallots, garlic",p:8},
-    {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. bell, poblano, shishito, fennel, celery",p:8}
+    {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. fennel, celery root, radishes, last peppers while they last",p:8}
   ],
   meat:[
     {id:"meatbox",nm:"Meat Lovers Box",ds:"Box · steak night (10–12 oz), an everyday cut, 1 lb ground and 1 lb sausage · save $10 vs. buying each",p:89},
     {id:"lakehaul",nm:"Lake Haul",ds:"Box · 2 wild Great Lakes fish fillets plus smoked fish or pâté · save $8 vs. buying each",p:70},
     {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10},
     {id:"ground",nm:"Ground meat, 1 lb",ds:"e.g. grass-fed beef or pastured pork",p:17},
-    {id:"everyday",nm:"Everyday cut, about 1 lb",ds:"e.g. pork chops, tenderloin, beef stew meat, fajita meat",p:24},
-    {id:"steak",nm:"Steak night, 10–12 oz",ds:"e.g. sirloin, Delmonico, flat iron",p:38},
     {id:"sausage",nm:"Sausage, about 1 lb",ds:"e.g. andouille, bratwurst, breakfast links",p:20},
     {id:"fish",nm:"Great Lakes fish fillet",ds:"~8–16 oz · e.g. walleye, whitefish, lake trout, wild salmon",p:30},
-    {id:"cured",nm:"Smoked & cured",ds:"e.g. salami, smoked fish pâté, pork snack sticks",p:18}
   ],
   bread:[
     {id:"sour",nm:"Sourdough loaf",ds:"e.g. miche, black rye, polenta, classic",p:14},
-    {id:"special",nm:"Specialty loaf",ds:"e.g. olive, garlic Asiago, jalapeño cheddar",p:18},
-    {id:"baguette",nm:"Baguette",ds:"Each",p:7},
-    {id:"bagels",nm:"Bagels, 4-pack",ds:"e.g. everything, sesame, Asiago, pretzel",p:15},
     {id:"pastry",nm:"Pastry",ds:"Each · e.g. croissant, scone, danish, muffin, monkey bun",p:8},
-    {id:"cookie",nm:"Big cookie",ds:"Each · e.g. chocolate chip, sprinkle, oatmeal raisin",p:6}
   ],
   cheese:[
     {id:"chevre",nm:"Fresh goat cheese",ds:"e.g. herbed chèvre, or feta with herbs in oil",p:14},
-    {id:"farmstead",nm:"Aged farmstead cheese",ds:"Wedge · e.g. goat's milk toma, Jersey cow tomme, cheddar-style blue",p:20},
     {id:"cheddar",nm:"Cave-aged cheddar",ds:"Wedge · from an Illinois dairy farm",p:22},
-    {id:"brie",nm:"Bloomy-rind cheese, 7 oz",ds:"e.g. brie or camembert, cave-aged",p:29}
   ],
   specialty:[
     {id:"hsmild",nm:"Hot sauce: mild & green",ds:"Bottle · bright, tangy heat, e.g. jalapeño lime or tomatillo",p:10},
     {id:"hsfruit",nm:"Hot sauce: fruity & hot",ds:"Bottle · sweet-hot, e.g. mango habanero or Jamaican jerk",p:10},
     {id:"hsxhot",nm:"Hot sauce: extra hot",ds:"Bottle · for heat seekers, ghost pepper and friends",p:10},
-    {id:"tincture",nm:"Mushroom tincture, 2 fl oz",ds:"Dual-extracted · e.g. lion's mane, reishi, turkey tail, chaga · contains alcohol",p:37},
-    {id:"mushtea",nm:"Mushroom tea or coffee",ds:"e.g. reishi & lion's mane tea, lion's mane instant coffee",p:36}
   ],
   pantry:[
     {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
     {id:"maple",nm:"Maple syrup",ds:"Pint",p:19},
-    {id:"honey",nm:"Raw honey",ds:"~1–1.5 lb jar",p:21},
     {id:"butter",nm:"Grass-fed butter",ds:"1 lb",p:13},
-    {id:"broth",nm:"Bone broth",ds:"16 oz · e.g. beef, chicken, turkey",p:15},
     {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. cherry lavender or peach jalapeño jam, apple butter, dilly beans, giardiniera",p:13},
-    {id:"berries",nm:"Frozen berries",ds:"2 lb bag · e.g. red raspberries",p:13}
   ]
 };
 const ALL=Object.values(ITEMS).flat();
@@ -622,22 +801,32 @@ const DELIVERY_FEE=8, FLAT_MILES=3, PER_MILE=1.5;
 function isDel(){return state.fulfill.startsWith("del-")}
 /* Opt-in: free early door drop-off for meet-up orders if it fits Sol's route that day. Not a promise; Sol texts to set it up. */
 function earlyOK(){return !isDel()&&state.early}
-function delStop(){return STOPS.find(x=>"del-"+x.id===state.fulfill)}
+/* Delivery windows (Oct 27, Sol): the original after-2/4/6 PM windows from each old stop, both market days, plus Wed after 10:30 AM.
+   The sheet still logs "Delivery from <name>", same as the original site, so delivery-time data stays comparable. */
+const DELIVERIES=[
+  {id:"am",name:"Goose Island (morning)",area:"Goose Island",delAfter:"10:30 AM",days:[3]},
+  {id:"goose",name:"Goose Island",area:"Goose Island",delAfter:"2:00 PM",days:[3,6]},
+  {id:"hyde",name:"Hyde Park",area:"Hyde Park",delAfter:"4:00 PM",days:[3,6]},
+  {id:"rogers",name:"Rogers Park",area:"Rogers Park",delAfter:"6:00 PM",days:[3,6]}
+];
+function delStop(){return DELIVERIES.find(x=>"del-"+x.id===state.fulfill)}
+/* Stops are tied to a market day (Oct 26, Sol): Wed = Goose Island, ready 10:30 AM; Sat = Hyde Park 3–4 PM. */
 const STOPS=[
-  {id:"goose",name:"Goose Island",time:"1:00–2:00 PM"},
-  {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM"},
-  {id:"rogers",name:"Rogers Park",time:"5:00–6:00 PM"}
+  {id:"goose",name:"Goose Island",time:"11:30 AM–1:30 PM",day:3,dayName:"Wed",delAfter:"10:30 AM"},
+  {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM",day:6,dayName:"Sat",delAfter:"4:00 PM"}
 ];
 const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false};
 const PICK_ONLY=["produce","bread"];
+/* Order attribution (Oct 26): the link tag (?s=p-name etc.) rides along on the order's Notes as "[via tag]", kept for the browser session. */
+const SRC_TAG=(()=>{let t=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();try{if(t)sessionStorage.setItem("pu-src",t);else t=sessionStorage.getItem("pu-src")||""}catch(e){}return t})();
 
-/* Pickup dates: Wed (outdoor Wednesday market runs through Oct 28, 2026) and Sat (through Nov 21, 2026). */
+/* Pickup dates follow the market: last Wednesday Oct 28 (GCM newsletter Oct 23, 2026); Saturdays through Nov 21; indoor market Dec 5–Mar 20. */
 /* Chicago wall-clock time, whatever the visitor's device time zone is. */
 function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
 const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 function pickupDates(){
   const out=[],now=chiNow(),wedEnd=new Date(2026,9,28,23,59),satEnd=new Date(2026,10,21,23,59);
-  for(let i=0;i<35&&out.length<6;i++){
+  for(let i=0;i<40&&out.length<10;i++){
     const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i);
     const day=d.getDay();
     const isWed=day===3&&d<=wedEnd, isSat=day===6&&d<=satEnd;
@@ -649,6 +838,8 @@ function pickupDates(){
   return out;
 }
 let DATES=pickupDates();
+/* Start on whichever stop has the soonest open day. */
+(function(){const d0=DATES[0];if(!d0)return;const wd=new Date(d0.v+"T12:00").getDay();const st=STOPS.find(x=>x.day===wd);if(st)state.fulfill=st.id})();
 state.date=DATES[0]?.v||"";
 
 /* Logo vote: optional, one per order, open through Sat Oct 24. Thank-you applies to this order; $5 off needs a $30 subtotal. */
@@ -671,10 +862,40 @@ function renderBoxes(){
   const isBox=state.mode==="box";
   document.getElementById("boxes").hidden=!isBox;
   document.getElementById("breadboxes").hidden=!isBox;
-  document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";document.getElementById("boxHint").hidden=!isBox;
+  document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";
   for(const s of document.querySelectorAll(".seg button"))s.setAttribute("aria-checked",String(s.dataset.mode===state.mode));
-  boxRow("boxes",BOXES,"box");boxRow("breadboxes",BREADBOXES,"breadBox");
+  boxList();boxRow("breadboxes",BREADBOXES,"breadBox");
 }
+/* Craving menu (option D, Oct 27): one scannable list, jump buttons, "What's in it" dropdowns, buttons that say what they do. */
+const PROTEIN_HAS={meatbox:["Steak night, 10–12 oz (e.g. sirloin, Delmonico)","An everyday cut, about 1 lb (e.g. pork chops, stew meat)","1 lb ground (beef or pork)","1 lb sausage (e.g. andouille, bratwurst)"],
+  lakehaul:["2 wild Great Lakes fish fillets (e.g. walleye, whitefish, lake trout)","Smoked fish or fish pâté"]};
+const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",tag:"Saves $10 vs. buying each"},lakehaul:{what:"Wild Great Lakes fish, frozen packs",tag:"Saves $8 vs. buying each"}};
+const OPEN_IN=new Set();
+function bCard(o){
+  const card=el("div",{class:"bcard"+(o.on?" on":"")});
+  card.append(el("div",{class:"bcard-top"},el("h3",{},o.name),el("span",{class:"bprice"},"$"+o.price)),el("p",{class:"bwhat"},o.what));
+  if(o.tag)card.append(el("p",{class:"btag"},o.tag));
+  const ul=el("ul",{});for(const h of o.has)ul.append(el("li",{},h));
+  const d=el("details",{class:"bin-in"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
+  if(OPEN_IN.has(o.name))d.open=true;d.addEventListener("toggle",()=>{d.open?OPEN_IN.add(o.name):OPEN_IN.delete(o.name)});
+  card.append(d,el("button",{type:"button",class:"badd","aria-pressed":String(!!o.on),onclick:o.toggle},o.on?"Added ✓ (tap to remove)":"Add "+o.name+" · $"+o.price));
+  return card;
+}
+function boxList(){
+  const w=document.getElementById("boxes");w.textContent="";
+  for(const b of BOXES)w.append(bCard({name:b.name,price:b.price,what:b.wt+" · "+b.desc,tag:b.pick,has:b.has,on:state.box===b.id,
+    toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));
+  for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
+    const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
+    box.append(bCard({name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
+      toggle:()=>{if(state.qty[id])delete state.qty[id];else{state.qty[id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));
+  }
+}
+(function(){const t=document.querySelector(".top");if(!t)return;const f=()=>document.documentElement.style.setProperty("--toph",t.offsetHeight+"px");f();addEventListener("resize",f)})();
+document.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("[data-jump]").forEach(x=>x.setAttribute("aria-current",String(x===b)));
+  const sec=document.getElementById("sec-"+b.dataset.jump);if(sec)sec.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+}));
 function boxRow(wid,list,key){
   const w=document.getElementById(wid);w.textContent="";
   for(const b of list){
@@ -713,7 +934,7 @@ function orderText(id){
   const b=BOXES.find(x=>x.id===state.box);
   const d=DATES.find(x=>x.v===state.date);
   const L=[(isWait()?"WAITLIST — ":"")+"POSTED — Posted Up Produce order #"+id,"Name: "+state.name,"Phone: "+state.phone,...(state.email.trim()?["Email: "+state.email.trim()]:[]),
-    isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().time.split("–")[1]+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
+    isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().delAfter+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
   if(b)L.push(b.name+" produce box ("+b.wt+") — $"+b.price);
@@ -732,6 +953,7 @@ function orderText(id){
   L.push("","TOTAL: $"+total());
   L.push("","I agree to the Posted Up Produce Order Terms (October 2026), including the refund and cancellation policy.");
   if(!isWait())L.push("I understand my order isn't shopped until payment arrives (Zelle or Apple Cash by 9 PM the night before).");
+  if(!isWait()&&ZELLE)L.push("","Pay here: https://postedupproduce.github.io/pay/?o="+id+"&a="+total());
   return L.join("\n");
 }
 function orderPayload(id){
@@ -743,7 +965,7 @@ function orderPayload(id){
   return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),email:state.email.trim(),
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
-    notes:state.notes.trim(),items,deliveryFee:fee(),total:total(),
+    notes:[hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
     logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":REWARD_SHEET[state.reward]||""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),earlyDrop:earlyOK()?"Yes":"",waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
@@ -761,7 +983,8 @@ function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>
 /* Beta founder rate: 10% off boxes on meet-up orders, rounded to whole dollars. */
 function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
 function total(){return subtotal()+fee()-discount()-founderOff()}
-function datesFor(){return isDel()?DATES.filter(d=>new Date(d.v+"T12:00").getDay()===3):DATES}
+function curStop(){return isDel()?delStop():STOPS.find(x=>x.id===state.fulfill)}
+function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;return ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES}
 function setMode(m){
   if(m===state.mode)return;
   state.mode=m;
@@ -775,23 +998,25 @@ function renderTicket(){
   const t=document.getElementById("ticketBody");t.textContent="";
   const n=count(),b=BOXES.find(x=>x.id===state.box);
   document.getElementById("barText").textContent=n?n+" item"+(n>1?"s":"")+" · $"+total():"No items yet";
+  document.getElementById("bar").hidden=!n||!!state.sent;
   if(state.sent){
     const txt=state.sent;
     const pre=el("pre",{id:"orderPre"},txt);
     const msg=el("p",{class:"note",id:"copyMsg"},"");
     t.append(el("div",{class:"done"},
-      el("h2",{},"Thank you for ordering!"),
+      el("h2",{},state.wait?"You're on the waitlist":"Order in! Last step: pay"),
       ...(state.dupe?[el("p",{class:"note",style:"margin:0;color:var(--tomato);font-weight:700"},"You already placed this exact order, so here's your ticket. No need to order again."),el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;state.dupe=false;state.forceNew=true;renderTicket()}},"I really want a second order")]:[]),
-      el("p",{class:"thanks"},"You're one of our first Posted Up customers, and that means a lot. Every order keeps money with small farms and makers close to home and helps us shape this pilot."),
       el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.wait?"You're on the waitlist for that day. Don't pay yet. If a spot opens, we'll text you to confirm and send payment details. Want a sure spot? Pick another day.":state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
-        "Your order is in. Last step: pay by 9 PM the night before (we can't take payment at pickup). "+(ZELLE?"Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
+        "Pay by 9 PM the night before. Your order is shopped once it's paid. Your ticket is below; we text you at each step.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
-      pre,
-      el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
-      msg,
+      ...(!state.wait&&state.sendStatus==="sent"&&ZELLE?[payBlock(txt)]:[]),
+      ...(!state.wait&&state.sendStatus==="sent"&&state.box?[hookBlock(txt)]:[]),
+      ...(!state.wait&&state.sendStatus==="sent"?[nextVoteBlock(txt)]:[]),
+      el("details",{class:"tix"},el("summary",{},"Show my order ticket"),pre,
+      el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),msg),
       el("div",{class:"contact"},
         el("div",{},"Text: ",el("code",{},"773-807-9223")),
-        el("div",{},"Track it: ",el("a",{href:"track.html?o="+(txt.match(/#(\d+)/)||[])[1],style:"color:var(--tomato);font-weight:700"},"Order status page"))),
+        el("div",{},"Track it: ",el("a",{href:"/track.html?o="+(txt.match(/#(\d+)/)||[])[1],style:"color:var(--tomato);font-weight:700"},"Order status page"))),
       el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;renderTicket()}},"Back to menu")));
     return;
   }
@@ -800,6 +1025,7 @@ function renderTicket(){
   t.append(el("h2",{},"Your Order"));
   const lines=el("div",{class:"lines"});
   if(!n)lines.append(el("p",{class:"empty"},"Pick a box or add something from the menu."));
+  if(hwInCart())lines.append(el("p",{class:"note"},"🎃 Halloween Haul: your Half Peck gets a pie pumpkin, plus cider and a pastry."));
   if(b)lines.append(el("div",{class:"line"},el("span",{},b.name+" box"),el("span",{},"$"+b.price)));
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   if(bb)lines.append(el("div",{class:"line"},el("span",{},bb.name),el("span",{},"$"+bb.price)));
@@ -819,30 +1045,32 @@ function renderTicket(){
   t.append(el("div",{class:"total"},el("span",{},"Total"),el("span",{},"$"+total())));
   const f=el("form",{novalidate:"",style:"display:grid;gap:10px"});
   const inp=(id,lab,type,ph)=>{const i=el("input",{id,type,placeholder:ph,autocomplete:id==="phone"?"tel":id==="email"?"email":"name"});i.value=state[id];i.addEventListener("input",()=>state[id]=i.value);return el("label",{for:id},lab,i)};
-  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
+  const where=el("div",{class:"where"},el("b",{},"Where and when"));f.append(where);
   const more=el("details",{class:"more"});if(state.moreOpen)more.open=true;more.addEventListener("toggle",()=>state.moreOpen=more.open);
-  more.append(el("summary",{},"More options (optional)",el("small",{},"Email updates, swaps, notes"+(isDel()?"":", early drop-off"))));
+  more.append(el("summary",{},"More options (optional)",el("small",{},"Email updates, swaps, notes")));
   const mb=el("div",{class:"more-in"});more.append(mb);
   mb.append(inp("email","Email for order updates","email","We email you at each step: paid, shopped, ready"));
   const fs=el("select",{id:"fulfill"});
-  for(const s of STOPS)fs.append(el("option",{value:s.id},"Meet-up · "+s.name+", "+s.time));
-  for(const st of STOPS)fs.append(el("option",{value:"del-"+st.id},"Delivery from "+st.name+" · Wed, after "+st.time.split("–")[1]+" (from $"+DELIVERY_FEE+")"));
+  const open=STOPS.filter(st=>DATES.some(d=>new Date(d.v+"T12:00").getDay()===st.day));
+  for(const s of open)fs.append(el("option",{value:s.id},s.dayName+" pickup · "+s.name+", "+s.time));
+  const openDel=DELIVERIES.filter(x=>DATES.some(d=>x.days.includes(new Date(d.v+"T12:00").getDay())));
+  for(const x of openDel)fs.append(el("option",{value:"del-"+x.id},"Delivery to my door · after "+x.delAfter+(x.days.length===1?" (Wed only)":"")+" · near "+x.area+" (from $"+DELIVERY_FEE+")"));
   fs.value=state.fulfill;
   fs.addEventListener("change",()=>{state.fulfill=fs.value;const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()});
-  f.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of the stop, then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window.":"We text the exact meet-up spot after you order."));
+  where.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of "+delStop().area+", then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window.":"We text the exact meet-up spot after you order."));
   if(isDel()){
     const a=el("input",{id:"address",type:"text",placeholder:"Street, unit, zip",autocomplete:"street-address"});a.value=state.address;a.addEventListener("input",()=>state.address=a.value);
-    f.append(el("label",{for:"address"},"Delivery address",a));
-  } else {
-    const ed=el("input",{id:"early",type:"checkbox"});ed.checked=state.early;ed.addEventListener("change",()=>{state.early=ed.checked});
-    mb.append(el("label",{for:"early",class:"agree"},ed,el("span",{},el("b",{},"Free early drop-off, if it fits my route"),el("br"),"If we finish early, we may bring it to your door before your meet-up, free. We text first; if not, pick up as planned.")));
+    where.append(el("label",{for:"address"},"Delivery address",a));
   }
   const ds=datesFor();
   const sel=el("select",{id:"date"});
-  if(!ds.length)sel.append(el("option",{value:""},isDel()?"No Wednesday deliveries open right now":"No pickups open right now"));
+  if(!ds.length)sel.append(el("option",{value:""},isDel()?"No deliveries open right now":"No pickups open right now"));
   for(const d of ds){const l=spotsLeft(d.v);const o=el("option",{value:d.v},d.label+(l===0?" · full, join the waitlist":l!=null&&l<=3?" · "+l+" spot"+(l>1?"s":"")+" left":""));if(d.v===state.date)o.selected=true;sel.append(o)}
   sel.addEventListener("change",()=>{state.date=sel.value;renderTicket()});
-  f.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
+  where.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
+  if(!isDel()){const ed=el("input",{id:"early",type:"checkbox"});ed.checked=!!state.early;ed.addEventListener("change",()=>{state.early=ed.checked});
+    where.append(el("label",{for:"early",class:"agree"},ed,el("span",{},el("b",{},"OK to drop it at my door earlier, free"),el("br"),"If I'm done shopping early and you're on my route, I'll bring it to you before pickup. I text first to get your address; if it doesn't fit, pick up as planned. Questions? Text 773-807-9223.")))}
+  f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
   const ss=el("select",{id:"sub"});
   ss.append(el("option",{value:"credit"},"Credit it to my next order"),el("option",{value:"replace"},"Replace it with equal or greater value"),el("option",{value:"refund"},"Refund me for it"));
   ss.value=state.sub;ss.addEventListener("change",()=>state.sub=ss.value);
@@ -896,7 +1124,7 @@ function renderTicket(){
       if(last&&last.sig===sig&&Date.now()-last.at<3600000&&!state.forceNew){state.sent=last.txt;state.wait=last.wait;state.sendStatus="sent";state.dupe=true;renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});return}}catch(e){}
     state.forceNew=false;state.dupe=false;
     const id=(Date.now()%100000).toString().padStart(5,"0");
-    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
+    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-cart",JSON.stringify({box:state.box,breadBox:state.breadBox,qty:state.qty,mode:state.mode,fulfill:state.fulfill,name:state.name,phone:state.phone,email:state.email,address:state.address,notes:state.notes,hw:state.hw||false,at:Date.now()}))}catch(e){}try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
     sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
   });
   t.append(f);
@@ -926,10 +1154,10 @@ tickNow();setInterval(()=>{const fresh=pickupDates();if(fresh.map(d=>d.v).join()
 /* What's in season in Chicago, by month */
 const WM="https://thumb.wikimedia.org/wikipedia/commons/thumb/";
 const PHOTOS={"Grapes":WM+"7/7b/Concord_grapes.jpg/330px-Concord_grapes.jpg","Potatoes":WM+"0/00/Red_potatoes_-_Heart_of_the_City_Farmers%27_Market_-_San_Francisco.jpg/330px-Red_potatoes_-_Heart_of_the_City_Farmers%27_Market_-_San_Francisco.jpg","Kale & collards":WM+"8/81/SNAP%2A_Benefit_Feeds_Housholds_in_Need_%2820120414-DM-LSC-2819%29.jpg/330px-SNAP%2A_Benefit_Feeds_Housholds_in_Need_%2820120414-DM-LSC-2819%29.jpg","Kale":WM+"8/81/SNAP%2A_Benefit_Feeds_Housholds_in_Need_%2820120414-DM-LSC-2819%29.jpg/330px-SNAP%2A_Benefit_Feeds_Housholds_in_Need_%2820120414-DM-LSC-2819%29.jpg","Cabbage":WM+"8/88/Cabbage_in_a_stack.jpg/330px-Cabbage_in_a_stack.jpg","Cauliflower":WM+"3/34/Liat_Portal_for_Foodie_Disorder_-_Cauliflower_from_San_Francisco_farmers_market.jpg/330px-Liat_Portal_for_Foodie_Disorder_-_Cauliflower_from_San_Francisco_farmers_market.jpg","Radishes":WM+"a/a9/Radish_bunches.jpg/330px-Radish_bunches.jpg","Leeks & onions":WM+"1/17/Liat_Portal_for_Foodie_Disorder_-_Fresh_Leeks_from_San_Francisco_Farmers_Market.jpg/330px-Liat_Portal_for_Foodie_Disorder_-_Fresh_Leeks_from_San_Francisco_Farmers_Market.jpg","Garlic":WM+"7/76/Liat_Portal_for_Foodie_Disorder_-_Fresh_Garlic.jpg/330px-Liat_Portal_for_Foodie_Disorder_-_Fresh_Garlic.jpg","Fennel":WM+"d/de/Au_march%C3%A9_-_Fenouil.JPG/330px-Au_march%C3%A9_-_Fenouil.JPG","Last peppers":WM+"4/4a/Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg/330px-Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg","Peppers":WM+"4/4a/Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg/330px-Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg",
-  "Apples": "img/apples.jpg", "Pears": "img/pears.jpg", "Winter squash": "img/squash.jpg", "Pumpkins": "img/pumpkins.jpg", "Sweet potatoes": "img/sweetpotato.jpg", "Brussels sprouts": "img/brussels.jpg", "Beets": "img/beets.jpg", "Carrots": "img/carrots.jpg"};
+  "Apples": "/img/apples.jpg", "Pears": "/img/pears.jpg", "Winter squash": "/img/squash.jpg", "Pumpkins": "/img/pumpkins.jpg", "Sweet potatoes": "/img/sweetpotato.jpg", "Brussels sprouts": "/img/brussels.jpg", "Beets": "/img/beets.jpg", "Carrots": "/img/carrots.jpg"};
 const SEASON={
   9:{t:"September harvest",items:["Tomatoes","Sweet corn","Peppers","Eggplant","Melons","Apples","Pears","Grapes","Green beans","Summer squash","Kale","Potatoes","Onions","Herbs"]},
-  10:{t:"October harvest",items:["Apples","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Spinach","Cabbage","Cauliflower","Beets","Carrots","Turnips & rutabaga","Parsnips","Celery root","Radishes","Leeks & onions","Garlic","Fennel","Last peppers","Mushrooms","Microgreens","Herbs","Fresh apple cider"]},
+  10:{t:"October harvest",items:["Apples","Pears","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Spinach","Cabbage","Cauliflower","Beets","Carrots","Turnips & rutabaga","Parsnips","Celery root","Radishes","Leeks & onions","Garlic","Fennel","Last peppers","Mushrooms","Microgreens","Herbs","Fresh apple cider"]},
   11:{t:"November harvest",items:["Apples","Pears","Winter squash","Sweet potatoes","Potatoes","Brussels sprouts","Kale","Cabbage","Beets","Carrots","Parsnips","Turnips & rutabaga","Leeks & onions","Garlic","Celery root","Spinach","Microgreens"]},
   12:{t:"Winter market",items:["Storage apples","Winter squash","Potatoes","Sweet potatoes","Onions","Garlic","Carrots","Beets","Cabbage","Microgreens","Mushrooms"]}
 };
@@ -953,8 +1181,8 @@ const FROM={
   const fill=()=>{for(const i of withPh)ul.append(el("li",{class:"ph"},el("img",{src:PHOTOS[i],alt:i,loading:"lazy",width:"150",height:"112"}),el("span",{},i),from(i)));
     for(const i of rest)ul.append(el("li",{class:"tx"},el("span",{class:"soonph"},"Photo coming soon"),el("span",{},i),from(i)))};
   fill();
-  /* Ticker: second copy (hidden from screen readers) so the loop is seamless. Pauses on touch, hover or focus; off for reduced motion. */
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  /* Auto-scroll off (Oct 26 accessibility pass): a static, swipeable row. */
+  return;
   const n=ul.children.length;fill();for(let k=n;k<ul.children.length;k++)ul.children[k].setAttribute("aria-hidden","true");
   ul.style.scrollSnapType="none";
   let paused=false,resume=0,last=0,pos=0;
@@ -981,7 +1209,7 @@ function talkForm(id,build){
     r.hp=f.querySelector('input[name="website"]').value;
     const btn=f.querySelector("button[type=submit]");btn.disabled=true;btn.textContent="Sending…";
     try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(r)});
-      f.replaceChildren(el("h3",{},"Got it. Thank you!"),el("p",{class:"ok"},r.type==="meeting"?"We'll text or email you to confirm a time.":(r.contact?"Your bonus produce pick will be in your next order.":"Every note helps us shape the next season.")));}
+      f.replaceChildren(el("h3",{},"Got it. Thank you!"),el("p",{class:"ok"},r.ok?r.ok:r.type==="meeting"?"We'll text or email you to confirm a time.":(r.contact?"Your bonus produce pick will be in your next order.":"Every note helps us shape the next season.")));}
     catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
   });
 }
@@ -992,6 +1220,14 @@ talkForm("fbForm",f=>{const m=f.querySelector("#fbMsg").value.trim();if(m.length
 talkForm("mtForm",f=>{const n=f.querySelector("#mtName").value.trim(),c=f.querySelector("#mtContact").value.trim(),t1=f.querySelector("#mtT1").value,t2=f.querySelector("#mtT2").value;
   if(!n||c.length<7)return "Add your name and a phone number or email.";if(!t1)return "Pick at least one time that works.";const nowS=Date.now();if([t1,t2].filter(Boolean).some(t=>new Date(t).getTime()<nowS))return "Pick times in the future.";
   return {type:"meeting",name:n,contact:c,message:f.querySelector("#mtMsg").value.trim(),times:[fmtT(t1),fmtT(t2)].filter(Boolean).join(" | ")}});
+/* Standing Order requests post as type "feedback" (details in the message) so they land on the Feedback tab, like /preview/. */
+(function(){const f=document.getElementById("soForm");if(!f)return;const upd=()=>{const b=f.querySelector('input[name="soBox"]:checked');document.getElementById("soBtn").textContent="Start standing · $"+b.dataset.p+" a box"};f.addEventListener("change",upd)})();
+talkForm("soForm",f=>{const n=f.querySelector("#soName").value.trim(),p=f.querySelector("#soPhone").value.trim();
+  if(!n)return "Add your name.";if(p.replace(/\D/g,"").length<10)return "Add a 10-digit mobile number.";
+  const b=f.querySelector('input[name="soBox"]:checked'),w=f.querySelector('input[name="soWhere"]:checked');
+  const src=(new URLSearchParams(location.search).get("s")||"next").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"next";
+  return {type:"feedback",name:n,contact:"",message:["STANDING ORDER REQUEST","Mobile: "+p,"Box: "+b.value+" ($"+b.dataset.p+")","Day: Saturdays","Where: "+w.value,"Source: "+src].join(" · "),times:"",ok:"We'll text you to confirm your Standing Order and your first Saturday."}});
+document.querySelectorAll("[data-del]").forEach(a=>a.addEventListener("click",()=>{const nx=DATES[0]?new Date(DATES[0].v+"T12:00").getDay():6;state.fulfill="del-"+((DELIVERIES.find(x=>x.days.includes(nx))||DELIVERIES[2]).id);const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}));
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
 /* Carry the incoming ?s= tag onto every site tab so Visits/Contacts attribution survives. */
@@ -1013,13 +1249,106 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
     else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
     const changed=v!==cur;cur=v;
     secs.forEach(s=>s.classList.toggle("offview",!s.dataset.view.split(" ").includes(v)));
-    tabs.forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);const on=u.pathname==="/"&&((v==="home"&&!["#shop","#inventory"].includes(u.hash))||(v==="shop"&&u.hash==="#shop")||(v==="inventory"&&u.hash==="#inventory"));on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+    tabs.forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);const on=u.pathname==="/"&&((v==="home"&&!["#shop","#inventory","#how"].includes(u.hash))||(v==="shop"&&u.hash==="#shop")||(v==="inventory"&&u.hash==="#inventory"));on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
     const deep=el&&!["shop","boxes","inventory","start"].includes(h);
     if(deep)requestAnimationFrame(()=>el.scrollIntoView({behavior:first?"auto":"smooth",block:"start"}));
     else if(changed&&!first)scrollTo(0,0);
     else if(first&&(h==="shop"||h==="inventory"))scrollTo(0,0);
   };
   go(true);addEventListener("hashchange",()=>go(false));
+})();
+/* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
+   Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
+function payBlock(txt){
+  const amt=(txt.match(/TOTAL: \$([\d.]+)/)||[])[1]||"",no=(txt.match(/#(\d+)/)||[])[1]||"";
+  const memo="POSTED #"+no;
+  const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
+  const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);st.textContent=m}catch(e){st.textContent="Zelle "+v+" · send $"+amt+" · memo "+memo}};
+  const tel=APPLE_CASH.replace(/\D/g,"");
+  const apple=/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+  const mkAC=()=>el("a",{class:"pay-btn ac",href:"sms:+1"+tel+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash")},"Pay with Apple Cash",el("small",{},apple?"Opens Messages · tap the $"+amt+" to pay":"iPhone only · opens a text to "+APPLE_CASH));
+  const mkZL=()=>el("button",{type:"button",class:"pay-btn zl",onclick:()=>copy(ZELLE,"Copied "+ZELLE+". Open your bank app → Zelle → paste it as the recipient, send $"+amt+", memo "+memo+".")},"Pay with Zelle",el("small",{},"Copies "+ZELLE));
+  const box=el("div",{class:"pay"},
+    el("div",{class:"pay-amt"},el("span",{},"Pay now"),el("b",{},"$"+amt)),
+    el("p",{class:"pay-memo"},"Memo: ",el("b",{},memo)),
+    ...(apple?[mkAC(),mkZL()]:[mkZL(),mkAC()]),
+    st,
+    el("button",{type:"button",class:"ghost",onclick:async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
+      try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · Mobile: "+state.phone.trim()+(SRC_TAG?" · Source: "+SRC_TAG:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
+      catch(x){b.disabled=false;b.textContent="I've paid"}}},"I've paid"));
+  return box;
+}
+/* Hook (Oct 27, Sol: "get em in, get em ordering, get em hooked, get em out"): after ordering, one tap asks for this box every Saturday.
+   Posts a STANDING ORDER REQUEST to the Feedback tab (same format as the Standing Order form); Sol confirms by text. */
+function hookDay(){return "Saturday"} /* Standing Orders are Saturdays: the market's last Wednesday is Oct 28 (GCM newsletter, Oct 23). */
+function hookBlock(txt){
+  const b=BOXES.find(x=>x.id===state.box);if(!b)return el("span");
+  const no=(txt.match(/#(\d+)/)||[])[1]||"";
+  const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
+  const btn=el("button",{type:"button",class:"go",onclick:async()=>{btn.disabled=true;btn.textContent="Sending…";
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["STANDING ORDER REQUEST","Mobile: "+state.phone.trim(),"Box: "+b.name+" ($"+b.price+")","Day: "+hookDay()+"s","Where: "+(isDel()?"My door":"Hyde Park meet-up"),"From order #"+no,"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
+      btn.remove();st.textContent="You're in. We'll text you to confirm your weekly "+b.name+". Skip or stop any week by 9 PM the night before."}
+    catch(x){btn.disabled=false;btn.textContent="Yes, make it weekly";st.textContent="That didn't go through. Text 773-807-9223."}}},"Yes, make it weekly");
+  return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name+" every Saturday. Your spot is held, delivery is free, every 4th box gets a free add-on. Skip any week."),btn,st);
+}
+/* Get 'em back (Oct 27): a device that ordered before sees "Reorder your last haul" on Home; one tap refills the cart, name and phone, then opens checkout. */
+const REORDER_ON=false; /* Off for now (Sol, Oct 27). Set true to bring back the welcome-back reorder card. */
+(function(){
+  if(!REORDER_ON)return;
+  let c=null;try{c=JSON.parse(localStorage.getItem("pu-cart")||"null")}catch(e){}
+  if(!c||(!c.box&&!c.breadBox&&!Object.keys(c.qty||{}).length))return;
+  const b=BOXES.find(x=>x.id===c.box),bb=BREADBOXES.find(x=>x.id===c.breadBox);
+  const bits=[b&&b.name,bb&&bb.name,...ALL.filter(i=>c.qty&&c.qty[i.id]).map(i=>c.qty[i.id]>1?c.qty[i.id]+" × "+i.nm:i.nm)].filter(Boolean);
+  const sec=document.getElementById("welcomeBack");if(!sec||!bits.length)return;
+  document.getElementById("wbWhat").textContent=(c.name?c.name.split(" ")[0]+", last time: ":"Last time: ")+bits.slice(0,5).join(", ")+(bits.length>5?" and more":"")+".";
+  sec.hidden=false;
+  document.getElementById("wbGo").addEventListener("click",()=>{
+    state.box=b?b.id:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(c.qty&&c.qty[i.id])state.qty[i.id]=c.qty[i.id];
+    state.mode=c.mode||"box";state.hw=!!c.hw&&typeof hwOn==="function"&&hwOn();state.name=c.name||"";state.phone=c.phone||"";state.email=c.email||"";state.address=c.address||"";state.notes=c.notes||"";
+    const okStop=STOPS.some(x=>x.id===c.fulfill)||DELIVERIES.some(x=>"del-"+x.id===c.fulfill);state.fulfill=okStop?c.fulfill:state.fulfill;
+    if(!datesFor().length)state.fulfill=String(c.fulfill||"").startsWith("del-")?"del-hyde":"hyde";
+    const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";
+    if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"});
+})();
+/* What's next vote (Oct 27, Sol): after ordering, pick what we should launch next; thank-you (pastry or fun produce) goes in THIS order.
+   Posts "NEXT VOTE" to the Feedback tab; Sol adds the thank-you to the order by its number. */
+const NEXT_OPTS=[["standing","A weekly box (Standing Order)"],["office","Drops at my office"],["gift","Gift boxes for friends & family"],["winter","Boxes all winter from the indoor market"]];
+function nextVoteBlock(txt){
+  const no=(txt.match(/#(\d+)/)||[])[1]||"";
+  let done=false;try{done=localStorage.getItem("pu-nextvote-"+no)==="1"}catch(e){}
+  const box=el("div",{class:"hook nextv"});
+  if(done){box.append(el("b",{},"Thanks for voting!"),el("span",{},"Your thank-you is in this order."));return box}
+  const picks=el("div",{class:"vopts"});
+  for(const [v,t] of NEXT_OPTS){const i=el("input",{type:"checkbox",value:v});picks.append(el("label",{class:"ropt"},i,el("span",{},t)))}
+  const gifts=el("div",{class:"vopts"});
+  for(const [v,t] of [["Pastry","A fresh pastry"],["Fun produce","A fun produce pick"]]){const i=el("input",{type:"radio",name:"nvGift",value:v});if(v==="Pastry")i.checked=true;gifts.append(el("label",{class:"ropt"},i,el("span",{},t)))}
+  const where=el("input",{type:"text",maxlength:"60",placeholder:"Office or neighborhood (optional)"});
+  const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
+  const btn=el("button",{type:"button",class:"go",onclick:async()=>{
+    const chosen=[...picks.querySelectorAll("input:checked")].map(i=>NEXT_OPTS.find(o=>o[0]===i.value)[1]);
+    if(!chosen.length){st.textContent="Pick at least one.";return}
+    const gift=(gifts.querySelector("input:checked")||{}).value||"Pastry";
+    btn.disabled=true;btn.textContent="Sending…";
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["NEXT VOTE","Order #"+no,"Picks: "+chosen.join(" + "),"Thank-you (this order): "+gift,"Office/area: "+(where.value.trim()||"—"),"Mobile: "+state.phone.trim(),"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
+      try{localStorage.setItem("pu-nextvote-"+no,"1")}catch(e){}
+      box.replaceChildren(el("b",{},"Thanks for voting!"),el("span",{},"A "+(gift==="Pastry"?"fresh pastry":"fun produce pick")+" is going in this order."))}
+    catch(x){btn.disabled=false;btn.textContent="Send my vote";st.textContent="That didn't go through. Text 773-807-9223."}}},"Send my vote");
+  box.append(el("b",{},"Help pick what's next, get a treat"),el("span",{},"Coming soon: which would you use? Pick any. We'll tuck a thank-you into this order."),picks,el("span",{style:"font-weight:700"},"Your thank-you"),gifts,where,btn,st);
+  return box;
+}
+/* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
+const HW_END=new Date(2026,10,1,0,0);
+function hwOn(){return chiNow()<HW_END}
+function hwInCart(){return state.hw&&state.box==="halfpeck"&&state.qty.cider>0&&state.qty.pastry>0}
+(function(){
+  if(!hwOn())return;
+  const sec=document.getElementById("halloween");if(!sec)return;sec.hidden=false;
+  const sp=document.getElementById("spotlight");if(sp)sp.hidden=true;
+  const sm=document.getElementById("actSmall");if(sm)sm.textContent="🎃 Halloween Haul $67 · boxes from $50";
+  const hs=document.getElementById("hwShop");if(hs)hs.hidden=false;
+  const addHw=()=>{state.box="halfpeck";state.mode="box";state.qty.cider=Math.max(1,state.qty.cider||0);state.qty.pastry=Math.max(1,state.qty.pastry||0);state.hw=true;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
+  document.getElementById("hwAdd").addEventListener("click",addHw);
+  document.querySelectorAll("[data-hw]").forEach(b=>b.addEventListener("click",addHw));
 })();
 /* Box spotlight: fills from BOXES so contents and price stay in sync with Pick your haul. */
 (function(){
@@ -1029,18 +1358,21 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   document.getElementById("spotAdd").addEventListener("click",()=>{state.box=b.id;state.mode="box";if(window.puCart)puCart();renderBoxes();renderTicket();location.hash="#shop"});
 })();
 /* First-visit splash (remembered on the device as pu-splash). Skipped for ?me, deep links (#...) and repeat visitors. */
-const SPLASH_LOGO="";
+const SPLASH_LOGO='<img src="/logos/harvest-stamp.png" alt="Posted Up: picked for you" width="560" height="560">';
 /* Splash back on 2026-10-24 (Sol): type stamp + rings. Set SPLASH_ON=false to switch it off. */
 const SPLASH_ON=true;
 (function(){
   if(!SPLASH_ON)return;
-  let seen=false;try{seen=!!localStorage.getItem("pu-splash")||!!localStorage.getItem("pu-me");localStorage.setItem("pu-splash","1")}catch(e){}
-  if(seen||location.hash||/[?&]me(=|&|$)/.test(location.search))return;
+  /* Shows on every visit (Sol, Oct 26). Skipped only for ?me devices and #deep links. */
+  let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
+  if(me||location.hash||/[?&]me(=|&|$)/.test(location.search))return;
   const ct=(document.getElementById("closeTop")||{}).textContent||"";
   const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");
-  d.innerHTML='<div class="pu-wrap"><span class="pu-ring"></span><span class="pu-ring r2"></span><div class="pu-mark">'+(SPLASH_LOGO||'<div class="pu-type">Posted<br>Up<small>Produce</small></div>')+'</div></div><p class="pu-tag">Market haul, picked for you.</p>'+(ct?'<p class="pu-cut"></p>':'')+'<span class="pu-skip">Tap to skip</span>';
+  d.innerHTML='<div class="pu-wrap"><span class="pu-ring"></span><span class="pu-ring r2"></span><div class="pu-mark">'+(SPLASH_LOGO||'<div class="pu-type">Posted<br>Up<small>Produce</small></div>')+'</div></div><p class="pu-tag"><span><i>1</i>Pick a box</span><span><i>2</i>Pay by 9&nbsp;PM the night before</span><span><i>3</i>Pick it up or get it delivered the same day</span></p>'+(ct?'<p class="pu-cut"></p>':'')+'<span class="pu-skip">Tap to start</span>';
   if(ct)d.querySelector(".pu-cut").textContent=/^closes /i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):ct;
-  const done=()=>d.remove();
+  const key=e=>{if(["Escape","Enter"," "].includes(e.key)){e.preventDefault();done()}};
+  const done=()=>{d.remove();removeEventListener("keydown",key)};
+  addEventListener("keydown",key);
   d.addEventListener("click",done);d.addEventListener("animationend",e=>{if(e.target===d&&e.animationName==="pu-out")done()});
   document.body.append(d);
 })();
