@@ -330,6 +330,10 @@ details.vdet .vote{border:0;padding:0 0 14px}
 @media (prefers-reduced-motion:reduce){#pu-splash,#pu-splash *{animation:none!important}#pu-splash{animation:pu-out .2s linear 1.5s forwards!important}}
 /* Box spotlight on Home */
 .spot{display:grid;gap:10px}
+.spot.hw{border:3px solid #E0782F;border-radius:14px;padding:18px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
+.spot.hw .k{color:#B4561A}
+.spot.hw .price{font:400 22px/1 var(--display)}
+.spot.hw .go{background:#E0782F}
 .spot .k{font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--tomato)}
 .spot h2{margin:0}
 .spot .meta{font-weight:700;color:var(--muted);font-size:15px;margin:0}
@@ -363,7 +367,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <p class="now" id="now" aria-live="polite">Chicago time</p>
       <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
       <div class="acts">
-        <a class="act a1" href="#shop"><span>Order this week's box<small>Half Peck $50 · Full Crate $72 · Vegan $68</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+        <a class="act a1" href="#shop"><span>Order this week's box<small id="actSmall">Half Peck $50 · Full Crate $72 · Vegan $68</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
         <a class="act a2" href="#shop" data-del><span>Get it delivered<small>Same day, to your door · from $8</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
         <a class="act a3" href="#standing"><span>Set a Standing Order<small>Same box every Saturday · free delivery · skip any week</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
       </div>
@@ -374,6 +378,15 @@ details.vdet .vote{border:0;padding:0 0 14px}
       </div>
       <p class="from">Pay by 9 PM the night before · bread, cheese &amp; pantry add-ons · no subscription needed</p>
     </div>
+  </section>
+
+  <section class="post spot hw" data-view="home" id="halloween" aria-labelledby="hwH" hidden>
+    <span class="k">🎃 Halloween special · Wed 10/28 + Sat 10/31</span>
+    <h2 id="hwH">Halloween Haul · $67</h2>
+    <p class="meta" style="color:var(--ink)">$62 at a pickup with the beta founder rate</p>
+    <p class="meta">A Half Peck with a pie pumpkin swapped in, a jug of fresh-pressed cider and a fresh pastry.</p>
+    <ul><li>Pie pumpkin</li><li>2 lb orchard apples</li><li>2 lb sweet potatoes</li><li>2 lb beets</li><li>Onions</li><li>1 bunch kale</li><li>Apple cider jug</li><li>1 pastry</li></ul>
+    <div class="row2"><button type="button" class="go" id="hwAdd" style="flex:1 1 200px">Add the Halloween Haul</button><a href="#shop">Or pick a box &rarr;</a></div>
   </section>
 
   <section class="post spot" data-view="home" aria-labelledby="spotH">
@@ -425,17 +438,15 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <div class="row boxes" id="boxes"></div>
       <div class="items" data-cat="produce"></div>
     </div>
-    <a class="hop" href="#inventory">Add meat, bread, cheese and more <span aria-hidden="true">&rarr;</span></a>
+    <a class="hop" href="#inventory">Add eggs, meat, bread, cider and more <span aria-hidden="true">&rarr;</span></a>
   </section>
 
   <section class="post" data-view="inventory" id="inventory" aria-labelledby="addH">
     <h2 id="addH">Add to your order</h2>
     <nav class="row tabs" role="tablist" aria-label="Menu sections">
       <button class="tab" role="tab" aria-selected="true" data-go="meat">Meat, fish &amp; eggs</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="bread">Bread &amp; bakery</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="cheese">Cheese</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="specialty">Specialty</button>
-      <button class="tab" role="tab" aria-selected="false" data-go="pantry">Pantry</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="bread">Bread &amp; cheese</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="pantry">Cider, sauce &amp; pantry</button>
     </nav>
     <div class="bin" id="meat">
       <h3>Meat, fish &amp; eggs</h3>
@@ -443,25 +454,17 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <div class="items" data-cat="meat"></div>
     </div>
     <div class="bin" id="bread">
-      <h3>Bread &amp; bakery</h3>
-      <p class="sub">Baked by local makers the morning of market.</p>
+      <h3>Bread &amp; cheese</h3>
+      <p class="sub">Baked by local makers the morning of market, plus small-creamery cheese kept cold to your handoff.</p>
       <div class="row boxes" id="breadboxes"></div>
       <div class="items" data-cat="bread"></div>
-    </div>
-    <div class="bin" id="cheese">
-      <h3>Cheese</h3>
-      <p class="sub">Farmstead and cave-aged cheeses from small creameries in Illinois and Indiana. Kept cold from the stand to your handoff.</p>
       <div class="items" data-cat="cheese"></div>
     </div>
-    <div class="bin" id="specialty">
-      <h3>Specialty</h3>
-      <p class="sub">Small-batch hot sauces from a southern Wisconsin farm kitchen, plus mushroom tinctures, teas and coffee from a Chicagoland mushroom grower.</p>
-      <div class="items" data-cat="specialty"></div>
-    </div>
     <div class="bin" id="pantry">
-      <h3>Pantry</h3>
-      <p class="sub">Small-batch staples from orchards and farm kitchens. They keep, so stock up.</p>
+      <h3>Cider, sauce &amp; pantry</h3>
+      <p class="sub">Fresh-pressed cider, small-batch hot sauce and farm-kitchen staples.</p>
       <div class="items" data-cat="pantry"></div>
+      <div class="items" data-cat="specialty"></div>
     </div>
     <a class="hop" href="#shop"><span aria-hidden="true">&larr;</span> Back to produce boxes</a>
   </section>
@@ -656,48 +659,34 @@ const ITEMS={
     {id:"salad",nm:"Salad greens & microgreens",ds:"e.g. spinach, arugula, pea shoots, sunflower shoots",p:8},
     {id:"brassica",nm:"Cabbage family",ds:"e.g. Brussels sprouts, cabbage, broccoli, cauliflower",p:8},
     {id:"alliums",nm:"Onions & garlic",ds:"e.g. sweet or red onions, leeks, shallots, garlic",p:8},
-    {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. bell, poblano, shishito, fennel, celery",p:8}
+    {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. fennel, celery root, radishes, last peppers while they last",p:8}
   ],
   meat:[
     {id:"meatbox",nm:"Meat Lovers Box",ds:"Box · steak night (10–12 oz), an everyday cut, 1 lb ground and 1 lb sausage · save $10 vs. buying each",p:89},
     {id:"lakehaul",nm:"Lake Haul",ds:"Box · 2 wild Great Lakes fish fillets plus smoked fish or pâté · save $8 vs. buying each",p:70},
     {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10},
     {id:"ground",nm:"Ground meat, 1 lb",ds:"e.g. grass-fed beef or pastured pork",p:17},
-    {id:"everyday",nm:"Everyday cut, about 1 lb",ds:"e.g. pork chops, tenderloin, beef stew meat, fajita meat",p:24},
-    {id:"steak",nm:"Steak night, 10–12 oz",ds:"e.g. sirloin, Delmonico, flat iron",p:38},
     {id:"sausage",nm:"Sausage, about 1 lb",ds:"e.g. andouille, bratwurst, breakfast links",p:20},
     {id:"fish",nm:"Great Lakes fish fillet",ds:"~8–16 oz · e.g. walleye, whitefish, lake trout, wild salmon",p:30},
-    {id:"cured",nm:"Smoked & cured",ds:"e.g. salami, smoked fish pâté, pork snack sticks",p:18}
   ],
   bread:[
     {id:"sour",nm:"Sourdough loaf",ds:"e.g. miche, black rye, polenta, classic",p:14},
-    {id:"special",nm:"Specialty loaf",ds:"e.g. olive, garlic Asiago, jalapeño cheddar",p:18},
-    {id:"baguette",nm:"Baguette",ds:"Each",p:7},
-    {id:"bagels",nm:"Bagels, 4-pack",ds:"e.g. everything, sesame, Asiago, pretzel",p:15},
     {id:"pastry",nm:"Pastry",ds:"Each · e.g. croissant, scone, danish, muffin, monkey bun",p:8},
-    {id:"cookie",nm:"Big cookie",ds:"Each · e.g. chocolate chip, sprinkle, oatmeal raisin",p:6}
   ],
   cheese:[
     {id:"chevre",nm:"Fresh goat cheese",ds:"e.g. herbed chèvre, or feta with herbs in oil",p:14},
-    {id:"farmstead",nm:"Aged farmstead cheese",ds:"Wedge · e.g. goat's milk toma, Jersey cow tomme, cheddar-style blue",p:20},
     {id:"cheddar",nm:"Cave-aged cheddar",ds:"Wedge · from an Illinois dairy farm",p:22},
-    {id:"brie",nm:"Bloomy-rind cheese, 7 oz",ds:"e.g. brie or camembert, cave-aged",p:29}
   ],
   specialty:[
     {id:"hsmild",nm:"Hot sauce: mild & green",ds:"Bottle · bright, tangy heat, e.g. jalapeño lime or tomatillo",p:10},
     {id:"hsfruit",nm:"Hot sauce: fruity & hot",ds:"Bottle · sweet-hot, e.g. mango habanero or Jamaican jerk",p:10},
     {id:"hsxhot",nm:"Hot sauce: extra hot",ds:"Bottle · for heat seekers, ghost pepper and friends",p:10},
-    {id:"tincture",nm:"Mushroom tincture, 2 fl oz",ds:"Dual-extracted · e.g. lion's mane, reishi, turkey tail, chaga · contains alcohol",p:37},
-    {id:"mushtea",nm:"Mushroom tea or coffee",ds:"e.g. reishi & lion's mane tea, lion's mane instant coffee",p:36}
   ],
   pantry:[
     {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
     {id:"maple",nm:"Maple syrup",ds:"Pint",p:19},
-    {id:"honey",nm:"Raw honey",ds:"~1–1.5 lb jar",p:21},
     {id:"butter",nm:"Grass-fed butter",ds:"1 lb",p:13},
-    {id:"broth",nm:"Bone broth",ds:"16 oz · e.g. beef, chicken, turkey",p:15},
     {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. cherry lavender or peach jalapeño jam, apple butter, dilly beans, giardiniera",p:13},
-    {id:"berries",nm:"Frozen berries",ds:"2 lb bag · e.g. red raspberries",p:13}
   ]
 };
 const ALL=Object.values(ITEMS).flat();
@@ -836,7 +825,7 @@ function orderPayload(id){
   return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),email:state.email.trim(),
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
-    notes:[state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
+    notes:[hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
     logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":REWARD_SHEET[state.reward]||""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),earlyDrop:earlyOK()?"Yes":"",waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
@@ -894,6 +883,7 @@ function renderTicket(){
   t.append(el("h2",{},"Your Order"));
   const lines=el("div",{class:"lines"});
   if(!n)lines.append(el("p",{class:"empty"},"Pick a box or add something from the menu."));
+  if(hwInCart())lines.append(el("p",{class:"note"},"🎃 Halloween Haul: your Half Peck gets a pie pumpkin, plus cider and a pastry."));
   if(b)lines.append(el("div",{class:"line"},el("span",{},b.name+" box"),el("span",{},"$"+b.price)));
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   if(bb)lines.append(el("div",{class:"line"},el("span",{},bb.name),el("span",{},"$"+bb.price)));
@@ -1022,7 +1012,7 @@ const PHOTOS={"Grapes":WM+"7/7b/Concord_grapes.jpg/330px-Concord_grapes.jpg","Po
   "Apples": "/img/apples.jpg", "Pears": "/img/pears.jpg", "Winter squash": "/img/squash.jpg", "Pumpkins": "/img/pumpkins.jpg", "Sweet potatoes": "/img/sweetpotato.jpg", "Brussels sprouts": "/img/brussels.jpg", "Beets": "/img/beets.jpg", "Carrots": "/img/carrots.jpg"};
 const SEASON={
   9:{t:"September harvest",items:["Tomatoes","Sweet corn","Peppers","Eggplant","Melons","Apples","Pears","Grapes","Green beans","Summer squash","Kale","Potatoes","Onions","Herbs"]},
-  10:{t:"October harvest",items:["Apples","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Spinach","Cabbage","Cauliflower","Beets","Carrots","Turnips & rutabaga","Parsnips","Celery root","Radishes","Leeks & onions","Garlic","Fennel","Last peppers","Mushrooms","Microgreens","Herbs","Fresh apple cider"]},
+  10:{t:"October harvest",items:["Apples","Pears","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Spinach","Cabbage","Cauliflower","Beets","Carrots","Turnips & rutabaga","Parsnips","Celery root","Radishes","Leeks & onions","Garlic","Fennel","Last peppers","Mushrooms","Microgreens","Herbs","Fresh apple cider"]},
   11:{t:"November harvest",items:["Apples","Pears","Winter squash","Sweet potatoes","Potatoes","Brussels sprouts","Kale","Cabbage","Beets","Carrots","Parsnips","Turnips & rutabaga","Leeks & onions","Garlic","Celery root","Spinach","Microgreens"]},
   12:{t:"Winter market",items:["Storage apples","Winter squash","Potatoes","Sweet potatoes","Onions","Garlic","Carrots","Beets","Cabbage","Microgreens","Mushrooms"]}
 };
@@ -1121,6 +1111,16 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
     else if(first&&(h==="shop"||h==="inventory"))scrollTo(0,0);
   };
   go(true);addEventListener("hashchange",()=>go(false));
+})();
+/* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
+const HW_END=new Date(2026,10,1,0,0);
+function hwOn(){return chiNow()<HW_END}
+function hwInCart(){return state.hw&&state.box==="halfpeck"&&state.qty.cider>0&&state.qty.pastry>0}
+(function(){
+  if(!hwOn())return;
+  const sec=document.getElementById("halloween");if(!sec)return;sec.hidden=false;
+  const sm=document.getElementById("actSmall");if(sm)sm.textContent="🎃 Halloween Haul $67 · boxes from $50";
+  document.getElementById("hwAdd").addEventListener("click",()=>{state.box="halfpeck";state.mode="box";state.qty.cider=Math.max(1,state.qty.cider||0);state.qty.pastry=Math.max(1,state.qty.pastry||0);state.hw=true;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"});
 })();
 /* Box spotlight: fills from BOXES so contents and price stay in sync with Pick your haul. */
 (function(){
