@@ -398,6 +398,34 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .nextv .ropt input{position:absolute;opacity:0;width:1px;height:1px}
 .nextv .ropt:has(input:focus-visible){outline:3px solid var(--tomato);outline-offset:2px}
 .nextv input[type=text]{font:inherit;padding:12px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);min-height:48px}
+
+/* Craving menu (option D) */
+.jumps{position:sticky;top:var(--toph,117px);z-index:5;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px 0;background:var(--bg)}
+.jumps button{min-height:44px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 16px var(--body);cursor:pointer}
+.jumps button[aria-current="true"]{background:var(--ink);color:var(--bg)}
+.bsec{display:grid;gap:8px;scroll-margin-top:calc(var(--toph,117px) + 70px)}
+.bsec-h{margin:8px 0 0;font:800 14px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.blist{display:grid;gap:10px}
+.blist[hidden]{display:none}
+.bcard{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:6px}
+.bcard.on{border-color:var(--good)}
+.bcard-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.bcard h4{margin:0;font:800 19px/1.2 var(--body)}
+.bprice{font:800 19px var(--body);white-space:nowrap}
+.bwhat{margin:0;font-size:15px;color:var(--ink)}
+.btag{margin:0;font-size:14px;font-weight:700;color:var(--good)}
+.bin-in{border-top:1px dashed var(--line);padding-top:2px}
+.bin-in summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;font-weight:700;font-size:16px;cursor:pointer}
+.bin-in summary::-webkit-details-marker{display:none}
+.bin-in .chev{font-size:20px;transition:transform .15s}
+.bin-in[open] .chev{transform:rotate(180deg)}
+.bin-in ul{margin:2px 0 6px;padding-left:20px;display:grid;gap:3px;font-size:15px}
+.bnote{margin:0 0 6px;font-size:13px;color:var(--ink)}
+.badd{min-height:48px;border-radius:10px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 17px var(--body);cursor:pointer}
+.badd[aria-pressed="true"]{background:var(--good);border-color:var(--good);color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .badd[aria-pressed="true"]{color:#0f1f12}}
+:root[data-theme="dark"] .badd[aria-pressed="true"]{color:#0f1f12}
+@media (prefers-reduced-motion: reduce){.bin-in .chev{transition:none}}
 </style>
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
@@ -478,17 +506,26 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 
   <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
-    <h2 id="shopH">Pick your haul</h2>
+    <h2 id="shopH">What are you craving?</h2>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Wed 10/28 + Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
       <button type="button" role="radio" data-mode="box" aria-checked="true">Shopper's Choice</button>
       <button type="button" role="radio" data-mode="pick" aria-checked="false">Build Your Own</button>
     </div>
+    <nav class="jumps" aria-label="Jump to">
+      <button type="button" data-jump="produce" aria-current="true">Produce</button>
+      <button type="button" data-jump="meat" aria-current="false">Meat</button>
+      <button type="button" data-jump="fish" aria-current="false">Fish</button>
+    </nav>
     <p class="seg-note" id="produceNote">We pick the best of the week. Boxes cost less than itemizing.</p>
     <div class="bin" id="produce">
-      <div class="swipe" id="boxHint"><span>&larr; Swipe left or right to compare sizes &rarr;</span><span><button type="button" class="arw" data-row="boxes" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="boxes" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
-      <div class="row boxes" id="boxes"></div>
-      <div class="items" data-cat="produce"></div>
+      <section class="bsec" id="sec-produce" aria-labelledby="hProduce"><h3 class="bsec-h" id="hProduce">Produce</h3>
+        <div class="blist" id="boxes"></div>
+        <div class="items" data-cat="produce"></div>
+      </section>
+      <section class="bsec" id="sec-meat" aria-labelledby="hMeat"><h3 class="bsec-h" id="hMeat">Meat</h3><div class="blist" id="meatList"></div></section>
+      <section class="bsec" id="sec-fish" aria-labelledby="hFish"><h3 class="bsec-h" id="hFish">Fish</h3><div class="blist" id="fishList"></div></section>
+      <p class="seg-note">Pair any produce box with meat or fish: one handoff, 10% off boxes at pickup. Meat and fish come frozen.</p>
     </div>
     <a class="hop" href="#inventory">Add eggs, meat, bread, cider and more <span aria-hidden="true">&rarr;</span></a>
   </section>
@@ -815,10 +852,40 @@ function renderBoxes(){
   const isBox=state.mode==="box";
   document.getElementById("boxes").hidden=!isBox;
   document.getElementById("breadboxes").hidden=!isBox;
-  document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";document.getElementById("boxHint").hidden=!isBox;
+  document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";
   for(const s of document.querySelectorAll(".seg button"))s.setAttribute("aria-checked",String(s.dataset.mode===state.mode));
-  boxRow("boxes",BOXES,"box");boxRow("breadboxes",BREADBOXES,"breadBox");
+  boxList();boxRow("breadboxes",BREADBOXES,"breadBox");
 }
+/* Craving menu (option D, Oct 27): one scannable list, jump buttons, "What's in it" dropdowns, buttons that say what they do. */
+const PROTEIN_HAS={meatbox:["Steak night, 10–12 oz (e.g. sirloin, Delmonico)","An everyday cut, about 1 lb (e.g. pork chops, stew meat)","1 lb ground (beef or pork)","1 lb sausage (e.g. andouille, bratwurst)"],
+  lakehaul:["2 wild Great Lakes fish fillets (e.g. walleye, whitefish, lake trout)","Smoked fish or fish pâté"]};
+const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",tag:"Saves $10 vs. buying each"},lakehaul:{what:"Wild Great Lakes fish, frozen packs",tag:"Saves $8 vs. buying each"}};
+const OPEN_IN=new Set();
+function bCard(o){
+  const card=el("div",{class:"bcard"+(o.on?" on":"")});
+  card.append(el("div",{class:"bcard-top"},el("h4",{},o.name),el("span",{class:"bprice"},"$"+o.price)),el("p",{class:"bwhat"},o.what));
+  if(o.tag)card.append(el("p",{class:"btag"},o.tag));
+  const ul=el("ul",{});for(const h of o.has)ul.append(el("li",{},h));
+  const d=el("details",{class:"bin-in"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
+  if(OPEN_IN.has(o.name))d.open=true;d.addEventListener("toggle",()=>{d.open?OPEN_IN.add(o.name):OPEN_IN.delete(o.name)});
+  card.append(d,el("button",{type:"button",class:"badd","aria-pressed":String(!!o.on),onclick:o.toggle},o.on?"Added ✓ (tap to remove)":"Add "+o.name+" · $"+o.price));
+  return card;
+}
+function boxList(){
+  const w=document.getElementById("boxes");w.textContent="";
+  for(const b of BOXES)w.append(bCard({name:b.name,price:b.price,what:b.wt+" · "+b.desc,tag:b.pick,has:b.has,on:state.box===b.id,
+    toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));
+  for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
+    const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
+    box.append(bCard({name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
+      toggle:()=>{if(state.qty[id])delete state.qty[id];else{state.qty[id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));
+  }
+}
+(function(){const t=document.querySelector(".top");if(!t)return;const f=()=>document.documentElement.style.setProperty("--toph",t.offsetHeight+"px");f();addEventListener("resize",f)})();
+document.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("[data-jump]").forEach(x=>x.setAttribute("aria-current",String(x===b)));
+  const sec=document.getElementById("sec-"+b.dataset.jump);if(sec)sec.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+}));
 function boxRow(wid,list,key){
   const w=document.getElementById(wid);w.textContent="";
   for(const b of list){
