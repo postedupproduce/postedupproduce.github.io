@@ -90,12 +90,14 @@ const src=clean(q.get("s"),/[^a-z0-9-]/gi,30).toLowerCase();
 const $=id=>document.getElementById(id);
 function show(no,amt,name){
   const memo="POSTED #"+no;
+  /* Apple Cash first on Apple devices; Zelle first elsewhere (Oct 27). */
+  if(!/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)){$("ac").before($("zl"));$("acs").dataset.other="1"}
   $("ask").hidden=true;$("pay").hidden=false;
   $("amt").textContent="$"+amt;$("memo").textContent=memo;
   if(name){$("hi").textContent="Thanks, "+name+"! Last step: pay";$("who").textContent="Order #"+no}
   else $("who").textContent="Order #"+no;
   $("ac").href="sms:+1"+APPLE_CASH+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash");
-  $("acs").textContent="Opens Messages · tap the $"+amt+" to pay";
+  $("acs").textContent=$("acs").dataset.other?"iPhone only · opens a text to 773-807-9223":"Opens Messages · tap the $"+amt+" to pay";
   $("zl").onclick=async()=>{try{await navigator.clipboard.writeText(ZELLE);$("st").textContent="Copied "+ZELLE+". Open your bank app → Zelle → paste it as the recipient, send $"+amt+", memo "+memo+"."}catch(e){$("st").textContent="Zelle "+ZELLE+" · $"+amt+" · memo "+memo}};
   $("paid").onclick=async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
     try{await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:name||"",contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · from pay link"+(src?" · Source: "+src:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
