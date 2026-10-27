@@ -14,6 +14,11 @@
 .more-links{display:grid;gap:4px;margin:12px 0}
 .more-links a{display:flex;align-items:center;min-height:44px;color:var(--tomato);font-weight:700;text-decoration:none}
 .bar[hidden]{display:none}
+.hwbar{display:flex;align-items:center;justify-content:space-between;gap:12px;border:3px solid #E0782F;border-radius:12px;padding:12px 14px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
+.hwbar[hidden]{display:none}
+.hwbar span{font-size:14px;line-height:1.35;color:var(--ink)}
+.hwbar b{display:block;font-size:18px}
+.hwbar .go{background:#A84E14;flex:none;padding:12px 16px;min-height:44px}
 .hauls{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 .hauls figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .hauls img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
@@ -453,6 +458,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 
   <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
     <h2 id="shopH">Pick your haul</h2>
+    <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Wed 10/28 + Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
       <button type="button" role="radio" data-mode="box" aria-checked="true">Shopper's Choice</button>
       <button type="button" role="radio" data-mode="pick" aria-checked="false">Build Your Own</button>
@@ -1172,7 +1178,10 @@ function hwInCart(){return state.hw&&state.box==="halfpeck"&&state.qty.cider>0&&
   if(!hwOn())return;
   const sec=document.getElementById("halloween");if(!sec)return;sec.hidden=false;
   const sm=document.getElementById("actSmall");if(sm)sm.textContent="🎃 Halloween Haul $67 · boxes from $50";
-  document.getElementById("hwAdd").addEventListener("click",()=>{state.box="halfpeck";state.mode="box";state.qty.cider=Math.max(1,state.qty.cider||0);state.qty.pastry=Math.max(1,state.qty.pastry||0);state.hw=true;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"});
+  const hs=document.getElementById("hwShop");if(hs)hs.hidden=false;
+  const addHw=()=>{state.box="halfpeck";state.mode="box";state.qty.cider=Math.max(1,state.qty.cider||0);state.qty.pastry=Math.max(1,state.qty.pastry||0);state.hw=true;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
+  document.getElementById("hwAdd").addEventListener("click",addHw);
+  document.querySelectorAll("[data-hw]").forEach(b=>b.addEventListener("click",addHw));
 })();
 /* Box spotlight: fills from BOXES so contents and price stay in sync with Pick your haul. */
 (function(){
