@@ -381,6 +381,19 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .offview{display:none!important}
 .hop{display:block;margin-top:14px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font-weight:700;text-decoration:none;text-align:center}
 .top .tabs{overflow-x:auto;scrollbar-width:none}@media(max-width:430px){.top .tabs{gap:0;padding:0 6px 8px}.top .tabs a{font-size:12px;padding:8px 6px}}.top .tabs::-webkit-scrollbar{display:none}
+
+/* Dark mode (Oct 27 walkthrough): white on the dark-mode red fails contrast, so red buttons get dark text; labels re-tinted. */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  .beta,.act.a1,.act.a1 small,.go,.cta,.bar button,.box[aria-pressed="true"] .add{color:#1b0e0a}
+  .spot.hw .go,.hwbar .go{color:#fff}
+  .spot.hw .row2 a{color:#F2A36B}
+  .spot.hw .k{color:#F2A36B}
+  .pick{color:var(--ink)}
+}}
+:root[data-theme="dark"] :is(.beta,.act.a1,.act.a1 small,.go,.cta,.bar button,.box[aria-pressed="true"] .add){color:#1b0e0a}
+:root[data-theme="dark"] :is(.spot.hw .go,.hwbar .go){color:#fff}
+:root[data-theme="dark"] .spot.hw .k{color:#F2A36B}
+:root[data-theme="dark"] .pick{color:var(--ink)}
 </style>
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
@@ -393,6 +406,13 @@ details.vdet .vote{border:0;padding:0 0 14px}
 
 <main class="feed" id="start">
   <p class="prev">Preview of the simplified site. Nothing here is live until approved.</p>
+  <section class="post spot back" data-view="home" id="welcomeBack" aria-labelledby="wbH" hidden>
+    <span class="k">Welcome back</span>
+    <h2 id="wbH">Reorder your last haul?</h2>
+    <p class="meta" id="wbWhat"></p>
+    <div class="row2"><button type="button" class="go" id="wbGo" style="flex:1 1 200px">Reorder in one tap</button><a href="#shop">Change it up &rarr;</a></div>
+  </section>
+
   <section class="post" data-view="home">
     <div class="sign">
       <h1>Market haul, picked for you.</h1>
@@ -409,13 +429,6 @@ details.vdet .vote{border:0;padding:0 0 14px}
         <div class="stop"><b>Order by</b>9 PM the night before</div>
       </div>
     </div>
-  </section>
-
-  <section class="post spot back" data-view="home" id="welcomeBack" aria-labelledby="wbH" hidden>
-    <span class="k">Welcome back</span>
-    <h2 id="wbH">Reorder your last haul?</h2>
-    <p class="meta" id="wbWhat"></p>
-    <div class="row2"><button type="button" class="go" id="wbGo" style="flex:1 1 200px">Reorder in one tap</button><a href="#shop">Change it up &rarr;</a></div>
   </section>
 
   <section class="post spot hw" data-view="home" id="halloween" aria-labelledby="hwH" hidden>
@@ -1166,7 +1179,7 @@ function payBlock(txt){
   const amt=(txt.match(/TOTAL: \$([\d.]+)/)||[])[1]||"",no=(txt.match(/#(\d+)/)||[])[1]||"";
   const memo="POSTED #"+no;
   const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
-  const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);st.textContent=m}catch(e){st.textContent="Copy this: "+v}};
+  const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);st.textContent=m}catch(e){st.textContent="Zelle "+v+" · send $"+amt+" · memo "+memo}};
   const tel=APPLE_CASH.replace(/\D/g,"");
   const box=el("div",{class:"pay"},
     el("div",{class:"pay-amt"},el("span",{},"Pay now"),el("b",{},"$"+amt)),
@@ -1187,7 +1200,7 @@ function hookBlock(txt){
   const no=(txt.match(/#(\d+)/)||[])[1]||"";
   const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
   const btn=el("button",{type:"button",class:"go",onclick:async()=>{btn.disabled=true;btn.textContent="Sending…";
-    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["STANDING ORDER REQUEST","Mobile: "+state.phone.trim(),"Box: "+b.name+" ($"+b.price+")","Day: "+hookDay()+"s","Where: "+(isDel()?"My door":(STOPS.find(x=>x.id===state.fulfill)||{name:"Hyde Park"}).name+" meet-up"),"From order #"+no,"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["STANDING ORDER REQUEST","Mobile: "+state.phone.trim(),"Box: "+b.name+" ($"+b.price+")","Day: "+hookDay()+"s","Where: "+(isDel()?"My door":"Hyde Park meet-up"),"From order #"+no,"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
       btn.remove();st.textContent="You're in. We'll text you to confirm your weekly "+b.name+". Skip or stop any week by 9 PM the night before."}
     catch(x){btn.disabled=false;btn.textContent="Yes, make it weekly";st.textContent="That didn't go through. Text 773-807-9223."}}},"Yes, make it weekly");
   return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name+" every Saturday. Your spot is held, delivery is free, every 4th box gets a free add-on. Skip any week."),btn,st);
@@ -1203,7 +1216,7 @@ function hookBlock(txt){
   sec.hidden=false;
   document.getElementById("wbGo").addEventListener("click",()=>{
     state.box=b?b.id:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(c.qty&&c.qty[i.id])state.qty[i.id]=c.qty[i.id];
-    state.mode=c.mode||"box";state.name=c.name||"";state.phone=c.phone||"";state.email=c.email||"";state.address=c.address||"";state.notes=c.notes||"";
+    state.mode=c.mode||"box";state.hw=!!c.hw&&typeof hwOn==="function"&&hwOn();state.name=c.name||"";state.phone=c.phone||"";state.email=c.email||"";state.address=c.address||"";state.notes=c.notes||"";
     const okStop=STOPS.some(x=>x.id===c.fulfill)||DELIVERIES.some(x=>"del-"+x.id===c.fulfill);state.fulfill=okStop?c.fulfill:state.fulfill;
     if(!datesFor().length)state.fulfill=String(c.fulfill||"").startsWith("del-")?"del-hyde":"hyde";
     const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";
