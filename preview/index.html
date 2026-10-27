@@ -214,8 +214,6 @@ textarea{min-height:72px;resize:vertical}
 .note{font-size:15px;color:var(--muted);margin:0}
 .thanks{margin:0;font-size:16px}
 .done{display:grid;gap:12px}
-.bagbox{display:grid;gap:10px;border:2px solid var(--line);border-radius:14px;padding:14px;background:var(--panel)}
-.bagcv{width:100%;max-width:360px;height:auto;aspect-ratio:1080/1350;margin:0 auto;border-radius:12px;display:block;box-shadow:0 6px 18px rgba(0,0,0,.15)}
 .done pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;font:500 14px/1.5 ui-monospace,Menlo,monospace;margin:0;overflow-x:auto;user-select:all}
 .contact{display:grid;gap:6px;font-size:15px}
 .contact code{font:600 15px var(--body);user-select:all}
@@ -456,7 +454,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <a href="#how">How it works</a>
 </nav></header>
 
-<p class="prev" style="margin:0;padding:8px 16px;background:#F3D58A;color:#24392c;font-weight:800;text-align:center">Preview: meal sizes + haul bag. Not live yet.</p>
+<p class="prev" style="margin:0;padding:8px 16px;background:#F3D58A;color:#24392c;font-weight:800;text-align:center">Preview: meal sizes. Not live yet.</p>
 <main class="feed" id="start">
   <section class="post spot back" data-view="home" id="welcomeBack" aria-labelledby="wbH" hidden>
     <span class="k">Welcome back</span>
@@ -487,7 +485,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <span class="k">🎃 Halloween special · Wed 10/28 + Sat 10/31</span>
     <h2 id="hwH">Halloween Haul · $67</h2>
     <p class="meta" style="color:var(--ink)">$62 at a pickup with the beta founder rate</p>
-    <p class="meta">A Half Peck with a pie pumpkin swapped in, a jug of fresh-pressed cider and a fresh pastry. Makes about 4–5 dinners' worth of veg for two, plus a pie.</p>
+    <p class="meta">A Half Peck with a pie pumpkin swapped in, a jug of fresh-pressed cider and a fresh pastry. Makes about 4–5 meals' worth of veg for two, plus a pie.</p>
     <div class="row2"><button type="button" class="go" id="hwAdd" style="flex:1 1 200px">Add the Halloween Haul</button><a href="#shop">Or pick a box &rarr;</a></div>
   </section>
 
@@ -502,7 +500,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <section class="post spot" data-view="home" id="spotlight" aria-labelledby="spotH">
     <span class="k">Most popular this week</span>
     <h2 id="spotH">Half Peck · $50</h2>
-    <p class="meta">~9–10 lb · makes about 4–5 dinners' worth of veg for two</p>
+    <p class="meta">~9–10 lb · makes about 4–5 meals' worth of veg for two · ≈ $5.50 a plate</p>
     <ul id="spotList"></ul>
     <div class="row2"><button type="button" class="go" id="spotAdd" style="flex:1 1 200px">Add the Half Peck</button><a href="#shop">Compare all boxes &rarr;</a></div>
   </section>
@@ -611,9 +609,9 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <form class="talkf" id="soForm" novalidate>
       <fieldset style="border:0;margin:0;padding:0;display:grid;gap:6px"><legend style="font-size:15px;font-weight:700;padding:0;margin-bottom:6px">1 · Your box</legend>
         <div class="so-opts">
-          <label class="ropt"><input type="radio" name="soBox" value="Half Peck" data-p="50" checked><span>Half Peck<small>~9–10 lb · veg for 4–5 dinners for two · most popular</small></span><span class="p">$50</span></label>
-          <label class="ropt"><input type="radio" name="soBox" value="Full Crate" data-p="72"><span>Full Crate<small>~14–15 lb · veg for about 7 dinners for two</small></span><span class="p">$72</span></label>
-          <label class="ropt"><input type="radio" name="soBox" value="The Vegan Box" data-p="68"><span>The Vegan Box<small>~9 lb · about 5 plant-based dinners for two</small></span><span class="p">$68</span></label>
+          <label class="ropt"><input type="radio" name="soBox" value="Half Peck" data-p="50" checked><span>Half Peck<small>~9–10 lb · veg for 4–5 meals for two · most popular</small></span><span class="p">$50</span></label>
+          <label class="ropt"><input type="radio" name="soBox" value="Full Crate" data-p="72"><span>Full Crate<small>~14–15 lb · veg for about 7 meals for two</small></span><span class="p">$72</span></label>
+          <label class="ropt"><input type="radio" name="soBox" value="The Vegan Box" data-p="68"><span>The Vegan Box<small>~9 lb · about 5 plant-based meals for two</small></span><span class="p">$68</span></label>
         </div>
       </fieldset>
       <fieldset style="border:0;margin:0;padding:0;display:grid;gap:6px"><legend style="font-size:15px;font-weight:700;padding:0;margin-bottom:6px">2 · Where you get it</legend>
@@ -743,13 +741,13 @@ details.vdet .vote{border:0;padding:0 0 14px}
 <script>
 const BOXES=[
   {id:"halfpeck",name:"Half Peck",price:50,wt:"~9–10 lb",desc:"A week of sides and a couple of mains for two.",pick:"Most popular",
-   makes:"Makes about 4–5 dinners' worth of veg for two",
+   makes:"Makes about 4–5 meals' worth of veg for two · ≈ $5.50 a plate",
    has:["2 lb orchard apples (about 6 apples)","2 lb sweet potatoes (about 4 medium)","2 lb beets (about 6–8 beets)","Onions (about 3)","1 bunch kale (2–3 sides)","1 delicata squash (2 sides)"]},
   {id:"crate",name:"Full Crate",price:72,wt:"~14–15 lb",desc:"A full week of cooking for a household.",pick:"",
-   makes:"Makes about 7 dinners' worth of veg for two",
+   makes:"Makes about 7 meals' worth of veg for two · ≈ $5 a plate",
    has:["4 lb orchard apples (about 12 apples)","2 lb sweet potatoes (about 4 medium)","2 lb beets (about 6–8 beets)","Onions (about 3)","1 butternut squash (about 4 sides)","Brussels sprouts (about 1 lb, 3–4 sides)","Kale + collards (2 bunches, 4–6 sides)"]},
   {id:"forever",name:"The Vegan Box",price:68,wt:"~9 lb",desc:"Fully vegan and all local. No dairy, egg, honey or fish sauce; swaps stay vegan and local.",pick:"New · Vegan",
-   makes:"Makes about 5 plant-based dinners for two",
+   makes:"Makes about 5 plant-based meals for two · ≈ $7 a plate",
    has:["½ lb local mushrooms, 2–3 sides (or another local mushroom)","1 block local tofu, 2 mains (or local beans/grains)","2 lb sweet potatoes, about 4 medium (or potatoes)","1 winter squash, 2–4 sides (or pie pumpkin)","Kale or collards, 2–3 sides (or chard, cabbage)","Onions + garlic (or leeks, shallots)","2 lb orchard apples, about 6 (or pears)","Microgreens, tops a week of meals (or salad greens)"]}
 ];
 const PREFS=["Apples","Winter squash","Sweet potatoes","Kale & greens","Beets","Cabbage","Brussels sprouts","Onions & garlic","Peppers","Potatoes","Microgreens","Herbs"];
@@ -771,8 +769,8 @@ const ITEMS={
     {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. fennel, celery root, radishes, last peppers while they last",p:8}
   ],
   meat:[
-    {id:"meatbox",nm:"Meat Lovers Box",ds:"About 14 portions (4 dinners for two) · steak night, an everyday cut, 1 lb ground, 1 lb sausage · ≈ $6.40 a portion",p:89},
-    {id:"lakehaul",nm:"Lake Haul",ds:"About 4 portions (2 dinners for two) · 2 wild fish fillets plus smoked fish · ≈ $17.50 a portion",p:70},
+    {id:"meatbox",nm:"Meat Lovers Box",ds:"About 14 portions (7 meals for two) · steak night, an everyday cut, 1 lb ground, 1 lb sausage · ≈ $6.40 a plate",p:89},
+    {id:"lakehaul",nm:"Lake Haul",ds:"About 4 portions (2 meals for two) · 2 wild fish fillets plus smoked fish · ≈ $17.50 a plate",p:70},
     {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10},
     {id:"ground",nm:"Ground meat, 1 lb",ds:"About 4 burgers or 4 portions · e.g. grass-fed beef or pastured pork",p:17},
     {id:"sausage",nm:"Sausage, about 1 lb",ds:"About 4–5 links · e.g. andouille, bratwurst, breakfast links",p:20},
@@ -875,9 +873,9 @@ function renderBoxes(){
   boxList();boxRow("breadboxes",BREADBOXES,"breadBox");
 }
 /* Craving menu (option D, Oct 27): one scannable list, jump buttons, "What's in it" dropdowns, buttons that say what they do. */
-const PROTEIN_HAS={meatbox:["Steak night, 10–12 oz: dinner for two (e.g. sirloin, Delmonico)","An everyday cut, about 1 lb: 3–4 portions (e.g. pork chops, stew meat)","1 lb ground: about 4 burgers (beef or pork)","1 lb sausage: about 4–5 links (e.g. andouille, bratwurst)"],
+const PROTEIN_HAS={meatbox:["Steak night, 10–12 oz: a meal for two (e.g. sirloin, Delmonico)","An everyday cut, about 1 lb: 3–4 portions (e.g. pork chops, stew meat)","1 lb ground: about 4 burgers (beef or pork)","1 lb sausage: about 4–5 links (e.g. andouille, bratwurst)"],
   lakehaul:["2 wild Great Lakes fish fillets, 8–16 oz each: about 2 portions each (e.g. walleye, whitefish, lake trout)","Smoked fish or fish pâté: a snack or starter for 2–4"]};
-const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",tag:"Saves $10 vs. buying each",makes:"Makes about 14 portions: 4 dinners for two · ≈ $6.40 a portion"},lakehaul:{what:"Wild Great Lakes fish, frozen packs",tag:"Saves $8 vs. buying each",makes:"Makes about 4 portions: 2 dinners for two, plus a smoked-fish snack · ≈ $17.50 a portion"}};
+const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",tag:"Saves $10 vs. buying each",makes:"Makes about 14 portions: 7 meals for two · ≈ $6.40 a plate"},lakehaul:{what:"Wild Great Lakes fish, frozen packs",tag:"Saves $8 vs. buying each",makes:"Makes about 4 portions: 2 meals for two, plus a smoked-fish snack · ≈ $17.50 a plate"}};
 const OPEN_IN=new Set();
 function bCard(o){
   const card=el("div",{class:"bcard"+(o.on?" on":"")});
@@ -939,6 +937,18 @@ function renderItems(){
     }
   }
 }
+
+/* Haul line (Oct 27): meals for two per box plus cost per plate, on the ticket and in the sheet notes. */
+const MEALS={halfpeck:[4,5],crate:[7,7],forever:[5,5],meatbox:[7,7],lakehaul:[2,2]};
+function haulInfo(){
+  const parts=[];let lo=0,hi=0,cost=0;const b=BOXES.find(x=>x.id===state.box);
+  if(b&&MEALS[b.id]){const d=MEALS[b.id];lo+=d[0];hi+=d[1];cost+=b.price;parts.push((hwInCart()?"Halloween Haul":b.name)+" "+(d[0]===d[1]?d[0]:d[0]+"–"+d[1]))}
+  for(const id of ["meatbox","lakehaul"]){const q=state.qty[id];if(!q)continue;const d=MEALS[id],it=ITEMS.meat.find(x=>x.id===id);lo+=d[0]*q;hi+=d[1]*q;cost+=it.p*q;parts.push(it.nm+" "+d[0]*q)}
+  if(!hi)return null;
+  const plate=cost/((lo+hi)/2*2);
+  return {meals:lo===hi?String(lo):lo+"–"+hi,plate:"$"+plate.toFixed(2),parts:parts.join(" · ")};
+}
+function haulLine(){const h=haulInfo();return h?"about "+h.meals+" meals for two, about "+h.plate+" a plate ("+h.parts+")":""}
 function orderText(id){
   const b=BOXES.find(x=>x.id===state.box);
   const d=DATES.find(x=>x.v===state.date);
@@ -946,6 +956,7 @@ function orderText(id){
     isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().delAfter+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
+  if(haulLine())L.push("Your haul: "+haulLine());
   if(b)L.push(b.name+" produce box ("+b.wt+") — $"+b.price);
   if(bb)L.push(bb.name+" ("+bb.wt+") — $"+bb.price);
   const more=Object.keys(state.prefs).filter(k=>state.prefs[k]==="more"),skip=Object.keys(state.prefs).filter(k=>state.prefs[k]==="skip");
@@ -974,7 +985,7 @@ function orderPayload(id){
   return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),email:state.email.trim(),
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
-    notes:[hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
+    notes:[hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",haulInfo()?"[Haul: ~"+haulInfo().meals+" meals for 2, "+haulInfo().plate+"/plate]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
     logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":REWARD_SHEET[state.reward]||""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),earlyDrop:earlyOK()?"Yes":"",waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
@@ -1019,7 +1030,6 @@ function renderTicket(){
         "Pay by 9 PM the night before. Your order is shopped once it's paid. Your ticket is below; we text you at each step.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       ...(!state.wait&&state.sendStatus==="sent"&&ZELLE?[payBlock(txt)]:[]),
-      ...(!state.wait&&state.sendStatus==="sent"&&state.bag&&state.bag.length?[bagBlock(state.bag)]:[]),
       ...(!state.wait&&state.sendStatus==="sent"&&state.box?[hookBlock(txt)]:[]),
       ...(!state.wait&&state.sendStatus==="sent"?[nextVoteBlock(txt)]:[]),
       el("details",{class:"tix"},el("summary",{},"Show my order ticket"),pre,
@@ -1031,7 +1041,7 @@ function renderTicket(){
     return;
   }
   let last=null;try{last=JSON.parse(localStorage.getItem("pu-last")||"null")}catch(e){}
-  if(last&&last.txt&&last.date>=ymd(chiNow()))t.append(el("button",{type:"button",class:"ghost",style:"width:100%;margin-bottom:12px",onclick:()=>{state.sent=last.txt;state.bag=last.bag||null;state.wait=last.wait;state.sendStatus="sent";renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"})}},"See my last order ticket"));
+  if(last&&last.txt&&last.date>=ymd(chiNow()))t.append(el("button",{type:"button",class:"ghost",style:"width:100%;margin-bottom:12px",onclick:()=>{state.sent=last.txt;state.wait=last.wait;state.sendStatus="sent";renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"})}},"See my last order ticket"));
   t.append(el("h2",{},"Your Order"));
   const lines=el("div",{class:"lines"});
   if(!n)lines.append(el("p",{class:"empty"},"Pick a box or add something from the menu."));
@@ -1131,10 +1141,10 @@ function renderTicket(){
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
     /* Duplicate guard: same phone + same date + same items within an hour on this device → show the existing ticket */
     try{const last=JSON.parse(localStorage.getItem("pu-last")||"null");const sig=state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items);
-      if(last&&last.sig===sig&&Date.now()-last.at<3600000&&!state.forceNew){state.sent=last.txt;state.bag=last.bag||null;state.wait=last.wait;state.sendStatus="sent";state.dupe=true;renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});return}}catch(e){}
+      if(last&&last.sig===sig&&Date.now()-last.at<3600000&&!state.forceNew){state.sent=last.txt;state.wait=last.wait;state.sendStatus="sent";state.dupe=true;renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});return}}catch(e){}
     state.forceNew=false;state.dupe=false;
     const id=(Date.now()%100000).toString().padStart(5,"0");
-    state.wait=isWait();state.sent=orderText(id);state.bag=bagItems();try{localStorage.setItem("pu-cart",JSON.stringify({box:state.box,breadBox:state.breadBox,qty:state.qty,mode:state.mode,fulfill:state.fulfill,name:state.name,phone:state.phone,email:state.email,address:state.address,notes:state.notes,hw:state.hw||false,at:Date.now()}))}catch(e){}try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,bag:state.bag,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
+    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-cart",JSON.stringify({box:state.box,breadBox:state.breadBox,qty:state.qty,mode:state.mode,fulfill:state.fulfill,name:state.name,phone:state.phone,email:state.email,address:state.address,notes:state.notes,hw:state.hw||false,at:Date.now()}))}catch(e){}try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
     sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
   });
   t.append(f);
@@ -1269,61 +1279,6 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
 })();
 /* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
    Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
-
-/* Haul bag (Oct 27): a shareable brown-paper-bag picture of the order. No name, phone or address on it. */
-const BAG_ICON={halfpeck:"🍎🥕🥬",crate:"🍎🎃🥦",forever:"🍄🥬🍠",bread1:"🍞🥐",bread2:"🍞🍞🥐",meatbox:"🥩🍗🌭",lakehaul:"🐟🐟",eggs:"🥚",ground:"🍔",sausage:"🌭",fish:"🐟",
-  apples:"🍎",apples4:"🍎",squash:"🎃",potatoes:"🥔",roots:"🥕",greens:"🥬",salad:"🥗",brassica:"🥦",alliums:"🧅",peppers:"🫑",sour:"🍞",pastry:"🥐",
-  chevre:"🧀",cheddar:"🧀",hsmild:"🌶️",hsfruit:"🌶️",hsxhot:"🌶️",cider:"🧃",maple:"🍁",butter:"🧈",preserves:"🫙"};
-function bagItems(){
-  const out=[],b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);
-  if(b)out.push({i:hwInCart()?"🎃🥧🧃":BAG_ICON[b.id]||"🧺",t:hwInCart()?"Halloween Haul":b.name,m:(b.makes||"").replace(/^Makes /,"")});
-  if(bb)out.push({i:BAG_ICON[bb.id]||"🍞",t:bb.name,m:(bb.makes||"")});
-  for(const it of ALL){const q=state.qty[it.id];if(!q)continue;const pi=PROTEIN_INFO[it.id];
-    out.push({i:BAG_ICON[it.id]||"🧺",t:(q>1?q+" × ":"")+it.nm,m:pi?pi.makes.replace(/^Makes /,"").replace(/ · ≈.*$/,""):""})}
-  return out;
-}
-function drawBag(cv,items){
-  const W=1080,H=1350,x=cv.getContext("2d");cv.width=W;cv.height=H;
-  x.fillStyle="#EFE6D4";x.fillRect(0,0,W,H);
-  x.fillStyle="#24392C";x.font="64px 'Alfa Slab One',Georgia,serif";x.textAlign="center";x.fillText("My Posted Up haul",W/2,120);
-  x.font="600 34px Figtree,system-ui,sans-serif";x.fillStyle="#4F564B";x.fillText("Farmers-market picks, shopped for me",W/2,172);
-  // produce peeking out of the bag
-  const icons=items.map(o=>o.i).join("");const arr=[...new Intl.Segmenter(undefined,{granularity:"grapheme"}).segment(icons)].map(g=>g.segment).slice(0,9);
-  x.font="110px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif";x.textBaseline="middle";
-  arr.forEach((e,k)=>{const n=arr.length,sp=Math.min(110,640/Math.max(n,1)),cx=W/2-(n-1)*sp/2+k*sp,cy=330-(k%2?28:0);x.save();x.translate(cx,cy);x.rotate((k%3-1)*0.12);x.fillText(e,0,0);x.restore()});
-  // bag body
-  const bx=170,by=360,bw=740,bh=860;
-  const g=x.createLinearGradient(bx,0,bx+bw,0);g.addColorStop(0,"#B98B5E");g.addColorStop(.5,"#CFA578");g.addColorStop(1,"#B5875A");
-  x.fillStyle=g;x.beginPath();x.moveTo(bx,by);
-  for(let i=0;i<=20;i++)x.lineTo(bx+i*bw/20,by+(i%2?18:0));
-  x.lineTo(bx+bw,by+bh);x.lineTo(bx,by+bh);x.closePath();x.fill();
-  x.strokeStyle="rgba(90,60,30,.25)";x.lineWidth=3;for(const fx of [bx+90,bx+bw-90]){x.beginPath();x.moveTo(fx,by+30);x.lineTo(fx,by+bh);x.stroke()}
-  x.fillStyle="rgba(255,255,255,.08)";x.fillRect(bx,by+40,bw,70);
-  // items printed on the bag
-  x.textBaseline="alphabetic";x.textAlign="left";let y=by+130;
-  for(const o of items.slice(0,6)){
-    x.fillStyle="#2B1D10";x.font="800 46px Figtree,system-ui,sans-serif";x.fillText(o.t.length>26?o.t.slice(0,25)+"…":o.t,bx+60,y);
-    let ly=y;
-    if(o.m){x.font="500 32px Figtree,system-ui,sans-serif";x.fillStyle="#3E2C1A";const words=o.m.split(" ");let line="",n=0;
-      for(const w of words){const t=line?line+" "+w:w;if(x.measureText(t).width>bw-120&&line){ly+=40;x.fillText(line,bx+60,ly+4);line=w;n++}else line=t}
-      ly+=40;x.fillText(line,bx+60,ly+4)}
-    y=ly+(o.m?78:76);
-  }
-  if(items.length>6){x.font="700 34px Figtree,system-ui,sans-serif";x.fillText("+ "+(items.length-6)+" more",bx+60,y)}
-  x.textAlign="center";x.fillStyle="#24392C";x.font="700 34px Figtree,system-ui,sans-serif";x.fillText("postedupproduce.github.io",W/2,H-60);
-  const logo=new Image();logo.onload=()=>{x.save();x.globalAlpha=.92;x.drawImage(logo,bx+bw-210,by+bh-230,180,180);x.restore()};logo.src="/logos/harvest-stamp.png";
-}
-function bagBlock(items){
-  const cv=el("canvas",{class:"bagcv",role:"img","aria-label":"Your haul as a brown paper bag: "+items.map(o=>o.t+(o.m?" ("+o.m+")":"")).join(", ")});
-  const st=el("p",{class:"note",style:"margin:0","aria-live":"polite"},"");
-  const share=async()=>{cv.toBlob(async blob=>{if(!blob)return;const f=new File([blob],"my-posted-up-haul.png",{type:"image/png"});
-    try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],text:"Just got my Posted Up haul 🛍️ postedupproduce.github.io"});return}}catch(e){if(e&&e.name==="AbortError")return}
-    const a=el("a",{href:URL.createObjectURL(blob),download:"my-posted-up-haul.png"});document.body.append(a);a.click();a.remove();st.textContent="Saved. Post it and tag us!"},"image/png")};
-  const box=el("div",{class:"bagbox"},el("h3",{style:"margin:0"},"Your haul, bagged up"),el("p",{class:"note",style:"margin:0"},"Show it off: save it or screenshot it for your story. Post your meals too."),cv,
-    el("button",{type:"button",class:"go",onclick:share},"Save or share my haul"),st);
-  const go=()=>drawBag(cv,items);(document.fonts&&document.fonts.ready?document.fonts.ready.then(go):go());
-  return box;
-}
 function payBlock(txt){
   const amt=(txt.match(/TOTAL: \$([\d.]+)/)||[])[1]||"",no=(txt.match(/#(\d+)/)||[])[1]||"";
   const memo="POSTED #"+no;

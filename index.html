@@ -81,7 +81,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .tnum{font-variant-numeric:tabular-nums}
 
 /* Top bar */
-.top{position:sticky;top:0;z-index:6;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top{position:sticky;top:0;z-index:6;background:var(--bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .top-in{max-width:var(--col);margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{font:400 19px/1 var(--display);color:var(--ink);text-decoration:none;white-space:nowrap}
 .beta{font:700 11px/1 var(--body);letter-spacing:.04em;background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
@@ -413,6 +413,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .bprice{font:800 19px var(--body);white-space:nowrap}
 .bwhat{margin:0;font-size:15px;color:var(--ink)}
 .btag{margin:0;font-size:14px;font-weight:700;color:var(--good)}
+.bmakes{margin:2px 0 0;font-size:16px;font-weight:800;line-height:1.35;color:var(--ink);background:var(--chip);border-radius:10px;padding:8px 10px}
 .bin-in{border-top:1px dashed var(--line);padding-top:2px}
 .bin-in summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;font-weight:700;font-size:16px;cursor:pointer}
 .bin-in summary::-webkit-details-marker{display:none}
@@ -482,7 +483,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <span class="k">🎃 Halloween special · Wed 10/28 + Sat 10/31</span>
     <h2 id="hwH">Halloween Haul · $67</h2>
     <p class="meta" style="color:var(--ink)">$62 at a pickup with the beta founder rate</p>
-    <p class="meta">A Half Peck with a pie pumpkin swapped in, a jug of fresh-pressed cider and a fresh pastry.</p>
+    <p class="meta">A Half Peck with a pie pumpkin swapped in, a jug of fresh-pressed cider and a fresh pastry. Makes about 4–5 meals' worth of veg for two, plus a pie.</p>
     <div class="row2"><button type="button" class="go" id="hwAdd" style="flex:1 1 200px">Add the Halloween Haul</button><a href="#shop">Or pick a box &rarr;</a></div>
   </section>
 
@@ -497,7 +498,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <section class="post spot" data-view="home" id="spotlight" aria-labelledby="spotH">
     <span class="k">Most popular this week</span>
     <h2 id="spotH">Half Peck · $50</h2>
-    <p class="meta">~9–10 lb · a week of sides and a couple of mains for two</p>
+    <p class="meta">~9–10 lb · makes about 4–5 meals' worth of veg for two · ≈ $5.50 a plate</p>
     <ul id="spotList"></ul>
     <div class="row2"><button type="button" class="go" id="spotAdd" style="flex:1 1 200px">Add the Half Peck</button><a href="#shop">Compare all boxes &rarr;</a></div>
   </section>
@@ -606,9 +607,9 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <form class="talkf" id="soForm" novalidate>
       <fieldset style="border:0;margin:0;padding:0;display:grid;gap:6px"><legend style="font-size:15px;font-weight:700;padding:0;margin-bottom:6px">1 · Your box</legend>
         <div class="so-opts">
-          <label class="ropt"><input type="radio" name="soBox" value="Half Peck" data-p="50" checked><span>Half Peck<small>~9–10 lb · for two · most popular</small></span><span class="p">$50</span></label>
-          <label class="ropt"><input type="radio" name="soBox" value="Full Crate" data-p="72"><span>Full Crate<small>~14–15 lb · a household's week</small></span><span class="p">$72</span></label>
-          <label class="ropt"><input type="radio" name="soBox" value="The Vegan Box" data-p="68"><span>The Vegan Box<small>~9 lb · all local, plant-based</small></span><span class="p">$68</span></label>
+          <label class="ropt"><input type="radio" name="soBox" value="Half Peck" data-p="50" checked><span>Half Peck<small>~9–10 lb · veg for 4–5 meals for two · most popular</small></span><span class="p">$50</span></label>
+          <label class="ropt"><input type="radio" name="soBox" value="Full Crate" data-p="72"><span>Full Crate<small>~14–15 lb · veg for about 7 meals for two</small></span><span class="p">$72</span></label>
+          <label class="ropt"><input type="radio" name="soBox" value="The Vegan Box" data-p="68"><span>The Vegan Box<small>~9 lb · about 5 plant-based meals for two</small></span><span class="p">$68</span></label>
         </div>
       </fieldset>
       <fieldset style="border:0;margin:0;padding:0;display:grid;gap:6px"><legend style="font-size:15px;font-weight:700;padding:0;margin-bottom:6px">2 · Where you get it</legend>
@@ -738,40 +739,43 @@ details.vdet .vote{border:0;padding:0 0 14px}
 <script>
 const BOXES=[
   {id:"halfpeck",name:"Half Peck",price:50,wt:"~9–10 lb",desc:"A week of sides and a couple of mains for two.",pick:"Most popular",
-   has:["2 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","1 bunch kale","1 delicata squash"]},
+   makes:"Makes about 4–5 meals' worth of veg for two · ≈ $5.50 a plate",
+   has:["2 lb orchard apples (about 6 apples)","2 lb sweet potatoes (about 4 medium)","2 lb beets (about 6–8 beets)","Onions (about 3)","1 bunch kale (2–3 sides)","1 delicata squash (2 sides)"]},
   {id:"crate",name:"Full Crate",price:72,wt:"~14–15 lb",desc:"A full week of cooking for a household.",pick:"",
-   has:["4 lb orchard apples","2 lb sweet potatoes","2 lb beets","Onions","Butternut squash","Brussels sprouts","Kale + collards"]},
+   makes:"Makes about 7 meals' worth of veg for two · ≈ $5 a plate",
+   has:["4 lb orchard apples (about 12 apples)","2 lb sweet potatoes (about 4 medium)","2 lb beets (about 6–8 beets)","Onions (about 3)","1 butternut squash (about 4 sides)","Brussels sprouts (about 1 lb, 3–4 sides)","Kale + collards (2 bunches, 4–6 sides)"]},
   {id:"forever",name:"The Vegan Box",price:68,wt:"~9 lb",desc:"Fully vegan and all local. No dairy, egg, honey or fish sauce; swaps stay vegan and local.",pick:"New · Vegan",
-   has:["½ lb local mushrooms (or another local mushroom)","1 block local tofu (or local beans/grains)","2 lb sweet potatoes (or potatoes)","1 winter squash (or pie pumpkin)","Kale or collards (or chard, cabbage)","Onions + garlic (or leeks, shallots)","2 lb orchard apples (or pears)","Microgreens (or salad greens)"]}
+   makes:"Makes about 5 plant-based meals for two · ≈ $7 a plate",
+   has:["½ lb local mushrooms, 2–3 sides (or another local mushroom)","1 block local tofu, 2 mains (or local beans/grains)","2 lb sweet potatoes, about 4 medium (or potatoes)","1 winter squash, 2–4 sides (or pie pumpkin)","Kale or collards, 2–3 sides (or chard, cabbage)","Onions + garlic (or leeks, shallots)","2 lb orchard apples, about 6 (or pears)","Microgreens, tops a week of meals (or salad greens)"]}
 ];
 const PREFS=["Apples","Winter squash","Sweet potatoes","Kale & greens","Beets","Cabbage","Brussels sprouts","Onions & garlic","Peppers","Potatoes","Microgreens","Herbs"];
 const BREADBOXES=[
-  {id:"bread1",name:"Bread Bag",price:23,wt:"1 loaf + 1 pastry",desc:"The best sourdough of the week, plus a treat.",pick:"",has:["1 sourdough boule","1 croissant or scone"]},
-  {id:"bread2",name:"Bakery Bundle",price:42,wt:"2 loaves + 2 pastries",desc:"Enough for the week, with something for the freezer.",pick:"",has:["2 sourdough loaves","2 pastries"]}
+  {id:"bread1",name:"Bread Bag",price:23,wt:"1 loaf + 1 pastry",desc:"The best sourdough of the week, plus a treat.",pick:"",makes:"About 12–14 slices, plus a treat",has:["1 sourdough boule (about 12–14 slices)","1 croissant or scone"]},
+  {id:"bread2",name:"Bakery Bundle",price:42,wt:"2 loaves + 2 pastries",desc:"Enough for the week, with something for the freezer.",pick:"",makes:"About 24–28 slices, plus 2 treats",has:["2 sourdough loaves (about 12–14 slices each)","2 pastries"]}
 ];
 const ITEMS={
   produce:[
-    {id:"apples",nm:"Apples, 2 lb",ds:"e.g. Honeycrisp, Gala, EverCrisp, Pink Lady",p:13},
-    {id:"apples4",nm:"Apples, 4 lb",ds:"e.g. a mix of sweet and tart varieties",p:20},
-    {id:"squash",nm:"Winter squash",ds:"Each · e.g. delicata, acorn, butternut, kabocha",p:7},
-    {id:"potatoes",nm:"Potatoes & sweet potatoes, 2 lb",ds:"e.g. Japanese sweet, fingerlings, Yukon Gold",p:10},
-    {id:"roots",nm:"Root vegetables, 2 lb",ds:"e.g. beets, carrots, turnips, rutabaga, parsnips, radishes",p:8},
-    {id:"greens",nm:"Hearty greens",ds:"Bunch · e.g. kale, collards, chard",p:8},
-    {id:"salad",nm:"Salad greens & microgreens",ds:"e.g. spinach, arugula, pea shoots, sunflower shoots",p:8},
-    {id:"brassica",nm:"Cabbage family",ds:"e.g. Brussels sprouts, cabbage, broccoli, cauliflower",p:8},
+    {id:"apples",nm:"Apples, 2 lb",ds:"About 6 apples · e.g. Honeycrisp, Gala, EverCrisp, Pink Lady",p:13},
+    {id:"apples4",nm:"Apples, 4 lb",ds:"About 12 apples · a mix of sweet and tart",p:20},
+    {id:"squash",nm:"Winter squash",ds:"One squash, 2–4 sides · e.g. delicata, acorn, butternut, kabocha",p:7},
+    {id:"potatoes",nm:"Potatoes & sweet potatoes, 2 lb",ds:"About 4–6 potatoes · e.g. Japanese sweet, fingerlings, Yukon Gold",p:10},
+    {id:"roots",nm:"Root vegetables, 2 lb",ds:"About 6–8 roots · e.g. beets, carrots, turnips, parsnips, radishes",p:8},
+    {id:"greens",nm:"Hearty greens",ds:"One bunch, 2–3 sides · e.g. kale, collards, chard",p:8},
+    {id:"salad",nm:"Salad greens & microgreens",ds:"3–4 salads · e.g. spinach, arugula, pea shoots, sunflower shoots",p:8},
+    {id:"brassica",nm:"Cabbage family",ds:"3–4 sides · e.g. Brussels sprouts, cabbage, broccoli, cauliflower",p:8},
     {id:"alliums",nm:"Onions & garlic",ds:"e.g. sweet or red onions, leeks, shallots, garlic",p:8},
     {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. fennel, celery root, radishes, last peppers while they last",p:8}
   ],
   meat:[
-    {id:"meatbox",nm:"Meat Lovers Box",ds:"Box · steak night (10–12 oz), an everyday cut, 1 lb ground and 1 lb sausage · save $10 vs. buying each",p:89},
-    {id:"lakehaul",nm:"Lake Haul",ds:"Box · 2 wild Great Lakes fish fillets plus smoked fish or pâté · save $8 vs. buying each",p:70},
+    {id:"meatbox",nm:"Meat Lovers Box",ds:"About 14 portions (7 meals for two) · steak night, an everyday cut, 1 lb ground, 1 lb sausage · ≈ $6.40 a plate",p:89},
+    {id:"lakehaul",nm:"Lake Haul",ds:"About 4 portions (2 meals for two) · 2 wild fish fillets plus smoked fish · ≈ $17.50 a plate",p:70},
     {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10},
-    {id:"ground",nm:"Ground meat, 1 lb",ds:"e.g. grass-fed beef or pastured pork",p:17},
-    {id:"sausage",nm:"Sausage, about 1 lb",ds:"e.g. andouille, bratwurst, breakfast links",p:20},
-    {id:"fish",nm:"Great Lakes fish fillet",ds:"~8–16 oz · e.g. walleye, whitefish, lake trout, wild salmon",p:30},
+    {id:"ground",nm:"Ground meat, 1 lb",ds:"About 4 burgers or 4 portions · e.g. grass-fed beef or pastured pork",p:17},
+    {id:"sausage",nm:"Sausage, about 1 lb",ds:"About 4–5 links · e.g. andouille, bratwurst, breakfast links",p:20},
+    {id:"fish",nm:"Great Lakes fish fillet",ds:"One fillet, 8–16 oz · 2–4 portions · e.g. walleye, whitefish, lake trout",p:30},
   ],
   bread:[
-    {id:"sour",nm:"Sourdough loaf",ds:"e.g. miche, black rye, polenta, classic",p:14},
+    {id:"sour",nm:"Sourdough loaf",ds:"About 12–14 slices · e.g. miche, black rye, polenta, classic",p:14},
     {id:"pastry",nm:"Pastry",ds:"Each · e.g. croissant, scone, danish, muffin, monkey bun",p:8},
   ],
   cheese:[
@@ -786,7 +790,7 @@ const ITEMS={
   pantry:[
     {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
     {id:"maple",nm:"Maple syrup",ds:"Pint",p:19},
-    {id:"butter",nm:"Grass-fed butter",ds:"1 lb",p:13},
+    {id:"butter",nm:"Grass-fed butter",ds:"1 lb (4 sticks)",p:13},
     {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. cherry lavender or peach jalapeño jam, apple butter, dilly beans, giardiniera",p:13},
   ]
 };
@@ -867,13 +871,14 @@ function renderBoxes(){
   boxList();boxRow("breadboxes",BREADBOXES,"breadBox");
 }
 /* Craving menu (option D, Oct 27): one scannable list, jump buttons, "What's in it" dropdowns, buttons that say what they do. */
-const PROTEIN_HAS={meatbox:["Steak night, 10–12 oz (e.g. sirloin, Delmonico)","An everyday cut, about 1 lb (e.g. pork chops, stew meat)","1 lb ground (beef or pork)","1 lb sausage (e.g. andouille, bratwurst)"],
-  lakehaul:["2 wild Great Lakes fish fillets (e.g. walleye, whitefish, lake trout)","Smoked fish or fish pâté"]};
-const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",tag:"Saves $10 vs. buying each"},lakehaul:{what:"Wild Great Lakes fish, frozen packs",tag:"Saves $8 vs. buying each"}};
+const PROTEIN_HAS={meatbox:["Steak night, 10–12 oz: a meal for two (e.g. sirloin, Delmonico)","An everyday cut, about 1 lb: 3–4 portions (e.g. pork chops, stew meat)","1 lb ground: about 4 burgers (beef or pork)","1 lb sausage: about 4–5 links (e.g. andouille, bratwurst)"],
+  lakehaul:["2 wild Great Lakes fish fillets, 8–16 oz each: about 2 portions each (e.g. walleye, whitefish, lake trout)","Smoked fish or fish pâté: a snack or starter for 2–4"]};
+const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",tag:"Saves $10 vs. buying each",makes:"Makes about 14 portions: 7 meals for two · ≈ $6.40 a plate"},lakehaul:{what:"Wild Great Lakes fish, frozen packs",tag:"Saves $8 vs. buying each",makes:"Makes about 4 portions: 2 meals for two, plus a smoked-fish snack · ≈ $17.50 a plate"}};
 const OPEN_IN=new Set();
 function bCard(o){
   const card=el("div",{class:"bcard"+(o.on?" on":"")});
   card.append(el("div",{class:"bcard-top"},el("h3",{},o.name),el("span",{class:"bprice"},"$"+o.price)),el("p",{class:"bwhat"},o.what));
+  if(o.makes)card.append(el("p",{class:"bmakes"},el("span",{"aria-hidden":"true"},"🍽 "),o.makes));
   if(o.tag)card.append(el("p",{class:"btag"},o.tag));
   const ul=el("ul",{});for(const h of o.has)ul.append(el("li",{},h));
   const d=el("details",{class:"bin-in"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
@@ -883,11 +888,11 @@ function bCard(o){
 }
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES)w.append(bCard({name:b.name,price:b.price,what:b.wt+" · "+b.desc,tag:b.pick,has:b.has,on:state.box===b.id,
+  for(const b of BOXES)w.append(bCard({name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick,has:b.has,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
-    box.append(bCard({name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
+    box.append(bCard({name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,makes:PROTEIN_INFO[id].makes,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
       toggle:()=>{if(state.qty[id])delete state.qty[id];else{state.qty[id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));
   }
 }
@@ -930,6 +935,18 @@ function renderItems(){
     }
   }
 }
+
+/* Haul line (Oct 27): meals for two per box plus cost per plate, on the ticket and in the sheet notes. */
+const MEALS={halfpeck:[4,5],crate:[7,7],forever:[5,5],meatbox:[7,7],lakehaul:[2,2]};
+function haulInfo(){
+  const parts=[];let lo=0,hi=0,cost=0;const b=BOXES.find(x=>x.id===state.box);
+  if(b&&MEALS[b.id]){const d=MEALS[b.id];lo+=d[0];hi+=d[1];cost+=b.price;parts.push((hwInCart()?"Halloween Haul":b.name)+" "+(d[0]===d[1]?d[0]:d[0]+"–"+d[1]))}
+  for(const id of ["meatbox","lakehaul"]){const q=state.qty[id];if(!q)continue;const d=MEALS[id],it=ITEMS.meat.find(x=>x.id===id);lo+=d[0]*q;hi+=d[1]*q;cost+=it.p*q;parts.push(it.nm+" "+d[0]*q)}
+  if(!hi)return null;
+  const plate=cost/((lo+hi)/2*2);
+  return {meals:lo===hi?String(lo):lo+"–"+hi,plate:"$"+plate.toFixed(2),parts:parts.join(" · ")};
+}
+function haulLine(){const h=haulInfo();return h?"about "+h.meals+" meals for two, about "+h.plate+" a plate ("+h.parts+")":""}
 function orderText(id){
   const b=BOXES.find(x=>x.id===state.box);
   const d=DATES.find(x=>x.v===state.date);
@@ -937,6 +954,7 @@ function orderText(id){
     isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().delAfter+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
+  if(haulLine())L.push("Your haul: "+haulLine());
   if(b)L.push(b.name+" produce box ("+b.wt+") — $"+b.price);
   if(bb)L.push(bb.name+" ("+bb.wt+") — $"+bb.price);
   const more=Object.keys(state.prefs).filter(k=>state.prefs[k]==="more"),skip=Object.keys(state.prefs).filter(k=>state.prefs[k]==="skip");
@@ -965,7 +983,7 @@ function orderPayload(id){
   return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),email:state.email.trim(),
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
-    notes:[hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
+    notes:[hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",haulInfo()?"[Haul: ~"+haulInfo().meals+" meals for 2, "+haulInfo().plate+"/plate]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
     logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":REWARD_SHEET[state.reward]||""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),earlyDrop:earlyOK()?"Yes":"",waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
