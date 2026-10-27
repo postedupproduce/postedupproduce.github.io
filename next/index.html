@@ -1144,7 +1144,7 @@ function payBlock(txt){
     el("div",{class:"pay-amt"},el("span",{},"Pay now"),el("b",{},"$"+amt)),
     el("p",{class:"pay-memo"},"Memo: ",el("b",{},memo)),
     el("a",{class:"pay-btn ac",href:"sms:+1"+tel+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash")},"Pay with Apple Cash",el("small",{},"Opens Messages · tap the $"+amt+" to pay")),
-    el("button",{type:"button",class:"pay-btn zl",onclick:()=>copy(ZELLE+"  "+memo,"Copied: "+ZELLE+" and memo "+memo+". Open your bank app → Zelle → paste.")},"Pay with Zelle",el("small",{},"Copies "+ZELLE+" + memo")),
+    el("button",{type:"button",class:"pay-btn zl",onclick:()=>copy(ZELLE,"Copied "+ZELLE+". Open your bank app → Zelle → paste it as the recipient, send $"+amt+", memo "+memo+".")},"Pay with Zelle",el("small",{},"Copies "+ZELLE)),
     st,
     el("button",{type:"button",class:"ghost",onclick:async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
       try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · Mobile: "+state.phone.trim()+(SRC_TAG?" · Source: "+SRC_TAG:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
