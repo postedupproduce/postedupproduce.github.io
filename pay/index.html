@@ -44,6 +44,11 @@ a{color:var(--tomato)}
 .btn small{font-weight:500;font-size:14px}
 .ac{background:#111;color:#fff}
 .zl{background:#6D1ED4;color:#fff}
+.zsteps{display:grid;gap:8px;border:2px dashed #6D1ED4;border-radius:12px;padding:12px 14px;background:var(--bg)}
+.zt{margin:0;font-size:15px;font-weight:700}
+.zrow{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:16px;min-width:0}
+.zrow span{min-width:0;overflow-wrap:anywhere}
+.zcopy{flex:none;min-height:44px;min-width:72px;border-radius:10px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:800 15px var(--body);cursor:pointer}
 .ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);border-radius:12px;padding:12px 16px;min-height:48px;font:700 17px var(--body);cursor:pointer;width:100%}
 .note{margin:0;font-size:15px;color:var(--muted)}
 .st{margin:0;font-weight:700;font-size:16px}
@@ -72,8 +77,15 @@ input{font:inherit;font-size:18px;padding:12px;border:2px solid var(--line);bord
   <section id="pay" class="card" hidden aria-labelledby="hi">
     <div class="amt"><span id="who">Your total</span><b id="amt"></b></div>
     <p class="memo">Memo: <b id="memo"></b></p>
-    <a class="btn ac" id="ac" href="#">Pay with Apple Cash<small id="acs">Opens Messages · tap the amount to pay</small></a>
-    <button class="btn zl" id="zl" type="button">Pay with Zelle<small>Copies leeks.sabrosa@gmail.com</small></button>
+    <a class="btn ac" id="ac" href="#">Pay with Apple Cash<small id="acs">Opens Messages</small></a>
+    <button class="btn zl" id="zl" type="button" aria-expanded="false" aria-controls="zs">Pay with Zelle<small>Copies leeks.sabrosa@gmail.com and shows the steps</small></button>
+    <div class="zsteps" id="zs" hidden>
+      <p class="zt">Open your bank app → Zelle → Send. Then use these:</p>
+      <div class="zrow"><span>Send to <b>leeks.sabrosa@gmail.com</b></span><button type="button" class="zcopy" data-copy="email" aria-label="Copy the Zelle email">Copy</button></div>
+      <div class="zrow"><span>Amount <b id="zamt"></b></span><button type="button" class="zcopy" data-copy="amt" aria-label="Copy the amount">Copy</button></div>
+      <div class="zrow"><span>Memo <b id="zmemo"></b></span><button type="button" class="zcopy" data-copy="memo" aria-label="Copy the memo">Copy</button></div>
+      <p class="zt" style="font-weight:500">Zelle is inside most bank apps (Chase, Bank of America, Wells Fargo, Capital One and more). No bank app? Pay with Apple Cash or text 773-807-9223.</p>
+    </div>
     <p class="st" id="st" aria-live="polite"></p>
     <button class="ghost" id="paid" type="button">I've paid</button>
     <p class="note">Pay by 9 PM the night before your pickup or delivery. Your order is shopped once it's paid. Questions? Text 773-807-9223.</p>
@@ -91,14 +103,18 @@ const $=id=>document.getElementById(id);
 function show(no,amt,name){
   const memo="POSTED #"+no;
   /* Apple Cash first on Apple devices; Zelle first elsewhere (Oct 27). */
-  if(!/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)){$("ac").before($("zl"));$("acs").dataset.other="1"}
+  if(!/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)){$("ac").before($("zl"));$("zl").after($("zs"));$("acs").dataset.other="1"}
   $("ask").hidden=true;$("pay").hidden=false;
   $("amt").textContent="$"+amt;$("memo").textContent=memo;
   if(name){$("hi").textContent="Thanks, "+name+"! Last step: pay";$("who").textContent="Order #"+no}
   else $("who").textContent="Order #"+no;
   $("ac").href="sms:+1"+APPLE_CASH+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash");
-  $("acs").textContent=$("acs").dataset.other?"iPhone only · opens a text to 773-807-9223":"Opens Messages · tap the $"+amt+" to pay";
-  $("zl").onclick=async()=>{try{await navigator.clipboard.writeText(ZELLE);$("st").textContent="Copied "+ZELLE+". Open your bank app → Zelle → paste it as the recipient, send $"+amt+", memo "+memo+"."}catch(e){$("st").textContent="Zelle "+ZELLE+" · $"+amt+" · memo "+memo}};
+  $("acs").textContent=$("acs").dataset.other?"iPhone only · opens a text to 773-807-9223":"Opens Messages to 773-807-9223. Send the text, then tap + → Apple Cash → $"+amt+" → Send";
+  $("zamt").textContent="$"+amt;$("zmemo").textContent=memo;
+  const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);$("st").textContent=m}catch(e){$("st").textContent="Couldn't copy here. Type it in: "+v}};
+  const vals={email:[ZELLE,"Copied "+ZELLE+". Paste it as the recipient."],amt:[amt,"Copied "+amt+". Paste it as the amount."],memo:[memo,"Copied the memo."]};
+  document.querySelectorAll(".zcopy").forEach(b=>b.onclick=()=>copy(...vals[b.dataset.copy]));
+  $("zl").onclick=()=>{$("zs").hidden=false;$("zl").setAttribute("aria-expanded","true");copy(ZELLE,"Copied "+ZELLE+". Open your bank app → Zelle → paste it as the recipient.")};
   $("paid").onclick=async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
     try{await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:name||"",contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · from pay link"+(src?" · Source: "+src:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
     catch(x){b.disabled=false;b.textContent="I've paid"}};

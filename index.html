@@ -39,6 +39,12 @@
 .pay-btn small{font-weight:500;font-size:14px}
 .pay-btn.ac{background:#111;color:#fff}
 .pay-btn.zl{background:#6D1ED4;color:#fff}
+.zsteps{display:grid;gap:8px;border:2px dashed #6D1ED4;border-radius:12px;padding:12px 14px;background:var(--bg)}
+.zt{margin:0;font-size:15px;font-weight:700}
+.zrow{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:16px;min-width:0}
+.zrow span{min-width:0;overflow-wrap:anywhere}
+.zrow b{font-weight:800}
+.zcopy{flex:none;min-height:44px;min-width:72px;border-radius:10px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:800 15px var(--body);cursor:pointer}
 </style>
 <meta property="og:title" content="Posted Up Produce: market haul, picked for you">
 <meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, we hand-pick the best of the week, meet us in Goose Island (Wed) or Hyde Park (Sat), or get it delivered same day.">
@@ -1281,15 +1287,24 @@ function payBlock(txt){
   const amt=(txt.match(/TOTAL: \$([\d.]+)/)||[])[1]||"",no=(txt.match(/#(\d+)/)||[])[1]||"";
   const memo="POSTED #"+no;
   const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
-  const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);st.textContent=m}catch(e){st.textContent="Zelle "+v+" · send $"+amt+" · memo "+memo}};
+  const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);st.textContent=m;return true}catch(e){st.textContent="Couldn't copy here. Type it in: "+v;return false}};
   const tel=APPLE_CASH.replace(/\D/g,"");
   const apple=/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
-  const mkAC=()=>el("a",{class:"pay-btn ac",href:"sms:+1"+tel+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash")},"Pay with Apple Cash",el("small",{},apple?"Opens Messages · tap the $"+amt+" to pay":"iPhone only · opens a text to "+APPLE_CASH));
-  const mkZL=()=>el("button",{type:"button",class:"pay-btn zl",onclick:()=>copy(ZELLE,"Copied "+ZELLE+". Open your bank app → Zelle → paste it as the recipient, send $"+amt+", memo "+memo+".")},"Pay with Zelle",el("small",{},"Copies "+ZELLE));
+  /* Apple Cash (Oct 27): Messages opens to Sol with the order typed in; they send it, then + → Apple Cash → amount (Apple's own steps). */
+  const mkAC=()=>el("a",{class:"pay-btn ac",href:"sms:+1"+tel+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash")},"Pay with Apple Cash",el("small",{},apple?"Opens Messages to "+APPLE_CASH+". Send the text, then tap + → Apple Cash → $"+amt+" → Send":"iPhone only · opens a text to "+APPLE_CASH));
+  /* Zelle (Oct 27): no web link exists, so one tap copies the email and opens a 3-line cheat sheet with copy buttons. */
+  const zrow=(lab,val,msg)=>el("div",{class:"zrow"},el("span",{},lab,el("b",{},val)),el("button",{type:"button",class:"zcopy","aria-label":"Copy "+lab.toLowerCase()+" "+val,onclick:()=>copy(val,msg)},"Copy"));
+  const zsteps=el("div",{class:"zsteps",hidden:""},
+    el("p",{class:"zt"},"Open your bank app → Zelle → Send. Then use these:"),
+    zrow("Send to ",ZELLE,"Copied "+ZELLE+". Paste it as the recipient."),
+    el("div",{class:"zrow"},el("span",{},"Amount ",el("b",{},"$"+amt)),el("button",{type:"button",class:"zcopy","aria-label":"Copy amount "+amt,onclick:()=>copy(amt,"Copied "+amt+". Paste it as the amount.")},"Copy")),
+    zrow("Memo ",memo,"Copied the memo."),
+    el("p",{class:"zt",style:"font-weight:500"},"Zelle is inside most bank apps (Chase, Bank of America, Wells Fargo, Capital One and more). No bank app? Pay with Apple Cash or text 773-807-9223."));
+  const mkZL=()=>el("button",{type:"button",class:"pay-btn zl","aria-expanded":"false",onclick:e=>{zsteps.hidden=false;e.currentTarget.setAttribute("aria-expanded","true");copy(ZELLE,"Copied "+ZELLE+". Open your bank app → Zelle → paste it as the recipient.")}},"Pay with Zelle",el("small",{},"Copies "+ZELLE+" and shows the steps"));
   const box=el("div",{class:"pay"},
     el("div",{class:"pay-amt"},el("span",{},"Pay now"),el("b",{},"$"+amt)),
     el("p",{class:"pay-memo"},"Memo: ",el("b",{},memo)),
-    ...(apple?[mkAC(),mkZL()]:[mkZL(),mkAC()]),
+    ...(apple?[mkAC(),mkZL(),zsteps]:[mkZL(),zsteps,mkAC()]),
     st,
     el("button",{type:"button",class:"ghost",onclick:async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
       try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · Mobile: "+state.phone.trim()+(SRC_TAG?" · Source: "+SRC_TAG:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
