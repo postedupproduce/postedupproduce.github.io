@@ -15,6 +15,11 @@
 .more-links a{display:flex;align-items:center;min-height:44px;color:var(--tomato);font-weight:700;text-decoration:none}
 .bar[hidden]{display:none}
 #orderPre{white-space:pre-wrap;overflow-wrap:anywhere}
+.hook{display:grid;gap:8px;border:3px solid var(--tomato);border-radius:14px;padding:14px;background:var(--panel)}
+.hook b{font:400 22px/1.1 var(--display)}
+.hook span{font-size:16px}
+.spot.back{border:3px solid var(--good);border-radius:14px;padding:18px;background:var(--panel)}
+.spot.back .k{color:var(--good)}
 .hwbar{display:flex;align-items:center;justify-content:space-between;gap:12px;border:3px solid #E0782F;border-radius:12px;padding:12px 14px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
 .hwbar[hidden]{display:none}
 .hwbar span{font-size:14px;line-height:1.35;color:var(--ink)}
@@ -404,6 +409,13 @@ details.vdet .vote{border:0;padding:0 0 14px}
         <div class="stop"><b>Order by</b>9 PM the night before</div>
       </div>
     </div>
+  </section>
+
+  <section class="post spot back" data-view="home" id="welcomeBack" aria-labelledby="wbH" hidden>
+    <span class="k">Welcome back</span>
+    <h2 id="wbH">Reorder your last haul?</h2>
+    <p class="meta" id="wbWhat"></p>
+    <div class="row2"><button type="button" class="go" id="wbGo" style="flex:1 1 200px">Reorder in one tap</button><a href="#shop">Change it up &rarr;</a></div>
   </section>
 
   <section class="post spot hw" data-view="home" id="halloween" aria-labelledby="hwH" hidden>
@@ -902,6 +914,7 @@ function renderTicket(){
         "Pay by 9 PM the night before. Your order is shopped once it's paid. Your ticket is below; we text you at each step.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       ...(!state.wait&&state.sendStatus==="sent"&&ZELLE?[payBlock(txt)]:[]),
+      ...(!state.wait&&state.sendStatus==="sent"&&state.box?[hookBlock(txt)]:[]),
       el("h3",{style:"margin:6px 0 0"},"Your order ticket"),
       pre,
       el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
@@ -1014,7 +1027,7 @@ function renderTicket(){
       if(last&&last.sig===sig&&Date.now()-last.at<3600000&&!state.forceNew){state.sent=last.txt;state.wait=last.wait;state.sendStatus="sent";state.dupe=true;renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});return}}catch(e){}
     state.forceNew=false;state.dupe=false;
     const id=(Date.now()%100000).toString().padStart(5,"0");
-    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
+    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-cart",JSON.stringify({box:state.box,breadBox:state.breadBox,qty:state.qty,mode:state.mode,fulfill:state.fulfill,name:state.name,phone:state.phone,email:state.email,address:state.address,notes:state.notes,hw:state.hw||false,at:Date.now()}))}catch(e){}try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
     sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
   });
   t.append(f);
@@ -1166,6 +1179,35 @@ function payBlock(txt){
       catch(x){b.disabled=false;b.textContent="I've paid"}}},"I've paid"));
   return box;
 }
+/* Hook (Oct 27, Sol: "get em in, get em ordering, get em hooked, get em out"): after ordering, one tap asks for this box every Saturday.
+   Posts a STANDING ORDER REQUEST to the Feedback tab (same format as the Standing Order form); Sol confirms by text. */
+function hookBlock(txt){
+  const b=BOXES.find(x=>x.id===state.box);if(!b)return el("span");
+  const no=(txt.match(/#(\d+)/)||[])[1]||"";
+  const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
+  const btn=el("button",{type:"button",class:"go",onclick:async()=>{btn.disabled=true;btn.textContent="Sending…";
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["STANDING ORDER REQUEST","Mobile: "+state.phone.trim(),"Box: "+b.name+" ($"+b.price+")","Day: Saturdays","Where: "+(isDel()?"My door":"Hyde Park meet-up"),"From order #"+no,"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
+      btn.remove();st.textContent="You're in. We'll text you to confirm your weekly "+b.name+". Skip or stop any week by 9 PM the night before."}
+    catch(x){btn.disabled=false;btn.textContent="Yes, make it weekly";st.textContent="That didn't go through. Text 773-807-9223."}}},"Yes, make it weekly");
+  return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name+" every Saturday. Your spot is held, delivery is free, every 4th box gets a free add-on. Skip any week."),btn,st);
+}
+/* Get 'em back (Oct 27): a device that ordered before sees "Reorder your last haul" on Home; one tap refills the cart, name and phone, then opens checkout. */
+(function(){
+  let c=null;try{c=JSON.parse(localStorage.getItem("pu-cart")||"null")}catch(e){}
+  if(!c||(!c.box&&!c.breadBox&&!Object.keys(c.qty||{}).length))return;
+  const b=BOXES.find(x=>x.id===c.box),bb=BREADBOXES.find(x=>x.id===c.breadBox);
+  const bits=[b&&b.name,bb&&bb.name,...ALL.filter(i=>c.qty&&c.qty[i.id]).map(i=>c.qty[i.id]>1?c.qty[i.id]+" × "+i.nm:i.nm)].filter(Boolean);
+  const sec=document.getElementById("welcomeBack");if(!sec||!bits.length)return;
+  document.getElementById("wbWhat").textContent=(c.name?c.name.split(" ")[0]+", last time: ":"Last time: ")+bits.slice(0,5).join(", ")+(bits.length>5?" and more":"")+".";
+  sec.hidden=false;
+  document.getElementById("wbGo").addEventListener("click",()=>{
+    state.box=b?b.id:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(c.qty&&c.qty[i.id])state.qty[i.id]=c.qty[i.id];
+    state.mode=c.mode||"box";state.name=c.name||"";state.phone=c.phone||"";state.email=c.email||"";state.address=c.address||"";state.notes=c.notes||"";
+    const okStop=STOPS.some(x=>x.id===c.fulfill)||DELIVERIES.some(x=>"del-"+x.id===c.fulfill);state.fulfill=okStop?c.fulfill:state.fulfill;
+    if(!datesFor().length)state.fulfill=String(c.fulfill||"").startsWith("del-")?"del-hyde":"hyde";
+    const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";
+    if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"});
+})();
 /* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
 const HW_END=new Date(2026,10,1,0,0);
 function hwOn(){return chiNow()<HW_END}
