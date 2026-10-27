@@ -394,6 +394,10 @@ details.vdet .vote{border:0;padding:0 0 14px}
 :root[data-theme="dark"] :is(.spot.hw .go,.hwbar .go){color:#fff}
 :root[data-theme="dark"] .spot.hw .k{color:#F2A36B}
 :root[data-theme="dark"] .pick{color:var(--ink)}
+.nextv .vopts{display:grid;gap:8px}
+.nextv .ropt input{position:absolute;opacity:0;width:1px;height:1px}
+.nextv .ropt:has(input:focus-visible){outline:3px solid var(--tomato);outline-offset:2px}
+.nextv input[type=text]{font:inherit;padding:12px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);min-height:48px}
 </style>
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
@@ -542,6 +546,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 
   <section class="post" data-view="home" id="standing" aria-labelledby="soH">
+    <p class="days" style="margin-bottom:10px"><b>Coming soon:</b> weekly boxes, office drops, gift boxes and boxes all winter from the indoor market. Order once and you get a vote, plus a treat.</p>
     <span class="k" style="display:block;font-size:14px;font-weight:700;color:var(--muted);margin-bottom:4px">New · Standing Order</span>
     <h2 id="soH">Set your box once. Skip any week.</h2>
     <p class="sub">Every Saturday we shop it fresh and hand it off the same afternoon. No season prepay: you pay week by week, and you can skip or stop by 9 PM Friday.</p>
@@ -658,6 +663,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
           <li><b>Pickup days.</b> Pickups are on the day we shop: Wednesday, October 28 at Goose Island (11:30 AM–1:30 PM), then Saturdays at Hyde Park (3–4 PM) through November 21. Delivery is same-day. Other days or times may be arranged by text.</li>
           <li><b>Beta founder rate.</b> Boxes (produce, bread, Meat Lovers Box and Lake Haul) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later, and it doesn't stack with free Standing Order delivery: meet up and save 10%, or take free delivery, each week.</li>
+          <li><b>Free early drop-off.</b> On pickup orders you can opt in to a free early drop-off at your door. It's never guaranteed: we text you first when our route allows it. If we don't text, pick up at your meet-up window as usual. Questions: text 773-807-9223.</li>
           <li><b>Standing Order.</b> A Standing Order is a weekly order we set up by text. Each week we send a pay link; your box is shopped only once it's paid by 9 PM the night before. Skip any week by 9 PM the night before, or stop anytime, by text. Unpaid by the cutoff means no box and no charge. Standing Order delivery is free within 3 miles of the meet-up stop; beyond that we text you the per-mile add before you pay. Every 4th paid Standing Order box includes a free add-on (pastry, hot sauce or cider) of our choosing from what's at market.</li>
           <li><b>Cooler bag deposit.</b> If we pack your order in a Posted Up cooler bag, we add a $15 deposit to that order. Hand the bag back at any meet-up or delivery and the full $15 becomes a credit on your next order.</li>
           <li><b>Feedback thank-you.</b> Leave feedback with your contact info during the beta and we'll add one bonus produce pick to your next order. One per person.</li>
@@ -928,6 +934,7 @@ function renderTicket(){
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       ...(!state.wait&&state.sendStatus==="sent"&&ZELLE?[payBlock(txt)]:[]),
       ...(!state.wait&&state.sendStatus==="sent"&&state.box?[hookBlock(txt)]:[]),
+      ...(!state.wait&&state.sendStatus==="sent"?[nextVoteBlock(txt)]:[]),
       el("h3",{style:"margin:6px 0 0"},"Your order ticket"),
       pre,
       el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
@@ -986,6 +993,8 @@ function renderTicket(){
   for(const d of ds){const l=spotsLeft(d.v);const o=el("option",{value:d.v},d.label+(l===0?" · full, join the waitlist":l!=null&&l<=3?" · "+l+" spot"+(l>1?"s":"")+" left":""));if(d.v===state.date)o.selected=true;sel.append(o)}
   sel.addEventListener("change",()=>{state.date=sel.value;renderTicket()});
   where.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
+  if(!isDel()){const ed=el("input",{id:"early",type:"checkbox"});ed.checked=!!state.early;ed.addEventListener("change",()=>{state.early=ed.checked});
+    where.append(el("label",{for:"early",class:"agree"},ed,el("span",{},el("b",{},"OK to drop it at my door earlier, free"),el("br"),"If I'm done shopping early and you're on my route, I'll bring it to you before pickup. I text first to get your address; if it doesn't fit, pick up as planned. Questions? Text 773-807-9223.")))}
   f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
   const ss=el("select",{id:"sub"});
   ss.append(el("option",{value:"credit"},"Credit it to my next order"),el("option",{value:"replace"},"Replace it with equal or greater value"),el("option",{value:"refund"},"Refund me for it"));
@@ -1222,6 +1231,32 @@ function hookBlock(txt){
     const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";
     if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"});
 })();
+/* What's next vote (Oct 27, Sol): after ordering, pick what we should launch next; thank-you (pastry or fun produce) goes in THIS order.
+   Posts "NEXT VOTE" to the Feedback tab; Sol adds the thank-you to the order by its number. */
+const NEXT_OPTS=[["standing","A weekly box (Standing Order)"],["office","Drops at my office"],["gift","Gift boxes for friends & family"],["winter","Boxes all winter from the indoor market"]];
+function nextVoteBlock(txt){
+  const no=(txt.match(/#(\d+)/)||[])[1]||"";
+  let done=false;try{done=localStorage.getItem("pu-nextvote-"+no)==="1"}catch(e){}
+  const box=el("div",{class:"hook nextv"});
+  if(done){box.append(el("b",{},"Thanks for voting!"),el("span",{},"Your thank-you is in this order."));return box}
+  const picks=el("div",{class:"vopts"});
+  for(const [v,t] of NEXT_OPTS){const i=el("input",{type:"checkbox",value:v});picks.append(el("label",{class:"ropt"},i,el("span",{},t)))}
+  const gifts=el("div",{class:"vopts"});
+  for(const [v,t] of [["Pastry","A fresh pastry"],["Fun produce","A fun produce pick"]]){const i=el("input",{type:"radio",name:"nvGift",value:v});if(v==="Pastry")i.checked=true;gifts.append(el("label",{class:"ropt"},i,el("span",{},t)))}
+  const where=el("input",{type:"text",maxlength:"60",placeholder:"Office or neighborhood (optional)"});
+  const st=el("p",{class:"note",style:"margin:0;color:var(--ink);font-weight:600","aria-live":"polite"},"");
+  const btn=el("button",{type:"button",class:"go",onclick:async()=>{
+    const chosen=[...picks.querySelectorAll("input:checked")].map(i=>NEXT_OPTS.find(o=>o[0]===i.value)[1]);
+    if(!chosen.length){st.textContent="Pick at least one.";return}
+    const gift=(gifts.querySelector("input:checked")||{}).value||"Pastry";
+    btn.disabled=true;btn.textContent="Sending…";
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["NEXT VOTE","Order #"+no,"Picks: "+chosen.join(" + "),"Thank-you (this order): "+gift,"Office/area: "+(where.value.trim()||"—"),"Mobile: "+state.phone.trim(),"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
+      try{localStorage.setItem("pu-nextvote-"+no,"1")}catch(e){}
+      box.replaceChildren(el("b",{},"Thanks for voting!"),el("span",{},"A "+(gift==="Pastry"?"fresh pastry":"fun produce pick")+" is going in this order."))}
+    catch(x){btn.disabled=false;btn.textContent="Send my vote";st.textContent="That didn't go through. Text 773-807-9223."}}},"Send my vote");
+  box.append(el("b",{},"Help pick what's next, get a treat"),el("span",{},"Coming soon: which would you use? Pick any. We'll tuck a thank-you into this order."),picks,el("span",{style:"font-weight:700"},"Your thank-you"),gifts,where,btn,st);
+  return box;
+}
 /* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
 const HW_END=new Date(2026,10,1,0,0);
 function hwOn(){return chiNow()<HW_END}
