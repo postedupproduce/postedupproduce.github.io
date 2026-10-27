@@ -14,6 +14,7 @@
 .more-links{display:grid;gap:4px;margin:12px 0}
 .more-links a{display:flex;align-items:center;min-height:44px;color:var(--tomato);font-weight:700;text-decoration:none}
 .bar[hidden]{display:none}
+#orderPre{white-space:pre-wrap;overflow-wrap:anywhere}
 .hwbar{display:flex;align-items:center;justify-content:space-between;gap:12px;border:3px solid #E0782F;border-radius:12px;padding:12px 14px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
 .hwbar[hidden]{display:none}
 .hwbar span{font-size:14px;line-height:1.35;color:var(--ink)}
@@ -389,11 +390,9 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <p class="prev">Preview of the simplified site. Nothing here is live until approved.</p>
   <section class="post" data-view="home">
     <div class="sign">
-      <span class="kicker">Now in beta: pilot season in Chicago, fall 2026</span>
       <h1>Market haul, picked for you.</h1>
       <p class="lede">We shop small farms and makers at the farmers market, then hand you the best of the week the same day: picked up or delivered.</p>
-      <p class="now" id="now" aria-live="polite">Chicago time</p>
-      <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
+      <p class="now" id="now" aria-live="polite" hidden>Chicago time</p>
       <div class="acts">
         <a class="act a1" href="#shop"><span>Order this week's box<small id="actSmall">Half Peck $50 · Full Crate $72 · Vegan $68</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
         <a class="act a2" href="#shop" data-del><span>Get it delivered<small>Same day, to your door · from $8</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
@@ -404,7 +403,6 @@ details.vdet .vote{border:0;padding:0 0 14px}
         <div class="stop"><b>Saturdays</b>Hyde Park 3–4 PM, or delivery</div>
         <div class="stop"><b>Order by</b>9 PM the night before</div>
       </div>
-      <p class="from">Pay by 9 PM the night before · bread, cheese &amp; pantry add-ons · no subscription needed</p>
     </div>
   </section>
 
@@ -413,7 +411,6 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <h2 id="hwH">Halloween Haul · $67</h2>
     <p class="meta" style="color:var(--ink)">$62 at a pickup with the beta founder rate</p>
     <p class="meta">A Half Peck with a pie pumpkin swapped in, a jug of fresh-pressed cider and a fresh pastry.</p>
-    <ul><li>Pie pumpkin</li><li>2 lb orchard apples</li><li>2 lb sweet potatoes</li><li>2 lb beets</li><li>Onions</li><li>1 bunch kale</li><li>Apple cider jug</li><li>1 pastry</li></ul>
     <div class="row2"><button type="button" class="go" id="hwAdd" style="flex:1 1 200px">Add the Halloween Haul</button><a href="#shop">Or pick a box &rarr;</a></div>
   </section>
 
@@ -425,7 +422,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     </div>
   </section>
 
-  <section class="post spot" data-view="home" aria-labelledby="spotH">
+  <section class="post spot" data-view="home" id="spotlight" aria-labelledby="spotH">
     <span class="k">Most popular this week</span>
     <h2 id="spotH">Half Peck · $50</h2>
     <p class="meta">~9–10 lb · a week of sides and a couple of mains for two</p>
@@ -440,15 +437,10 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <li><span><b>We shop the morning market</b> and hand-select what's peaking.</span></li>
       <li><span><b>Pick it up or get it delivered</b> the same day: Wednesday at Goose Island 11:30 AM–1:30 PM, Saturday in Hyde Park 3–4 PM. Delivery from $8.</span></li>
     </ol>
-    <div class="founder">
-      <b class="k">Beta founder rate: 10% off boxes</b>
-      <p>Pick up your box at the meet-up during the beta and it's 10% off. Complete one paid meet-up order and you're a Founding Member: you keep 10% off boxes through the 2027 season if Posted Up keeps growing. Thanks for being here first.</p>
-      <p style="margin:8px 0 0"><b>One rule:</b> meet up and save 10%, or take free delivery on a <a href="#standing">Standing Order</a>. Your pick each week, not both.</p>
-    </div>
-    <p class="firstpick"><span><b>Not ready to order?</b> Get first pick: tell us your spot and how often to text you. 30 seconds.</span><a href="/join/?s=site-how">Get first pick</a></p>
+    <p class="days"><b>Beta founder rate:</b> 10% off boxes when you pick up. Or set a <a href="#standing">Standing Order</a> for free delivery.</p>
   </section>
 
-  <section class="post" data-view="home" aria-labelledby="seasonTitle">
+  <section class="post" data-view="home" aria-labelledby="seasonTitle" hidden>
     <h2 id="seasonTitle">October harvest</h2>
     <p class="sub" id="seasonNote">What local farms are bringing to market right now, and the part of the Midwest it usually comes from. Boxes are built from whatever is peaking that week.</p>
     <div class="swipe"><span>Swipe or use the arrows to see more.</span><span><button type="button" class="arw" data-row="seasonList" data-dir="-1" aria-label="Scroll left">&larr;</button> <button type="button" class="arw" data-row="seasonList" data-dir="1" aria-label="Scroll right">&rarr;</button></span></div>
@@ -502,7 +494,6 @@ details.vdet .vote{border:0;padding:0 0 14px}
 
   <section class="post" data-view="home" aria-labelledby="whyH">
     <h2 id="whyH">A shopper who knows the farmers</h2>
-    <p class="sub">Delivery apps send whoever is free to a warehouse store. We spend market mornings with growers we've known for years.</p>
     <div class="cmp" role="table" aria-label="Posted Up compared with a grocery delivery app and a season farm box">
       <div class="h" role="row"><span role="columnheader"></span><span role="columnheader">Posted Up</span><span role="columnheader">Delivery app</span><span role="columnheader">Season farm box</span></div>
       <div role="row"><span role="rowheader" class="k">Order to in hand</span><span role="cell" class="u">Same day</span><span role="cell" class="o">Hours, from a store</span><span role="cell" class="o">Days, from a cooler</span></div>
@@ -511,11 +502,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <div role="row"><span role="rowheader" class="k">Commitment</span><span role="cell" class="u">Per order. Skip any week</span><span role="cell" class="o">Membership fee</span><span role="cell" class="o">Whole season up front</span></div>
       <div role="row"><span role="rowheader" class="k">Who you text</span><span role="cell" class="u">Your shopper</span><span role="cell" class="o">A support inbox</span><span role="cell" class="o">A newsletter</span></div>
     </div>
-    <ul class="trust">
-      <li><b>20+ years in Chicago food</b>Your shopper knows which stand has the best of each thing that week. Food-safety trained (Produce Safety Alliance).</li>
-      <li><b>Farmers get their full price</b>We buy at the stand at the farmer's own price. Our fee is built into ours, not taken from theirs.</li>
-    </ul>
-    <p class="fomo"><b>Pilot spots are limited.</b> We take about 5 orders per market day so each one is hand-picked, through November 21. <a href="#how">How it works &rarr;</a></p>
+    <p class="days">Your shopper has 20+ years in Chicago food and is food-safety trained. Farmers get their full stand price; our fee is built into ours.</p>
     <a class="go" href="#shop">See this week's boxes</a>
   </section>
 
@@ -526,7 +513,6 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <li><b>Not happy with an item?</b>Credit or refund. Your choice, no back-and-forth.</li>
       <li><b>Not at market that day?</b>Its full price becomes credit on your next order, or a refund if you ask.</li>
       <li><b>You'll always know where your haul is</b>A text when we're shopping it, a text when we're on the way, a text at handoff.</li>
-      <li><b>The Posted Up cooler bag</b>Insulated, packed straight from the stand. $15 deposit, and the full $15 goes on your next order when you hand it back.</li>
     </ul>
   </section>
 
@@ -737,7 +723,15 @@ const DELIVERY_FEE=8, FLAT_MILES=3, PER_MILE=1.5;
 function isDel(){return state.fulfill.startsWith("del-")}
 /* Opt-in: free early door drop-off for meet-up orders if it fits Sol's route that day. Not a promise; Sol texts to set it up. */
 function earlyOK(){return !isDel()&&state.early}
-function delStop(){return STOPS.find(x=>"del-"+x.id===state.fulfill)}
+/* Delivery windows (Oct 27, Sol): the original after-2/4/6 PM windows from each old stop, both market days, plus Wed after 10:30 AM.
+   The sheet still logs "Delivery from <name>", same as the original site, so delivery-time data stays comparable. */
+const DELIVERIES=[
+  {id:"am",name:"Goose Island (morning)",area:"Goose Island",delAfter:"10:30 AM",days:[3]},
+  {id:"goose",name:"Goose Island",area:"Goose Island",delAfter:"2:00 PM",days:[3,6]},
+  {id:"hyde",name:"Hyde Park",area:"Hyde Park",delAfter:"4:00 PM",days:[3,6]},
+  {id:"rogers",name:"Rogers Park",area:"Rogers Park",delAfter:"6:00 PM",days:[3,6]}
+];
+function delStop(){return DELIVERIES.find(x=>"del-"+x.id===state.fulfill)}
 /* Stops are tied to a market day (Oct 26, Sol): Wed = Goose Island, ready 10:30 AM; Sat = Hyde Park 3–4 PM. */
 const STOPS=[
   {id:"goose",name:"Goose Island",time:"11:30 AM–1:30 PM",day:3,dayName:"Wed",delAfter:"10:30 AM"},
@@ -851,6 +845,7 @@ function orderText(id){
   L.push("","TOTAL: $"+total());
   L.push("","I agree to the Posted Up Produce Order Terms (October 2026), including the refund and cancellation policy.");
   if(!isWait())L.push("I understand my order isn't shopped until payment arrives (Zelle or Apple Cash by 9 PM the night before).");
+  if(!isWait()&&ZELLE)L.push("","Pay here: https://postedupproduce.github.io/pay/?o="+id+"&a="+total());
   return L.join("\n");
 }
 function orderPayload(id){
@@ -881,7 +876,7 @@ function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>
 function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
 function total(){return subtotal()+fee()-discount()-founderOff()}
 function curStop(){return isDel()?delStop():STOPS.find(x=>x.id===state.fulfill)}
-function datesFor(){const st=curStop();return st?DATES.filter(d=>new Date(d.v+"T12:00").getDay()===st.day):DATES}
+function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;return ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES}
 function setMode(m){
   if(m===state.mode)return;
   state.mode=m;
@@ -901,13 +896,13 @@ function renderTicket(){
     const pre=el("pre",{id:"orderPre"},txt);
     const msg=el("p",{class:"note",id:"copyMsg"},"");
     t.append(el("div",{class:"done"},
-      el("h2",{},"Thank you for ordering!"),
+      el("h2",{},state.wait?"You're on the waitlist":"Order in! Last step: pay"),
       ...(state.dupe?[el("p",{class:"note",style:"margin:0;color:var(--tomato);font-weight:700"},"You already placed this exact order, so here's your ticket. No need to order again."),el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;state.dupe=false;state.forceNew=true;renderTicket()}},"I really want a second order")]:[]),
-      el("p",{class:"thanks"},"You're one of our first Posted Up customers, and that means a lot. Every order keeps money with small farms and makers close to home and helps us shape this pilot."),
       el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.wait?"You're on the waitlist for that day. Don't pay yet. If a spot opens, we'll text you to confirm and send payment details. Want a sure spot? Pick another day.":state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
-        "Your order is in. Last step: pay by 9 PM the night before (we can't take payment at pickup). "+(ZELLE?"Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll text you payment details.")+" Orders are confirmed once paid.":
+        "Pay by 9 PM the night before. Your order is shopped once it's paid. Your ticket is below; we text you at each step.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       ...(!state.wait&&state.sendStatus==="sent"&&ZELLE?[payBlock(txt)]:[]),
+      el("h3",{style:"margin:6px 0 0"},"Your order ticket"),
       pre,
       el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),
       msg,
@@ -950,10 +945,11 @@ function renderTicket(){
   const fs=el("select",{id:"fulfill"});
   const open=STOPS.filter(st=>DATES.some(d=>new Date(d.v+"T12:00").getDay()===st.day));
   for(const s of open)fs.append(el("option",{value:s.id},s.dayName+" pickup · "+s.name+", "+s.time));
-  for(const st of open)fs.append(el("option",{value:"del-"+st.id},st.dayName+" delivery to my door · after "+st.delAfter+" (from $"+DELIVERY_FEE+")"));
+  const openDel=DELIVERIES.filter(x=>DATES.some(d=>x.days.includes(new Date(d.v+"T12:00").getDay())));
+  for(const x of openDel)fs.append(el("option",{value:"del-"+x.id},"Delivery to my door · after "+x.delAfter+(x.days.length===1?" (Wed only)":"")+" · near "+x.area+" (from $"+DELIVERY_FEE+")"));
   fs.value=state.fulfill;
   fs.addEventListener("change",()=>{state.fulfill=fs.value;const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()});
-  where.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of "+delStop().name+", then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window.":"We text the exact meet-up spot after you order."));
+  where.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of "+delStop().area+", then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window.":"We text the exact meet-up spot after you order."));
   if(isDel()){
     const a=el("input",{id:"address",type:"text",placeholder:"Street, unit, zip",autocomplete:"street-address"});a.value=state.address;a.addEventListener("input",()=>state.address=a.value);
     where.append(el("label",{for:"address"},"Delivery address",a));
@@ -1121,7 +1117,7 @@ talkForm("soForm",f=>{const n=f.querySelector("#soName").value.trim(),p=f.queryS
   const b=f.querySelector('input[name="soBox"]:checked'),w=f.querySelector('input[name="soWhere"]:checked');
   const src=(new URLSearchParams(location.search).get("s")||"next").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"next";
   return {type:"feedback",name:n,contact:"",message:["STANDING ORDER REQUEST","Mobile: "+p,"Box: "+b.value+" ($"+b.dataset.p+")","Day: Saturdays","Where: "+w.value,"Source: "+src].join(" · "),times:"",ok:"We'll text you to confirm your Standing Order and your first Saturday."}});
-document.querySelectorAll("[data-del]").forEach(a=>a.addEventListener("click",()=>{const nx=DATES[0]?new Date(DATES[0].v+"T12:00").getDay():6;state.fulfill="del-"+((STOPS.find(x=>x.day===nx)||STOPS[1]).id);const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}));
+document.querySelectorAll("[data-del]").forEach(a=>a.addEventListener("click",()=>{const nx=DATES[0]?new Date(DATES[0].v+"T12:00").getDay():6;state.fulfill="del-"+((DELIVERIES.find(x=>x.days.includes(nx))||DELIVERIES[2]).id);const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}));
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
 /* Carry the incoming ?s= tag onto every site tab so Visits/Contacts attribution survives. */
@@ -1177,6 +1173,7 @@ function hwInCart(){return state.hw&&state.box==="halfpeck"&&state.qty.cider>0&&
 (function(){
   if(!hwOn())return;
   const sec=document.getElementById("halloween");if(!sec)return;sec.hidden=false;
+  const sp=document.getElementById("spotlight");if(sp)sp.hidden=true;
   const sm=document.getElementById("actSmall");if(sm)sm.textContent="🎃 Halloween Haul $67 · boxes from $50";
   const hs=document.getElementById("hwShop");if(hs)hs.hidden=false;
   const addHw=()=>{state.box="halfpeck";state.mode="box";state.qty.cider=Math.max(1,state.qty.cider||0);state.qty.pastry=Math.max(1,state.qty.pastry||0);state.hw=true;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
