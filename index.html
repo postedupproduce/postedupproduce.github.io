@@ -450,6 +450,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .sofold[open] summary{margin-bottom:12px}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sofold summary{color:#1b0e0a}}
 :root[data-theme="dark"] .sofold summary{color:#1b0e0a}
+.talk .sub a{color:inherit;font-weight:700}
 </style>
 
 <header class="top"><div class="top-in"><a class="brand" href="#start">Posted Up<span class="brand-p"> Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
@@ -458,6 +459,8 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <a href="#shop">Boxes</a>
   <a href="#inventory">Add-ons</a>
   <a href="#how">How it works</a>
+  <a href="#talk">Contact</a>
+  <a href="/play/">Play</a>
 </nav></header>
 
 <main class="feed" id="start">
@@ -667,8 +670,8 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 
   <section class="post talk" data-view="extra" id="talk" aria-labelledby="talkH">
-    <h2 id="talkH">Help us build this</h2>
-    <p class="sub">Posted Up is in beta, and your ideas shape what comes next: items, stops, days, anything.</p>
+    <h2 id="talkH">Contact us</h2>
+    <p class="sub">Fastest: text <a href="sms:+17738079223">773-807-9223</a>. Or use a form below and we'll get back to you. Posted Up is in beta, and your ideas shape what comes next: items, stops, days, anything.</p>
     <form class="talkf" id="fbForm" novalidate>
       <h3>Share feedback</h3>
       <p class="sub">Leave your number or email and we'll tuck a bonus produce pick into your next order as a thank-you (one per person during the beta).</p>
@@ -1287,7 +1290,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
     else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
     const changed=v!==cur;cur=v;
     secs.forEach(s=>s.classList.toggle("offview",!s.dataset.view.split(" ").includes(v)));
-    tabs.forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);const on=u.pathname==="/"&&((v==="home"&&!["#shop","#inventory","#how"].includes(u.hash))||(v==="shop"&&u.hash==="#shop")||(v==="inventory"&&u.hash==="#inventory"));on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+    tabs.forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);const on=u.pathname==="/"&&((v==="home"&&!["#shop","#inventory","#how","#talk"].includes(u.hash))||(v==="shop"&&u.hash==="#shop")||(v==="inventory"&&u.hash==="#inventory")||(v==="extra"&&u.hash==="#talk"));on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
     const deep=el&&!["shop","boxes","inventory","start"].includes(h);
     if(deep)requestAnimationFrame(()=>el.scrollIntoView({behavior:first?"auto":"smooth",block:"start"}));
     else if(changed&&!first)scrollTo(0,0);
