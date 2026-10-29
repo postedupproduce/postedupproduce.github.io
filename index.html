@@ -438,7 +438,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .bprice{font:800 19px var(--body);white-space:nowrap}
 .bwhat{margin:0;font-size:15px;color:var(--ink)}
 .btag{margin:0;font-size:14px;font-weight:700;color:var(--good)}
-#fruit,#nocook,#asana,#asanapair{scroll-margin-top:calc(var(--toph,120px) + 76px)}
+#fruit,#nocook,#asana,#asanapair,#grounding,#strength,#rest,#practice{scroll-margin-top:calc(var(--toph,120px) + 76px)}
 .bmakes{margin:2px 0 0;font-size:16px;font-weight:800;line-height:1.35;color:var(--ink);background:var(--chip);border-radius:10px;padding:8px 10px}
 .bin-in{border-top:1px dashed var(--line);padding-top:2px}
 .bin-in summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;font-weight:700;font-size:16px;cursor:pointer}
@@ -810,6 +810,23 @@ const BOXES=[
   {id:"asanapair",name:"Asana Pair",price:55,until:"2026-11-22",wt:"Asana Box + Fruit Box · a few days · save $5",desc:"Special through Nov 21.",pick:"Special · through Nov 21",
    makes:"Before-and-after bites for about a week of practice, plus fruit for a few days, for one",
    has:["Everything in the Asana Box: apples or pears, local blueberries, microgreens, a dozen eggs (or tofu), 2 lb sweet potatoes","Plus a Fruit Box · a few days: about 5 apples, 2 pears and local blueberries"]},
+  /* Practice boxes (Oct 29, Sol): Grounding / Strength / Rest at $41, all three $108 (saves $15). Shown only to Sosiego-page visitors (?s=luna...) or when picked via ?box=. Vegan toggle via ?vegan=1 swaps to "veg". Est. costs ~$28 / $27.50 / $25 / $80.50. */
+  {id:"grounding",name:"Grounding Box",price:41,only:"luna",wt:"Rooted, warming food for one",desc:"Roots and squash to roast and settle into.",pick:"Sosiego · Grounding",
+   makes:"About 4 warm, rooted plates for one",
+   has:["2 lb sweet potatoes","2 lb beets or carrots","A winter squash","Onions and garlic","2 lb apples"],
+   veg:["2 lb sweet potatoes","2 lb beets or carrots","A winter squash","Onions and garlic","2 lb apples"]},
+  {id:"strength",name:"Strength Box",price:41,only:"luna",wt:"Protein and greens for one",desc:"Protein and greens to build on.",pick:"Sosiego · Strength",
+   makes:"About 4 hearty plates for one",
+   has:["A dozen farm eggs","Hearty greens, a bunch","Local mushrooms, about ½ lb","Microgreens"],
+   veg:["Local tofu, a block","Hearty greens, a bunch","Local mushrooms, about ½ lb","Microgreens"]},
+  {id:"rest",name:"Rest Box",price:41,only:"luna",wt:"Easy comfort for one",desc:"Easy comfort for slow evenings.",pick:"Sosiego · Rest",
+   makes:"Easy, no-fuss comfort for a few evenings for one",
+   has:["A sourdough loaf","Fresh-pressed cider","Pears, about 4","Local blueberries, frozen or dried"],
+   veg:["A vegan loaf","Fresh-pressed cider","Pears, about 4","Local blueberries, frozen or dried"]},
+  {id:"practice",name:"Full Practice",price:108,only:"luna",wt:"Grounding + Strength + Rest · save $15",desc:"All three boxes.",pick:"Sosiego · all three",
+   makes:"About a week and a half of food for one, or a week for two",
+   has:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: a dozen farm eggs, hearty greens, local mushrooms, microgreens","Rest: a sourdough loaf, fresh-pressed cider, pears, local blueberries"],
+   veg:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: local tofu, hearty greens, local mushrooms, microgreens","Rest: a vegan loaf, fresh-pressed cider, pears, local blueberries"]},
   /* I Don't Cook Box (Oct 27, Sol): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
   {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
    makes:"Snacks and easy plates for about a week for one, or a few days for two",
@@ -960,7 +977,7 @@ function bCard(o){
 }
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick,has:b.has,on:state.box===b.id,
+  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(/^luna/.test(SRC_TAG)||state.box===b.id))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(state.vegan&&b.veg?" · Vegan":""),has:state.vegan&&b.veg?b.veg:b.has,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
@@ -1026,6 +1043,7 @@ function orderText(id){
     isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().delAfter+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
+  if(state.vegan&&b&&b.veg)L.push("Vegan box: yes (eggs to tofu, vegan loaf)");
   if(haulLine())L.push("Your haul: "+haulLine());
   if(b)L.push(b.name+" produce box ("+b.wt+") — $"+b.price);
   if(bb)L.push(bb.name+" ("+bb.wt+") — $"+bb.price);
@@ -1055,7 +1073,7 @@ function orderPayload(id){
   return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),email:state.email.trim(),
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
-    notes:[hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",hwvInCart()?"[Vegan Harvest Moon: pie pumpkin in the Vegan Box]":"",haulInfo()?"[Haul: ~"+haulInfo().meals+" meals for 2, "+haulInfo().plate+"/plate]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
+    notes:[state.vegan&&state.box&&(BOXES.find(x=>x.id===state.box)||{}).veg?"[Vegan box]":"",hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",hwvInCart()?"[Vegan Harvest Moon: pie pumpkin in the Vegan Box]":"",haulInfo()?"[Haul: ~"+haulInfo().meals+" meals for 2, "+haulInfo().plate+"/plate]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
     logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":REWARD_SHEET[state.reward]||""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),earlyDrop:earlyOK()?"Yes":"",waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
@@ -1545,6 +1563,12 @@ const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sau
       f.replaceChildren(el("h3",{},"Got it. Thank you!"),el("p",{class:"ok"},"Your "+(r.reward==="Pastry"?"pastry":"hot sauce")+" will be in your next order."))}
     catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text the photo to 773-807-9223."}
   });
+})();
+/* Practice-box preselect (Oct 29): ?box=<id>&vegan=1 from the Sosiego page puts that box in the cart. */
+(function(){
+  const q=new URLSearchParams(location.search),id=(q.get("box")||"").replace(/[^a-z]/g,"");
+  try{if(q.get("vegan")==="1")sessionStorage.setItem("pu-vegan","1");else if(q.has("vegan"))sessionStorage.removeItem("pu-vegan");state.vegan=sessionStorage.getItem("pu-vegan")==="1"}catch(e){state.vegan=q.get("vegan")==="1"}
+  if(id&&BOXES.some(b=>b.id===id)){state.box=id;state.mode="box";if(window.puCart)puCart()}
 })();
 renderBoxes();renderItems();renderTicket();loadCounts();
 </script>
