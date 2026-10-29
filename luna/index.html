@@ -57,9 +57,11 @@ a{color:inherit}
 /* What's inside: food chips on each box card */
 .chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .chips i{font-style:normal;font-size:13px;line-height:1;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--ink);white-space:nowrap}
+.boxes .asana{border:1.5px solid var(--good);background:var(--panel)}
+.new{font:700 11px/1 var(--body);font-style:normal;background:var(--good);color:#fff;border-radius:999px;padding:3px 7px;margin-left:6px;vertical-align:2px}
 .boxes .inside,.inside{grid-column:1/-1;font:700 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--good);margin-top:6px}
 
-/* Yoga splash (Oct 29): ?splash=breathe|sun|namaste picks a style; tap to skip; ?me devices skip. */
+/* Yoga splash (Oct 29): ?splash=breathe|sun picks a style; tap to skip; ?me devices skip. */
 .splash{position:fixed;inset:0;z-index:50;background:var(--board);color:var(--board-ink);display:grid;place-items:center;text-align:center;padding:24px;cursor:pointer;transition:opacity .6s ease}
 .splash[hidden]{display:none}
 .splash.out{opacity:0;pointer-events:none}
@@ -104,9 +106,10 @@ a{color:inherit}
   </section>
 
   <section class="card" aria-labelledby="heavyH">
-    <h2 id="heavyH">For the heavy weeks</h2>
-    <p class="sub">When cooking feels like one more thing, start here.</p>
+    <h2 id="heavyH">For your practice, and the heavy weeks</h2>
+    <p class="sub">Something for the mat, and something for when cooking feels like one more thing.</p>
     <ul class="boxes">
+      <li><a class="go asana" data-hash="asana" href="../#asana"><b>Asana Box <i class="new">New</i></b><span class="p">$40</span><span>Light bites before the mat, a nourishing plate after.</span><b class="inside">Before</b><span class="chips"><i>🍎 Apples or pears</i><i>🫐 Local blueberries</i></span><b class="inside">After</b><span class="chips"><i>🌱 Microgreens</i><i>🥚 Farm eggs or tofu</i><i>🍠 Sweet potatoes to roast</i></span></a></li>
       <li><a class="go" data-hash="nocook" href="../#nocook"><b>I Don't Cook Box</b><span class="p">$65</span><span>About a week of easy plates for one. Nothing to cook.</span><b class="inside">What's inside</b><span class="chips"><i>🍞 Fresh loaf or bagels</i><i>🧀 Local cheese</i><i>🥓 Salami or seasoned tofu</i><i>🥬 Kimchi, kraut or pickles</i><i>🍎 Apples &amp; pears</i><i>🍯 Jam, pesto or hot sauce</i></span></a></li>
       <li><a class="go" data-hash="fruit" href="../#fruit"><b>Fruit Box · a week</b><span class="p">$30</span><span>A piece or two a day for a week.</span><b class="inside">What's inside</b><span class="chips"><i>🍎 About 10 crisp apples</i><i>🍐 About 4 pears</i><i>🫐 A pint of local blueberries</i><i>🧃 Cider swap on request</i></span></a></li>
       <li><a class="go" data-hash="fruit" href="../#fruit"><b>Fruit Box · a few days</b><span class="p">$18</span><span>Fruit for a few days for one.</span><b class="inside">What's inside</b><span class="chips"><i>🍎 About 5 apples</i><i>🍐 About 2 pears</i><i>🫐 Local blueberries</i></span></a></li>
@@ -151,12 +154,11 @@ document.getElementById("home").href="../?s="+s;
   if(fresh)fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:s,device:dev,returning:ret,vid})}).catch(()=>{});
 })();
 
-/* Yoga splash. ?splash=breathe|sun|namaste forces a style (for previews); otherwise the default plays on each visit, except on ?me devices. */
+/* Yoga splash. ?splash=breathe|sun forces a style (for previews); otherwise the default plays on each visit, except on ?me devices. */
 (function(){
   const V={
     breathe:'<div class="sp-in"><div class="moonball"></div><div class="bw"><span class="a">inhale</span><span class="b">exhale</span></div><p class="t late" style="animation-delay:2.2s">Nourishment, picked for you.</p></div>',
-    sun:'<div class="sp-in"><div class="sunbox"><div class="sun"></div><span class="float">🍎</span><span class="float">🍐</span><span class="float">🥕</span></div><p class="s late">Sun salutation</p><p class="t late" style="animation-delay:1.4s">Rise and nourish.</p></div>',
-    namaste:'<div class="sp-in"><div class="hands">🙏</div><p class="t late">Namaste nourished.</p><p class="s late" style="animation-delay:1.6s">Welcome, Luna Llena reader</p></div>'
+    sun:'<div class="sp-in"><div class="sunbox"><div class="sun"></div><span class="float">🍎</span><span class="float">🍐</span><span class="float">🥕</span></div><p class="s late">Sun salutation</p><p class="t late" style="animation-delay:1.4s">Rise and nourish.</p></div>'
   };
   const DEFAULT="breathe";
   const q=new URLSearchParams(location.search).get("splash");
