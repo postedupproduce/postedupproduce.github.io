@@ -3,178 +3,205 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Preview · Luna page · Posted Up Produce</title>
-<meta name="description" content="Seasonal farmers market food, hand-picked for you in Chicago. A small thank-you for Luna Llena readers.">
+<title>Preview · Sosiego page · Posted Up Produce</title>
+<meta name="description" content="Seasonal farmers market food, picked for before and after your practice. A small thank-you for the Sosiego community.">
 <meta property="og:title" content="Nourishment, picked for you · Posted Up Produce">
-<meta property="og:description" content="A Chicago neighbor hand-picks the best of the farmers market and brings it to you. Luna Llena readers get a little thank-you on their first order.">
+<meta property="og:description" content="Wellness that fits real life, on and off the mat. Farmers market food, picked and handed off in Chicago.">
 <meta property="og:image" content="https://postedupproduce.github.io/og.png">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#24392c">
+<meta name="theme-color" content="#2C2937">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&display=swap">
 <style>
+/* Sosiego page, quiet studio direction (Oct 29). One bold element: the line-drawn mats. Everything else stays still. */
 :root{
-  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
-  --tomato:#A9361F;--line:#d6c9ae;--good:#2f6b3f;--star:#d89a1c;
-  --display:"Alfa Slab One","Rockwell",Georgia,serif;
-  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mist:#EEF0EA;--paper:#F8F9F5;--ink:#2A3228;--soft:#58614F;--rule:#D3D8CC;
+  --sage:#4E6B54;--sage-ink:#FFFFFF;--dusk:#76668C;--night:#2C2937;--lamp:#E8D6A2;
+  --serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+  --sans:"Karla",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
-  --tomato:#e3654c;--line:#38443a;--good:#79b98a;--star:#f0b94a;color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{
+  --mist:#1C1F1B;--paper:#242923;--ink:#E6E8E1;--soft:#A9B0A2;--rule:#3A4137;
+  --sage:#9DBA9F;--sage-ink:#16201A;--dusk:#B9A8CB;color-scheme:dark}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
-.wrap{max-width:540px;margin:0 auto;padding:18px 18px 48px;display:grid;gap:26px}
-h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--mist);color:var(--ink);font:17px/1.6 var(--sans);padding-bottom:env(safe-area-inset-bottom,0px)}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--good);outline-offset:2px}
-.top{display:flex;justify-content:space-between;align-items:center;padding-top:env(safe-area-inset-top,0px)}
-.brand{font:400 18px/1 var(--display);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
-.beta{font:700 11px/1 var(--body);background:var(--good);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
-.moon{font-size:14px;color:var(--muted);letter-spacing:.04em}
-.sign{background:var(--board);color:var(--board-ink);border-radius:18px;padding:30px 24px;display:grid;gap:14px}
-.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--star)}
-.sign h1{font-size:clamp(30px,8.6vw,42px);line-height:1.08}
-.sign p{margin:0}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 20px;display:grid;gap:14px}
-.card h2{font-size:23px;line-height:1.2}
-.card p{margin:0}
-.sub{color:var(--muted);font-size:15px}
-.boxes{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.boxes a{display:grid;grid-template-columns:1fr auto;gap:2px 12px;text-decoration:none;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px}
-.boxes b{font-size:16px}
-.boxes .p{font:400 19px/1.2 var(--display);color:var(--good)}
-.boxes span:not(.p){grid-column:1/-1;font-size:14px;color:var(--muted)}
-.season{margin:0;font-size:16px}
-.gift{border-color:var(--good);border-width:1.5px}
-.ctas{display:grid;gap:10px}
-.cta{display:block;text-align:center;text-decoration:none;background:var(--good);color:#fff;border-radius:12px;padding:15px 16px;font-weight:700;font-size:17px;min-height:52px}
-.ghost{display:block;text-align:center;text-decoration:none;border:1.5px solid var(--ink);border-radius:12px;padding:13px 14px;font-weight:600;min-height:48px;color:var(--ink)}
-.close{text-align:center;font:400 20px/1.3 var(--display);margin:4px 0 0}
-.pv{margin:0;font:600 13px/1.4 var(--body);background:#fff3c4;color:#4a3b00;border-radius:8px;padding:8px 12px;text-align:center}.pv a{color:inherit}
-.foot{font-size:14px;color:var(--muted);margin:0;text-align:center}
-/* What's inside: food chips on each box card */
-.chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.chips i{font-style:normal;font-size:14px;line-height:1;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--ink);white-space:nowrap}
-.boxes .asana{border:1.5px solid var(--good);background:var(--panel)}
-.new{font:700 11px/1 var(--body);font-style:normal;background:var(--good);color:#fff;border-radius:999px;padding:3px 7px;margin-left:6px;vertical-align:2px}
-.boxes .inside,.inside{grid-column:1/-1;font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--good);margin-top:6px}
+:focus-visible{outline:2px solid var(--sage);outline-offset:3px;border-radius:4px}
+.wrap{max-width:520px;margin:0 auto;padding:16px 22px 56px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0;text-wrap:balance;letter-spacing:0}
 
-/* Yoga flow (Oct 29): roll out the mat → before / after (savasana side) → bow on add. Reusable per partner. */
-.boxes .mat{border:1.5px solid var(--good);background:var(--panel);border-radius:14px;padding:14px;display:grid;gap:12px;transform-origin:50% 100%}
-.mat-tap{all:unset;display:block;cursor:pointer;border-radius:10px;min-height:44px}
-.mat-tap:focus-visible{outline:3px solid var(--good);outline-offset:3px}
-.mat-face{display:grid;gap:10px}
-.mat-face[hidden]{display:none}
-.mat-hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.mat-hd b{font-size:16px}
-.mat-hd .p{font:400 19px/1.2 var(--display);color:var(--good)}
-.mat-hint{font-size:14px;color:var(--muted)}
-.mat .chips{margin-top:0}
-.roll{display:flex;gap:12px;height:48px;align-items:center}
-.roll i{position:relative;display:block;width:170px;height:36px;border-radius:18px;background:linear-gradient(180deg,#c3abd4,#9a7fb1 60%,#836a99);box-shadow:0 3px 0 rgba(0,0,0,.08)}
-.roll i::before{content:"";position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle,#6f5785 0 14%,#c3abd4 15% 32%,#6f5785 33% 46%,#c3abd4 47% 62%,#836a99 63%)}
-.roll.two i{width:120px}
-.boxes .mat-add{display:block;border:0;text-align:center;text-decoration:none;background:var(--good);color:#fff;border-radius:12px;padding:14px;font-weight:700;min-height:48px}
-.m-before.in{animation:unroll .7s cubic-bezier(.3,.7,.2,1) both}
-@keyframes unroll{from{clip-path:inset(0 100% 0 0);opacity:.4}to{clip-path:inset(0 0 0 0);opacity:1}}
-.m-after.in{animation:savasana 1s ease both}
-@keyframes savasana{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-.m-before.back{animation:fadein .4s ease both}
-.mat.bow{animation:bow .7s ease both}
-@keyframes bow{0%{transform:none}45%{transform:perspective(600px) rotateX(14deg) scale(.98)}100%{transform:none}}
-.mat .thanks{text-align:center;font:400 18px/1.2 var(--display);color:var(--good)}
-@media (prefers-reduced-motion:reduce){.mat,.mat *{animation:none!important}}
-/* Yoga splash (Oct 29): ?splash=breathe|sun picks a style; tap to skip; ?me devices skip. */
-.splash{position:fixed;inset:0;z-index:50;background:var(--board);color:var(--board-ink);display:grid;place-items:center;text-align:center;padding:24px;cursor:pointer;transition:opacity .6s ease}
+.pv{margin:0 0 8px;font:500 14px/1.4 var(--sans);background:#FFF1C2;color:#4A3B00;border-radius:6px;padding:8px 12px}
+.pv a{color:inherit}
+
+.top{display:flex;justify-content:space-between;align-items:center;min-height:56px}
+.brand{font:600 21px/1 var(--serif);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.beta{font:500 12px/1 var(--sans);color:var(--soft);border:1px solid var(--rule);border-radius:999px;padding:4px 8px}
+.top svg{width:22px;height:22px;color:var(--dusk)}
+
+.hero{padding:40px 0 36px;border-bottom:1px solid var(--rule)}
+.hello{margin:0 0 14px;font:500 16px/1.4 var(--sans);color:var(--sage)}
+.hero h1{font-size:clamp(44px,13vw,60px);line-height:1;font-weight:500}
+.hero p.lede{margin:18px 0 0;font-size:18px;line-height:1.6;color:var(--ink);max-width:30em}
+
+.sec{padding:36px 0;border-bottom:1px solid var(--rule)}
+.sec h2{font-size:32px;line-height:1.1}
+.sec .note{margin:8px 0 0;color:var(--soft);font-size:16px}
+
+/* The mats: the page's one bold element */
+.mats{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:18px}
+.mat{background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:20px 20px 18px;transform-origin:50% 100%}
+.mat-tap{all:unset;display:block;cursor:pointer;width:100%;border-radius:10px}
+.mat-tap:focus-visible{outline:2px solid var(--sage);outline-offset:6px}
+.mat-hd{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.mat-hd h3{font-size:28px;line-height:1.1}
+.mat-hd .price{font:500 26px/1 var(--serif);color:var(--sage)}
+.tag{display:inline-block;margin-top:6px;font:500 14px/1 var(--sans);color:var(--dusk)}
+.drawing{display:block;width:100%;height:76px;margin:18px 0 6px;color:var(--dusk)}
+.drawing .body{transform-box:fill-box;transform-origin:left center;transform:scaleX(.42);transition:transform .8s cubic-bezier(.3,.7,.2,1)}
+.drawing .coil{transition:transform .8s cubic-bezier(.3,.7,.2,1),opacity .5s ease}
+.drawing .flat{opacity:0;transition:opacity .4s ease .45s}
+.mat.open .drawing .body{transform:scaleX(1)}
+.mat.open .drawing .coil{opacity:0}
+.mat.open .drawing .flat{opacity:1}
+.face{margin-top:6px}
+.face[hidden]{display:none}
+.face h4{margin:0 0 6px;font:700 16px/1.3 var(--sans)}
+.face ul{margin:0;padding:0;list-style:none}
+.face li{padding:6px 0;border-top:1px solid var(--rule);font-size:16px}
+.face li:first-child{border-top:0}
+.hint{display:block;margin-top:10px;font-size:15px;color:var(--soft)}
+.face.in{animation:settle .7s ease both}
+@keyframes settle{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.add{display:flex;align-items:center;justify-content:center;margin-top:18px;min-height:52px;border-radius:12px;background:var(--sage);color:var(--sage-ink);font:700 17px/1.2 var(--sans);text-decoration:none;padding:14px 16px}
+.mat.bow{animation:bow .75s ease both}
+@keyframes bow{0%{transform:none}45%{transform:perspective(700px) rotateX(12deg) scale(.985)}100%{transform:none}}
+
+/* Quiet menu list for the other boxes */
+.menu{list-style:none;margin:20px 0 0;padding:0}
+.menu li{border-top:1px solid var(--rule)}
+.menu li:last-child{border-bottom:1px solid var(--rule)}
+.menu a{display:block;padding:18px 0;text-decoration:none;min-height:44px}
+.menu .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.menu b{font:600 22px/1.2 var(--serif)}
+.menu .price{font:500 22px/1 var(--serif);color:var(--sage)}
+.menu .what{display:block;margin-top:4px;font-size:16px;color:var(--soft);line-height:1.55}
+
+.prose p{margin:12px 0 0;font-size:17px;max-width:32em}
+.gift{border-left:2px solid var(--dusk);padding-left:16px;margin-top:14px}
+.gift p{margin:0}
+
+.ctas{display:grid;gap:12px;padding-top:36px}
+.cta{display:flex;align-items:center;justify-content:center;min-height:54px;border-radius:12px;background:var(--sage);color:var(--sage-ink);font:700 17px/1.2 var(--sans);text-decoration:none}
+.ghost{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:12px;border:1.5px solid var(--ink);color:var(--ink);font:500 17px/1.2 var(--sans);text-decoration:none}
+.when{margin:14px 0 0;font-size:15px;color:var(--soft)}
+.close{margin:40px 0 0;font:500 26px/1.25 var(--serif)}
+.foot{margin:18px 0 0;font-size:14px;color:var(--soft)}
+
+/* Splash: every visit, skippable */
+.splash{position:fixed;inset:0;z-index:50;background:var(--night);color:#EEE9F3;display:grid;place-items:center;text-align:center;padding:24px;cursor:pointer;transition:opacity .6s ease}
 .splash[hidden]{display:none}
 .splash.out{opacity:0;pointer-events:none}
-.splash .t{font:400 clamp(26px,8vw,38px)/1.15 var(--display);margin:0}
-.splash .s{font-size:15px;color:#f3c25b;letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px}
-.splash .skip{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font:600 15px/1 var(--body);color:var(--board-ink);background:transparent;border:1.5px solid color-mix(in srgb,var(--board-ink) 55%,transparent);border-radius:999px;padding:14px 22px;min-height:44px;cursor:pointer}
 .sp-in{display:grid;gap:18px;justify-items:center}
-/* 1 breathe */
-.moonball{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#fff8e6,#f0d9a0 55%,#d8b66a);box-shadow:0 0 60px rgba(240,217,160,.45);animation:breathe 2.4s ease-in-out both}
-@keyframes breathe{0%{transform:scale(.55)}45%{transform:scale(1)}100%{transform:scale(.7)}}
+.splash .t{margin:0;font:500 clamp(30px,9vw,40px)/1.1 var(--serif)}
+.splash .s{margin:0;font:500 16px/1 var(--sans);color:var(--lamp)}
+.splash .skip{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font:500 16px/1 var(--sans);color:#EEE9F3;background:transparent;border:1px solid rgba(238,233,243,.5);border-radius:999px;padding:14px 26px;min-height:44px;cursor:pointer}
+.moonball{width:140px;height:140px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#FFF9EA,var(--lamp) 58%,#CDB577);box-shadow:0 0 70px rgba(232,214,162,.35);animation:breathe 2.4s ease-in-out both}
+@keyframes breathe{0%{transform:scale(.55)}45%{transform:scale(1)}100%{transform:scale(.72)}}
 .bw{position:relative;height:24px;width:100%}
-.bw span{position:absolute;inset:0;font-size:18px;letter-spacing:.2em;text-transform:lowercase;opacity:0}
+.bw span{position:absolute;inset:0;font:500 18px/1 var(--sans);letter-spacing:.12em;opacity:0}
 .bw .a{animation:show 1.2s ease .1s both}.bw .b{animation:show 1.2s ease 1.2s both}
 @keyframes show{0%,100%{opacity:0}30%,70%{opacity:1}}
-/* 2 sun */
-.sunbox{position:relative;width:240px;height:150px;overflow:hidden;border-bottom:3px solid var(--star)}
-.sun{position:absolute;left:50%;bottom:-90px;width:150px;height:150px;margin-left:-75px;border-radius:50%;background:radial-gradient(circle,#ffd27a,#e89a2c);box-shadow:0 0 50px rgba(255,190,90,.5);animation:rise 2.4s cubic-bezier(.2,.7,.2,1) both}
-@keyframes rise{to{bottom:-20px}}
-.float{position:absolute;bottom:-30px;font-size:26px;animation:up 2.6s ease-out both}
-.float:nth-child(2){left:18%;animation-delay:.3s}.float:nth-child(3){left:72%;animation-delay:.6s}.float:nth-child(4){left:42%;animation-delay:.9s}
-@keyframes up{0%{transform:translateY(0);opacity:0}25%{opacity:1}100%{transform:translateY(-150px);opacity:0}}
+.late{animation:fadein 1s ease 1s both}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sunbox{position:relative;width:240px;height:140px;overflow:hidden;border-bottom:1.5px solid var(--lamp)}
+.sun{position:absolute;left:50%;bottom:-90px;width:140px;height:140px;margin-left:-70px;border-radius:50%;background:radial-gradient(circle,#FFE2A0,#E3B160);animation:rise 2.2s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{to{bottom:-24px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="splash" id="splash" role="dialog" aria-label="Welcome" hidden></div>
 <div class="wrap">
-  <p class="pv" role="note">Preview · not live yet · <a href="../">see the live page</a></p>
+  <p class="pv" role="note">Preview, not live yet. <a href="../">See the live page</a></p>
   <header class="top">
     <a class="brand" id="home" href="../../">Posted Up Produce <span class="beta">Beta</span></a>
-    <span class="moon" aria-hidden="true">🌕</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
   </header>
 
-  <section class="sign">
-    <span class="kicker">Welcome in, Sosiego community</span>
+  <section class="hero">
+    <p class="hello">Welcome in, Sosiego community</p>
     <h1>Nourishment, picked for you.</h1>
-    <p>Wellness that fits real life, on and off the mat. We shop the farmers market so your practice and your plate both feel cared for.</p>
+    <p class="lede">Wellness that fits real life, on and off the mat. We shop the farmers market so your practice and your plate both feel cared for.</p>
   </section>
 
-  <section class="card" aria-labelledby="heavyH">
-    <h2 id="heavyH">For your practice, and the heavy weeks</h2>
-    <p class="sub">Something for the mat, and something for when cooking feels like one more thing.</p>
-    <ul class="boxes">
+  <section class="sec" aria-labelledby="practiceH">
+    <h2 id="practiceH">For your practice</h2>
+    <p class="note">Tap a mat to roll it out and see what's inside.</p>
+    <ul class="mats">
       <li class="mat" data-hash="asana">
-        <button type="button" class="mat-tap" aria-label="Asana Box: tap to roll out the mat">
-          <span class="mat-face m-rolled"><span class="mat-hd"><b>Asana Box <i class="new">New</i></b><span class="p">$40</span></span><span class="roll" aria-hidden="true"><i></i></span><span class="mat-hint">Tap to roll out your mat</span></span>
-          <span class="mat-face m-before" hidden><span class="mat-hd"><b>Before the mat</b><span class="p">$40</span></span><span class="chips"><i>🍎 Apples or pears</i><i>🫐 Local blueberries</i></span><span class="mat-hint">Light bites to fuel your practice · tap for after</span></span>
-          <span class="mat-face m-after" hidden><span class="mat-hd"><b>Rest and refuel</b><span class="p">$40</span></span><span class="chips"><i>🌱 Microgreens</i><i>🥚 Farm eggs or tofu</i><i>🍠 Sweet potatoes to roast</i></span><span class="mat-hint">A nourishing plate for after · tap for before</span></span>
-        </button>
-        <a class="mat-add" href="../../#asana">Add the Asana Box · $40</a>
+        <div role="button" tabindex="0" class="mat-tap" aria-expanded="false" aria-label="Asana Box, $40. Roll out the mat to see what's inside.">
+          <span class="mat-hd"><h3>Asana Box</h3><span class="price">$40</span></span>
+          <span class="tag">New</span>
+          <svg class="drawing" viewBox="0 0 300 76" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <rect class="body" x="12" y="20" width="280" height="34" rx="17"/>
+            <g class="coil"><circle cx="30" cy="37" r="22"/><circle cx="30" cy="37" r="15"/><circle cx="30" cy="37" r="8"/></g>
+            <line class="flat" x1="34" y1="37" x2="276" y2="37" stroke-dasharray="2 7"/>
+          </svg>
+          <span class="face f-rolled"><span class="hint">Roll out your mat</span></span>
+          <span class="face f-before" hidden><h4>Before the mat</h4><ul><li>Crisp apples or pears, about 4</li><li>Local blueberries, a snack bag</li></ul><span class="hint">Light bites to fuel your practice. Tap for after.</span></span>
+          <span class="face f-after" hidden><h4>Rest and refuel</h4><ul><li>Microgreens or salad greens</li><li>A dozen farm eggs, or local tofu</li><li>2 lb sweet potatoes to roast</li></ul><span class="hint">A nourishing plate for after. Tap for before.</span></span>
+        </div>
+        <a class="add" href="../../#asana">Add the Asana Box</a>
       </li>
       <li class="mat" data-hash="asanapair">
-        <button type="button" class="mat-tap" aria-label="Asana Pair: tap to roll out the mats">
-          <span class="mat-face m-rolled"><span class="mat-hd"><b>Asana Pair <i class="new">Special</i></b><span class="p">$55</span></span><span class="roll two" aria-hidden="true"><i></i><i></i></span><span class="mat-hint">Two mats · tap to roll out · save $5 through Nov 21</span></span>
-          <span class="mat-face m-before" hidden><span class="mat-hd"><b>Mat one: the Asana Box</b><span class="p">$55</span></span><span class="chips"><i>🍎 Apples or pears</i><i>🫐 Blueberries</i><i>🌱 Microgreens</i><i>🥚 Eggs or tofu</i><i>🍠 Sweet potatoes</i></span><span class="mat-hint">Before and after the mat · tap for mat two</span></span>
-          <span class="mat-face m-after" hidden><span class="mat-hd"><b>Mat two: a few days of fruit</b><span class="p">$55</span></span><span class="chips"><i>🍎 About 5 apples</i><i>🍐 About 2 pears</i><i>🫐 Local blueberries</i></span><span class="mat-hint">For the days in between · tap for mat one</span></span>
-        </button>
-        <a class="mat-add" href="../../#asanapair">Add the Asana Pair · $55</a>
+        <div role="button" tabindex="0" class="mat-tap" aria-expanded="false" aria-label="Asana Pair, $55. Roll out the mats to see what's inside.">
+          <span class="mat-hd"><h3>Asana Pair</h3><span class="price">$55</span></span>
+          <span class="tag">Save $5 through Nov 21</span>
+          <svg class="drawing" viewBox="0 0 300 76" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <rect class="body" x="12" y="4" width="280" height="30" rx="15"/>
+            <g class="coil"><circle cx="28" cy="19" r="17"/><circle cx="28" cy="19" r="10"/><circle cx="28" cy="19" r="4"/></g>
+            <rect class="body" x="12" y="42" width="280" height="30" rx="15"/>
+            <g class="coil"><circle cx="28" cy="57" r="17"/><circle cx="28" cy="57" r="10"/><circle cx="28" cy="57" r="4"/></g>
+          </svg>
+          <span class="face f-rolled"><span class="hint">Two mats. Roll them out.</span></span>
+          <span class="face f-before" hidden><h4>Mat one: the Asana Box</h4><ul><li>Apples or pears, and local blueberries</li><li>Microgreens, eggs or tofu, sweet potatoes</li></ul><span class="hint">Before and after the mat. Tap for mat two.</span></span>
+          <span class="face f-after" hidden><h4>Mat two: a few days of fruit</h4><ul><li>About 5 apples</li><li>About 2 pears</li><li>Local blueberries</li></ul><span class="hint">For the days in between. Tap for mat one.</span></span>
+        </div>
+        <a class="add" href="../../#asanapair">Add the Asana Pair</a>
       </li>
-      <li><a class="go" data-hash="nocook" href="../../#nocook"><b>I Don't Cook Box</b><span class="p">$75</span><span>About a week of easy plates for one. Nothing to cook.</span><b class="inside">What's inside</b><span class="chips"><i>🍞 Fresh loaf or bagels</i><i>🧀 Local cheese</i><i>🥓 Salami or seasoned tofu</i><i>🥬 Kimchi, kraut or pickles</i><i>🍎 Apples &amp; pears</i><i>🍯 Jam, pesto or hot sauce</i></span></a></li>
-      <li><a class="go" data-hash="fruit" href="../../#fruit"><b>Fruit Box · a week</b><span class="p">$36</span><span>A piece or two a day for a week.</span><b class="inside">What's inside</b><span class="chips"><i>🍎 About 10 crisp apples</i><i>🍐 About 4 pears</i><i>🫐 A pint of local blueberries</i><i>🧃 Cider swap on request</i></span></a></li>
-      <li><a class="go" data-hash="fruit" href="../../#fruit"><b>Fruit Box · a few days</b><span class="p">$20</span><span>Fruit for a few days for one.</span><b class="inside">What's inside</b><span class="chips"><i>🍎 About 5 apples</i><i>🍐 About 2 pears</i><i>🫐 Local blueberries</i></span></a></li>
     </ul>
   </section>
 
-  <section class="card" aria-labelledby="seasonH">
+  <section class="sec" aria-labelledby="weeksH">
+    <h2 id="weeksH">For the heavy weeks</h2>
+    <p class="note">When cooking feels like one more thing.</p>
+    <ul class="menu">
+      <li><a class="go" data-hash="nocook" href="../../#nocook"><span class="row"><b>I Don't Cook Box</b><span class="price">$75</span></span><span class="what">A week of easy plates for one: fresh bread, local cheese, salami or seasoned tofu, a ferment, apples and pears, and a jam, pesto or hot sauce.</span></a></li>
+      <li><a class="go" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a week</b><span class="price">$36</span></span><span class="what">About 10 crisp apples, 4 pears and a pint of local blueberries. Cider swap on request.</span></a></li>
+      <li><a class="go" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a few days</b><span class="price">$20</span></span><span class="what">About 5 apples, 2 pears and local blueberries.</span></a></li>
+    </ul>
+  </section>
+
+  <section class="sec prose" aria-labelledby="seasonH">
     <h2 id="seasonH">Eating with the season</h2>
-    <p class="season">Late fall brings apples and pears, sweet potatoes, squash, Brussels sprouts and the first parsnips. It's slow soup night food, and a warm Thanksgiving table.</p>
+    <p>Late fall brings apples and pears, sweet potatoes, squash, Brussels sprouts and the first parsnips. Slow soup night food, and a warm Thanksgiving table.</p>
+    <div class="gift"><p>Your first order comes with a free pastry or small-batch hot sauce, as a thank-you. Order through this page and we'll know you came from Sosiego.</p></div>
   </section>
 
-  <section class="card gift" aria-labelledby="giftH">
-    <h2 id="giftH">A little thank-you</h2>
-    <p>Your first order comes with a free pastry or small-batch hot sauce. Order through this page and we'll know you came from Sosiego.</p>
-  </section>
-
-  <section class="ctas" aria-label="Next steps">
+  <div class="ctas">
     <a class="cta go" data-hash="shop" href="../../#shop">See this week's boxes</a>
     <a class="ghost" id="join" href="../../join/">Not ready? Get first pick</a>
-  </section>
+  </div>
+  <p class="when">Order by Friday at 9 PM. Saturday pickups through Nov 21, then the winter market.</p>
 
-  <p class="sub" style="text-align:center;margin:0">Order by Friday 9 PM. Saturdays through Nov 21, then on to the winter market.</p>
-
-  <p class="close">Picked with care, for the weeks you need it. 🤍</p>
-
+  <p class="close">Picked with care, for the weeks you need it.</p>
   <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
 </div>
 <script>
-/* Luna Llena newsletter landing (Oct 29). Default tag is "luna"; it rides onto every outbound link so visits and orders show [via luna]. */
+/* Sosiego landing (Oct 29). Default tag rides onto every outbound link so visits and orders show [via tag]. Live page uses "luna". */
 const ORDER_ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
 const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
 const s=raw||"luna-preview";
@@ -182,18 +209,20 @@ document.querySelectorAll("a.go").forEach(a=>{a.href="../../?s="+s+"#"+a.dataset
 document.getElementById("join").href="../../join/?s="+s;
 document.getElementById("home").href="../../?s="+s;
 
-/* Yoga flow: tap cycles rolled → before → after → before. Add = a small bow, then on to checkout on the main site. */
+/* Yoga flow: rolled → before → after (rest and refuel) → before. Add = a small bow, then checkout on the main site. */
 document.querySelectorAll(".mat").forEach(m=>{
-  const f={r:m.querySelector(".m-rolled"),b:m.querySelector(".m-before"),a:m.querySelector(".m-after")};let st="r";
-  const show=(k,cls)=>{for(const x in f){f[x].hidden=x!==k;f[x].classList.remove("in","back")}if(cls)f[k].classList.add(cls);st=k};
-  m.querySelector(".mat-tap").addEventListener("click",()=>{if(st==="r")show("b","in");else if(st==="b")show("a","in");else show("b","back")});
-  const add=m.querySelector(".mat-add");add.href="../../?s="+s+"#"+m.dataset.hash;
+  const btn=m.querySelector(".mat-tap"),f={r:m.querySelector(".f-rolled"),b:m.querySelector(".f-before"),a:m.querySelector(".f-after")};let st="r";
+  const show=k=>{for(const x in f){f[x].hidden=x!==k;f[x].classList.remove("in")}f[k].classList.add("in");st=k};
+  const step=()=>{if(st==="r"){m.classList.add("open");btn.setAttribute("aria-expanded","true");show("b")}else show(st==="b"?"a":"b")};
+  btn.addEventListener("click",step);btn.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();step()}});
+  const add=m.querySelector(".add");add.href="../../?s="+s+"#"+m.dataset.hash;
   add.addEventListener("click",e=>{
     if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-    e.preventDefault();m.classList.add("bow");add.textContent="Thank you. Taking you to checkout…";
+    e.preventDefault();m.classList.add("bow");add.textContent="Thank you. Opening checkout";
     setTimeout(()=>{location.href=add.href},750);
   });
 });
+
 /* Anonymous visit count, same as the main site: no cookies, no names. ?me skips your own devices. */
 (function(){
   try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
@@ -203,21 +232,18 @@ document.querySelectorAll(".mat").forEach(m=>{
   if(fresh)fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:s,device:dev,returning:ret,vid})}).catch(()=>{});
 })();
 
-/* Yoga splash. ?splash=breathe|sun forces a style (for previews); otherwise the default plays on each visit, except on ?me devices. */
+/* Splash every visit (Sol, Oct 29). ?splash=breathe|sun forces a style, ?splash=off skips; ?me devices skip. Tap or Skip to close. */
 (function(){
   const V={
     breathe:'<div class="sp-in"><div class="moonball"></div><div class="bw"><span class="a">inhale</span><span class="b">exhale</span></div><p class="t late" style="animation-delay:1.5s">Nourishment, picked for you.</p></div>',
-    sun:'<div class="sp-in"><div class="sunbox"><div class="sun"></div><span class="float">🍎</span><span class="float">🍐</span><span class="float">🥕</span></div><p class="s late">Sun salutation</p><p class="t late" style="animation-delay:1.4s">Rise and nourish.</p></div>'
+    sun:'<div class="sp-in"><div class="sunbox"><div class="sun"></div></div><p class="s late">Sun salutation</p><p class="t late" style="animation-delay:1.4s">Rise and nourish.</p></div>'
   };
-  const DEFAULT="breathe";
   const q=new URLSearchParams(location.search).get("splash");
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
-  let seen=false;try{seen=!!localStorage.getItem("pu-luna-splash")}catch(e){}
-  /* Every visit (Sol, Oct 29). Skip button + tap anywhere to skip. */
-  const pick=V[q]?q:(q==="off"||me?null:DEFAULT);
+  const pick=V[q]?q:(q==="off"||me?null:"breathe");
   if(!pick)return;
   const sp=document.getElementById("splash");
-  sp.innerHTML=V[pick]+'<button type="button" class="skip">Skip</button>';sp.hidden=false;try{localStorage.setItem("pu-luna-splash","1")}catch(e){}
+  sp.innerHTML=V[pick]+'<button type="button" class="skip">Skip</button>';sp.hidden=false;
   const done=()=>{sp.classList.add("out");setTimeout(()=>sp.remove(),650)};
   sp.addEventListener("click",done);setTimeout(done,2800);
 })();
