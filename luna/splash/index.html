@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Luna splash options · Posted Up Produce</title>
+<meta name="robots" content="noindex">
+<style>
+body{margin:0;background:#efe6d4;color:#1f2a22;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1{font:700 20px/1.2 Georgia,serif;margin:18px 16px 4px}
+p{margin:0 16px 14px;color:#5a6156;font-size:14px}
+.row{display:flex;gap:16px;overflow-x:auto;padding:0 16px 24px;scroll-snap-type:x mandatory}
+.opt{flex:none;width:300px;scroll-snap-align:start;display:grid;gap:8px}
+.opt b{font-size:16px}
+iframe{width:300px;height:560px;border:1px solid #d6c9ae;border-radius:18px;background:#24392c}
+button{font:700 15px/1 inherit;padding:12px;border-radius:10px;border:0;background:#2f6b3f;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>Splash options for /luna</h1>
+<p>Each one plays for about 3.5 seconds. Tap Replay to watch again. Swipe for all three.</p>
+<div class="row">
+  <div class="opt"><b>1 · Breathe in, breathe out</b><iframe id="f1" src="../?splash=breathe&s=preview" title="Breathe"></iframe><button onclick="f1.src=f1.src">Replay</button></div>
+  <div class="opt"><b>2 · Sun salutation</b><iframe id="f2" src="../?splash=sun&s=preview" title="Sun salutation"></iframe><button onclick="f2.src=f2.src">Replay</button></div>
+  <div class="opt"><b>3 · Namaste nourished</b><iframe id="f3" src="../?splash=namaste&s=preview" title="Namaste"></iframe><button onclick="f3.src=f3.src">Replay</button></div>
+</div>
+</body>
+</html>
