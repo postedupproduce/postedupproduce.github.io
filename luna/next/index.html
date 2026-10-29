@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Preview · Luna page · Posted Up Produce</title>
+<meta name="description" content="Seasonal farmers market food, hand-picked for you in Chicago. A small thank-you for Luna Llena readers.">
+<meta property="og:title" content="Nourishment, picked for you · Posted Up Produce">
+<meta property="og:description" content="A Chicago neighbor hand-picks the best of the farmers market and brings it to you. Luna Llena readers get a little thank-you on their first order.">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
+  --tomato:#A9361F;--line:#d6c9ae;--good:#2f6b3f;--star:#d89a1c;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--good:#79b98a;--star:#f0b94a;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:540px;margin:0 auto;padding:18px 18px 48px;display:grid;gap:26px}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--good);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:env(safe-area-inset-top,0px)}
+.brand{font:400 18px/1 var(--display);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.beta{font:700 11px/1 var(--body);background:var(--good);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
+.moon{font-size:14px;color:var(--muted);letter-spacing:.04em}
+.sign{background:var(--board);color:var(--board-ink);border-radius:18px;padding:30px 24px;display:grid;gap:14px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--star)}
+.sign h1{font-size:clamp(30px,8.6vw,42px);line-height:1.08}
+.sign p{margin:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 20px;display:grid;gap:14px}
+.card h2{font-size:23px;line-height:1.2}
+.card p{margin:0}
+.sub{color:var(--muted);font-size:15px}
+.boxes{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.boxes a{display:grid;grid-template-columns:1fr auto;gap:2px 12px;text-decoration:none;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px}
+.boxes b{font-size:16px}
+.boxes .p{font:400 19px/1.2 var(--display);color:var(--good)}
+.boxes span:not(.p){grid-column:1/-1;font-size:14px;color:var(--muted)}
+.season{margin:0;font-size:16px}
+.gift{border-color:var(--good);border-width:1.5px}
+.ctas{display:grid;gap:10px}
+.cta{display:block;text-align:center;text-decoration:none;background:var(--good);color:#fff;border-radius:12px;padding:15px 16px;font-weight:700;font-size:17px;min-height:52px}
+.ghost{display:block;text-align:center;text-decoration:none;border:1.5px solid var(--ink);border-radius:12px;padding:13px 14px;font-weight:600;min-height:48px;color:var(--ink)}
+.close{text-align:center;font:400 20px/1.3 var(--display);margin:4px 0 0}
+.pv{margin:0;font:600 13px/1.4 var(--body);background:#fff3c4;color:#4a3b00;border-radius:8px;padding:8px 12px;text-align:center}.pv a{color:inherit}
+.foot{font-size:14px;color:var(--muted);margin:0;text-align:center}
+/* What's inside: food chips on each box card */
+.chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips i{font-style:normal;font-size:14px;line-height:1;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--ink);white-space:nowrap}
+.boxes .asana{border:1.5px solid var(--good);background:var(--panel)}
+.new{font:700 11px/1 var(--body);font-style:normal;background:var(--good);color:#fff;border-radius:999px;padding:3px 7px;margin-left:6px;vertical-align:2px}
+.boxes .inside,.inside{grid-column:1/-1;font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--good);margin-top:6px}
+
+/* Yoga splash (Oct 29): ?splash=breathe|sun picks a style; tap to skip; ?me devices skip. */
+.splash{position:fixed;inset:0;z-index:50;background:var(--board);color:var(--board-ink);display:grid;place-items:center;text-align:center;padding:24px;cursor:pointer;transition:opacity .6s ease}
+.splash[hidden]{display:none}
+.splash.out{opacity:0;pointer-events:none}
+.splash .t{font:400 clamp(26px,8vw,38px)/1.15 var(--display);margin:0}
+.splash .s{font-size:15px;color:#f3c25b;letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px}
+.splash .skip{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font:600 15px/1 var(--body);color:var(--board-ink);background:transparent;border:1.5px solid color-mix(in srgb,var(--board-ink) 55%,transparent);border-radius:999px;padding:14px 22px;min-height:44px;cursor:pointer}
+.sp-in{display:grid;gap:18px;justify-items:center}
+/* 1 breathe */
+.moonball{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#fff8e6,#f0d9a0 55%,#d8b66a);box-shadow:0 0 60px rgba(240,217,160,.45);animation:breathe 2.4s ease-in-out both}
+@keyframes breathe{0%{transform:scale(.55)}45%{transform:scale(1)}100%{transform:scale(.7)}}
+.bw{position:relative;height:24px;width:100%}
+.bw span{position:absolute;inset:0;font-size:18px;letter-spacing:.2em;text-transform:lowercase;opacity:0}
+.bw .a{animation:show 1.2s ease .1s both}.bw .b{animation:show 1.2s ease 1.2s both}
+@keyframes show{0%,100%{opacity:0}30%,70%{opacity:1}}
+/* 2 sun */
+.sunbox{position:relative;width:240px;height:150px;overflow:hidden;border-bottom:3px solid var(--star)}
+.sun{position:absolute;left:50%;bottom:-90px;width:150px;height:150px;margin-left:-75px;border-radius:50%;background:radial-gradient(circle,#ffd27a,#e89a2c);box-shadow:0 0 50px rgba(255,190,90,.5);animation:rise 2.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{to{bottom:-20px}}
+.float{position:absolute;bottom:-30px;font-size:26px;animation:up 2.6s ease-out both}
+.float:nth-child(2){left:18%;animation-delay:.3s}.float:nth-child(3){left:72%;animation-delay:.6s}.float:nth-child(4){left:42%;animation-delay:.9s}
+@keyframes up{0%{transform:translateY(0);opacity:0}25%{opacity:1}100%{transform:translateY(-150px);opacity:0}}
+</style>
+</head>
+<body>
+<div class="splash" id="splash" role="dialog" aria-label="Welcome" hidden></div>
+<div class="wrap">
+  <p class="pv" role="note">Preview · not live yet · <a href="../">see the live page</a></p>
+  <header class="top">
+    <a class="brand" id="home" href="../../">Posted Up Produce <span class="beta">Beta</span></a>
+    <span class="moon" aria-hidden="true">🌕</span>
+  </header>
+
+  <section class="sign">
+    <span class="kicker">Welcome, Luna Llena reader</span>
+    <h1>Nourishment, picked for you.</h1>
+    <p>A Chicago neighbor hand-picks what's peaking at the farmers market from local makers within a close radius, then hands it to you in Hyde Park on Saturday or brings it to your door.</p>
+  </section>
+
+  <section class="card" aria-labelledby="heavyH">
+    <h2 id="heavyH">For your practice, and the heavy weeks</h2>
+    <p class="sub">Something for the mat, and something for when cooking feels like one more thing.</p>
+    <ul class="boxes">
+      <li><a class="go asana" data-hash="asana" href="../../#asana"><b>Asana Box <i class="new">New</i></b><span class="p">$40</span><span>Light bites before the mat, a nourishing plate after.</span><b class="inside">Before</b><span class="chips"><i>🍎 Apples or pears</i><i>🫐 Local blueberries</i></span><b class="inside">After</b><span class="chips"><i>🌱 Microgreens</i><i>🥚 Farm eggs or tofu</i><i>🍠 Sweet potatoes to roast</i></span></a></li>
+      <li><a class="go asana" data-hash="asanapair" href="../../#asanapair"><b>Asana Pair <i class="new">Special</i></b><span class="p">$55</span><span>The Asana Box plus a few days of fruit. Save $5, through Nov 21.</span></a></li>
+      <li><a class="go" data-hash="nocook" href="../../#nocook"><b>I Don't Cook Box</b><span class="p">$75</span><span>About a week of easy plates for one. Nothing to cook.</span><b class="inside">What's inside</b><span class="chips"><i>🍞 Fresh loaf or bagels</i><i>🧀 Local cheese</i><i>🥓 Salami or seasoned tofu</i><i>🥬 Kimchi, kraut or pickles</i><i>🍎 Apples &amp; pears</i><i>🍯 Jam, pesto or hot sauce</i></span></a></li>
+      <li><a class="go" data-hash="fruit" href="../../#fruit"><b>Fruit Box · a week</b><span class="p">$36</span><span>A piece or two a day for a week.</span><b class="inside">What's inside</b><span class="chips"><i>🍎 About 10 crisp apples</i><i>🍐 About 4 pears</i><i>🫐 A pint of local blueberries</i><i>🧃 Cider swap on request</i></span></a></li>
+      <li><a class="go" data-hash="fruit" href="../../#fruit"><b>Fruit Box · a few days</b><span class="p">$20</span><span>Fruit for a few days for one.</span><b class="inside">What's inside</b><span class="chips"><i>🍎 About 5 apples</i><i>🍐 About 2 pears</i><i>🫐 Local blueberries</i></span></a></li>
+    </ul>
+  </section>
+
+  <section class="card" aria-labelledby="seasonH">
+    <h2 id="seasonH">Eating with the season</h2>
+    <p class="season">Late fall brings apples and pears, sweet potatoes, squash, Brussels sprouts and the first parsnips. It's slow soup night food, and a warm Thanksgiving table.</p>
+  </section>
+
+  <section class="card gift" aria-labelledby="giftH">
+    <h2 id="giftH">A little thank-you</h2>
+    <p>Your first order comes with a free pastry or small-batch hot sauce. Order through this page and we'll know you came from Luna Llena.</p>
+  </section>
+
+  <section class="ctas" aria-label="Next steps">
+    <a class="cta go" data-hash="shop" href="../../#shop">See this week's boxes</a>
+    <a class="ghost" id="join" href="../../join/">Not ready? Get first pick</a>
+  </section>
+
+  <p class="sub" style="text-align:center;margin:0">Order by Friday 9 PM. Saturdays through Nov 21, then on to the winter market.</p>
+
+  <p class="close">Picked with care, for the weeks you need it. 🤍</p>
+
+  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+</div>
+<script>
+/* Luna Llena newsletter landing (Oct 29). Default tag is "luna"; it rides onto every outbound link so visits and orders show [via luna]. */
+const ORDER_ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
+const s=raw||"luna-preview";
+document.querySelectorAll("a.go").forEach(a=>{a.href="../../?s="+s+"#"+a.dataset.hash});
+document.getElementById("join").href="../../join/?s="+s;
+document.getElementById("home").href="../../?s="+s;
+/* Anonymous visit count, same as the main site: no cookies, no names. ?me skips your own devices. */
+(function(){
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
+  let vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  const dev=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?"Phone":"Computer";
+  let fresh=true;try{fresh=!sessionStorage.getItem("pu-v");sessionStorage.setItem("pu-v","1")}catch(e){}
+  if(fresh)fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:s,device:dev,returning:ret,vid})}).catch(()=>{});
+})();
+
+/* Yoga splash. ?splash=breathe|sun forces a style (for previews); otherwise the default plays on each visit, except on ?me devices. */
+(function(){
+  const V={
+    breathe:'<div class="sp-in"><div class="moonball"></div><div class="bw"><span class="a">inhale</span><span class="b">exhale</span></div><p class="t late" style="animation-delay:1.5s">Nourishment, picked for you.</p></div>',
+    sun:'<div class="sp-in"><div class="sunbox"><div class="sun"></div><span class="float">🍎</span><span class="float">🍐</span><span class="float">🥕</span></div><p class="s late">Sun salutation</p><p class="t late" style="animation-delay:1.4s">Rise and nourish.</p></div>'
+  };
+  const DEFAULT="breathe";
+  const q=new URLSearchParams(location.search).get("splash");
+  let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
+  let seen=false;try{seen=!!localStorage.getItem("pu-luna-splash")}catch(e){}
+  /* First visit only (UX rule: never block a returning shopper). ?splash=breathe|sun replays it. */
+  const pick=V[q]?q:(q==="off"||me||seen?null:DEFAULT);
+  if(!pick)return;
+  const sp=document.getElementById("splash");
+  sp.innerHTML=V[pick]+'<button type="button" class="skip">Skip</button>';sp.hidden=false;try{localStorage.setItem("pu-luna-splash","1")}catch(e){}
+  const done=()=>{sp.classList.add("out");setTimeout(()=>sp.remove(),650)};
+  sp.addEventListener("click",done);setTimeout(done,2800);
+})();
+</script>
+</body>
+</html>
