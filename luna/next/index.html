@@ -62,6 +62,31 @@ a{color:inherit}
 .new{font:700 11px/1 var(--body);font-style:normal;background:var(--good);color:#fff;border-radius:999px;padding:3px 7px;margin-left:6px;vertical-align:2px}
 .boxes .inside,.inside{grid-column:1/-1;font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--good);margin-top:6px}
 
+/* Yoga flow (Oct 29): roll out the mat → before / after (savasana side) → bow on add. Reusable per partner. */
+.boxes .mat{border:1.5px solid var(--good);background:var(--panel);border-radius:14px;padding:14px;display:grid;gap:12px;transform-origin:50% 100%}
+.mat-tap{all:unset;display:block;cursor:pointer;border-radius:10px;min-height:44px}
+.mat-tap:focus-visible{outline:3px solid var(--good);outline-offset:3px}
+.mat-face{display:grid;gap:10px}
+.mat-face[hidden]{display:none}
+.mat-hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.mat-hd b{font-size:16px}
+.mat-hd .p{font:400 19px/1.2 var(--display);color:var(--good)}
+.mat-hint{font-size:14px;color:var(--muted)}
+.mat .chips{margin-top:0}
+.roll{display:flex;gap:12px;height:48px;align-items:center}
+.roll i{position:relative;display:block;width:170px;height:36px;border-radius:18px;background:linear-gradient(180deg,#c3abd4,#9a7fb1 60%,#836a99);box-shadow:0 3px 0 rgba(0,0,0,.08)}
+.roll i::before{content:"";position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle,#6f5785 0 14%,#c3abd4 15% 32%,#6f5785 33% 46%,#c3abd4 47% 62%,#836a99 63%)}
+.roll.two i{width:120px}
+.boxes .mat-add{display:block;border:0;text-align:center;text-decoration:none;background:var(--good);color:#fff;border-radius:12px;padding:14px;font-weight:700;min-height:48px}
+.m-before.in{animation:unroll .7s cubic-bezier(.3,.7,.2,1) both}
+@keyframes unroll{from{clip-path:inset(0 100% 0 0);opacity:.4}to{clip-path:inset(0 0 0 0);opacity:1}}
+.m-after.in{animation:savasana 1s ease both}
+@keyframes savasana{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.m-before.back{animation:fadein .4s ease both}
+.mat.bow{animation:bow .7s ease both}
+@keyframes bow{0%{transform:none}45%{transform:perspective(600px) rotateX(14deg) scale(.98)}100%{transform:none}}
+.mat .thanks{text-align:center;font:400 18px/1.2 var(--display);color:var(--good)}
+@media (prefers-reduced-motion:reduce){.mat,.mat *{animation:none!important}}
 /* Yoga splash (Oct 29): ?splash=breathe|sun picks a style; tap to skip; ?me devices skip. */
 .splash{position:fixed;inset:0;z-index:50;background:var(--board);color:var(--board-ink);display:grid;place-items:center;text-align:center;padding:24px;cursor:pointer;transition:opacity .6s ease}
 .splash[hidden]{display:none}
@@ -96,17 +121,31 @@ a{color:inherit}
   </header>
 
   <section class="sign">
-    <span class="kicker">Welcome, Luna Llena reader</span>
+    <span class="kicker">Welcome in, Sosiego community</span>
     <h1>Nourishment, picked for you.</h1>
-    <p>A Chicago neighbor hand-picks what's peaking at the farmers market from local makers within a close radius, then hands it to you in Hyde Park on Saturday or brings it to your door.</p>
+    <p>Wellness that fits real life, on and off the mat. We shop the farmers market so your practice and your plate both feel cared for.</p>
   </section>
 
   <section class="card" aria-labelledby="heavyH">
     <h2 id="heavyH">For your practice, and the heavy weeks</h2>
     <p class="sub">Something for the mat, and something for when cooking feels like one more thing.</p>
     <ul class="boxes">
-      <li><a class="go asana" data-hash="asana" href="../../#asana"><b>Asana Box <i class="new">New</i></b><span class="p">$40</span><span>Light bites before the mat, a nourishing plate after.</span><b class="inside">Before</b><span class="chips"><i>🍎 Apples or pears</i><i>🫐 Local blueberries</i></span><b class="inside">After</b><span class="chips"><i>🌱 Microgreens</i><i>🥚 Farm eggs or tofu</i><i>🍠 Sweet potatoes to roast</i></span></a></li>
-      <li><a class="go asana" data-hash="asanapair" href="../../#asanapair"><b>Asana Pair <i class="new">Special</i></b><span class="p">$55</span><span>The Asana Box plus a few days of fruit. Save $5, through Nov 21.</span></a></li>
+      <li class="mat" data-hash="asana">
+        <button type="button" class="mat-tap" aria-label="Asana Box: tap to roll out the mat">
+          <span class="mat-face m-rolled"><span class="mat-hd"><b>Asana Box <i class="new">New</i></b><span class="p">$40</span></span><span class="roll" aria-hidden="true"><i></i></span><span class="mat-hint">Tap to roll out your mat</span></span>
+          <span class="mat-face m-before" hidden><span class="mat-hd"><b>Before the mat</b><span class="p">$40</span></span><span class="chips"><i>🍎 Apples or pears</i><i>🫐 Local blueberries</i></span><span class="mat-hint">Light bites to fuel your practice · tap for after</span></span>
+          <span class="mat-face m-after" hidden><span class="mat-hd"><b>Rest and refuel</b><span class="p">$40</span></span><span class="chips"><i>🌱 Microgreens</i><i>🥚 Farm eggs or tofu</i><i>🍠 Sweet potatoes to roast</i></span><span class="mat-hint">A nourishing plate for after · tap for before</span></span>
+        </button>
+        <a class="mat-add" href="../../#asana">Add the Asana Box · $40</a>
+      </li>
+      <li class="mat" data-hash="asanapair">
+        <button type="button" class="mat-tap" aria-label="Asana Pair: tap to roll out the mats">
+          <span class="mat-face m-rolled"><span class="mat-hd"><b>Asana Pair <i class="new">Special</i></b><span class="p">$55</span></span><span class="roll two" aria-hidden="true"><i></i><i></i></span><span class="mat-hint">Two mats · tap to roll out · save $5 through Nov 21</span></span>
+          <span class="mat-face m-before" hidden><span class="mat-hd"><b>Mat one: the Asana Box</b><span class="p">$55</span></span><span class="chips"><i>🍎 Apples or pears</i><i>🫐 Blueberries</i><i>🌱 Microgreens</i><i>🥚 Eggs or tofu</i><i>🍠 Sweet potatoes</i></span><span class="mat-hint">Before and after the mat · tap for mat two</span></span>
+          <span class="mat-face m-after" hidden><span class="mat-hd"><b>Mat two: a few days of fruit</b><span class="p">$55</span></span><span class="chips"><i>🍎 About 5 apples</i><i>🍐 About 2 pears</i><i>🫐 Local blueberries</i></span><span class="mat-hint">For the days in between · tap for mat one</span></span>
+        </button>
+        <a class="mat-add" href="../../#asanapair">Add the Asana Pair · $55</a>
+      </li>
       <li><a class="go" data-hash="nocook" href="../../#nocook"><b>I Don't Cook Box</b><span class="p">$75</span><span>About a week of easy plates for one. Nothing to cook.</span><b class="inside">What's inside</b><span class="chips"><i>🍞 Fresh loaf or bagels</i><i>🧀 Local cheese</i><i>🥓 Salami or seasoned tofu</i><i>🥬 Kimchi, kraut or pickles</i><i>🍎 Apples &amp; pears</i><i>🍯 Jam, pesto or hot sauce</i></span></a></li>
       <li><a class="go" data-hash="fruit" href="../../#fruit"><b>Fruit Box · a week</b><span class="p">$36</span><span>A piece or two a day for a week.</span><b class="inside">What's inside</b><span class="chips"><i>🍎 About 10 crisp apples</i><i>🍐 About 4 pears</i><i>🫐 A pint of local blueberries</i><i>🧃 Cider swap on request</i></span></a></li>
       <li><a class="go" data-hash="fruit" href="../../#fruit"><b>Fruit Box · a few days</b><span class="p">$20</span><span>Fruit for a few days for one.</span><b class="inside">What's inside</b><span class="chips"><i>🍎 About 5 apples</i><i>🍐 About 2 pears</i><i>🫐 Local blueberries</i></span></a></li>
@@ -120,7 +159,7 @@ a{color:inherit}
 
   <section class="card gift" aria-labelledby="giftH">
     <h2 id="giftH">A little thank-you</h2>
-    <p>Your first order comes with a free pastry or small-batch hot sauce. Order through this page and we'll know you came from Luna Llena.</p>
+    <p>Your first order comes with a free pastry or small-batch hot sauce. Order through this page and we'll know you came from Sosiego.</p>
   </section>
 
   <section class="ctas" aria-label="Next steps">
@@ -142,6 +181,19 @@ const s=raw||"luna-preview";
 document.querySelectorAll("a.go").forEach(a=>{a.href="../../?s="+s+"#"+a.dataset.hash});
 document.getElementById("join").href="../../join/?s="+s;
 document.getElementById("home").href="../../?s="+s;
+
+/* Yoga flow: tap cycles rolled → before → after → before. Add = a small bow, then on to checkout on the main site. */
+document.querySelectorAll(".mat").forEach(m=>{
+  const f={r:m.querySelector(".m-rolled"),b:m.querySelector(".m-before"),a:m.querySelector(".m-after")};let st="r";
+  const show=(k,cls)=>{for(const x in f){f[x].hidden=x!==k;f[x].classList.remove("in","back")}if(cls)f[k].classList.add(cls);st=k};
+  m.querySelector(".mat-tap").addEventListener("click",()=>{if(st==="r")show("b","in");else if(st==="b")show("a","in");else show("b","back")});
+  const add=m.querySelector(".mat-add");add.href="../../?s="+s+"#"+m.dataset.hash;
+  add.addEventListener("click",e=>{
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    e.preventDefault();m.classList.add("bow");add.textContent="Thank you. Taking you to checkout…";
+    setTimeout(()=>{location.href=add.href},750);
+  });
+});
 /* Anonymous visit count, same as the main site: no cookies, no names. ?me skips your own devices. */
 (function(){
   try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
@@ -161,8 +213,8 @@ document.getElementById("home").href="../../?s="+s;
   const q=new URLSearchParams(location.search).get("splash");
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
   let seen=false;try{seen=!!localStorage.getItem("pu-luna-splash")}catch(e){}
-  /* First visit only (UX rule: never block a returning shopper). ?splash=breathe|sun replays it. */
-  const pick=V[q]?q:(q==="off"||me||seen?null:DEFAULT);
+  /* Every visit (Sol, Oct 29). Skip button + tap anywhere to skip. */
+  const pick=V[q]?q:(q==="off"||me?null:DEFAULT);
   if(!pick)return;
   const sp=document.getElementById("splash");
   sp.innerHTML=V[pick]+'<button type="button" class="skip">Skip</button>';sp.hidden=false;try{localStorage.setItem("pu-luna-splash","1")}catch(e){}

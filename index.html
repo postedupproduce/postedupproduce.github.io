@@ -369,6 +369,18 @@ details.vdet .vote{border:0;padding:0 0 14px}
 @keyframes pu-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes pu-out{to{opacity:0;visibility:hidden}}
 @media (prefers-reduced-motion:reduce){#pu-splash,#pu-splash *{animation:none!important}#pu-splash{animation:pu-out .2s linear 1.5s forwards!important}}
+/* Savasana overlay (Oct 29) */
+.sava{position:fixed;inset:0;z-index:60;background:#24392c;color:#f4ecd9;display:grid;place-items:center;padding:24px;animation:savaIn .8s ease both}
+.sava-in{display:grid;gap:14px;justify-items:center;text-align:center;max-width:360px}
+.sava-moon{width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#fff8e6,#f0d9a0 55%,#d8b66a);animation:savaSet 2.4s ease both}
+.sava-mat{width:220px;height:10px;border-radius:6px;background:#b39ac6;opacity:.7}
+.sava-k{margin:0;font:700 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#f3c25b}
+.sava-t{margin:0;font:400 clamp(26px,8vw,34px)/1.15 var(--display)}
+.sava-s{margin:0;font-size:16px;opacity:.9}
+.sava .go{background:#f4ecd9;color:#24392c;min-height:48px;padding:14px 18px;border-radius:12px;font-weight:700;border:0}
+@keyframes savaIn{from{opacity:0}to{opacity:1}}
+@keyframes savaSet{from{transform:translateY(-24px)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.sava,.sava-moon{animation:none}}
 /* Asana Box feature (Oct 29) */
 .spot.asana{border:3px solid var(--good);border-radius:14px;padding:18px;background:color-mix(in srgb,var(--good) 8%,var(--panel))}
 .spot.asana .k{color:var(--good)}
@@ -1204,7 +1216,7 @@ function renderTicket(){
     state.forceNew=false;state.dupe=false;
     const id=(Date.now()%100000).toString().padStart(5,"0");
     state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-cart",JSON.stringify({box:state.box,breadBox:state.breadBox,qty:state.qty,mode:state.mode,fulfill:state.fulfill,name:state.name,phone:state.phone,email:state.email,address:state.address,notes:state.notes,hw:state.hw||false,hwv:state.hwv||false,at:Date.now()}))}catch(e){}try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
-    sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
+    sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket();if(ok&&!state.wait&&/^luna/.test(SRC_TAG))savasana()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
   });
   t.append(f);
 }
@@ -1445,6 +1457,16 @@ function hwvInCart(){return state.hwv&&state.box==="forever"&&state.qty.cider>0}
   const addHwv=()=>{state.box="forever";state.mode="box";state.qty.cider=Math.max(1,state.qty.cider||0);state.hw=false;state.hwv=true;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
   document.querySelectorAll("[data-hwv]").forEach(b=>b.addEventListener("click",addHwv));
 })();
+/* Savasana (Oct 29, Sol): after a Luna/Sosiego order goes through, a calm resting moment. Payment reminder stays on it. */
+function savasana(){
+  if(document.getElementById("sava"))return;
+  const d=el("div",{class:"sava",id:"sava",role:"dialog","aria-label":"Order received"},
+    el("div",{class:"sava-in"},el("div",{class:"sava-moon","aria-hidden":"true"}),el("div",{class:"sava-mat","aria-hidden":"true"}),
+      el("p",{class:"sava-k"},"Savasana"),el("p",{class:"sava-t"},"Rest. We've got it from here."),
+      el("p",{class:"sava-s"},"Your order is in. One last step: send payment by 9 PM the night before to lock in your spot."),
+      el("button",{type:"button",class:"go",onclick:()=>{d.remove();const t=document.getElementById("ticket");if(t)t.scrollIntoView({block:"start"})}},"See my ticket and pay")));
+  document.body.append(d);
+}
 /* Asana Box feature (Oct 29, Sol): Home card + Boxes bar; contents come from BOXES. */
 (function(){
   const b=BOXES.find(x=>x.id==="asana");if(!b)return;
