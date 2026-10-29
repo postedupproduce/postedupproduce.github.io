@@ -369,6 +369,13 @@ details.vdet .vote{border:0;padding:0 0 14px}
 @keyframes pu-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes pu-out{to{opacity:0;visibility:hidden}}
 @media (prefers-reduced-motion:reduce){#pu-splash,#pu-splash *{animation:none!important}#pu-splash{animation:pu-out .2s linear 1.5s forwards!important}}
+/* Asana Box feature (Oct 29) */
+.spot.asana{border:3px solid var(--good);border-radius:14px;padding:18px;background:color-mix(in srgb,var(--good) 8%,var(--panel))}
+.spot.asana .k{color:var(--good)}
+.spot.asana .go{background:var(--good);color:#fff}
+.spot.asana .row2 a{color:var(--good)}
+.spot.asana .half{font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--good);margin:4px 0 -2px}
+.hwbar.asb{border-color:var(--good)}.hwbar.asb .go{background:var(--good);color:#fff}
 /* Box spotlight on Home */
 .spot{display:grid;gap:10px}
 .spot.hw{border:3px solid #E0782F;border-radius:14px;padding:18px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
@@ -501,6 +508,16 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <div class="row2"><button type="button" class="go" data-hwv style="flex:1 1 200px">Add the Vegan Harvest Moon</button></div>
   </section>
 
+  <section class="post spot asana" data-view="home" id="asanaFeature" aria-labelledby="asH">
+    <span class="k">🧘 New · The Asana Box</span>
+    <h2 id="asH">Before the mat, after the mat · $40</h2>
+    <p class="meta" style="color:var(--ink)">$36 at a pickup with the beta founder rate</p>
+    <p class="meta">Light bites to fuel your practice and a nourishing plate to come back to. For one, about a week of sessions.</p>
+    <p class="half">Before</p><ul id="asBefore"></ul>
+    <p class="half">After</p><ul id="asAfter"></ul>
+    <div class="row2"><button type="button" class="go" data-asana style="flex:1 1 200px">Add the Asana Box</button><a href="#asana">See it with the boxes &rarr;</a></div>
+  </section>
+
   <section class="post" data-view="home" id="hauls" aria-labelledby="realH">
     <h2 id="realH">Real hauls from this pilot</h2>
     <div class="hauls">
@@ -537,6 +554,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 
   <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
     <h1 id="shopH" class="vh1">What are you craving?</h1>
+    <div class="hwbar asb" id="asShop"><span><b>🧘 New: Asana Box · $40</b>Light bites before the mat, a nourishing plate after</span><button type="button" class="go" data-asana>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
@@ -1080,7 +1098,7 @@ function renderTicket(){
   if(!n)lines.append(el("p",{class:"empty"},"Pick a box or add something from the menu."));
   if(hwInCart())lines.append(el("p",{class:"note"},"🎃 Halloween Haul: your Half Peck gets a pie pumpkin, plus cider and a pastry."));
   if(hwvInCart())lines.append(el("p",{class:"note"},"🎃 Vegan Harvest Moon: your Vegan Box gets a pie pumpkin, plus cider."));
-  if(b)lines.append(el("div",{class:"line"},el("span",{},b.name+" box"),el("span",{},"$"+b.price)));
+  if(b)lines.append(el("div",{class:"line"},el("span",{},/box$/i.test(b.name)?b.name:b.name+" box"),el("span",{},"$"+b.price)));
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   if(bb)lines.append(el("div",{class:"line"},el("span",{},bb.name),el("span",{},"$"+bb.price)));
   for(const i of ALL.filter(i=>state.qty[i.id]))lines.append(el("div",{class:"line"},el("span",{},state.qty[i.id]+" × "+i.nm),el("span",{},"$"+state.qty[i.id]*i.p)));
@@ -1419,6 +1437,14 @@ function hwvInCart(){return state.hwv&&state.box==="forever"&&state.qty.cider>0}
   const hvs=document.getElementById("hwvShop");if(hvs)hvs.hidden=false;
   const addHwv=()=>{state.box="forever";state.mode="box";state.qty.cider=Math.max(1,state.qty.cider||0);state.hw=false;state.hwv=true;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
   document.querySelectorAll("[data-hwv]").forEach(b=>b.addEventListener("click",addHwv));
+})();
+/* Asana Box feature (Oct 29, Sol): Home card + Boxes bar; contents come from BOXES. */
+(function(){
+  const b=BOXES.find(x=>x.id==="asana");if(!b)return;
+  const fill=(id,pre)=>{const ul=document.getElementById(id);if(!ul)return;b.has.filter(h=>h.startsWith(pre)).forEach(h=>{const t=h.slice(pre.length+2);ul.append(el("li",{},t.charAt(0).toUpperCase()+t.slice(1)))})};
+  fill("asBefore","Before");fill("asAfter","After");
+  const add=()=>{state.box="asana";state.mode="box";if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
+  document.querySelectorAll("[data-asana]").forEach(x=>x.addEventListener("click",add));
 })();
 /* Box spotlight: fills from BOXES so contents and price stay in sync with Pick your haul. */
 (function(){
