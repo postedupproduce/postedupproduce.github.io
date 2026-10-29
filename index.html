@@ -426,7 +426,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .bprice{font:800 19px var(--body);white-space:nowrap}
 .bwhat{margin:0;font-size:15px;color:var(--ink)}
 .btag{margin:0;font-size:14px;font-weight:700;color:var(--good)}
-#fruit,#nocook,#asana{scroll-margin-top:calc(var(--toph,120px) + 76px)}
+#fruit,#nocook,#asana,#asanapair{scroll-margin-top:calc(var(--toph,120px) + 76px)}
 .bmakes{margin:2px 0 0;font-size:16px;font-weight:800;line-height:1.35;color:var(--ink);background:var(--chip);border-radius:10px;padding:8px 10px}
 .bin-in{border-top:1px dashed var(--line);padding-top:2px}
 .bin-in summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;font-weight:700;font-size:16px;cursor:pointer}
@@ -516,6 +516,9 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <p class="half">Before</p><ul id="asBefore"></ul>
     <p class="half">After</p><ul id="asAfter"></ul>
     <div class="row2"><button type="button" class="go" data-asana style="flex:1 1 200px">Add the Asana Box</button><a href="#asana">See it with the boxes &rarr;</a></div>
+    <div id="asPair"><h3 style="margin:14px 0 4px">Special: the Asana Pair · $55</h3>
+    <p class="meta">The Asana Box plus a few days of fruit. Save $5, through Sat Nov 21.</p>
+    <div class="row2"><button type="button" class="go" data-asanapair style="flex:1 1 200px">Add the Asana Pair</button></div></div>
   </section>
 
   <section class="post" data-view="home" id="hauls" aria-labelledby="realH">
@@ -554,7 +557,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 
   <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
     <h1 id="shopH" class="vh1">What are you craving?</h1>
-    <div class="hwbar asb" id="asShop"><span><b>🧘 New: Asana Box · $40</b>Light bites before the mat, a nourishing plate after</span><button type="button" class="go" data-asana>Add it</button></div>
+    <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
@@ -781,18 +784,22 @@ const BOXES=[
    makes:"Makes about 5 plant-based meals for two · ≈ $7 a plate",
    has:["½ lb local mushrooms, 2–3 sides (or another local mushroom)","1 block local tofu, 2 mains (or local beans/grains)","2 lb sweet potatoes, about 4 medium (or potatoes)","1 winter squash, 2–4 sides (or pie pumpkin)","Kale or collards, 2–3 sides (or chard, cabbage)","Onions + garlic (or leeks, shallots)","2 lb orchard apples, about 6 (or pears)","Microgreens, tops a week of meals (or salad greens)"]},
   /* Fruit boxes (Oct 27, Sol): for people who don't cook. Sized by days, not pounds. Prices are starting guesses; confirm after a market run. */
-  {id:"fruitsm",name:"Fruit Box · a few days",price:18,wt:"~3 lb · about 8 pieces",desc:"No cooking. Late-season orchard fruit picked ripe for you, plus local blueberries.",pick:"New · No cooking",
-   makes:"Fruit for a few days for one · ≈ $2 a piece",
+  {id:"fruitsm",name:"Fruit Box · a few days",price:20,wt:"~3 lb · about 8 pieces",desc:"No cooking. Late-season orchard fruit picked ripe for you, plus local blueberries.",pick:"New · No cooking",
+   makes:"Fruit for a few days for one · ≈ $2.50 a piece",
    has:["Crisp apples, about 5 (a mix of sweet and tart)","Pears or Asian pears, about 2 (or more apples if pears are done)","Local blueberries, frozen or dried (fresh season is over)"]},
-  {id:"fruit",name:"Fruit Box · a week",price:30,wt:"~6 lb · about 16 pieces",desc:"No cooking. A week of late-season orchard fruit, plus local blueberries.",pick:"New · No cooking",
-   makes:"A piece or two a day for a week, or a few days for two · ≈ $1.90 a piece",
+  {id:"fruit",name:"Fruit Box · a week",price:36,wt:"~6 lb · about 16 pieces",desc:"No cooking. A week of late-season orchard fruit, plus local blueberries.",pick:"New · No cooking",
+   makes:"A piece or two a day for a week, or a few days for two · ≈ $2.25 a piece",
    has:["Crisp apples, about 10 (a mix of sweet and tart)","Pears or Asian pears, about 4 (or more apples if pears are done)","A pint of frozen local blueberries, or a bag of dried","Fresh-pressed cider swap available on request"]},
   /* Asana Box (Oct 29, Sol): yoga before-and-after box, first sold via /luna. Starting price; est. cost ~$28 (~30%). Confirm after a market run. */
   {id:"asana",name:"Asana Box",price:40,wt:"Before and after your practice, for one",desc:"Light bites before the mat, a nourishing plate after.",pick:"New · Yoga",
    makes:"Snacks before about 4 sessions and 3 or 4 easy post-practice plates for one",
    has:["Before: crisp apples or pears, about 4","Before: local blueberries, a snack bag dried or frozen","After: microgreens or salad greens","After: a dozen farm eggs (or local tofu for vegan)","After: 2 lb sweet potatoes for a warm roasted plate"]},
+  /* Asana Pair special (Oct 29, Sol): Asana Box + Fruit Box · a few days, $55 (save $5). Shown through Sat Nov 21 via "until". Est. cost ~$43. */
+  {id:"asanapair",name:"Asana Pair",price:55,until:"2026-11-22",wt:"Asana Box + Fruit Box · a few days · save $5",desc:"Special through Nov 21.",pick:"Special · through Nov 21",
+   makes:"Before-and-after bites for about a week of practice, plus fruit for a few days, for one",
+   has:["Everything in the Asana Box: apples or pears, local blueberries, microgreens, a dozen eggs (or tofu), 2 lb sweet potatoes","Plus a Fruit Box · a few days: about 5 apples, 2 pears and local blueberries"]},
   /* I Don't Cook Box (Oct 27, Sol): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
-  {id:"nocook",name:"I Don't Cook Box",price:65,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
+  {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
    makes:"Snacks and easy plates for about a week for one, or a few days for two",
    has:["A fresh loaf, bagels or challah","A local cheese","Salami or seasoned tofu (your pick in notes)","One ferment: kimchi, sauerkraut or pickles","Seasonal fruit: apples and pears","A jam, pesto or hot sauce to tie it together","Want hot food? Ask for a heat-and-eat swap (tamales or soup, microwave only)"]}
 ];
@@ -941,8 +948,8 @@ function bCard(o){
 }
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES)w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick,has:b.has,on:state.box===b.id,
-    toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));
+  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick,has:b.has,on:state.box===b.id,
+    toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
     box.append(bCard({name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,makes:PROTEIN_INFO[id].makes,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
@@ -1315,7 +1322,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   const go=(first)=>{
     const h=decodeURIComponent(location.hash.slice(1));
     let v="home",el=h?document.getElementById(h):null;
-    if(h==="shop"||h==="boxes"||h==="fruit"||h==="nocook"||h==="asana")v="shop";
+    if(h==="shop"||h==="boxes"||h==="fruit"||h==="nocook"||h==="asana"||h==="asanapair")v="shop";
     else if(h==="inventory")v="inventory";
     else if(h==="checkout"||h==="ticket")v=cur&&cur!=="home"?cur:"shop";
     else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
@@ -1329,7 +1336,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   };
   go(true);addEventListener("hashchange",()=>go(false));
   /* #fruit (Oct 27): the Fruit Box cards render after this runs, so scroll to them once they exist. */
-  if(location.hash==="#fruit"||location.hash==="#nocook"||location.hash==="#asana")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
+  if(location.hash==="#fruit"||location.hash==="#nocook"||location.hash==="#asana"||location.hash==="#asanapair")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
 })();
 /* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
    Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
@@ -1445,6 +1452,10 @@ function hwvInCart(){return state.hwv&&state.box==="forever"&&state.qty.cider>0}
   fill("asBefore","Before");fill("asAfter","After");
   const add=()=>{state.box="asana";state.mode="box";if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
   document.querySelectorAll("[data-asana]").forEach(x=>x.addEventListener("click",add));
+  const pr=BOXES.find(x=>x.id==="asanapair"),live=pr&&chiNow()<new Date(pr.until+"T00:00:00-06:00");
+  if(!live){const a=document.getElementById("asPair");if(a)a.hidden=true;const s2=document.getElementById("asShop");if(s2)s2.hidden=true;return}
+  const addP=()=>{state.box="asanapair";state.mode="box";if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
+  document.querySelectorAll("[data-asanapair]").forEach(x=>x.addEventListener("click",addP));
 })();
 /* Box spotlight: fills from BOXES so contents and price stay in sync with Pick your haul. */
 (function(){
