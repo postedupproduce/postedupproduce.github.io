@@ -43,6 +43,14 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 .forher .fh-hi{font:400 20px/1.25 var(--serif);color:var(--ink)}
 .forher .fh-sig{margin:0;color:var(--soft);font-size:15px}
 
+.tbar{position:sticky;top:0;z-index:5;margin:0 -22px;padding:10px 22px 6px;background:color-mix(in srgb,var(--mist) 94%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.tbar .brand{display:inline-flex;align-items:center;gap:8px}
+.brand .mark{width:32px;height:32px;border-radius:50%;flex:none}
+.ttabs{display:flex;gap:4px;margin-top:4px;overflow-x:auto;scrollbar-width:none}
+.ttabs::-webkit-scrollbar{display:none}
+.ttabs a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:999px;font:600 15px/1 var(--sans);color:var(--soft);text-decoration:none}
+.ttabs a:hover,.ttabs a:focus-visible{background:var(--paper);color:var(--ink)}
+html{scroll-padding-top:120px}
 .top{display:flex;justify-content:space-between;align-items:center;min-height:56px}
 .brand{font:400 19px/1 var(--serif);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px}
 .beta{font:400 12px/1 var(--sans);color:var(--soft);border:1px solid var(--rule);border-radius:999px;padding:4px 8px}
@@ -51,6 +59,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 .hero{padding:40px 0 36px;border-bottom:1px solid var(--rule)}
 .hello{margin:0 0 14px;font:400 16px/1.4 var(--sans);color:var(--sage)}
 .hero h1{font-size:clamp(36px,10.5vw,50px);line-height:1.05;font-weight:400}
+.hero p.intro{margin:14px 0 0;font-size:16px;line-height:1.6;color:var(--soft);max-width:32em}
 .hero p.lede{margin:18px 0 0;font-size:18px;line-height:1.6;color:var(--ink);max-width:30em}
 
 .sec{padding:36px 0;border-bottom:1px solid var(--rule)}
@@ -108,7 +117,13 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 .breath .bw .a{animation:show 1.3s ease .1s both}.breath .bw .b{animation:show 1.3s ease 1.3s both}
 .breath .t{margin:0;font:400 20px/1.3 var(--sans);opacity:.9}
 /* Updates sign-up (Oct 29): lands in Feedback as a SURVEY SIGN-UP so it shows on the Contacts tab. */
-.upd form{display:grid;gap:14px;margin-top:18px}
+.upd form{display:grid;gap:10px;margin-top:18px}
+.mad{margin:0;font-size:16px;color:var(--soft)}
+.mad.big{font:400 20px/1.9 var(--sans);color:var(--ink)}
+.mad input,.mad select{font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--dusk);border-radius:0;padding:6px 2px;min-height:44px;max-width:100%}
+.mad select{padding-right:4px;cursor:pointer}
+.mad input::placeholder{color:var(--soft);opacity:.8}
+.mad input:focus-visible,.mad select:focus-visible{outline:none;border-bottom:2px solid var(--sage);background:var(--paper)}
 .fld{display:grid;gap:6px;font-size:16px;font-weight:500}
 .fld input{font:400 17px/1.3 var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:12px 14px;min-height:48px}
 .fld input:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
@@ -172,15 +187,16 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 <div class="wrap">
   <p class="pv" id="pvBar" role="note">Preview, not live yet. <a href="../">See the live page</a></p>
   <div class="forher" id="forHer" hidden><p class="fh-hi">Nathalys, this is for your community.</p><p>A draft of the page your readers would land on. Nothing goes out without your OK, and I'd love your eyes on anything that should change.</p><p class="fh-sig">Your neighbor M, Posted Up Produce</p></div>
-  <header class="top">
-    <a class="brand" id="home" href="../../">Posted Up Produce <span class="beta">Beta</span></a>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+  <header class="tbar">
+    <a class="brand" id="home" href="../../"><img class="mark" src="../../logos/stamp-96.png" width="32" height="32" alt="">Posted Up Produce <span class="beta">Beta</span></a>
+    <nav class="ttabs" aria-label="This page"><a href="#practiceH">Boxes</a><a href="#updH">Stay in touch</a><a class="go" data-hash="start" href="../../">Take me to the site</a></nav>
   </header>
 
   <section class="hero">
     <p class="hello">Welcome in, Sosiego community</p>
     <h1>Nourishment, picked for you.</h1>
     <p class="lede">Wellness that fits real life, on and off the mat. We shop the farmers market so your practice and your plate both feel cared for.</p>
+    <p class="intro">Here's how it works: each Saturday I shop the farmers market for you, pack your box, and hand it off in Rogers Park or bring it to your door. I'm a South Side organizer with 20+ years in Chicago food systems, and this is Posted Up Produce.</p>
   </section>
 
   <section class="sec" aria-labelledby="practiceH">
@@ -231,11 +247,10 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
     <h2 id="updH">Not ready yet? Stay in touch</h2>
     <p class="note">Leave a name and the best way to reach you. I'll send a short note before each market day, with first pick of new boxes.</p>
     <form id="upd" novalidate>
-      <label class="fld">Who are we packing for?<input name="name" autocomplete="nickname" required></label>
-      <label class="fld">Pronouns, if you'd like to share<input name="pronouns" autocomplete="off" placeholder="e.g. she/her/ella, they/them"></label>
-      <label class="fld">Best way to reach you
-        <select name="by"><option>Text</option><option>Call</option><option>Email</option><option>Instagram</option><option>Facebook</option></select></label>
-      <label class="fld"><span id="cLabel">Your mobile number</span><input name="contact" autocomplete="tel" inputmode="tel" required></label>
+      <p class="mad">Who are we packing for?</p>
+      <p class="mad big">Hi, I'm <input name="name" autocomplete="nickname" aria-label="Who are we packing for? Your name" placeholder="your name" size="10" required>.</p>
+      <p class="mad big">My pronouns are <input name="pronouns" autocomplete="off" aria-label="Pronouns, if you'd like to share" placeholder="optional" size="10">.</p>
+      <p class="mad big">Reach me by <select name="by" aria-label="Best way to reach you"><option>text</option><option>call</option><option>email</option><option>Instagram</option><option>Facebook</option></select> at <input name="contact" autocomplete="tel" inputmode="tel" aria-label="Your mobile number" placeholder="your number" size="12" required>.</p>
       <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
       <button type="submit" class="cta">Stay in touch</button>
       <p class="msg" role="status" aria-live="polite"></p>
@@ -259,7 +274,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
   </section>
 
   <div class="ctas">
-    <a class="cta go" data-hash="shop" href="../../#shop">See this week's boxes</a>
+    <a class="cta go" data-hash="start" href="../../">Take me to the site</a>
     <a class="ghost" id="join" href="#updH">Not ready? Stay in touch</a>
   </div>
   <p class="when">Order by Friday at 9 PM. Saturday pickup in Rogers Park around 11:30 AM, or free delivery within 5 miles of Goose Island. If you're on my way earlier, I can drop it at your door.</p>
@@ -317,21 +332,21 @@ document.querySelectorAll(".pcard").forEach(c=>{
 /* Stay-in-touch sign-up: same POST shape as /join (type stays "feedback"; a new type would land in All Orders as a fake order).
    Contacts tab columns: First name = "Name (pronouns)", Mobile = number/email/handle, Texts = "Reach by <method>". */
 (function(){
-  const f=document.getElementById("upd");if(!f)return;const msg=f.querySelector(".msg"),btn=f.querySelector("button"),sel=f.by,ci=f.contact,lab=document.getElementById("cLabel");
-  const M={Text:["Your mobile number","tel","tel"],Call:["Your phone number","tel","tel"],Email:["Your email","email","email"],Instagram:["Your Instagram handle","text","off"],Facebook:["Your Facebook name or profile link","text","off"]};
-  sel.addEventListener("change",()=>{const m=M[sel.value];lab.textContent=m[0];ci.type=m[1]==="tel"?"tel":m[1]==="email"?"email":"text";ci.inputMode=m[1]==="tel"?"tel":m[1]==="email"?"email":"text";ci.autocomplete=m[2]});
+  const f=document.getElementById("upd");if(!f)return;const msg=f.querySelector(".msg"),btn=f.querySelector("button"),sel=f.by,ci=f.contact;
+  const M={text:["your number","Your mobile number","tel","tel"],call:["your number","Your phone number","tel","tel"],email:["your email","Your email","email","email"],Instagram:["@yourhandle","Your Instagram handle","text","off"],Facebook:["your profile","Your Facebook name or profile link","text","off"]};
+  sel.addEventListener("change",()=>{const m=M[sel.value];ci.placeholder=m[0];ci.setAttribute("aria-label",m[1]);ci.type=m[2]==="tel"?"tel":m[2]==="email"?"email":"text";ci.inputMode=m[2];ci.autocomplete=m[3]});
   f.addEventListener("submit",async e=>{
     e.preventDefault();msg.className="msg";
     const name=f.name.value.trim(),pro=f.pronouns.value.trim().slice(0,40),by=sel.value,contact=ci.value.trim();
     const bad=t=>{msg.className="msg err";msg.textContent=t;return true};
     if(!name){bad("Tell us who we're packing for.");f.name.focus();return}
-    if((by==="Text"||by==="Call")&&contact.replace(/\D/g,"").length<10){bad("Add a 10-digit phone number, or pick another way to reach you.");ci.focus();return}
-    if(by==="Email"&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)){bad("Add an email address, or pick another way to reach you.");ci.focus();return}
+    if((by==="text"||by==="call")&&contact.replace(/\D/g,"").length<10){bad("Add a 10-digit phone number, or pick another way to reach you.");ci.focus();return}
+    if(by==="email"&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)){bad("Add an email address, or pick another way to reach you.");ci.focus();return}
     if((by==="Instagram"||by==="Facebook")&&contact.length<2){bad("Add your "+by+" handle or link.");ci.focus();return}
     const message=["SURVEY SIGN-UP","Mobile: "+contact,"Spot: Sosiego page","Day: Any","Texts: Reach by "+by.toLowerCase(),"Source: "+s].join(" · ");
     btn.disabled=true;btn.textContent="Saving";
     try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:pro?name+" ("+pro+")":name,contact:"",message,times:"",hp:f.website.value})});
-      f.querySelectorAll(".fld,button").forEach(x=>x.hidden=true);msg.textContent="Thank you, "+name+". I'll be in touch before the next market day."}
+      f.querySelectorAll(".mad,button").forEach(x=>x.hidden=true);msg.textContent="Thank you, "+name+". I'll be in touch before the next market day."}
     catch(x){btn.disabled=false;btn.textContent="Stay in touch";msg.className="msg err";msg.textContent="That didn't go through. Try again, or text 773-807-9223."}
   });
 })();
