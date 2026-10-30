@@ -157,6 +157,18 @@ small{color:var(--muted);font-size:14px}
   var EP="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
   document.getElementById("askBtn").addEventListener("click",function(){show("ask");window.scrollTo(0,0)});
   if(/(^|&)k=1/.test(location.search.slice(1))&&!ok)show("ask");
+  /* Oct 30, Sol: after the IG form, play the homepage story splash over this page, then reveal "You're in". */
+  function splash(){
+    var f=document.createElement("iframe");f.src="/?s="+encodeURIComponent(tag)+"#start";f.title="Posted Up intro";
+    f.style.cssText="position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9999;background:#EFE6D4";
+    document.body.appendChild(f);var t0=Date.now(),seen=false;
+    var close=function(){clearInterval(iv);if(f.parentNode)f.parentNode.removeChild(f)};
+    var iv=setInterval(function(){
+      if(Date.now()-t0>12000)return close();
+      try{var d=f.contentDocument;if(!d||d.readyState==="loading"||!/#start/.test(f.contentWindow.location.href))return;
+        if(d.getElementById("pu-splash"))seen=true;else if(seen||Date.now()-t0>2500)close()}catch(x){close()}
+    },150);
+  }
   document.getElementById("askForm").addEventListener("submit",function(e){
     e.preventDefault();var m=document.getElementById("aMsg");
     var nm=document.getElementById("aName").value.trim(),ig=document.getElementById("aIg").value.trim().replace(/^@+/,""),ph=document.getElementById("aPh").value.trim();
@@ -167,7 +179,7 @@ small{color:var(--muted);font-size:14px}
     var b=e.target.querySelector("button[type=submit]");b.disabled=true;b.textContent="One sec…";
     fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)}).catch(function(){}).then(function(){
       try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}
-      document.getElementById("pwShow").hidden=false;document.getElementById("oH").textContent="You're in, "+nm+".";show("open");window.scrollTo(0,0)});
+      document.getElementById("pwShow").hidden=false;document.getElementById("oH").textContent="You're in, "+nm+".";show("open");window.scrollTo(0,0);splash()});
   });
   document.getElementById("pw").addEventListener("submit",function(e){
     e.preventDefault();
