@@ -1628,7 +1628,7 @@ const SPLASH_ON=true;
 (function(){
   if(!SPLASH_ON)return;
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
-  if(me||(location.hash&&location.hash!=="#start")||/[?&]me(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
+  if(me||(location.hash&&location.hash!=="#start"&&!(location.hash==="#shop"&&/(^|[?&])s=drop/i.test(location.search)))||/[?&]me(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
   const today=new Date().toLocaleDateString("en-CA",{timeZone:"America/Chicago"});
   let short=false;try{short=localStorage.getItem("pu-splash-day")===today;localStorage.setItem("pu-splash-day",today)}catch(e){}
   const tag=(typeof SRC_TAG==="string"?SRC_TAG:(new URLSearchParams(location.search).get("s")||"")).toLowerCase();
