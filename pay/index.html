@@ -44,6 +44,7 @@ a{color:var(--tomato)}
 .btn small{font-weight:500;font-size:14px}
 .ac{background:#111;color:#fff}
 .zl{background:#6D1ED4;color:#fff}
+.cd{background:var(--board);color:var(--board-ink)}
 .zsteps{display:grid;gap:8px;border:2px dashed #6D1ED4;border-radius:12px;padding:12px 14px;background:var(--bg)}
 .zt{margin:0;font-size:15px;font-weight:700}
 .zrow{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:16px;min-width:0}
@@ -86,6 +87,7 @@ input{font:inherit;font-size:18px;padding:12px;border:2px solid var(--line);bord
       <div class="zrow"><span>Memo <b id="zmemo"></b></span><button type="button" class="zcopy" data-copy="memo" aria-label="Copy the memo">Copy</button></div>
       <p class="zt" style="font-weight:500">Zelle is inside most bank apps (Chase, Bank of America, Wells Fargo, Capital One and more). No bank app? Pay with Apple Cash or text 773-807-9223.</p>
     </div>
+    <a class="btn cd" id="cd" href="#" target="_blank" rel="noopener" hidden>Pay by card or Apple Pay<small id="cds">Opens our secure card page</small></a>
     <p class="st" id="st" aria-live="polite"></p>
     <button class="ghost" id="paid" type="button">I've paid</button>
     <p class="note">Pay by 9 PM the night before your pickup or delivery. Your order is shopped once it's paid. Questions? Text 773-807-9223.</p>
@@ -96,6 +98,8 @@ input{font:inherit;font-size:18px;padding:12px;border:2px solid var(--line);bord
 <script>
 const ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
 const ZELLE="leeks.sabrosa@gmail.com", APPLE_CASH="7738079223";
+/* Card / Apple Pay via Square (Oct 29). Off for customers until Sol tests a real $1 payment; preview with /pay/?o=1&a=1&card=1. Set CARD_ON=true to go live. */
+const CARD_ON=false, CARD_LINK="https://square.link/u/HHv7KJyK";
 const q=new URLSearchParams(location.search);
 const clean=(v,re,n)=>(v||"").replace(re,"").slice(0,n);
 const src=clean(q.get("s"),/[^a-z0-9-]/gi,30).toLowerCase();
@@ -111,6 +115,7 @@ function show(no,amt,name){
   $("ac").href="sms:+1"+APPLE_CASH+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash");
   $("acs").textContent=$("acs").dataset.other?"iPhone only · opens a text to 773-807-9223":"Opens Messages to 773-807-9223. Send the text, then tap + → Apple Cash → $"+amt+" → Send";
   $("zamt").textContent="$"+amt;$("zmemo").textContent=memo;
+  if(CARD_ON||q.get("card")==="1"){$("cd").hidden=false;$("cd").href=CARD_LINK;$("cds").textContent="On the next page enter $"+amt+" and order number "+no+", then pay"}
   const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);$("st").textContent=m}catch(e){$("st").textContent="Couldn't copy here. Type it in: "+v}};
   const vals={email:[ZELLE,"Copied "+ZELLE+". Paste it as the recipient."],amt:[amt,"Copied "+amt+". Paste it as the amount."],memo:[memo,"Copied the memo."]};
   document.querySelectorAll(".zcopy").forEach(b=>b.onclick=()=>copy(...vals[b.dataset.copy]));
