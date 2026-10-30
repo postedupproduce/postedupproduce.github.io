@@ -77,6 +77,21 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0;text-wrap:balance;let
 .pcard.bow{animation:bow .75s ease both}
 @keyframes bow{0%{transform:none}45%{transform:perspective(700px) rotateX(12deg) scale(.985)}100%{transform:none}}
 
+/* Updates sign-up (Oct 29): lands in Feedback as a SURVEY SIGN-UP so it shows on the Contacts tab. */
+.upd form{display:grid;gap:14px;margin-top:18px}
+.fld{display:grid;gap:6px;font-size:16px;font-weight:500}
+.fld input{font:400 17px/1.3 var(--sans);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:12px 14px;min-height:48px}
+.fld input:focus-visible{outline:2px solid var(--sage);outline-offset:2px}
+.how{border:0;margin:0;padding:0;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.how legend{float:left;margin-right:6px;font-size:16px;font-weight:500}
+.how label{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:16px;cursor:pointer}
+.how input{width:20px;height:20px;accent-color:var(--sage)}
+.upd button.cta{border:0;cursor:pointer;width:100%}
+.msg{margin:0;min-height:1.4em;font-size:16px;color:var(--sage)}
+.msg.err{color:#A3322A}
+.upd [hidden]{display:none!important}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
 /* Quiet menu list for the other boxes */
 .menu{list-style:none;margin:20px 0 0;padding:0}
 .menu li{border-top:1px solid var(--rule)}
@@ -188,11 +203,27 @@ h1,h2,h3{font-family:var(--serif);font-weight:500;margin:0;text-wrap:balance;let
     <div class="gift"><p>Your first order comes with a free pastry or small-batch hot sauce, as a thank-you. Order through this page and we'll know you came from Sosiego.</p></div>
   </section>
 
+  <section class="sec upd" aria-labelledby="updH">
+    <h2 id="updH">Get updates from Posted Up</h2>
+    <p class="note">A short note before each market day: what's in season, and first pick of new boxes before they open to everyone. Now and then, a perk.</p>
+    <form id="upd" novalidate>
+      <label class="fld">First name<input name="name" autocomplete="given-name" required></label>
+      <label class="fld">Phone or email<input name="contact" autocomplete="email" inputmode="email" required></label>
+      <fieldset class="how"><legend>Send updates by</legend>
+        <label><input type="radio" name="by" value="Text" checked> Text</label>
+        <label><input type="radio" name="by" value="Email"> Email</label>
+      </fieldset>
+      <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+      <button type="submit" class="cta">Sign me up</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
   <div class="ctas">
     <a class="cta go" data-hash="shop" href="../../#shop">See this week's boxes</a>
     <a class="ghost" id="join" href="../../join/">Not ready? Get first pick</a>
   </div>
-  <p class="when">Order by Friday at 9 PM. Saturday pickups through Nov 21, then the winter market.</p>
+  <p class="when">Order by Friday at 9 PM for Saturday pickup.</p>
 
   <p class="close">Picked with care, for the weeks you need it.</p>
   <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
@@ -218,6 +249,24 @@ document.querySelectorAll(".pcard").forEach(c=>{
     setTimeout(()=>{location.href=add.href},750);
   });
 });
+
+/* Updates sign-up: same POST shape as /join (type stays "feedback"; a new type would land in All Orders as a fake order). */
+(function(){
+  const f=document.getElementById("upd");if(!f)return;const msg=f.querySelector(".msg"),btn=f.querySelector("button");
+  f.addEventListener("submit",async e=>{
+    e.preventDefault();msg.className="msg";
+    const name=f.name.value.trim(),contact=f.contact.value.trim(),by=f.querySelector('input[name="by"]:checked').value;
+    const okPhone=contact.replace(/\D/g,"").length>=10,okEmail=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact);
+    if(!name){msg.className="msg err";msg.textContent="Add your first name.";f.name.focus();return}
+    if(by==="Text"&&!okPhone){msg.className="msg err";msg.textContent="Add a 10-digit mobile number for texts, or switch to email.";f.contact.focus();return}
+    if(by==="Email"&&!okEmail){msg.className="msg err";msg.textContent="Add an email address, or switch to text.";f.contact.focus();return}
+    const message=["SURVEY SIGN-UP","Mobile: "+contact,"Spot: Sosiego page","Day: Any","Texts: Updates by "+by.toLowerCase(),"Source: "+s].join(" · ");
+    btn.disabled=true;btn.textContent="Signing you up";
+    try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name,contact:"",message,times:"",hp:f.website.value})});
+      f.querySelectorAll(".fld,.how,button").forEach(x=>x.hidden=true);msg.textContent="You're on the list, "+name+". Watch for a note before the next market day."}
+    catch(x){btn.disabled=false;btn.textContent="Sign me up";msg.className="msg err";msg.textContent="That didn't go through. Try again, or text 773-807-9223."}
+  });
+})();
 
 /* Anonymous visit count, same as the main site: no cookies, no names. ?me skips your own devices. */
 (function(){
