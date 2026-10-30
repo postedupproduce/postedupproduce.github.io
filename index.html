@@ -484,7 +484,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .bprice{font:800 19px var(--body);white-space:nowrap}
 .bwhat{margin:0;font-size:15px;color:var(--ink)}
 .btag{margin:0;font-size:14px;font-weight:700;color:var(--good)}
-#fruit,#nocook,#asana,#asanapair,#grounding,#strength,#rest,#practice{scroll-margin-top:calc(var(--toph,120px) + 76px)}
+#fruit,#nocook,#breakfast,#grits,#asana,#asanapair,#grounding,#strength,#rest,#practice{scroll-margin-top:calc(var(--toph,120px) + 76px)}
 .bmakes{margin:2px 0 0;font-size:16px;font-weight:800;line-height:1.35;color:var(--ink);background:var(--chip);border-radius:10px;padding:8px 10px}
 .bin-in{border-top:1px dashed var(--line);padding-top:2px}
 .bin-in summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;font-weight:700;font-size:16px;cursor:pointer}
@@ -493,6 +493,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .bin-in[open] .chev{transform:rotate(180deg)}
 .bin-in ul{margin:2px 0 6px;padding-left:20px;display:grid;gap:3px;font-size:15px}
 .bnote{margin:0 0 6px;font-size:13px;color:var(--ink)}
+.brecipe{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--ink)}
 .badd{min-height:48px;border-radius:10px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 17px var(--body);cursor:pointer}
 .badd[aria-pressed="true"]{background:var(--good);border-color:var(--good);color:#fff}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .badd[aria-pressed="true"]{color:#0f1f12}}
@@ -896,6 +897,17 @@ const BOXES=[
    makes:"A few warm mugs and a garlicky pot of something for one or two",
    has:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"],
    veg:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"]},
+  /* Breakfast Box + Grits & Greens Box (Oct 30, Sol): fall breakfast/savory boxes built on a local grain farm's stone-ground oats and heirloom grits. Grain costs are estimates from the farm's online "as low as $3-5" list; confirm stand prices and bag sizes Saturday. Est. costs ~$28 / ~$26 (~30% / ~32%). Recipe line rides in "What's in it". */
+  {id:"breakfast",name:"Breakfast Box",price:40,wt:"About a week of breakfasts for two",desc:"Stone-ground local oats, farm eggs and orchard fruit.",pick:"New · Fall breakfast",
+   makes:"About 10–12 breakfasts · ≈ $3.50 a plate",
+   has:["2 lb rolled oats, stone-ground on a family grain farm (about 20 bowls)","A bag of oat pancake mix from the same farm","A dozen farm eggs","2 lb apples or pears (about 6)"],
+   veg:["2 lb rolled oats, stone-ground on a family grain farm (about 20 bowls)","A bag of oat pancake mix from the same farm (mix with plant milk and a flax egg)","Local blueberries, frozen or dried, instead of eggs","2 lb apples or pears (about 6)"],
+   recipe:"Recipe card in the bag: baked apple oatmeal, and cider pancakes"},
+  {id:"grits",name:"Grits & Greens Box",price:38,wt:"Savory fall comfort · about 4 meals for two",desc:"Heirloom stone-ground grits with greens, mushrooms and alliums.",pick:"New · Savory",
+   makes:"About 8 plates · ≈ $4.75 a plate · add a Great Lakes fillet for fish and grits",
+   has:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has"],
+   veg:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has","Already plant-based. Cook the grits with water or veg stock"],
+   recipe:"Recipe card in the bag: fish and grits with garlicky greens. Add a Great Lakes fillet (Meat, fish & eggs) or Lake Haul"},
   /* I Don't Cook Box (Oct 27, Sol): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
   {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
    makes:"Snacks and easy plates for about a week for one, or a few days for two",
@@ -949,6 +961,10 @@ const ITEMS={
   pantry:[
     {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
     {id:"maple",nm:"Maple syrup",ds:"Pint",p:19},
+    /* Grains (Oct 30, Sol): local family grain farm, stone-ground. Est. costs ~$7 / ~$7 / ~$5-6; confirm Saturday. Shares a mill with wheat: not gluten-free. */
+    {id:"grits2",nm:"Heirloom grits, 2 lb",ds:"Stone-ground from a family grain farm · about 8 servings · try them with fish and greens",p:10},
+    {id:"oats2",nm:"Rolled oats, 2 lb",ds:"Stone-ground from a family grain farm · about 20 bowls · milled alongside wheat, not gluten-free",p:10},
+    {id:"mix",nm:"Pancake or cornbread mix",ds:"Bag · e.g. oat pancake, heirloom cornbread · just add egg and milk",p:8},
     {id:"butter",nm:"Grass-fed butter",ds:"1 lb (4 sticks)",p:13},
     {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. cherry lavender or peach jalapeño jam, apple butter, dilly beans, giardiniera",p:13},
   ]
@@ -1050,7 +1066,7 @@ function bCard(o){
   if(o.makes)card.append(el("p",{class:"bmakes"},el("span",{"aria-hidden":"true"},"🍽 "),o.makes));
   if(o.tag)card.append(el("p",{class:"btag"},o.tag));
   const ul=el("ul",{});for(const h of o.has)ul.append(el("li",{},h));
-  const d=el("details",{class:"bin-in"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
+  const d=el("details",{class:"bin-in"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,...(o.recipe?[el("p",{class:"brecipe"},el("span",{"aria-hidden":"true"},"📝 "),o.recipe)]:[]),el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
   if(OPEN_IN.has(o.name))d.open=true;d.addEventListener("toggle",()=>{d.open?OPEN_IN.add(o.name):OPEN_IN.delete(o.name)});
   if(o.veg){const b=o.veg,cb=el("input",{type:"checkbox"});cb.checked=vegOn(b);cb.addEventListener("change",()=>{state.vegan=cb.checked;try{cb.checked?sessionStorage.setItem("pu-vegan","1"):sessionStorage.removeItem("pu-vegan")}catch(e){}if(cb.checked&&state.box!==b.id){state.box=b.id;state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()});card.append(el("label",{class:"bveg"},cb,el("span",{},"Make it vegan",el("small",{}," plant-based swaps, all local"))))}
   card.append(d,el("button",{type:"button",class:"badd","aria-pressed":String(!!o.on),onclick:o.toggle},o.on?"Added ✓ (tap to remove)":"Add "+o.name+" · $"+o.price));
@@ -1059,7 +1075,7 @@ function bCard(o){
 /* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!([].concat(b.only).some(o=>SRC_TAG.indexOf(o)===0)||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
+  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!([].concat(b.only).some(o=>SRC_TAG.indexOf(o)===0)||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
@@ -1450,7 +1466,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   const go=(first)=>{
     const h=decodeURIComponent(location.hash.slice(1));
     let v="home",el=h?document.getElementById(h):null;
-    if(h==="shop"||h==="boxes"||h==="fruit"||h==="nocook"||h==="asana"||h==="asanapair"||h==="mystery")v="shop";
+    if(h==="shop"||h==="boxes"||h==="fruit"||h==="nocook"||h==="breakfast"||h==="grits"||h==="asana"||h==="asanapair"||h==="mystery")v="shop";
     else if(h==="inventory")v="inventory";
     else if(h==="checkout"||h==="ticket")v=cur&&cur!=="home"?cur:"shop";
     else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
@@ -1464,7 +1480,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   };
   go(true);addEventListener("hashchange",()=>go(false));
   /* #fruit (Oct 27): the Fruit Box cards render after this runs, so scroll to them once they exist. */
-  if(location.hash==="#fruit"||location.hash==="#nocook"||location.hash==="#asana"||location.hash==="#asanapair"||location.hash==="#mystery")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
+  if(location.hash==="#fruit"||location.hash==="#nocook"||location.hash==="#breakfast"||location.hash==="#grits"||location.hash==="#asana"||location.hash==="#asanapair"||location.hash==="#mystery")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
 })();
 /* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
    Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
