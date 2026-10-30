@@ -74,6 +74,13 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 .vt input:checked+.sw-ui::after{transform:translateX(18px)}
 .vt input:focus-visible+.sw-ui{outline:2px solid var(--sage);outline-offset:3px}
 .pcard.full{border-color:var(--dusk)}
+.pcard{overflow:hidden}
+.pimg{display:block;width:calc(100% + 40px);margin:-22px -20px 18px;aspect-ratio:16/10;object-fit:cover;height:auto}
+.heroimg{margin:26px 0 0}
+.heroimg img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:16px}
+.heroimg figcaption{margin-top:8px;font-size:14px;color:var(--soft)}
+.credits{margin:14px 0 0;font-size:13px;color:var(--soft)}
+.credits a{color:inherit}
 .add{display:flex;align-items:center;justify-content:center;margin-top:16px;min-height:52px;border-radius:12px;background:var(--sage);color:var(--sage-ink);font:700 17px/1.2 var(--sans);text-decoration:none;padding:14px 16px}
 .pcard.bow{animation:bow .75s ease both}
 @keyframes bow{0%{transform:none}45%{transform:perspective(700px) rotateX(12deg) scale(.985)}100%{transform:none}}
@@ -156,6 +163,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
     <p class="hello">Welcome in, Sosiego community</p>
     <h1>Nourishment, picked for you.</h1>
     <p class="lede">Wellness that fits real life, on and off the mat. We shop the farmers market so your practice and your plate both feel cared for.</p>
+    <figure class="heroimg"><img src="../../img/haul-vegan.jpg" width="1000" height="750" alt="A real Posted Up haul on a picnic table: oyster mushrooms, local tofu, squash, sweet potatoes, onions, garlic, apples and pears, greens and microgreens." fetchpriority="high"><figcaption>A real haul from this fall's pilot.</figcaption></figure>
   </section>
 
   <section class="sec" aria-labelledby="practiceH">
@@ -163,6 +171,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
     <p class="note">A box for each part of the studio week. $41 each, or all three for $108.</p>
     <ul class="pcards">
       <li class="pcard" data-box="strength">
+        <img class="pimg" src="../../img/haul-byo.jpg" width="1000" height="750" loading="lazy" alt="A real order on a kitchen table: farm eggs, microgreens, sourdough, butter, apples, peppers and onions.">
         <div class="pc-hd"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20l6.5-11 3.5 5.5 2.5-3.5L21 20z"/><path d="M8 11.5l1.5 1 1.5-1"/></svg><h3>Strength Box</h3><span class="price">$41</span></div>
         <p class="purpose">Protein and greens to build on.</p>
         <p class="pairs">Pairs with Strength Flow, Mondays and Wednesdays</p>
@@ -172,6 +181,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
         <a class="add" href="../../?box=strength">Add the Strength Box</a>
       </li>
       <li class="pcard" data-box="grounding">
+        <img class="pimg" src="../../img/beets.jpg" width="1000" height="750" loading="lazy" alt="Bunches of fresh beets at a farmers market.">
         <div class="pc-hd"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/><path d="M8 21h8"/></svg><h3>Grounding Box</h3><span class="price">$41</span></div>
         <p class="purpose">Rooted, warming food to roast and settle into.</p>
         <p class="pairs">Pairs with Midweek Grounding, Wednesdays</p>
@@ -181,6 +191,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
         <a class="add" href="../../?box=grounding">Add the Grounding Box</a>
       </li>
       <li class="pcard" data-box="rest">
+        <img class="pimg" src="../../img/pears.jpg" width="1000" height="750" loading="lazy" alt="A basket of ripe pears.">
         <div class="pc-hd"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><h3>Rest Box</h3><span class="price">$41</span></div>
         <p class="purpose">Easy comfort for slow evenings.</p>
         <p class="pairs">Pairs with the Weekly Reset, Fridays</p>
@@ -238,6 +249,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 
   <p class="close">Picked with care, for the weeks you need it.</p>
   <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+  <p class="credits">Haul photos: Posted Up Produce pilot. Beets: <a href="https://commons.wikimedia.org/wiki/File:Beta_vulgaris,_San_Francisco_farmers_market.jpg" rel="noopener">Frank Schulenburg</a>, CC0. Pears: <a href="https://commons.wikimedia.org/wiki/File:Pears_in_basket_2022_G1.jpg" rel="noopener">George Chernilevsky</a>, CC BY-SA 4.0. Via Wikimedia Commons; cropped.</p>
 </div>
 <script>
 /* Sosiego landing (Oct 29). Default tag rides onto every outbound link so visits and orders show [via tag]. Live page uses "luna". */
