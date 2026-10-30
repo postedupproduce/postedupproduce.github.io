@@ -81,7 +81,7 @@ small{color:var(--muted);font-size:14px}
       <p class="msg" id="msg" role="status" aria-live="polite"></p>
       <button type="submit">Unlock</button>
     </form>
-    <p class="alt"><a id="joinLink" href="/join/">No password? Answer four quick questions</a></p>
+    <p class="alt"><button type="button" id="askBtn" class="ghost">No password? Get one in 10 seconds</button></p>
   <details class="what">
     <summary>What is Posted Up?</summary>
     <p>Posted Up Produce is a personal shopper for Chicago farmers markets. You order by 9 PM, I shop the market at sunrise, and your bag gets posted up at your meet-up spot or your door the same day.</p>
@@ -90,9 +90,28 @@ small{color:var(--muted);font-size:14px}
     <p class="fine" id="closeLine">Orders close Fri Oct 30, 9 PM. Saturday caps at 5 orders.</p>
   </section>
 
+  <section id="ask" aria-labelledby="aH" hidden>
+    <img class="stamp" src="/img/stamp-blur.png" width="220" height="220" alt="The Posted Up logo, blurred out">
+    <h1 id="aH">Get the password.</h1>
+    <p class="sub">Two quick things and it's yours.</p>
+    <form id="askForm" novalidate>
+      <label for="aName">First name</label>
+      <input id="aName" type="text" autocomplete="given-name" style="text-transform:none;letter-spacing:0">
+      <label for="aIg">Instagram handle</label>
+      <input id="aIg" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@yourhandle" style="text-transform:none;letter-spacing:0">
+      <label for="aPh">Mobile <small>(optional, for pickup texts)</small></label>
+      <input id="aPh" type="tel" autocomplete="tel" style="text-transform:none;letter-spacing:0">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+      <p class="msg" id="aMsg" role="status" aria-live="polite"></p>
+      <button type="submit">Show me the password</button>
+    </form>
+    <p class="fine">Only used to invite you. No spam.</p>
+  </section>
+
   <section id="open" aria-labelledby="oH" hidden>
     <img class="stamp" src="/img/stamp-blur.png" width="220" height="220" alt="The Posted Up logo, blurred out">
     <h1 id="oH">You're in.</h1>
+    <p class="chip" id="pwShow" hidden>Password: PUDETSOP</p>
     <p class="chip">Closes tonight, Fri 9 PM</p>
     <div class="card">
       <div class="row"><h2>Mystery Bag</h2><span class="price">$30</span></div>
@@ -101,7 +120,7 @@ small{color:var(--muted);font-size:14px}
         <div class="half"><b>Trick</b>Savory: winter squash, kale, garlic, sweet potatoes</div>
         <div class="half"><b>Treat</b>Sweet: a fresh pastry, cider, crisp apples</div>
       </div>
-      <small>Shopped at the market Saturday morning. Pick Trick or Treat in Notes at checkout, or leave it blank and I'll choose.</small>
+      <small>Hand-picked for you. Pick Trick or Treat in Notes at checkout, or leave it blank and I'll choose.</small>
       <p class="veg"><b>Vegan? No extra charge.</b> Tap the vegan toggle at checkout and anything with dairy, egg or honey gets swapped for a local plant-based pick.</p>
       <a class="btn" id="goShop" href="/?box=mystery#shop">Claim a bag</a>
     </div>
@@ -130,12 +149,26 @@ small{color:var(--muted);font-size:14px}
   var shop="/?s="+encodeURIComponent(tag)+"&box=mystery#shop";
   var join="/join/?s="+encodeURIComponent(tag);
   document.getElementById("goShop").href=shop;
-  document.getElementById("joinLink").href=join;
   document.getElementById("nextLink").href=join;
-  function show(id){["gate","open","closed"].forEach(function(x){document.getElementById(x).hidden=(x!==id)})}
+  function show(id){["gate","ask","open","closed"].forEach(function(x){document.getElementById(x).hidden=(x!==id)})}
   if(chiNow()>=END){show("closed");return}
   var ok=false;try{ok=sessionStorage.getItem("pu-drop-1031")==="1"}catch(e){}
   if(ok)show("open");
+  var EP="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+  document.getElementById("askBtn").addEventListener("click",function(){show("ask");window.scrollTo(0,0)});
+  if(/(^|&)k=1/.test(location.search.slice(1))&&!ok)show("ask");
+  document.getElementById("askForm").addEventListener("submit",function(e){
+    e.preventDefault();var m=document.getElementById("aMsg");
+    var nm=document.getElementById("aName").value.trim(),ig=document.getElementById("aIg").value.trim().replace(/^@+/,""),ph=document.getElementById("aPh").value.trim();
+    if(!nm){m.textContent="Add your first name.";return}
+    if(!/^[A-Za-z0-9._]{2,30}$/.test(ig)){m.textContent="Add your Instagram handle.";return}
+    var msg=["SURVEY SIGN-UP","Mobile: "+(ph||"none"),"Spot: (drop)","Day: Sat 10/31 drop","Texts: IG DM @"+ig,"Source: "+tag].join(" · ");
+    var body={type:"feedback",name:nm,contact:"",message:msg,times:"",hp:document.querySelector('#askForm input[name="website"]').value};
+    var b=e.target.querySelector("button[type=submit]");b.disabled=true;b.textContent="One sec…";
+    fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)}).catch(function(){}).then(function(){
+      try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}
+      document.getElementById("pwShow").hidden=false;document.getElementById("oH").textContent="You're in, "+nm+".";show("open");window.scrollTo(0,0)});
+  });
   document.getElementById("pw").addEventListener("submit",function(e){
     e.preventDefault();
     var w=document.getElementById("word").value.toUpperCase().replace(/[^A-Z]/g,"");
