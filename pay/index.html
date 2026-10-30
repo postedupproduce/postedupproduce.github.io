@@ -115,7 +115,16 @@ function show(no,amt,name){
   $("ac").href="sms:+1"+APPLE_CASH+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash");
   $("acs").textContent=$("acs").dataset.other?"iPhone only · opens a text to 773-807-9223":"Opens Messages to 773-807-9223. Send the text, then tap + → Apple Cash → $"+amt+" → Send";
   $("zamt").textContent="$"+amt;$("zmemo").textContent=memo;
-  if(CARD_ON||q.get("card")==="1"){$("cd").hidden=false;$("cd").href=CARD_LINK;$("cds").textContent="On the next page enter $"+amt+" and order number "+no+", then pay"}
+  if(CARD_ON||q.get("card")==="1"){
+    $("memo").parentNode.after($("cd"));$("cd").hidden=false;$("cd").removeAttribute("target");$("cds").textContent="Your total and order number are filled in for you";
+    /* Asks the Order Receiver for a Square checkout made for this exact order (total comes from the sheet). Falls back to the plain link. */
+    $("cd").onclick=async ev=>{ev.preventDefault();const a=ev.currentTarget;if(a.dataset.busy)return;a.dataset.busy="1";$("cds").textContent="Opening secure checkout…";
+      try{const r=await fetch(ENDPOINT+"?q=pay&o="+encodeURIComponent(no));const j=await r.json();
+        if(j.ok&&j.url){location.href=j.url;return}
+        if(j.err==="paid"){$("cds").textContent="This order is already marked paid. Thank you!";a.dataset.busy="";return}
+        throw new Error(j.err||"no link")}
+      catch(x){a.dataset.busy="";$("cds").textContent="Opening our card page. Enter $"+amt+" and order number "+no+".";location.href=CARD_LINK}};
+  }
   const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);$("st").textContent=m}catch(e){$("st").textContent="Couldn't copy here. Type it in: "+v}};
   const vals={email:[ZELLE,"Copied "+ZELLE+". Paste it as the recipient."],amt:[amt,"Copied "+amt+". Paste it as the amount."],memo:[memo,"Copied the memo."]};
   document.querySelectorAll(".zcopy").forEach(b=>b.onclick=()=>copy(...vals[b.dataset.copy]));

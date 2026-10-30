@@ -39,6 +39,7 @@
 .pay-btn small{font-weight:500;font-size:14px}
 .pay-btn.ac{background:#111;color:#fff}
 .pay-btn.zl{background:#6D1ED4;color:#fff}
+.pay-btn.cd{background:var(--board);color:var(--board-ink)}
 .zsteps{display:grid;gap:8px;border:2px dashed #6D1ED4;border-radius:12px;padding:12px 14px;background:var(--bg)}
 .zt{margin:0;font-size:15px;font-weight:700}
 .zrow{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:16px;min-width:0}
@@ -1391,6 +1392,16 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
 })();
 /* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
    Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
+/* Card / Apple Pay via Square (Oct 29). The Order Receiver (?q=pay&o=) makes a Square checkout for this exact order, total taken from the sheet,
+   so the customer types nothing. Hidden until CARD_ON=true; preview with ?card=1. Fallback = the any-amount Square link. */
+const CARD_ON=false, CARD_LINK="https://square.link/u/HHv7KJyK";
+function cardOn(){return CARD_ON||new URLSearchParams(location.search).get("card")==="1"}
+function mkCD(no,amt){
+  const sm=el("small",{},"Total and order number filled in for you");
+  return el("a",{class:"pay-btn cd",href:CARD_LINK,onclick:async ev=>{ev.preventDefault();const a=ev.currentTarget;if(a.dataset.busy)return;a.dataset.busy="1";sm.textContent="Opening secure checkout…";
+    try{const r=await fetch(ORDER_ENDPOINT+"?q=pay&o="+encodeURIComponent(no));const j=await r.json();if(j.ok&&j.url){location.href=j.url;return}throw new Error(j.err||"no link")}
+    catch(x){a.dataset.busy="";sm.textContent="Opening our card page. Enter $"+amt+" and order number "+no+".";location.href=CARD_LINK}}},"Pay by card or Apple Pay",sm);
+}
 function payBlock(txt){
   const amt=(txt.match(/TOTAL: \$([\d.]+)/)||[])[1]||"",no=(txt.match(/#(\d+)/)||[])[1]||"";
   const memo="POSTED #"+no;
@@ -1412,6 +1423,7 @@ function payBlock(txt){
   const box=el("div",{class:"pay"},
     el("div",{class:"pay-amt"},el("span",{},"Pay now"),el("b",{},"$"+amt)),
     el("p",{class:"pay-memo"},"Memo: ",el("b",{},memo)),
+    ...(cardOn()?[mkCD(no,amt)]:[]),
     ...(apple?[mkAC(),mkZL(),zsteps]:[mkZL(),zsteps,mkAC()]),
     st,
     el("button",{type:"button",class:"ghost",onclick:async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
