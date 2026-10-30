@@ -372,22 +372,22 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .from{margin:10px 0 0;text-align:center;font-size:14px;font-weight:700;opacity:.85}
 .trust+.fomo a,.fomo a{color:#ffb4a3;font-weight:700}
 .ups-more{font-size:14px;font-weight:700;color:var(--tomato);text-decoration:none;padding:8px 4px}
-/* Story splash (Oct 30, Sol): 5 beats in ~5.5 s (slowed Oct 30). Night order -> sunrise market -> packed bag -> posted up -> Harvest Stamp.
+/* Story splash (Oct 30, Sol): 6 beats in ~6.4 s. What we do -> night order -> sunrise market -> packed bag -> posted up -> Harvest Stamp.
    Full story once a day per phone, then logo-only (.short). Tap skips. Reduced motion: logo only, still. */
-#pu-splash{--t0:3.6s;--out:5.2s;position:fixed;inset:0;z-index:9999;overflow:hidden;background:#EFE6D4;color:#24392C;font-family:var(--body);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:pu-sky 3.6s linear both,pu-out .35s ease-in var(--out) forwards}
+#pu-splash{--t0:4.5s;--out:6.1s;position:fixed;inset:0;z-index:9999;overflow:hidden;background:#EFE6D4;color:#24392C;font-family:var(--body);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:pu-sky 4.5s linear both,pu-out .35s ease-in var(--out) forwards}
 #pu-splash.short{--t0:0s;--out:1.35s;animation:pu-out .3s ease-in var(--out) forwards}
-#pu-splash .pu-bar{position:absolute;top:max(18px,env(safe-area-inset-top));left:24px;right:24px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+#pu-splash .pu-bar{position:absolute;top:max(18px,env(safe-area-inset-top));left:24px;right:24px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
 #pu-splash .pu-bar i{height:4px;border-radius:2px;background:rgba(128,128,128,.35);overflow:hidden}
 #pu-splash .pu-bar b{display:block;height:100%;background:#D2452B;transform:scaleX(0);transform-origin:left;animation:pu-fill .9s linear var(--d) forwards}
 #pu-splash .pu-bar i:last-child b{animation-duration:1.6s}
 #pu-splash .pu-beat{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:56px 24px 110px;opacity:0;animation:pu-beat .9s linear var(--d) both}
 #pu-splash .pu-art{width:min(78vw,300px);height:min(44vh,340px);display:block}
 #pu-splash .pu-line{margin:0;max-width:16ch;font:400 clamp(28px,8.6vw,38px)/1.08 var(--display);text-align:center;text-wrap:balance}
-#pu-splash .b1{color:#EFE6D4}
-#pu-splash .b1 .rp{transform-origin:150px 282px;animation:pu-ripple .8s ease-out var(--d) both}
-#pu-splash .b2 .sun{animation:pu-rise .8s cubic-bezier(.2,.8,.3,1) var(--d) both}
-#pu-splash .b3 .drop{animation:pu-drop .35s cubic-bezier(.3,1.4,.5,1) both}
-#pu-splash .b4 .pin{transform-origin:75px 196px;animation:pu-drop .4s cubic-bezier(.3,1.4,.5,1) calc(var(--d) + .05s) both}
+#pu-splash .b2{color:#EFE6D4}
+#pu-splash .b2 .rp{transform-origin:150px 282px;animation:pu-ripple .8s ease-out var(--d) both}
+#pu-splash .b3 .sun{animation:pu-rise .8s cubic-bezier(.2,.8,.3,1) var(--d) both}
+#pu-splash .b4 .drop,#pu-splash .b1 .drop{animation:pu-drop .35s cubic-bezier(.3,1.4,.5,1) both}
+#pu-splash .b5 .pin{transform-origin:75px 196px;animation:pu-drop .4s cubic-bezier(.3,1.4,.5,1) calc(var(--d) + .05s) both}
 #pu-splash .pu-land{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:56px 24px 110px;text-align:center}
 #pu-splash .pu-hi{margin:0;font:800 20px/1.25 var(--body);color:#A9361F;animation:pu-up .35s ease-out calc(var(--t0) + .05s) both}
 #pu-splash .pu-logo{width:min(62vw,250px);height:auto;aspect-ratio:1;display:block;filter:drop-shadow(0 10px 18px rgba(36,57,44,.25));animation:pu-stamp .55s cubic-bezier(.2,1.5,.45,1) var(--t0) both}
@@ -402,7 +402,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 #pu-splash .pu-skip .s1{animation:pu-hide 0s linear var(--t0) forwards}
 #pu-splash.short .pu-beat,#pu-splash.short .pu-bar{display:none}
 #pu-splash .pu-skip button:focus-visible{outline:3px solid #D2452B;outline-offset:2px}
-@keyframes pu-sky{0%,22%{background-color:#24392C}30%,47%{background-color:#F3D58A}55%,100%{background-color:#EFE6D4}}
+@keyframes pu-sky{0%,16%{background-color:#EFE6D4}22%,37%{background-color:#24392C}43%,57%{background-color:#F3D58A}63%,100%{background-color:#EFE6D4}}
 @keyframes pu-beat{0%{opacity:0;transform:translateY(10px)}14%,86%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-6px)}}
 @keyframes pu-fill{to{transform:scaleX(1)}}
 @keyframes pu-ripple{0%{opacity:0;transform:scale(.6)}40%{opacity:1}100%{opacity:.5;transform:scale(1.15)}}
@@ -1635,23 +1635,24 @@ const SPLASH_ON=true;
   const nm=(/^(?:svy-)?p-([a-z]{2,15})(?:-|$)/.exec(tag)||[])[1];
   const ct=(document.getElementById("closeTop")||{}).textContent||"";
   const cut=/^closes /i.test(ct)&&!/night before/i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):"Orders close 9 PM the night before";
-  const bar='<div class="pu-bar">'+[0,1,2,3,4].map(i=>'<i><b style="--d:'+(i*.9)+'s"></b></i>').join("")+'</div>';
+  const bar='<div class="pu-bar">'+[0,1,2,3,4,5].map(i=>'<i><b style="--d:'+(i*.9)+'s"></b></i>').join("")+'</div>';
   const beat=(n,svg,line)=>'<div class="pu-beat b'+n+'" style="--d:'+((n-1)*.9)+'s">'+svg+'<p class="pu-line">'+line+'</p></div>';
   const A='class="pu-art" aria-hidden="true"';
   const b1='<svg '+A+' viewBox="0 0 300 360"><path d="M232 46a26 26 0 1 0 22 40 22 22 0 1 1-22-40z" fill="#F3D58A"/><rect x="80" y="70" width="140" height="270" rx="24" fill="none" stroke="#EFE6D4" stroke-width="5"/><rect x="128" y="84" width="44" height="7" rx="3.5" fill="#EFE6D4"/><rect x="98" y="112" width="104" height="54" rx="8" fill="rgba(239,230,212,.12)"/><rect x="98" y="176" width="104" height="10" rx="5" fill="rgba(239,230,212,.2)"/><rect x="98" y="194" width="70" height="10" rx="5" fill="rgba(239,230,212,.2)"/><rect x="98" y="262" width="104" height="40" rx="10" fill="#D2452B"/><text x="150" y="288" text-anchor="middle" font-family="Figtree,sans-serif" font-weight="700" font-size="16" fill="#fff">Order</text><g class="rp" fill="none" stroke="#F3D58A"><circle cx="150" cy="282" r="34" stroke-width="3"/><circle cx="150" cy="282" r="52" stroke-width="2" opacity=".5"/></g></svg>';
   const b2='<svg '+A+' viewBox="0 0 320 340"><clipPath id="pu-hz"><rect width="320" height="200"/></clipPath><g clip-path="url(#pu-hz)"><g class="sun"><g stroke="#D2452B" stroke-width="6" stroke-linecap="round"><path d="M160 40v26M92 62l14 22M228 62l-14 22M44 112l22 12M276 112l-22 12"/></g><path d="M70 200a90 90 0 0 1 180 0z" fill="#D2452B"/></g></g><path d="M30 200h260" stroke="#24392C" stroke-width="5" stroke-linecap="round"/><path d="M48 170l112-34 112 34z" fill="#24392C"/><path d="M48 170h224v26H48z" fill="#EFE6D4" stroke="#24392C" stroke-width="4"/><path d="M76 170v26M104 170v26M132 170v26M160 170v26M188 170v26M216 170v26M244 170v26" stroke="#24392C" stroke-width="4"/><path d="M62 210v100M258 210v100" stroke="#24392C" stroke-width="6" stroke-linecap="round"/><rect x="74" y="262" width="172" height="48" rx="6" fill="#24392C"/><circle cx="104" cy="252" r="14" fill="#D2452B" stroke="#24392C" stroke-width="3"/><ellipse cx="146" cy="250" rx="20" ry="15" fill="#4F7A4A" stroke="#24392C" stroke-width="3"/><circle cx="188" cy="252" r="14" fill="#EFE6D4" stroke="#24392C" stroke-width="3"/><path d="M214 258l14-34" stroke="#D2452B" stroke-width="9" stroke-linecap="round"/><path d="M30 318h260" stroke="#24392C" stroke-width="5" stroke-linecap="round"/></svg>';
   const st=x=>'<polygon points="'+[0,1,2,3,4,5,6,7,8,9,10,11].map(i=>{const a=Math.PI/6*i-Math.PI/2,r=i%2?7.5:15;return (x+r*Math.cos(a)).toFixed(1)+","+(268+r*Math.sin(a)).toFixed(1)}).join(" ")+'"/>';
   const dd=s=>' style="animation-delay:calc(var(--d) + '+s+'s)"';
+  const b0='<svg '+A+' viewBox="0 0 300 300"><path d="M30 70h240l-14-40H44z" fill="#D2452B" stroke="#24392C" stroke-width="5" stroke-linejoin="round"/><path d="M90 30l-8 40M150 30v40M210 30l8 40" stroke="#EFE6D4" stroke-width="10"/><path d="M30 70h240" stroke="#24392C" stroke-width="5"/><path d="M50 74v160M250 74v160" stroke="#24392C" stroke-width="6" stroke-linecap="round"/><path d="M30 196h240" stroke="#24392C" stroke-width="8" stroke-linecap="round"/><g class="drop"'+dd(0)+'><circle cx="88" cy="172" r="20" fill="#D2452B" stroke="#24392C" stroke-width="4"/><path d="M88 152l3-10" stroke="#24392C" stroke-width="4" stroke-linecap="round"/></g><g class="drop"'+dd(.15)+'><path d="M140 190c-18-6-26-28-12-40 4 14 20 16 24 30 10-12 24-8 26 2-10 2-20 10-38 8z" fill="#4F7A4A" stroke="#24392C" stroke-width="4" stroke-linejoin="round"/></g><g class="drop"'+dd(.3)+'><ellipse cx="214" cy="174" rx="26" ry="19" fill="#F3D58A" stroke="#24392C" stroke-width="4"/><path d="M200 164c-3 6-3 14 0 20M228 164c3 6 3 14 0 20M214 155v-8" stroke="#24392C" stroke-width="3" stroke-linecap="round"/></g><g class="drop"'+dd(.5)+'><circle cx="88" cy="118" r="17" fill="#24392C"/><path d="M80 118l6 6 11-12" fill="none" stroke="#EFE6D4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g></svg>';
   const b3='<svg '+A+' viewBox="0 0 300 360"><g class="drop"'+dd(0)+'><circle cx="96" cy="44" r="20" fill="#D2452B" stroke="#24392C" stroke-width="4"/><path d="M96 24l3-10" stroke="#24392C" stroke-width="4" stroke-linecap="round"/></g><g class="drop"'+dd(.18)+'><path d="M150 74c-18-6-26-28-12-40 4 14 20 16 24 30 10-12 24-8 26 2-10 2-20 10-38 8z" fill="#4F7A4A" stroke="#24392C" stroke-width="4" stroke-linejoin="round"/></g><g class="drop"'+dd(.36)+'><ellipse cx="214" cy="108" rx="26" ry="19" fill="#F3D58A" stroke="#24392C" stroke-width="4"/><path d="M200 98c-3 6-3 14 0 20M228 98c3 6 3 14 0 20M214 89v-8" stroke="#24392C" stroke-width="3" stroke-linecap="round"/></g><path d="M96 160c0-40 20-58 54-58s54 18 54 58" fill="none" stroke="#24392C" stroke-width="8" stroke-linecap="round"/><path d="M54 160h192l-14 168a10 10 0 0 1-10 9H78a10 10 0 0 1-10-9z" fill="#24392C"/><rect x="132" y="176" width="36" height="10" rx="5" fill="#EFE6D4"/><rect x="62" y="216" width="176" height="12" fill="#B3DDF2"/><rect x="62" y="234" width="176" height="68" fill="#EFE6D4"/><rect x="62" y="308" width="176" height="12" fill="#B3DDF2"/><g fill="#D2452B">'+st(84)+st(128)+st(172)+st(216)+'</g></svg>';
   const b4='<svg '+A+' viewBox="0 0 300 260"><g transform="translate(0,4)"><path d="M0 200h150M0 230h150" stroke="#24392C" stroke-width="3" opacity=".25"/><ellipse cx="75" cy="196" rx="26" ry="7" fill="#24392C" opacity=".25"/><g class="pin"><path d="M75 196s-46-50-46-88a46 46 0 0 1 92 0c0 38-46 88-46 88z" fill="#D2452B" stroke="#24392C" stroke-width="5" stroke-linejoin="round"/><circle cx="75" cy="106" r="22" fill="#EFE6D4" stroke="#24392C" stroke-width="4"/><rect x="63" y="104" width="24" height="14" rx="2" fill="#24392C"/><path d="M69 104c0-8 12-8 12 0" fill="none" stroke="#24392C" stroke-width="3"/></g></g><text x="150" y="130" text-anchor="middle" font-family="Alfa Slab One,Georgia,serif" font-size="22" fill="#D2452B">or</text><g transform="translate(170,4)"><rect x="16" y="40" width="98" height="170" rx="4" fill="#24392C"/><rect x="28" y="52" width="74" height="158" fill="#F3D58A" stroke="#24392C" stroke-width="4"/><rect x="38" y="64" width="54" height="56" fill="none" stroke="#24392C" stroke-width="3"/><rect x="38" y="132" width="54" height="64" fill="none" stroke="#24392C" stroke-width="3"/><circle cx="90" cy="130" r="5" fill="#24392C"/><path d="M6 212h118" stroke="#24392C" stroke-width="6" stroke-linecap="round"/><path d="M70 212v-26c0-12 30-12 30 0v26z" fill="#24392C"/><rect x="76" y="194" width="18" height="5" rx="2.5" fill="#EFE6D4"/></g></svg>';
   const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");if(short)d.className="short";
-  d.innerHTML=bar+beat(1,b1,"You pick from the farmers market")+beat(2,b2,"We shop it for you at sunrise")+beat(3,b3,"Your bag gets packed")+beat(4,b4,"Posted up at your spot, or at your door")
+  d.innerHTML=bar+beat(1,b0,"You pick from the farmers market")+beat(2,b1,"Order by 9&nbsp;PM")+beat(3,b2,"We shop the market at sunrise")+beat(4,b3,"Your bag gets packed")+beat(5,b4,"Posted up at your spot, or at your door")
     +'<div class="pu-land">'+(nm?'<p class="pu-hi"></p>':'')+'<img class="pu-logo" src="/logos/harvest-stamp.png" alt="Posted Up: picked for you" width="560" height="560"><p class="pu-tag">Market haul, picked for you.</p><p class="pu-cut"></p></div>'
     +'<p class="pu-hint">Tap for next, hold to pause</p><span class="pu-skip"><button type="button" class="s1">Skip intro</button><span class="s2">Tap to start</span></span>';
   if(nm)d.querySelector(".pu-hi").textContent="Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you";
   d.querySelector(".pu-cut").textContent=cut;
   /* Story controls (Oct 30, Sol): tap = next beat (on the logo frame, tap = into the site); press and hold = pause; Skip intro = straight in. */
-  const BEAT=900,LAND=short?0:4*BEAT,still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const BEAT=900,LAND=short?0:5*BEAT,still=matchMedia("(prefers-reduced-motion:reduce)").matches;
   const anims=()=>d.getAnimations?d.getAnimations({subtree:true}):[];
   const clock=()=>{const o=anims().find(a=>a.animationName==="pu-out");return o?+o.currentTime:Infinity};
   const next=()=>{const now=clock();if(still||!(now<LAND))return done();const to=Math.min(LAND,(Math.floor(now/BEAT)+1)*BEAT);anims().forEach(a=>{a.currentTime=to})};
@@ -1665,7 +1666,7 @@ const SPLASH_ON=true;
   d.addEventListener("pointerup",()=>release(true));d.addEventListener("pointercancel",()=>release(false));
   d.addEventListener("contextmenu",e=>e.preventDefault());
   d.addEventListener("animationend",e=>{if(e.target===d&&e.animationName==="pu-out")done()});
-  t=setTimeout(done,short?2200:6300);
+  t=setTimeout(done,short?2200:7200);
   document.body.append(d);
 })();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
