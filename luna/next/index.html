@@ -77,7 +77,8 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 .pcard{overflow:hidden}
 .pimg{display:block;width:calc(100% + 40px);margin:-22px -20px 18px;aspect-ratio:16/10;object-fit:cover;height:auto}
 .heroimg{margin:26px 0 0}
-.heroimg img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:16px}
+.heroimg video{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:16px;background:var(--paper)}
+.vidbtn{font:600 14px/1 var(--sans);color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:10px 14px;min-height:44px;margin-left:8px;cursor:pointer}
 .heroimg figcaption{margin-top:8px;font-size:14px;color:var(--soft)}
 .credits{margin:14px 0 0;font-size:13px;color:var(--soft)}
 .credits a{color:inherit}
@@ -163,7 +164,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
     <p class="hello">Welcome in, Sosiego community</p>
     <h1>Nourishment, picked for you.</h1>
     <p class="lede">Wellness that fits real life, on and off the mat. We shop the farmers market so your practice and your plate both feel cared for.</p>
-    <figure class="heroimg"><img src="../../img/haul-vegan.jpg" width="1000" height="750" alt="A real Posted Up haul on a picnic table: oyster mushrooms, local tofu, squash, sweet potatoes, onions, garlic, apples and pears, greens and microgreens." fetchpriority="high"><figcaption>A real haul from this fall's pilot.</figcaption></figure>
+    <figure class="heroimg"><video id="haulVid" src="../../video/sosiego-haul.mp4" poster="../../img/sosiego-haul-poster.jpg" width="540" height="960" muted loop playsinline preload="metadata" aria-label="A short silent video of a real pilot order: collards, kale, Brussels sprouts and sweet potatoes in a box, then apples, apple butter, butternut squash and beets, then pastries and a sourdough loaf."></video><figcaption>A real order from this fall's pilot. <button type="button" id="vidBtn" class="vidbtn">Pause</button></figcaption></figure>
   </section>
 
   <section class="sec" aria-labelledby="practiceH">
@@ -181,7 +182,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
         <a class="add" href="../../?box=strength">Add the Strength Box</a>
       </li>
       <li class="pcard" data-box="grounding">
-        <img class="pimg" src="../../img/sosiego-grounding.jpg" width="326" height="203" loading="lazy" alt="A real pilot box: sweet potatoes, Brussels sprouts, kale and collards.">
+        <img class="pimg" src="../../img/sosiego-grounding.jpg" width="864" height="540" loading="lazy" alt="A real pilot order: beets, red onions and a butternut squash, with apples alongside.">
         <div class="pc-hd"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/><path d="M8 21h8"/></svg><h3>Grounding Box</h3><span class="price">$41</span></div>
         <p class="purpose">Rooted, warming food to roast and settle into.</p>
         <p class="pairs">Pairs with Midweek Grounding, Wednesdays</p>
@@ -191,7 +192,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
         <a class="add" href="../../?box=grounding">Add the Grounding Box</a>
       </li>
       <li class="pcard" data-box="rest">
-        <img class="pimg" src="../../img/sosiego-rest.jpg" width="416" height="260" loading="lazy" alt="A real pickup cooler: fresh-pressed cider and farm eggs, ready for handoff.">
+        <img class="pimg" src="../../img/sosiego-rest.jpg" width="864" height="540" loading="lazy" alt="A real pilot order: a sourdough loaf, a fruit turnover and a pecan pastry.">
         <div class="pc-hd"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><h3>Rest Box</h3><span class="price">$41</span></div>
         <p class="purpose">Easy comfort for slow evenings.</p>
         <p class="pairs">Pairs with the Weekly Reset, Fridays</p>
@@ -295,6 +296,15 @@ document.querySelectorAll(".pcard").forEach(c=>{
   });
 })();
 
+/* Hero video: plays muted on loop; Pause button; reduced motion shows the still poster. */
+(function(){
+  const v=document.getElementById("haulVid"),b=document.getElementById("vidBtn");if(!v||!b)return;
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const set=()=>{b.textContent=v.paused?"Play":"Pause"};
+  if(!still){v.play().catch(()=>{});}
+  v.addEventListener("play",set);v.addEventListener("pause",set);set();
+  b.addEventListener("click",()=>{v.paused?v.play():v.pause()});
+})();
 /* Anonymous visit count, same as the main site: no cookies, no names. ?me skips your own devices. */
 (function(){
   try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
