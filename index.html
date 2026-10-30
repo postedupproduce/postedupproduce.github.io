@@ -948,7 +948,7 @@ const APPLE_CASH="773-807-9223";
 const DELIVERY_FEE=8, FLAT_MILES=3, PER_MILE=1.5;
 function isDel(){return state.fulfill.startsWith("del-")}
 /* Opt-in: free early door drop-off for meet-up orders if it fits Sol's route that day. Not a promise; Sol texts to set it up. */
-function earlyOK(){return !isDel()&&state.early}
+function earlyOK(){return !isDel()&&state.early&&state.date!==LATE_DAY}
 /* Delivery windows (Oct 27, Sol): the original after-2/4/6 PM windows from each old stop, both market days, plus Wed after 10:30 AM.
    The sheet still logs "Delivery from <name>", same as the original site, so delivery-time data stays comparable. */
 const DELIVERIES=[
@@ -967,6 +967,9 @@ const STOPS=[
   /* Sosiego visitors (Oct 29, Sol): Rogers Park meet-up instead of Hyde Park, about 11:30 AM after the market; early drop-off checkbox still offered. */
   {id:"rogers",name:"Rogers Park",time:"around 11:30 AM",day:6,dayName:"Sat",delAfter:"10:30 AM",luna:true}
 ];
+/* Sat Oct 31 (Oct 30, Sol): nothing starts before 1 PM that day. Applies until midnight Oct 31, then the normal times return. */
+const LATE_DAY="2026-10-31";
+if(chiNow()<new Date(2026,10,1)){const r=STOPS.find(x=>x.id==="rogers");if(r){r.time="1:00–2:00 PM";r.delAfter="1:00 PM"}const lf=DELIVERIES.find(x=>x.id==="lunafree");if(lf)lf.delAfter="1:00 PM"}
 function isLuna(){return /^luna/.test(SRC_TAG)}
 function forThem(x){return isLuna()?!x.notLuna&&(x.luna||!DELIVERIES.includes(x)):!x.luna}
 const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false};
@@ -1257,7 +1260,7 @@ function renderTicket(){
   for(const d of ds){const l=spotsLeft(d.v);const o=el("option",{value:d.v},d.label+(l===0?" · full, join the waitlist":l!=null&&l<=3?" · "+l+" spot"+(l>1?"s":"")+" left":""));if(d.v===state.date)o.selected=true;sel.append(o)}
   sel.addEventListener("change",()=>{state.date=sel.value;renderTicket()});
   where.append(el("label",{for:"date"},isDel()?"Delivery day":"Pickup day",sel));
-  if(!isDel()){const ed=el("input",{id:"early",type:"checkbox"});ed.checked=!!state.early;ed.addEventListener("change",()=>{state.early=ed.checked});
+  if(!isDel()&&state.date!==LATE_DAY){const ed=el("input",{id:"early",type:"checkbox"});ed.checked=!!state.early;ed.addEventListener("change",()=>{state.early=ed.checked});
     where.append(el("label",{for:"early",class:"agree"},ed,el("span",{},el("b",{},"OK to drop it at my door earlier, free"),el("br"),"If I'm done shopping early and you're on my route, I'll bring it to you before pickup. I text first to get your address; if it doesn't fit, pick up as planned. Questions? Text 773-807-9223.")))}
   f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
   const ss=el("select",{id:"sub"});
