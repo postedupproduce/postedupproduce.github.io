@@ -568,7 +568,8 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 
   <!-- Asana Box paused (Oct 29, Sol): home feature hidden; the Asana Pair stays in Boxes and the shop bar. Delete the style below to bring it back. -->
-  <style>#asanaFeature{display:none!important}</style>
+  <style>#asanaFeature{display:none!important}html:not(.calm) #asShop{display:none!important}</style>
+  <!-- Oct 30, Sol: Asana Pair removed from the main site too (Boxes bar + list). Still shows for Sosiego/luna visitors (?s=luna...) via only:"luna". -->
   <section class="post spot asana" data-view="home" id="asanaFeature" aria-labelledby="asH">
     <span class="k">🧘 New · The Asana Box</span>
     <h2 id="asH">Before the mat, after the mat · $40</h2>
@@ -865,7 +866,7 @@ const BOXES=[
    makes:"Snacks before about 4 sessions and 3 or 4 easy post-practice plates for one",
    has:["Before: crisp apples or pears, about 4","Before: local blueberries, a snack bag dried or frozen","After: microgreens or salad greens","After: a dozen farm eggs (or local tofu for vegan)","After: 2 lb sweet potatoes for a warm roasted plate"]},
   /* Asana Pair special (Oct 29, Sol): Asana Box + Fruit Box · a few days, $55 (save $5). Shown through Sat Nov 21 via "until". Est. cost ~$43. */
-  {id:"asanapair",name:"Asana Pair",price:55,until:"2026-11-22",wt:"Asana Box + Fruit Box · a few days · save $5",desc:"Special through Nov 21.",pick:"Special · through Nov 21",
+  {id:"asanapair",name:"Asana Pair",price:55,only:"luna",until:"2026-11-22",wt:"Asana Box + Fruit Box · a few days · save $5",desc:"Special through Nov 21.",pick:"Special · through Nov 21",
    makes:"Before-and-after bites for about a week of practice, plus fruit for a few days, for one",
    has:["Everything in the Asana Box: apples or pears, local blueberries, microgreens, a dozen eggs (or tofu), 2 lb sweet potatoes","Plus a Fruit Box · a few days: about 5 apples, 2 pears and local blueberries"]},
   /* Practice boxes (Oct 29, Sol): Grounding / Strength / Rest at $41, all three $108 (saves $15). Shown only to Sosiego-page visitors (?s=luna...) or when picked via ?box=. Vegan toggle via ?vegan=1 swaps to "veg". Est. costs ~$28 / $27.50 / $25 / $80.50. */
