@@ -40,6 +40,8 @@
 .pay-btn.ac{background:#111;color:#fff}
 .pay-btn.zl{background:#6D1ED4;color:#fff}
 .pay-btn.cd{background:var(--board);color:var(--board-ink)}
+.bveg{display:flex;align-items:center;gap:10px;font-weight:700;min-height:44px;margin:6px 0 2px}.bveg input{width:22px;height:22px;accent-color:var(--board)}.bveg small{font-weight:500;color:var(--muted)}
+.perk{display:grid;gap:8px;border:2px dashed var(--tomato);border-radius:12px;padding:10px 12px;margin:6px 0}.perk select{font:inherit;min-height:44px;border-radius:10px;padding:8px}
 .zsteps{display:grid;gap:8px;border:2px dashed #6D1ED4;border-radius:12px;padding:12px 14px;background:var(--bg)}
 .zt{margin:0;font-size:15px;font-weight:700}
 .zrow{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:16px;min-width:0}
@@ -67,7 +69,7 @@ html.calm .beta{background:transparent;color:var(--muted);border:1px solid var(-
 html.calm .calm-note{display:block}
 .calm-note{display:none;margin:0 0 14px;padding:14px 16px;border-radius:12px;background:var(--panel);border:1px solid var(--line);font-size:16px;color:var(--ink)}
 </style>
-<style>/* Logo on every page (Oct 29) */.brand{display:inline-flex;align-items:center;gap:8px}.act.sosiego{border-color:#76668C}.act.sosiego small{color:inherit}.brand .mark{width:32px;height:32px;flex:none;border-radius:50%}</style>
+<style>/* Logo on every page (Oct 29) */.brand{display:inline-flex;align-items:center;gap:8px}.act.a3.sosiego{background:#6D1ED4;border-color:#6D1ED4;color:#fff}.act.a3.sosiego small{color:inherit;opacity:.92}.act.a3.sosiego .ar{color:#fff}.brand .mark{width:32px;height:32px;flex:none;border-radius:50%}</style>
 </head>
 <body>
 
@@ -565,7 +567,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <section class="post" data-view="home" id="how" aria-labelledby="howH">
     <h2 id="howH">How it works</h2>
     <ol class="steps">
-      <li><span><b>Order and pay by 9 PM</b> the night before, by Zelle or Apple Cash. Pick a box or build your own.</span></li>
+      <li><span><b>Order and pay by 9 PM</b> the night before, by card, Apple Pay, Zelle or Apple Cash. Pick a box or build your own.</span></li>
       <li><span><b>We shop the morning market</b> and hand-select what's peaking.</span></li>
       <li><span><b>Pick it up or get it delivered</b> on Saturday: pick up in Hyde Park 3–4 PM, or get it delivered that afternoon. Delivery from $8.</span></li>
     </ol>
@@ -767,7 +769,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <p class="note">Version: October 2026. By paying for an order, you agree to these terms.</p>
       <ol>
           <li><b>What we do.</b> Posted Up Produce is a personal shopping service operated by 123 Footprint, LLC ("we"). You pay us to shop farmers markets and local makers for you and hand off your order. We don't grow or make the food ourselves.</li>
-          <li><b>Payment.</b> Pay in full by 9 PM the night before pickup, by Zelle or Apple Cash. Your order is confirmed only when payment arrives and we text you a confirmation. Unpaid orders are not shopped. We can't take cash or card for orders at pickup, because we buy everything at market that morning. Cash is fine at pickup for tips or a small extra you add by text.</li>
+          <li><b>Payment.</b> Pay in full by 9 PM the night before pickup, by card, Apple Pay, Zelle or Apple Cash. Your order is confirmed only when payment arrives and we text you a confirmation. Unpaid orders are not shopped. We can't take cash or card for orders at pickup, because we buy everything at market that morning. Cash is fine at pickup for tips or a small extra you add by text.</li>
           <li><b>What you get.</b> You get the box or item groups you ordered, chosen by us at market that day. Examples on the menu are typical, not promised. Weights are approximate.</li>
           <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the pilot (November 21) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
@@ -994,12 +996,13 @@ function bCard(o){
   const ul=el("ul",{});for(const h of o.has)ul.append(el("li",{},h));
   const d=el("details",{class:"bin-in"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
   if(OPEN_IN.has(o.name))d.open=true;d.addEventListener("toggle",()=>{d.open?OPEN_IN.add(o.name):OPEN_IN.delete(o.name)});
+  if(o.veg){const b=o.veg,cb=el("input",{type:"checkbox"});cb.checked=vegOn(b);cb.addEventListener("change",()=>{state.vegan=cb.checked;try{cb.checked?sessionStorage.setItem("pu-vegan","1"):sessionStorage.removeItem("pu-vegan")}catch(e){}if(cb.checked&&state.box!==b.id){state.box=b.id;state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()});card.append(el("label",{class:"bveg"},cb,el("span",{},"Make it vegan",el("small",{}," plant-based swaps, all local"))))}
   card.append(d,el("button",{type:"button",class:"badd","aria-pressed":String(!!o.on),onclick:o.toggle},o.on?"Added ✓ (tap to remove)":"Add "+o.name+" · $"+o.price));
   return card;
 }
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(/^luna/.test(SRC_TAG)||state.box===b.id))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(state.vegan&&b.veg?" · Vegan":""),has:state.vegan&&b.veg?b.veg:b.has,on:state.box===b.id,
+  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(/^luna/.test(SRC_TAG)||state.box===b.id))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
@@ -1065,7 +1068,7 @@ function orderText(id){
     isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().delAfter+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
-  if(state.vegan&&b&&b.veg)L.push("Vegan box: yes (plant-based swaps)");
+  if(vegOn(b))L.push("Vegan box: yes (plant-based swaps)");
   if(haulLine())L.push("Your haul: "+haulLine());
   if(b)L.push(b.name+" produce box ("+b.wt+") — $"+b.price);
   if(bb)L.push(bb.name+" ("+bb.wt+") — $"+bb.price);
@@ -1078,11 +1081,12 @@ function orderText(id){
   if(earlyOK())L.push("Early drop-off: Yes, open to a free early drop-off at my door (text me first)");
   if(state.notes)L.push("Notes: "+state.notes);
   if(state.logo&&voteOpen()){L.push("Logo vote: "+logoName());if(state.reward)L.push("Thank-you: "+rewardName()+(discount()?" (−$5)":state.reward==="5off"?" (needs a $30+ order, not applied)":""));if(state.why.trim())L.push("Why: "+state.why.trim())}
+  if(perkOff())L.push("Over-$"+PERK_MIN+" perk: "+perkItem().nm+" for $1 — −$"+perkOff());
   if(founderOff())L.push("Beta founder rate (meet-up, "+FOUNDER_PCT+"% off boxes) — −$"+founderOff());
   if(fee())L.push("Delivery fee — $"+fee()+" flat (+$"+PER_MILE.toFixed(2)+"/mi beyond "+FLAT_MILES+" mi, confirmed by text)");
   L.push("","TOTAL: $"+total());
   L.push("","I agree to the Posted Up Produce Order Terms (October 2026), including the refund and cancellation policy.");
-  if(!isWait())L.push("I understand my order isn't shopped until payment arrives (Zelle or Apple Cash by 9 PM the night before).");
+  if(!isWait())L.push("I understand my order isn't shopped until payment arrives (card, Apple Pay, Zelle or Apple Cash by 9 PM the night before).");
   if(!isWait()&&ZELLE)L.push("","Pay here: https://postedupproduce.github.io/pay/?o="+id+"&a="+total());
   return L.join("\n");
 }
@@ -1095,7 +1099,7 @@ function orderPayload(id){
   return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),email:state.email.trim(),
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
-    notes:[state.vegan&&state.box&&(BOXES.find(x=>x.id===state.box)||{}).veg?"[Vegan box]":"",hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",hwvInCart()?"[Vegan Harvest Moon: pie pumpkin in the Vegan Box]":"",haulInfo()?"[Haul: ~"+haulInfo().meals+" meals for 2, "+haulInfo().plate+"/plate]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
+    notes:[vegOn(BOXES.find(x=>x.id===state.box))?"[Vegan box]":"",perkOff()?"[$1 perk: "+perkItem().nm+"]":"",hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",hwvInCart()?"[Vegan Harvest Moon: pie pumpkin in the Vegan Box]":"",haulInfo()?"[Haul: ~"+haulInfo().meals+" meals for 2, "+haulInfo().plate+"/plate]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
     logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":REWARD_SHEET[state.reward]||""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),earlyDrop:earlyOK()?"Yes":"",waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
@@ -1104,6 +1108,16 @@ async function sendOrder(id){
   catch(e){return false}
 }
 function count(){return (state.box?1:0)+(state.breadBox?1:0)+Object.values(state.qty).reduce((a,b)=>a+b,0)}
+/* Vegan toggle on every box (Oct 29, Sol). The Vegan Box and fruit-only boxes are already plant-based, so no toggle there. */
+const VEG_SKIP=["forever","fruitsm","fruit"];
+function vegAble(b){return !!b&&!VEG_SKIP.includes(b.id)}
+function vegOn(b){return !!state.vegan&&vegAble(b)&&state.box===b.id}
+/* $1 perk (Oct 29, Sol): spend over $200 (not counting the perk item) and one add-on up to $25 drops to $1. */
+const PERK_MIN=200,PERK_MAX_ITEM=25;
+function perkItem(){return state.perk?ALL.find(i=>i.id===state.perk)||null:null}
+function perkBase(){const it=perkItem();return subtotal()-(it&&state.qty[it.id]?it.p:0)}
+function perkOK(){return perkBase()>PERK_MIN}
+function perkOff(){const it=perkItem();return it&&state.qty[it.id]&&perkOK()?it.p-1:0}
 function subtotal(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(bb?bb.price:0)+ALL.reduce((s,i)=>s+(state.qty[i.id]||0)*i.p,0)}
 function fee(){return isDel()&&count()&&!(delStop()&&delStop().freeMiles)?DELIVERY_FEE:0}
 const FOUNDER_PCT=10;
@@ -1112,7 +1126,7 @@ const PROTEIN_BOXES=["meatbox","lakehaul"];
 function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);let s=(b?b.price:0)+(bb?bb.price:0);for(const id of PROTEIN_BOXES){const it=ITEMS.meat.find(x=>x.id===id);if(it&&state.qty[id])s+=it.p*state.qty[id]}return s}
 /* Beta founder rate: 10% off boxes on meet-up orders, rounded to whole dollars. */
 function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
-function total(){return subtotal()+fee()-discount()-founderOff()}
+function total(){return subtotal()+fee()-discount()-founderOff()-perkOff()}
 function curStop(){return isDel()?delStop():STOPS.find(x=>x.id===state.fulfill)}
 function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;return ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES}
 function setMode(m){
@@ -1166,6 +1180,11 @@ function renderTicket(){
   if(discount())lines.append(el("div",{class:"line"},el("span",{},"Logo vote thank-you"),el("span",{},"−$5")));
   if(state.logo&&state.reward&&state.reward!=="5off"&&voteOpen())lines.append(el("div",{class:"line"},el("span",{},"Thank-you: "+rewardName()),el("span",{},"Free")));
   if(fee())lines.append(el("div",{class:"line"},el("span",{},"Delivery (from)"),el("span",{},"$"+fee())));
+  if(perkOff())lines.append(el("div",{class:"line"},el("span",{},"$1 perk: "+perkItem().nm),el("span",{},"−$"+perkOff())));
+  if(perkOK()){const opts=ALL.filter(i=>i.p>1&&i.p<=PERK_MAX_ITEM),sel=el("select",{id:"perk","aria-label":"Pick your $1 add-on"});sel.append(el("option",{value:""},"Pick one add-on for $1…"));for(const i of opts){const o=el("option",{value:i.id},i.nm+" (normally $"+i.p+")");if(state.perk===i.id)o.selected=true;sel.append(o)}
+    sel.addEventListener("change",()=>{const old=perkItem();if(old&&state.qty[old.id]===1&&state.perkAdded)delete state.qty[old.id];state.perk=sel.value||null;state.perkAdded=false;if(state.perk&&!state.qty[state.perk]){state.qty[state.perk]=1;state.perkAdded=true}renderItems();renderTicket();const s2=document.getElementById("perk");if(s2)s2.focus()});
+    lines.append(el("div",{class:"perk"},el("b",{},"🎁 You're over $"+PERK_MIN+": pick one add-on for $1"),sel));}
+  else if(subtotal()>=150)lines.append(el("p",{class:"note"},"Spend $"+(PERK_MIN+1-perkBase())+" more and pick any add-on for $1."));
   t.append(lines);
   if(n){const sug=[];
     if(state.mode==="box"&&!state.breadBox)sug.push({t:"Bread Bag",p:23,go:()=>{state.breadBox="bread1";renderBoxes()}});
@@ -1210,7 +1229,7 @@ function renderTicket(){
   mb.append(el("label",{for:"notes"},"Notes",ta));
   f.append(more);
   const ag=el("input",{id:"agree",type:"checkbox"});ag.checked=state.agree&&state.payAck;ag.addEventListener("change",()=>{state.agree=state.payAck=ag.checked});
-  f.append(el("label",{for:"agree",class:"agree"},ag,el("span",{},"I agree to the ",el("a",{href:"#terms"},"Order Terms")," and understand my order is shopped only once I pay by Zelle or Apple Cash by 9 PM the night before.")));
+  f.append(el("label",{for:"agree",class:"agree"},ag,el("span",{},"I agree to the ",el("a",{href:"#terms"},"Order Terms")," and understand my order is shopped only once I pay by card, Apple Pay, Zelle or Apple Cash by 9 PM the night before.")));
   if(voteOpen()){
     const vd=el("details",{class:"more vdet"});if(state.logo||state.voteOpen)vd.open=true;vd.addEventListener("toggle",()=>state.voteOpen=vd.open);
     vd.append(el("summary",{},"Pick our logo, get a thank-you",el("small",{},"Optional · voting closes Sat, Oct 24")));
@@ -1240,7 +1259,7 @@ function renderTicket(){
     f.append(vd);
   }
   const err=el("p",{class:"err",id:"err"});
-  f.append(err,el("button",{class:"cta",type:"submit"},isWait()?"Join the waitlist":"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Pay up front by Zelle or Apple Cash; no payment at pickup."));
+  f.append(err,el("button",{class:"cta",type:"submit"},isWait()?"Join the waitlist":"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Pay up front by card, Apple Pay, Zelle or Apple Cash; no payment at pickup."));
   if(!n)f.querySelector(".cta").disabled=true;
   f.addEventListener("submit",e=>{e.preventDefault();
     if(!state.name.trim()||state.phone.replace(/\D/g,"").length<10){err.textContent="Add your name and a 10-digit mobile number so we can confirm by text.";return}
@@ -1394,7 +1413,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
    Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
 /* Card / Apple Pay via Square (Oct 29). The Order Receiver (?q=pay&o=) makes a Square checkout for this exact order, total taken from the sheet,
    so the customer types nothing. Hidden until CARD_ON=true; preview with ?card=1. Fallback = the any-amount Square link. */
-const CARD_ON=false, CARD_LINK="https://square.link/u/HHv7KJyK";
+const CARD_ON=true, CARD_LINK="https://square.link/u/HHv7KJyK";
 function cardOn(){return CARD_ON||new URLSearchParams(location.search).get("card")==="1"}
 function mkCD(no,amt){
   const sm=el("small",{},"Total and order number filled in for you");

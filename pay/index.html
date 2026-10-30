@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Pay for your order · Posted Up Produce</title>
-<meta name="description" content="Pay for your Posted Up Produce order by Apple Cash or Zelle.">
+<meta name="description" content="Pay for your Posted Up Produce order by card, Apple Pay, Apple Cash or Zelle.">
 <meta property="og:title" content="Pay for your Posted Up order">
-<meta property="og:description" content="Apple Cash or Zelle. Your order is shopped once it's paid by 9 PM the night before.">
+<meta property="og:description" content="Card, Apple Pay, Apple Cash or Zelle. Your order is shopped once it's paid by 9 PM the night before.">
 <meta property="og:image" content="https://postedupproduce.github.io/og.png">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#24392c">
@@ -99,7 +99,7 @@ input{font:inherit;font-size:18px;padding:12px;border:2px solid var(--line);bord
 const ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
 const ZELLE="leeks.sabrosa@gmail.com", APPLE_CASH="7738079223";
 /* Card / Apple Pay via Square (Oct 29). Off for customers until Sol tests a real $1 payment; preview with /pay/?o=1&a=1&card=1. Set CARD_ON=true to go live. */
-const CARD_ON=false, CARD_LINK="https://square.link/u/HHv7KJyK";
+const CARD_ON=true, CARD_LINK="https://square.link/u/HHv7KJyK";
 const q=new URLSearchParams(location.search);
 const clean=(v,re,n)=>(v||"").replace(re,"").slice(0,n);
 const src=clean(q.get("s"),/[^a-z0-9-]/gi,30).toLowerCase();
