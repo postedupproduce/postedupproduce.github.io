@@ -384,10 +384,14 @@ details.vdet .vote{border:0;padding:0 0 14px}
 #pu-splash .pu-tag{margin:0;font:400 clamp(26px,7.6vw,32px)/1.12 var(--display);text-wrap:balance;animation:pu-up .35s ease-out calc(var(--t0) + .35s) both}
 #pu-splash .pu-cut{margin:0;background:#F3D58A;color:#24392C;border-radius:999px;padding:10px 18px;font:800 17px/1.3 var(--body);animation:pu-up .35s ease-out calc(var(--t0) + .55s) both}
 #pu-splash .pu-skip{position:absolute;left:50%;bottom:max(28px,env(safe-area-inset-bottom));transform:translateX(-50%);display:grid}
-#pu-splash .pu-skip span{grid-area:1/1;font:700 16px/1 var(--body);color:#24392C;background:#fff;border:2px solid #24392C;border-radius:999px;padding:13px 22px;white-space:nowrap;text-align:center}
-#pu-splash .pu-skip .s2{opacity:0;animation:pu-show 0s linear var(--t0) forwards}
+#pu-splash{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}#pu-splash img,#pu-splash svg{pointer-events:none;-webkit-touch-callout:none}
+#pu-splash .pu-hint{position:absolute;left:50%;bottom:calc(max(28px,env(safe-area-inset-bottom)) + 64px);transform:translateX(-50%);margin:0;white-space:nowrap;background:rgba(255,255,255,.82);color:#24392C;border-radius:999px;padding:6px 12px;font:600 14px/1.2 var(--body);animation:pu-hide 0s linear var(--t0) forwards}
+#pu-splash.short .pu-hint{display:none}
+#pu-splash .pu-skip>*{grid-area:1/1;cursor:pointer;font:700 16px/1 var(--body);color:#24392C;background:#fff;border:2px solid #24392C;border-radius:999px;padding:13px 22px;white-space:nowrap;text-align:center}
+#pu-splash .pu-skip .s2{pointer-events:none;opacity:0;animation:pu-show 0s linear var(--t0) forwards}
 #pu-splash .pu-skip .s1{animation:pu-hide 0s linear var(--t0) forwards}
 #pu-splash.short .pu-beat,#pu-splash.short .pu-bar{display:none}
+#pu-splash .pu-skip button:focus-visible{outline:3px solid #D2452B;outline-offset:2px}
 @keyframes pu-sky{0%,22%{background-color:#24392C}30%,47%{background-color:#F3D58A}55%,100%{background-color:#EFE6D4}}
 @keyframes pu-beat{0%{opacity:0;transform:translateY(10px)}14%,86%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-6px)}}
 @keyframes pu-fill{to{transform:scaleX(1)}}
@@ -399,7 +403,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 @keyframes pu-show{to{opacity:1}}
 @keyframes pu-hide{to{opacity:0}}
 @keyframes pu-out{to{opacity:0;visibility:hidden}}
-@media (prefers-reduced-motion:reduce){#pu-splash .pu-beat,#pu-splash .pu-bar{display:none}#pu-splash,#pu-splash *{animation:none!important}#pu-splash .pu-skip .s1{opacity:0}#pu-splash .pu-skip .s2{opacity:1}#pu-splash{background:#EFE6D4;animation:pu-out .2s linear 1.5s forwards!important}}
+@media (prefers-reduced-motion:reduce){#pu-splash .pu-beat,#pu-splash .pu-bar,#pu-splash .pu-hint{display:none}#pu-splash,#pu-splash *{animation:none!important}#pu-splash .pu-skip .s1{opacity:0}#pu-splash .pu-skip .s2{opacity:1}#pu-splash{background:#EFE6D4;animation:pu-out .2s linear 1.5s forwards!important}}
 /* Savasana overlay (Oct 29) */
 .sava{position:fixed;inset:0;z-index:60;background:#24392c;color:#f4ecd9;display:grid;place-items:center;padding:24px;animation:savaIn .8s ease both}
 .sava-in{display:grid;gap:14px;justify-items:center;text-align:center;max-width:360px}
@@ -1602,13 +1606,24 @@ const SPLASH_ON=true;
   const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");if(short)d.className="short";
   d.innerHTML=bar+beat(1,b1,"Order by 9&nbsp;PM")+beat(2,b2,"We shop the market at sunrise")+beat(3,b3,"Your bag gets packed")+beat(4,b4,"Posted up at your spot, or at your door")
     +'<div class="pu-land">'+(nm?'<p class="pu-hi"></p>':'')+'<img class="pu-logo" src="/logos/harvest-stamp.png" alt="Posted Up: picked for you" width="560" height="560"><p class="pu-tag">Market haul, picked for you.</p><p class="pu-cut"></p></div>'
-    +'<span class="pu-skip"><span class="s1">Tap to skip</span><span class="s2">Tap to start</span></span>';
+    +'<p class="pu-hint">Tap for next, hold to pause</p><span class="pu-skip"><button type="button" class="s1">Skip intro</button><span class="s2">Tap to start</span></span>';
   if(nm)d.querySelector(".pu-hi").textContent="Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you";
   d.querySelector(".pu-cut").textContent=cut;
-  const key=e=>{if(["Escape","Enter"," "].includes(e.key)){e.preventDefault();done()}};
-  let t;const done=()=>{clearTimeout(t);d.remove();removeEventListener("keydown",key)};
+  /* Story controls (Oct 30, Sol): tap = next beat (on the logo frame, tap = into the site); press and hold = pause; Skip intro = straight in. */
+  const BEAT=900,LAND=short?0:4*BEAT,still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const anims=()=>d.getAnimations?d.getAnimations({subtree:true}):[];
+  const clock=()=>{const o=anims().find(a=>a.animationName==="pu-out");return o?+o.currentTime:Infinity};
+  const next=()=>{const now=clock();if(still||!(now<LAND))return done();const to=Math.min(LAND,(Math.floor(now/BEAT)+1)*BEAT);anims().forEach(a=>{a.currentTime=to})};
+  let t,hold=null,held=false;
+  const done=()=>{clearTimeout(t);clearTimeout(hold);d.remove();removeEventListener("keydown",key)};
+  const key=e=>{if(e.key==="Escape"){e.preventDefault();done()}else if(e.key==="Enter"||e.key===" "||e.key==="ArrowRight"){e.preventDefault();next()}};
   addEventListener("keydown",key);
-  d.addEventListener("click",done);d.addEventListener("animationend",e=>{if(e.target===d&&e.animationName==="pu-out")done()});
+  const skip=d.querySelector(".pu-skip .s1");skip.addEventListener("pointerdown",e=>e.stopPropagation());skip.addEventListener("pointerup",e=>e.stopPropagation());skip.addEventListener("click",e=>{e.stopPropagation();done()});
+  d.addEventListener("pointerdown",e=>{clearTimeout(t);held=false;hold=setTimeout(()=>{held=true;anims().forEach(a=>a.pause())},220)});
+  const release=go=>{clearTimeout(hold);if(held){held=false;anims().forEach(a=>a.play())}else if(go)next()};
+  d.addEventListener("pointerup",()=>release(true));d.addEventListener("pointercancel",()=>release(false));
+  d.addEventListener("contextmenu",e=>e.preventDefault());
+  d.addEventListener("animationend",e=>{if(e.target===d&&e.animationName==="pu-out")done()});
   t=setTimeout(done,short?2200:6300);
   document.body.append(d);
 })();
