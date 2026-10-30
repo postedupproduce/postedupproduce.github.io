@@ -146,7 +146,7 @@ small{color:var(--muted);font-size:14px}
   function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
   var raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").toLowerCase();
   var tag=(raw.indexOf("drop")===0?raw:("drop-1031"+(raw?"-"+raw:""))).slice(0,30);
-  var shop="/?s="+encodeURIComponent(tag)+"&box=mystery#start";
+  var shop="/?s=referral"; /* Oct 30, Sol: everyone lands on the plain homepage link (splash plays, Mystery Bag unlocked for referral) */
   /* Oct 30, Sol: one hop. Form, password or friend link all go straight to the order page: splash plays there, then it lands on the Mystery Bag (already in the cart). */
   function go(){try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}location.replace(shop)}
   var join="/join/?s="+encodeURIComponent(tag);

@@ -54,7 +54,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://postedupproduce.github.io/">
 <link rel="canonical" href="https://postedupproduce.github.io/">
-<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta property="og:image" content="https://postedupproduce.github.io/og-fall.jpg"><!-- Oct 30, Sol: fall/IG-theme preview (orange to purple to green, flag bag). Old one: /og.png -->
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#24392c">
@@ -887,7 +887,7 @@ const BOXES=[
    has:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: a dozen farm eggs, hearty greens, local mushrooms, microgreens","Rest: a sourdough loaf, fresh-pressed cider, pears, local blueberries"],
    veg:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: local tofu, hearty greens, local mushrooms, microgreens","Rest: a vegan loaf, fresh-pressed cider, pears, local blueberries"]},
   /* Mystery Bag (Oct 30, Sol): first password drop, Sat Oct 31 only. Shown to ?s=drop... visitors (unlocked at /drop/) or via ?box=mystery. Est. cost ~$21 either way (~30%). */
-  {id:"mystery",name:"Mystery Bag",price:30,only:"drop",until:"2026-11-01",wt:"Trick or Treat · picked for you",desc:"Private drop. Say Trick or Treat in Notes, or leave it blank and I'll pick.",pick:"Private drop · Sat only",
+  {id:"mystery",name:"Mystery Bag",price:30,only:["drop","referral"],until:"2026-11-01",wt:"Trick or Treat · picked for you",desc:"Private drop. Say Trick or Treat in Notes, or leave it blank and I'll pick.",pick:"Private drop · Sat only",
    makes:"Trick: about 4 sides for two · Treat: a few days of sweet things for one",
    has:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a fresh pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"],
    veg:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a vegan pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"]},
@@ -1059,7 +1059,7 @@ function bCard(o){
 /* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(SRC_TAG.indexOf(b.only)===0||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
+  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!([].concat(b.only).some(o=>SRC_TAG.indexOf(o)===0)||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
@@ -1635,6 +1635,8 @@ const SPLASH_ON=true;
   let short=false;try{short=localStorage.getItem("pu-splash-day")===today;localStorage.setItem("pu-splash-day",today)}catch(e){}
   const tag=(typeof SRC_TAG==="string"?SRC_TAG:(new URLSearchParams(location.search).get("s")||"")).toLowerCase();
   const nm=(/^(?:svy-)?p-([a-z]{2,15})(?:-|$)/.exec(tag)||[])[1];
+  /* Oct 30, Sol: drop + referral visitors get a spooky nod on the logo frame through Sat Oct 31. */
+  const boo=/^(drop|referral)/.test(tag)&&today<="2026-10-31";
   const ct=(document.getElementById("closeTop")||{}).textContent||"";
   const cut=/^closes /i.test(ct)&&!/night before/i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):"Orders close 9 PM the night before";
   const bar='<div class="pu-bar">'+[0,1,2,3,4,5].map(i=>'<i><b style="--d:'+(i*.9)+'s"></b></i>').join("")+'</div>';
@@ -1649,7 +1651,7 @@ const SPLASH_ON=true;
   const b4='<svg '+A+' viewBox="0 0 300 260"><g transform="translate(0,4)"><path d="M0 200h150M0 230h150" stroke="#24392C" stroke-width="3" opacity=".25"/><ellipse cx="75" cy="196" rx="26" ry="7" fill="#24392C" opacity=".25"/><g class="pin"><path d="M75 196s-46-50-46-88a46 46 0 0 1 92 0c0 38-46 88-46 88z" fill="#D2452B" stroke="#24392C" stroke-width="5" stroke-linejoin="round"/><circle cx="75" cy="106" r="22" fill="#EFE6D4" stroke="#24392C" stroke-width="4"/><rect x="63" y="104" width="24" height="14" rx="2" fill="#24392C"/><path d="M69 104c0-8 12-8 12 0" fill="none" stroke="#24392C" stroke-width="3"/></g></g><text x="150" y="130" text-anchor="middle" font-family="Alfa Slab One,Georgia,serif" font-size="22" fill="#D2452B">or</text><g transform="translate(170,4)"><rect x="16" y="40" width="98" height="170" rx="4" fill="#24392C"/><rect x="28" y="52" width="74" height="158" fill="#F3D58A" stroke="#24392C" stroke-width="4"/><rect x="38" y="64" width="54" height="56" fill="none" stroke="#24392C" stroke-width="3"/><rect x="38" y="132" width="54" height="64" fill="none" stroke="#24392C" stroke-width="3"/><circle cx="90" cy="130" r="5" fill="#24392C"/><path d="M6 212h118" stroke="#24392C" stroke-width="6" stroke-linecap="round"/><path d="M70 212v-26c0-12 30-12 30 0v26z" fill="#24392C"/><rect x="76" y="194" width="18" height="5" rx="2.5" fill="#EFE6D4"/></g></svg>';
   const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");if(short)d.className="short";
   d.innerHTML=bar+beat(1,b0,"You pick from the farmers market")+beat(2,b1,"Order by 9&nbsp;PM")+beat(3,b2,"We shop the market at sunrise")+beat(4,b3,"Your bag gets packed")+beat(5,b4,"Posted up at your spot, or at your door")
-    +'<div class="pu-land">'+(nm?'<p class="pu-hi"></p>':'')+'<img class="pu-logo" src="/logos/harvest-stamp.png" alt="Posted Up: picked for you" width="560" height="560"><p class="pu-tag">Market haul, picked for you.</p><p class="pu-cut"></p></div>'
+    +'<div class="pu-land">'+(nm?'<p class="pu-hi"></p>':'')+(boo?'<p class="pu-hi pu-boo">🦇 You\'re in on the Halloween drop<br>Mystery Bag · Saturday only 🎃</p>':'')+'<img class="pu-logo" src="/logos/harvest-stamp.png" alt="Posted Up: picked for you" width="560" height="560"><p class="pu-tag">Market haul, picked for you.</p><p class="pu-cut"></p></div>'
     +'<p class="pu-hint">Tap for next, hold to pause</p><span class="pu-skip"><button type="button" class="s1">Skip intro</button><span class="s2">Tap to start</span></span>';
   if(nm)d.querySelector(".pu-hi").textContent="Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you";
   d.querySelector(".pu-cut").textContent=cut;
