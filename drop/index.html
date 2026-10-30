@@ -58,6 +58,11 @@ small{color:var(--muted);font-size:14px}
 @keyframes bat{0%{transform:translate(0,0)}25%{transform:translate(30vw,-5vh)}50%{transform:translate(60vw,5vh)}75%{transform:translate(90vw,-6vh)}100%{transform:translate(125vw,0)}}
 @media (prefers-reduced-motion: reduce){.bat{display:none}.stamp{animation:none}}
 [hidden]{display:none!important}
+.veg{margin:0;font-size:15px;background:#1d2a1c;border:2px solid #3d5a3a;border-radius:12px;padding:10px 12px}
+.veg b{color:#a6d873}
+.what{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:4px 16px}
+.what summary{font-weight:800;min-height:44px;display:flex;align-items:center;cursor:pointer}
+.what p{margin:0 0 12px;font-size:16px;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -77,6 +82,11 @@ small{color:var(--muted);font-size:14px}
       <button type="submit">Unlock</button>
     </form>
     <p class="alt"><a id="joinLink" href="/join/">No password? Answer four quick questions</a></p>
+  <details class="what">
+    <summary>What is Posted Up?</summary>
+    <p>Posted Up Produce is a personal shopper for Chicago farmers markets. You order by 9 PM, I shop the market at sunrise, and your bag gets posted up at your meet-up spot or your door the same day.</p>
+    <p>Small farms and makers, close radius. Every dollar spent on your food goes to the farm or maker; our fee is built into the price. We're in beta, so drops like this one are how we test new ideas with a small crew first.</p>
+  </details>
     <p class="fine" id="closeLine">Orders close Fri Oct 30, 9 PM. Saturday caps at 5 orders.</p>
   </section>
 
@@ -91,10 +101,17 @@ small{color:var(--muted);font-size:14px}
         <div class="half"><b>Trick</b>Savory: winter squash, kale, garlic, sweet potatoes</div>
         <div class="half"><b>Treat</b>Sweet: a fresh pastry, cider, crisp apples</div>
       </div>
-      <small>Shopped at the market Saturday morning. Pick Trick or Treat in Notes at checkout, or leave it blank and I'll choose. Vegan swap available.</small>
+      <small>Shopped at the market Saturday morning. Pick Trick or Treat in Notes at checkout, or leave it blank and I'll choose.</small>
+      <p class="veg"><b>Vegan? No extra charge.</b> Tap the vegan toggle at checkout and anything with dairy, egg or honey gets swapped for a local plant-based pick.</p>
       <a class="btn" id="goShop" href="/?box=mystery#shop">Claim a bag</a>
     </div>
     <p class="fine">Pickup at your usual meet-up spot or delivery. Prepay to hold your bag.</p>
+  <details class="what">
+    <summary>What is Posted Up?</summary>
+    <p>Posted Up Produce is a personal shopper for Chicago farmers markets. You order by 9 PM, I shop the market at sunrise, and your bag gets posted up at your meet-up spot or your door the same day.</p>
+    <p>Small farms and makers, close radius. Every dollar spent on your food goes to the farm or maker; our fee is built into the price. We're in beta, so drops like this one are how we test new ideas with a small crew first.</p>
+  </details>
+
   </section>
 
   <section id="closed" aria-labelledby="cH" hidden>
