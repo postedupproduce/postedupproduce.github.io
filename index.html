@@ -1622,13 +1622,13 @@ const FEATURE_ID="coldsnap";
   document.getElementById("spotAdd").addEventListener("click",()=>{state.box=b.id;state.mode="box";if(window.puCart)puCart();renderBoxes();renderTicket();location.hash="#shop"});
 })();
 /* Story splash (Oct 30, Sol): 5 beats, then the Harvest Stamp + live cutoff (and "Hey <name>" on ?s=p-name links).
-   Full story once a day per phone (pu-splash-day), logo-only after that. Skipped for ?me, #deep links and calm (Sosiego) visitors.
+   Full story once a day per phone (pu-splash-day), logo-only after that. Skipped for ?me, #deep links (#start still plays it) and calm (Sosiego) visitors.
    Set SPLASH_ON=false to switch it off. */
 const SPLASH_ON=true;
 (function(){
   if(!SPLASH_ON)return;
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
-  if(me||location.hash||/[?&]me(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
+  if(me||(location.hash&&location.hash!=="#start")||/[?&]me(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
   const today=new Date().toLocaleDateString("en-CA",{timeZone:"America/Chicago"});
   let short=false;try{short=localStorage.getItem("pu-splash-day")===today;localStorage.setItem("pu-splash-day",today)}catch(e){}
   const tag=(typeof SRC_TAG==="string"?SRC_TAG:(new URLSearchParams(location.search).get("s")||"")).toLowerCase();
