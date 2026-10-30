@@ -157,6 +157,8 @@ small{color:var(--muted);font-size:14px}
   var EP="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
   document.getElementById("askBtn").addEventListener("click",function(){show("ask");window.scrollTo(0,0)});
   if(/(^|&)k=1/.test(location.search.slice(1))&&!ok)show("ask");
+  /* Oct 30, Sol: ?in=1 is the friend-share link: skips the form and password, plays the splash, lands on "You're in". */
+  if(/(^|&)in=1/.test(location.search.slice(1))){try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}show("open");window.scrollTo(0,0);splash()}
   /* Oct 30, Sol: after the IG form, play the homepage story splash over this page, then reveal "You're in". */
   function splash(){
     var f=document.createElement("iframe");f.src="/?s="+encodeURIComponent(tag)+"#start";f.title="Posted Up intro";
