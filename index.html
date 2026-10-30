@@ -841,7 +841,8 @@ const BOXES=[
   /* I Don't Cook Box (Oct 27, Sol): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
   {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
    makes:"Snacks and easy plates for about a week for one, or a few days for two",
-   has:["A fresh loaf, bagels or challah","A local cheese","Salami or seasoned tofu (your pick in notes)","One ferment: kimchi, sauerkraut or pickles","Seasonal fruit: apples and pears","A jam, pesto or hot sauce to tie it together","Want hot food? Ask for a heat-and-eat swap (tamales or soup, microwave only)"]}
+   has:["A fresh loaf, bagels or challah","A local cheese","Salami or seasoned tofu (your pick in notes)","One ferment: kimchi, sauerkraut or pickles","Seasonal fruit: apples and pears","A jam, pesto or hot sauce to tie it together","Want hot food? Ask for a heat-and-eat swap (tamales or soup, microwave only)"],
+   veg:["A vegan loaf or bagels","Local tofu or a bean spread instead of cheese","Seasoned tofu instead of salami","One ferment: kimchi, sauerkraut or pickles","Seasonal fruit: apples and pears","A jam, pesto (dairy-free) or hot sauce"]}
 ];
 const PREFS=["Apples","Winter squash","Sweet potatoes","Kale & greens","Beets","Cabbage","Brussels sprouts","Onions & garlic","Peppers","Potatoes","Microgreens","Herbs"];
 const BREADBOXES=[
@@ -1061,7 +1062,7 @@ function orderText(id){
     isDel()?"Same-day delivery from "+delStop().name+": "+(d?d.label:state.date)+", after "+delStop().delAfter+"\nAddress: "+state.address:(()=>{const s=STOPS.find(x=>x.id===state.fulfill);return "Meet-up: "+s.name+", "+(d?d.label:state.date)+", "+s.time})(),""];
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   L.push("Style: "+(state.mode==="box"?"Shopper's Choice":"Build Your Own"));
-  if(state.vegan&&b&&b.veg)L.push("Vegan box: yes (eggs to tofu, vegan loaf)");
+  if(state.vegan&&b&&b.veg)L.push("Vegan box: yes (plant-based swaps)");
   if(haulLine())L.push("Your haul: "+haulLine());
   if(b)L.push(b.name+" produce box ("+b.wt+") — $"+b.price);
   if(bb)L.push(bb.name+" ("+bb.wt+") — $"+bb.price);

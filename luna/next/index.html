@@ -75,6 +75,9 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 .list li:first-child{border-top:0}
 .list li.sw{color:var(--sage)}
 .leaf{font-size:14px}
+.vt.mini{margin:0 0 14px}
+.menu [hidden]{display:none!important}
+.menu .vegwhat{display:block;margin-top:4px;font-size:16px;color:var(--soft);line-height:1.55}
 .vt{display:flex;align-items:center;gap:12px;margin-top:14px;min-height:44px;cursor:pointer;font-size:16px}
 .vt input{position:absolute;opacity:0;width:1px;height:1px}
 .sw-ui{position:relative;flex:none;width:44px;height:26px;border-radius:13px;background:var(--rule);transition:background .2s ease}
@@ -243,9 +246,9 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
     <h2 id="weeksH">For the heavy weeks</h2>
     <p class="note">When cooking feels like one more thing.</p>
     <ul class="menu">
-      <li><a class="go" data-hash="nocook" href="../../#nocook"><span class="row"><b>I Don't Cook Box</b><span class="price">$75</span></span><span class="what">A week of easy plates for one: fresh bread, local cheese, salami or seasoned tofu, a ferment, apples and pears, and a jam, pesto or hot sauce.</span></a></li>
-      <li><a class="go" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a week</b><span class="price">$36</span></span><span class="what">About 10 crisp apples, 4 pears and a pint of local blueberries. Cider swap on request.</span></a></li>
-      <li><a class="go" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a few days</b><span class="price">$20</span></span><span class="what">About 5 apples, 2 pears and local blueberries.</span></a></li>
+      <li><a class="go" data-box="nocook" data-hash="nocook" href="../../#nocook"><span class="row"><b>I Don't Cook Box</b><span class="price">$75</span></span><span class="what">A week of easy plates for one: fresh bread, local cheese, salami or seasoned tofu, a ferment, apples and pears, and a jam, pesto or hot sauce.</span></a><label class="vt mini"><input type="checkbox" class="vg"><span class="sw-ui" aria-hidden="true"></span><span>Make it vegan</span></label><p class="what vegwhat" hidden>Vegan: a vegan loaf, local tofu or a bean spread instead of cheese and salami, a ferment, apples and pears, and a jam, pesto or hot sauce.</p></li>
+      <li><a class="go" data-box="fruit" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a week</b><span class="price">$36</span></span><span class="what">About 10 crisp apples, 4 pears and a pint of local blueberries. Cider swap on request.</span></a><p class="vt mini" style="cursor:default;color:var(--sage)">Already plant-based</p></li>
+      <li><a class="go" data-box="fruitsm" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a few days</b><span class="price">$20</span></span><span class="what">About 5 apples, 2 pears and local blueberries.</span></a><p class="vt mini" style="cursor:default;color:var(--sage)">Already plant-based</p></li>
     </ul>
   </section>
 
@@ -275,7 +278,11 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 const ORDER_ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
 const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
 const s=raw||"luna-preview";
-document.querySelectorAll("a.go").forEach(a=>{a.href="../../?s="+s+"#"+a.dataset.hash});
+document.querySelectorAll("a.go").forEach(a=>{a.href="../../?s="+s+(a.dataset.box?"&box="+a.dataset.box+"&vegan=0":"")+"#"+(a.dataset.box?"checkout":a.dataset.hash)});
+/* Heavy-weeks vegan toggle (Oct 29): swaps the description and carries &vegan=1 to checkout. */
+document.querySelectorAll(".menu li").forEach(li=>{const vg=li.querySelector(".vg"),a=li.querySelector("a.go");if(!vg||!a)return;
+  const std=a.querySelector(".what"),veg=li.querySelector(".vegwhat");
+  vg.addEventListener("change",()=>{a.href=a.href.replace(/vegan=[01]/,"vegan="+(vg.checked?1:0));if(std&&veg){std.hidden=vg.checked;veg.hidden=!vg.checked;if(vg.checked)std.after(veg)}});});
 
 document.getElementById("home").href="../../?s="+s;
 
