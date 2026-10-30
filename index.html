@@ -374,6 +374,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .ups-more{font-size:14px;font-weight:700;color:var(--tomato);text-decoration:none;padding:8px 4px}
 /* Story splash (Oct 30, Sol): 6 beats in ~6.4 s. What we do -> night order -> sunrise market -> packed bag -> posted up -> Harvest Stamp.
    Full story once a day per phone, then logo-only (.short). Tap skips. Reduced motion: logo only, still. */
+#mystery{scroll-margin-top:calc(var(--toph,117px) + 64px)}
 #pu-splash{--t0:4.5s;--out:6.1s;position:fixed;inset:0;z-index:9999;overflow:hidden;background:#EFE6D4;color:#24392C;font-family:var(--body);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:pu-sky 4.5s linear both,pu-out .35s ease-in var(--out) forwards}
 #pu-splash.short{--t0:0s;--out:1.35s;animation:pu-out .3s ease-in var(--out) forwards}
 #pu-splash .pu-bar{position:absolute;top:max(18px,env(safe-area-inset-top));left:24px;right:24px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
@@ -1057,7 +1058,7 @@ function bCard(o){
 /* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(SRC_TAG.indexOf(b.only)===0||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
+  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(SRC_TAG.indexOf(b.only)===0||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
@@ -1448,7 +1449,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   const go=(first)=>{
     const h=decodeURIComponent(location.hash.slice(1));
     let v="home",el=h?document.getElementById(h):null;
-    if(h==="shop"||h==="boxes"||h==="fruit"||h==="nocook"||h==="asana"||h==="asanapair")v="shop";
+    if(h==="shop"||h==="boxes"||h==="fruit"||h==="nocook"||h==="asana"||h==="asanapair"||h==="mystery")v="shop";
     else if(h==="inventory")v="inventory";
     else if(h==="checkout"||h==="ticket")v=cur&&cur!=="home"?cur:"shop";
     else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
@@ -1462,7 +1463,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   };
   go(true);addEventListener("hashchange",()=>go(false));
   /* #fruit (Oct 27): the Fruit Box cards render after this runs, so scroll to them once they exist. */
-  if(location.hash==="#fruit"||location.hash==="#nocook"||location.hash==="#asana"||location.hash==="#asanapair")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
+  if(location.hash==="#fruit"||location.hash==="#nocook"||location.hash==="#asana"||location.hash==="#asanapair"||location.hash==="#mystery")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
 })();
 /* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
    Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
@@ -1628,7 +1629,7 @@ const SPLASH_ON=true;
 (function(){
   if(!SPLASH_ON)return;
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
-  if(me||(location.hash&&location.hash!=="#start"&&!(location.hash==="#shop"&&/(^|[?&])s=drop/i.test(location.search)))||/[?&]me(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
+  if(me||(location.hash&&location.hash!=="#start"&&!(/^#(shop|mystery)$/.test(location.hash)&&/(^|[?&])s=drop/i.test(location.search)))||/[?&]me(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
   const today=new Date().toLocaleDateString("en-CA",{timeZone:"America/Chicago"});
   let short=false;try{short=localStorage.getItem("pu-splash-day")===today;localStorage.setItem("pu-splash-day",today)}catch(e){}
   const tag=(typeof SRC_TAG==="string"?SRC_TAG:(new URLSearchParams(location.search).get("s")||"")).toLowerCase();

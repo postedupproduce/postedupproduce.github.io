@@ -92,8 +92,8 @@ small{color:var(--muted);font-size:14px}
 
   <section id="ask" aria-labelledby="aH" hidden>
     <img class="stamp" src="/img/stamp-blur.png" width="220" height="220" alt="The Posted Up logo, blurred out">
-    <h1 id="aH">Get the password.</h1>
-    <p class="sub">Two quick things and it's yours.</p>
+    <h1 id="aH">Get in.</h1>
+    <p class="sub">Two quick things and you're in.</p>
     <form id="askForm" novalidate>
       <label for="aName">First name</label>
       <input id="aName" type="text" autocomplete="given-name" style="text-transform:none;letter-spacing:0">
@@ -103,7 +103,7 @@ small{color:var(--muted);font-size:14px}
       <input id="aPh" type="tel" autocomplete="tel" style="text-transform:none;letter-spacing:0">
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
       <p class="msg" id="aMsg" role="status" aria-live="polite"></p>
-      <button type="submit">Show me the password</button>
+      <button type="submit">Let me in</button>
     </form>
     <p class="fine">Only used to invite you. No spam.</p>
   </section>
@@ -146,7 +146,9 @@ small{color:var(--muted);font-size:14px}
   function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
   var raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").toLowerCase();
   var tag=(raw.indexOf("drop")===0?raw:("drop-1031"+(raw?"-"+raw:""))).slice(0,30);
-  var shop="/?s="+encodeURIComponent(tag)+"&box=mystery#shop";
+  var shop="/?s="+encodeURIComponent(tag)+"&box=mystery#mystery";
+  /* Oct 30, Sol: one hop. Form, password or friend link all go straight to the order page: splash plays there, then it lands on the Mystery Bag (already in the cart). */
+  function go(){try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}location.replace(shop)}
   var join="/join/?s="+encodeURIComponent(tag);
   document.getElementById("goShop").href=shop;
   document.getElementById("nextLink").href=join;
@@ -158,19 +160,7 @@ small{color:var(--muted);font-size:14px}
   document.getElementById("askBtn").addEventListener("click",function(){show("ask");window.scrollTo(0,0)});
   if(/(^|&)k=1/.test(location.search.slice(1))&&!ok)show("ask");
   /* Oct 30, Sol: ?in=1 is the friend-share link: skips the form and password, plays the splash, lands on "You're in". */
-  if(/(^|&)in=1/.test(location.search.slice(1))){try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}show("open");window.scrollTo(0,0);splash()}
-  /* Oct 30, Sol: after the IG form, play the homepage story splash over this page, then reveal "You're in". */
-  function splash(){
-    var f=document.createElement("iframe");f.src="/?s="+encodeURIComponent(tag)+"#start";f.title="Posted Up intro";
-    f.style.cssText="position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9999;background:#EFE6D4";
-    document.body.appendChild(f);var t0=Date.now(),seen=false;
-    var close=function(){clearInterval(iv);if(f.parentNode)f.parentNode.removeChild(f)};
-    var iv=setInterval(function(){
-      if(Date.now()-t0>12000)return close();
-      try{var d=f.contentDocument;if(!d||d.readyState==="loading"||!/#start/.test(f.contentWindow.location.href))return;
-        if(d.getElementById("pu-splash"))seen=true;else if(seen||Date.now()-t0>2500)close()}catch(x){close()}
-    },150);
-  }
+  if(/(^|&)in=1/.test(location.search.slice(1)))return go();
   document.getElementById("askForm").addEventListener("submit",function(e){
     e.preventDefault();var m=document.getElementById("aMsg");
     var nm=document.getElementById("aName").value.trim(),ig=document.getElementById("aIg").value.trim().replace(/^@+/,""),ph=document.getElementById("aPh").value.trim();
@@ -180,14 +170,13 @@ small{color:var(--muted);font-size:14px}
     var body={type:"feedback",name:nm,contact:"",message:msg,times:"",hp:document.querySelector('#askForm input[name="website"]').value};
     var b=e.target.querySelector("button[type=submit]");b.disabled=true;b.textContent="One sec…";
     fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)}).catch(function(){}).then(function(){
-      try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}
-      document.getElementById("pwShow").hidden=false;document.getElementById("oH").textContent="You're in, "+nm+".";show("open");window.scrollTo(0,0);splash()});
+      go()});
   });
   document.getElementById("pw").addEventListener("submit",function(e){
     e.preventDefault();
     var w=document.getElementById("word").value.toUpperCase().replace(/[^A-Z]/g,"");
     var m=document.getElementById("msg");
-    if(w==="PUDETSOP"){try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}m.textContent="";show("open");window.scrollTo(0,0)}
+    if(w==="PUDETSOP"){m.textContent="";go()}
     else{m.textContent=w?"Not quite. Read it backwards.":"Type the password first."}
   });
 })();
