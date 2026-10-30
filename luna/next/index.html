@@ -35,6 +35,10 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 
 .pv{margin:0 0 8px;font:400 14px/1.4 var(--sans);background:#FFF1C2;color:#4A3B00;border-radius:6px;padding:8px 12px}
 .pv a{color:inherit}
+.forher{margin:4px 0 0;padding:18px 18px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--dusk)}
+.forher p{margin:0 0 8px;font-size:16px}
+.forher .fh-hi{font:400 20px/1.25 var(--serif);color:var(--ink)}
+.forher .fh-sig{margin:0;color:var(--soft);font-size:15px}
 
 .top{display:flex;justify-content:space-between;align-items:center;min-height:56px}
 .brand{font:400 19px/1 var(--serif);text-decoration:none;display:inline-flex;align-items:center;gap:8px;min-height:44px}
@@ -158,7 +162,8 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 <body>
 <div class="splash" id="splash" role="dialog" aria-label="Welcome" hidden></div>
 <div class="wrap">
-  <p class="pv" role="note">Preview, not live yet. <a href="../">See the live page</a></p>
+  <p class="pv" id="pvBar" role="note">Preview, not live yet. <a href="../">See the live page</a></p>
+  <div class="forher" id="forHer" hidden><p class="fh-hi">Nathalys, this is for your community.</p><p>A draft of the page your readers would land on. Nothing goes out without your OK, and I'd love your eyes on anything that should change. Thank you for Sunday Reset.</p><p class="fh-sig">M, Posted Up Produce</p></div>
   <header class="top">
     <a class="brand" id="home" href="../../">Posted Up Produce <span class="beta">Beta</span></a>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
@@ -265,6 +270,8 @@ document.querySelectorAll("a.go").forEach(a=>{a.href="../../?s="+s+"#"+a.dataset
 
 document.getElementById("home").href="../../?s="+s;
 
+/* Personal welcome: ?for=nathalys shows a note just for her and hides the preview bar. Readers never see it. */
+(function(){if((new URLSearchParams(location.search).get("for")||"").toLowerCase()==="nathalys"){document.getElementById("forHer").hidden=false;document.getElementById("pvBar").hidden=true;document.title="For Nathalys · Posted Up Produce"}})();
 /* Practice cards: vegan toggle swaps the list on the card; Add = a small bow, then checkout with the box (and vegan) preselected. */
 document.querySelectorAll(".pcard").forEach(c=>{
   const vg=c.querySelector(".vg"),std=c.querySelector(".std"),veg=c.querySelector(".veg"),add=c.querySelector(".add");
