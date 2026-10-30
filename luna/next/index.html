@@ -51,7 +51,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 .sec .note{margin:8px 0 0;color:var(--soft);font-size:16px}
 
 /* Practice cards (Oct 29): Grounding / Strength / Rest + the full practice. The page's one bold element. */
-.pcards{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:16px}
+.pcards{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:28px}
 .pcard{background:var(--paper);border:1px solid var(--rule);border-radius:18px;padding:22px 20px 20px;transform-origin:50% 100%}
 .pc-hd{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px}
 .pc-hd h3{font-size:22px;line-height:1.15}
@@ -78,6 +78,13 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;let
 .pcard.bow{animation:bow .75s ease both}
 @keyframes bow{0%{transform:none}45%{transform:perspective(700px) rotateX(12deg) scale(.985)}100%{transform:none}}
 
+/* Breathing transition between this page and checkout (Oct 29) */
+.breath{position:fixed;inset:0;z-index:60;background:var(--night);color:#EEE9F3;display:grid;place-items:center;text-align:center;padding:24px;animation:fadein .5s ease both}
+.breath .sp-in{gap:20px}
+.breath .moonball{animation:breathe2 2.6s ease-in-out both}
+@keyframes breathe2{0%{transform:scale(.6)}50%{transform:scale(1)}100%{transform:scale(.75)}}
+.breath .bw .a{animation:show 1.3s ease .1s both}.breath .bw .b{animation:show 1.3s ease 1.3s both}
+.breath .t{margin:0;font:400 20px/1.3 var(--sans);opacity:.9}
 /* Updates sign-up (Oct 29): lands in Feedback as a SURVEY SIGN-UP so it shows on the Contacts tab. */
 .upd form{display:grid;gap:14px;margin-top:18px}
 .fld{display:grid;gap:6px;font-size:16px;font-weight:500}
@@ -249,8 +256,12 @@ document.querySelectorAll(".pcard").forEach(c=>{
   vg.addEventListener("change",()=>{if(std&&veg){std.hidden=vg.checked;veg.hidden=!vg.checked}add.href=href()});
   add.addEventListener("click",e=>{
     if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-    e.preventDefault();c.classList.add("bow");add.textContent="Thank you. Opening checkout";
-    setTimeout(()=>{location.href=add.href},750);
+    e.preventDefault();c.classList.add("bow");add.textContent="Thank you";
+    setTimeout(()=>{
+      const b=document.createElement("div");b.className="breath";b.setAttribute("role","status");
+      b.innerHTML='<div class="sp-in"><div class="moonball"></div><div class="bw"><span class="a">inhale</span><span class="b">exhale</span></div><p class="t">Taking you to checkout</p></div>';
+      document.body.append(b);setTimeout(()=>{location.href=add.href},2800);
+    },600);
   });
 });
 

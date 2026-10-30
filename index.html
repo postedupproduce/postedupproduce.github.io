@@ -56,6 +56,16 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#24392c">
 <title>Posted Up Produce</title>
+<script>/* Calm checkout (Oct 29, Sol): visitors from the Sosiego page (?s=luna...) keep the calm palette through checkout. Set before paint. */
+(function(){try{var t=(new URLSearchParams(location.search).get("s")||sessionStorage.getItem("pu-src")||"").toLowerCase();if(/^luna/.test(t))document.documentElement.classList.add("calm")}catch(e){}})();</script>
+<style>
+html.calm{--bg:#EEF0EA;--panel:#F8F9F5;--ink:#2A3228;--muted:#58614F;--board:#2C2937;--board-ink:#EEE9F3;--tomato:#4E6B54;--line:#D3D8CC;--chip:#E4E8DF;--good:#4E6B54}
+@media (prefers-color-scheme: dark){html.calm:not([data-theme="light"]){--bg:#1C1F1B;--panel:#242923;--ink:#E6E8E1;--muted:#A9B0A2;--board:#2C2937;--board-ink:#EEE9F3;--tomato:#9DBA9F;--line:#3A4137;--chip:#2E342C;--good:#9DBA9F}}
+html.calm #pu-splash,html.calm .hwbar,html.calm .fomo,html.calm #halloween,html.calm #asanaFeature,html.calm #spotlight,html.calm .ticker{display:none!important}
+html.calm .beta{background:transparent;color:var(--muted);border:1px solid var(--line)}
+html.calm .calm-note{display:block}
+.calm-note{display:none;margin:0 0 14px;padding:14px 16px;border-radius:12px;background:var(--panel);border:1px solid var(--line);font-size:16px;color:var(--ink)}
+</style>
 </head>
 <body>
 
@@ -679,6 +689,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 
   <section class="post" data-view="shop inventory" id="checkout" aria-label="Checkout">
+    <p class="calm-note" role="note">Welcome in from the Sosiego page. Your box is in your bag: check the details, pick your day, and you're set.</p>
     <div class="ticket" id="ticket" aria-live="polite"><div id="ticketBody"></div></div>
   </section>
 
