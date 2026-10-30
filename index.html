@@ -911,18 +911,25 @@ const DELIVERIES=[
   {id:"am",name:"Goose Island (morning)",area:"Goose Island",delAfter:"10:30 AM",days:[3]},
   {id:"goose",name:"Goose Island",area:"Goose Island",delAfter:"2:00 PM",days:[3,6]},
   {id:"hyde",name:"Hyde Park",area:"Hyde Park",delAfter:"4:00 PM",days:[3,6]},
-  {id:"rogers",name:"Rogers Park",area:"Rogers Park",delAfter:"6:00 PM",days:[3,6]}
+  {id:"rogers",name:"Rogers Park",area:"Rogers Park",delAfter:"6:00 PM",days:[3,6]},
+  /* Sosiego visitors (Oct 29, Sol): free delivery within 5 miles of Goose Island, Saturdays after ~10:30 AM; farther is a small per-mile add texted by Sol. */
+  {id:"lunafree",name:"Goose Island",area:"Goose Island",delAfter:"10:30 AM",days:[6],luna:true,freeMiles:5}
 ];
 function delStop(){return DELIVERIES.find(x=>"del-"+x.id===state.fulfill)}
 /* Stops are tied to a market day (Oct 26, Sol): Wed = Goose Island, ready 10:30 AM; Sat = Hyde Park 3–4 PM. */
 const STOPS=[
   {id:"goose",name:"Goose Island",time:"11:30 AM–1:30 PM",day:3,dayName:"Wed",delAfter:"10:30 AM"},
-  {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM",day:6,dayName:"Sat",delAfter:"4:00 PM"}
+  {id:"hyde",name:"Hyde Park",time:"3:00–4:00 PM",day:6,dayName:"Sat",delAfter:"4:00 PM",notLuna:true},
+  /* Sosiego visitors (Oct 29, Sol): Rogers Park meet-up instead of Hyde Park, about 11:30 AM after the market; early drop-off checkbox still offered. */
+  {id:"rogers",name:"Rogers Park",time:"around 11:30 AM",day:6,dayName:"Sat",delAfter:"10:30 AM",luna:true}
 ];
+function isLuna(){return /^luna/.test(SRC_TAG)}
+function forThem(x){return isLuna()?!x.notLuna&&(x.luna||!DELIVERIES.includes(x)):!x.luna}
 const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false};
 const PICK_ONLY=["produce","bread"];
 /* Order attribution (Oct 26): the link tag (?s=p-name etc.) rides along on the order's Notes as "[via tag]", kept for the browser session. */
 const SRC_TAG=(()=>{let t=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();try{if(t)sessionStorage.setItem("pu-src",t);else t=sessionStorage.getItem("pu-src")||""}catch(e){}return t})();
+if(/^luna/.test(SRC_TAG))state.fulfill="rogers";
 
 /* Pickup dates follow the market: last Wednesday Oct 28 (GCM newsletter Oct 23, 2026); Saturdays through Nov 21; indoor market Dec 5–Mar 20. */
 /* Chicago wall-clock time, whatever the visitor's device time zone is. */
@@ -1094,7 +1101,7 @@ async function sendOrder(id){
 }
 function count(){return (state.box?1:0)+(state.breadBox?1:0)+Object.values(state.qty).reduce((a,b)=>a+b,0)}
 function subtotal(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(bb?bb.price:0)+ALL.reduce((s,i)=>s+(state.qty[i.id]||0)*i.p,0)}
-function fee(){return isDel()&&count()?DELIVERY_FEE:0}
+function fee(){return isDel()&&count()&&!(delStop()&&delStop().freeMiles)?DELIVERY_FEE:0}
 const FOUNDER_PCT=10;
 /* Protein boxes (Meat Lovers Box, Lake Haul) live in the Meat tab as items but count as boxes for the founder rate. */
 const PROTEIN_BOXES=["meatbox","lakehaul"];
@@ -1171,13 +1178,13 @@ function renderTicket(){
   const mb=el("div",{class:"more-in"});more.append(mb);
   mb.append(inp("email","Email for order updates","email","We email you at each step: paid, shopped, ready"));
   const fs=el("select",{id:"fulfill"});
-  const open=STOPS.filter(st=>DATES.some(d=>new Date(d.v+"T12:00").getDay()===st.day));
+  const open=STOPS.filter(st=>forThem(st)&&DATES.some(d=>new Date(d.v+"T12:00").getDay()===st.day));
   for(const s of open)fs.append(el("option",{value:s.id},s.dayName+" pickup · "+s.name+", "+s.time));
-  const openDel=DELIVERIES.filter(x=>DATES.some(d=>x.days.includes(new Date(d.v+"T12:00").getDay())));
-  for(const x of openDel)fs.append(el("option",{value:"del-"+x.id},"Delivery to my door · after "+x.delAfter+(x.days.length===1?" (Wed only)":"")+" · near "+x.area+" (from $"+DELIVERY_FEE+")"));
+  const openDel=DELIVERIES.filter(x=>forThem(x)&&DATES.some(d=>x.days.includes(new Date(d.v+"T12:00").getDay())));
+  for(const x of openDel)fs.append(el("option",{value:"del-"+x.id},(x.freeMiles?"Free delivery to my door · Sat after "+x.delAfter+" · within "+x.freeMiles+" mi of "+x.area:"Delivery to my door · after "+x.delAfter+(x.days.length===1?" (Wed only)":"")+" · near "+x.area+" (from $"+DELIVERY_FEE+")")));
   fs.value=state.fulfill;
   fs.addEventListener("change",()=>{state.fulfill=fs.value;const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()});
-  where.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of "+delStop().area+", then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window.":"We text the exact meet-up spot after you order."));
+  where.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?(delStop().freeMiles?"Free within "+delStop().freeMiles+" miles of "+delStop().area+". Farther out, I text you a small per-mile add before your order is final.":"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of "+delStop().area+", then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window."):"We text the exact meet-up spot after you order."));
   if(isDel()){
     const a=el("input",{id:"address",type:"text",placeholder:"Street, unit, zip",autocomplete:"street-address"});a.value=state.address;a.addEventListener("input",()=>state.address=a.value);
     where.append(el("label",{for:"address"},"Delivery address",a));
