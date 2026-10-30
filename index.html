@@ -60,7 +60,9 @@
 <meta name="theme-color" content="#24392c">
 <title>Posted Up Produce</title>
 <script>/* Calm checkout (Oct 29, Sol): visitors from the Sosiego page (?s=luna...) keep the calm palette through checkout. Set before paint. */
-(function(){try{var t=(new URLSearchParams(location.search).get("s")||sessionStorage.getItem("pu-src")||"").toLowerCase();if(/^luna/.test(t))document.documentElement.classList.add("calm")}catch(e){}})();</script>
+(function(){try{var t=(new URLSearchParams(location.search).get("s")||sessionStorage.getItem("pu-src")||"").toLowerCase();if(/^luna/.test(t))document.documentElement.classList.add("calm");
+/* Spooky week (Oct 30, Sol): dark Halloween look for everyone but calm visitors, off at midnight Oct 31 Chicago. */
+var c=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}));if(!/^luna/.test(t)&&c<new Date(2026,10,1)){var h=document.documentElement;h.classList.add("spooky");h.setAttribute("data-theme","dark");var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#141019"}}catch(e){}})();</script>
 <style>
 html.calm{--bg:#EEF0EA;--panel:#F8F9F5;--ink:#2A3228;--muted:#58614F;--board:#2C2937;--board-ink:#EEE9F3;--tomato:#4E6B54;--line:#D3D8CC;--chip:#E4E8DF;--good:#4E6B54}
 @media (prefers-color-scheme: dark){html.calm:not([data-theme="light"]){--bg:#1C1F1B;--panel:#242923;--ink:#E6E8E1;--muted:#A9B0A2;--board:#2C2937;--board-ink:#EEE9F3;--tomato:#9DBA9F;--line:#3A4137;--chip:#2E342C;--good:#9DBA9F}}
@@ -71,6 +73,14 @@ html.calm .calm-note{display:block}
 </style>
 <link rel="preload" as="image" href="/logos/harvest-stamp.png">
 <style>/* Logo on every page (Oct 29) */.brand{display:inline-flex;align-items:center;gap:8px}.act.a3.sosiego{background:#6D1ED4;border-color:#6D1ED4;color:#fff}.act.a3.sosiego small{color:inherit;opacity:.92}.act.a3.sosiego .ar{color:#fff}.brand .mark{width:32px;height:32px;flex:none;border-radius:50%}</style>
+<style>/* Spooky week tokens + decor (Oct 30, Sol). Removed automatically after Oct 31 by the script above. */
+:root.spooky[data-theme="dark"]{--bg:#141019;--panel:#1f1826;--ink:#f1e8d6;--muted:#b9afc4;--board:#2a1d33;--board-ink:#f4ecd9;--tomato:#F28C38;--line:#3a2f45;--chip:#2a2232;--good:#a6d873}
+html.spooky body{background-image:radial-gradient(circle at 85% -10%,rgba(242,140,56,.16),transparent 45%)}
+html.spooky body::before{content:"";position:fixed;top:0;right:0;width:150px;height:150px;pointer-events:none;z-index:1;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150' fill='none' stroke='%23f1e8d6' stroke-width='1.2'%3E%3Cpath d='M150 0L20 130M150 0L60 145M150 0L5 80M150 0L100 150M150 0L0 30'/%3E%3Cpath d='M128 18q8 6 16 4M106 36q18 14 38 8M84 56q30 22 60 12M62 76q42 30 86 16M40 96q56 38 110 20'/%3E%3C/svg%3E") no-repeat top right/contain}
+html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;height:20px;pointer-events:none;z-index:1;opacity:.55;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 20'%3E%3Cpath fill='%23f1e8d6' d='M23 8c-2-3-6-4-9-2-2-3-7-5-14-2 5 1 8 4 9 8 2-2 5-2 7 0 1-2 4-3 7-1 3-2 6-1 7 1 2-2 5-2 7 0 1-4 4-7 9-8-7-3-12-1-14 2-3-2-7-1-9 2z'/%3E%3C/svg%3E") no-repeat center/contain;animation:pu-bat 14s linear infinite 2s}
+@keyframes pu-bat{0%{transform:translate(0,0)}25%{transform:translate(30vw,-6vh)}50%{transform:translate(60vw,4vh)}75%{transform:translate(90vw,-8vh)}100%{transform:translate(120vw,0)}}
+@media (prefers-reduced-motion: reduce){html.spooky body::after{display:none}}
+</style>
 </head>
 <body>
 
@@ -866,6 +876,11 @@ const BOXES=[
    makes:"About 12 meals for one, or 6 for two · ≈ $9 a plate",
    has:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: a dozen farm eggs, hearty greens, local mushrooms, microgreens","Rest: a sourdough loaf, fresh-pressed cider, pears, local blueberries"],
    veg:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: local tofu, hearty greens, local mushrooms, microgreens","Rest: a vegan loaf, fresh-pressed cider, pears, local blueberries"]},
+  /* Mystery Bag (Oct 30, Sol): first password drop, Sat Oct 31 only. Shown to ?s=drop... visitors (unlocked at /drop/) or via ?box=mystery. Est. cost ~$21 either way (~30%). */
+  {id:"mystery",name:"Mystery Bag",price:30,only:"drop",until:"2026-11-01",wt:"Trick or Treat · picked for you",desc:"Private drop. Say Trick or Treat in Notes, or leave it blank and I'll pick.",pick:"Private drop · Sat only",
+   makes:"Trick: about 4 sides for two · Treat: a few days of sweet things for one",
+   has:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a fresh pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"],
+   veg:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a vegan pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"]},
   /* I Don't Cook Box (Oct 27, Sol): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
   {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
    makes:"Snacks and easy plates for about a week for one, or a few days for two",
@@ -1026,7 +1041,7 @@ function bCard(o){
 /* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(/^luna/.test(SRC_TAG)||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
+  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(SRC_TAG.indexOf(b.only)===0||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";

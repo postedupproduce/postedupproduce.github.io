@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Private drop · Posted Up Produce</title>
+<meta name="description" content="A private market drop. Password only.">
+<meta property="og:title" content="Something's getting posted up.">
+<meta property="og:description" content="Private drop. Password only. Mystery bags, Saturday.">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#141019">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Private drop page (Oct 30, Sol). Password gate is a velvet rope, not security: the word is in this file. */
+:root{
+  --bg:#141019;--panel:#1f1826;--ink:#f1e8d6;--muted:#b9afc4;--line:#3a2f45;
+  --pump:#F28C38;--wheat:#F3D58A;--bad:#ff8f7a;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--body)}
+body{min-height:100vh;background-image:radial-gradient(circle at 50% -5%,rgba(242,140,56,.22),transparent 55%)}
+main{max-width:440px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) 22px 40px;display:flex;flex-direction:column;gap:18px;position:relative;z-index:2}
+.top{display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.brand{font-weight:800;letter-spacing:.14em;font-size:14px}
+.beta{border:2px solid currentColor;border-radius:999px;padding:2px 10px;font-weight:800;font-size:12px}
+.stamp{width:220px;height:220px;display:block;margin:6px auto 0;animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+h1{font:400 34px/1.08 var(--display);margin:0;text-align:center}
+.sub{margin:0;text-align:center;color:var(--muted)}
+.chip{align-self:center;background:var(--wheat);color:#24392c;border-radius:999px;padding:8px 16px;font-weight:800;font-size:15px;text-align:center}
+form{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+label{font-weight:700;font-size:15px}
+input{font:700 20px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:14px 16px;min-height:52px;width:100%}
+input:focus{outline:3px solid var(--pump);outline-offset:2px;border-color:var(--pump)}
+button,.btn{display:flex;align-items:center;justify-content:center;font:800 18px var(--body);color:#1b0e0a;background:var(--pump);border:0;border-radius:999px;padding:14px 22px;min-height:52px;width:100%;text-decoration:none;cursor:pointer}
+.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.msg{min-height:24px;margin:0;text-align:center;font-weight:700;color:var(--bad)}
+.alt{text-align:center;margin:0}
+.alt a{color:var(--wheat);font-weight:700;display:inline-flex;align-items:center;min-height:44px}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.card h2{font:400 26px/1.1 var(--display);margin:0}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.price{font-weight:800;font-size:22px}
+.tag{background:#3b2414;color:var(--pump);border-radius:999px;padding:4px 10px;font-weight:800;font-size:13px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.half{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px;font-size:15px}
+.half b{display:block;font-size:17px;color:var(--wheat)}
+small{color:var(--muted);font-size:14px}
+.fine{font-size:14px;color:var(--muted);text-align:center;margin:0}
+.bat{position:fixed;top:18%;left:-60px;width:46px;height:20px;opacity:.6;pointer-events:none;z-index:1;animation:bat 13s linear infinite}
+.bat.b2{top:62%;animation-delay:6s;animation-duration:17s;width:34px}
+@keyframes bat{0%{transform:translate(0,0)}25%{transform:translate(30vw,-5vh)}50%{transform:translate(60vw,5vh)}75%{transform:translate(90vw,-6vh)}100%{transform:translate(125vw,0)}}
+@media (prefers-reduced-motion: reduce){.bat{display:none}.stamp{animation:none}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<svg class="bat" viewBox="0 0 46 20" aria-hidden="true"><path fill="#f1e8d6" d="M23 8c-2-3-6-4-9-2-2-3-7-5-14-2 5 1 8 4 9 8 2-2 5-2 7 0 1-2 4-3 7-1 3-2 6-1 7 1 2-2 5-2 7 0 1-4 4-7 9-8-7-3-12-1-14 2-3-2-7-1-9 2z"/></svg>
+<svg class="bat b2" viewBox="0 0 46 20" aria-hidden="true"><path fill="#f1e8d6" d="M23 8c-2-3-6-4-9-2-2-3-7-5-14-2 5 1 8 4 9 8 2-2 5-2 7 0 1-2 4-3 7-1 3-2 6-1 7 1 2-2 5-2 7 0 1-4 4-7 9-8-7-3-12-1-14 2-3-2-7-1-9 2z"/></svg>
+<main>
+  <div class="top"><span class="brand">POSTED UP</span><span class="beta">BETA</span></div>
+
+  <section id="gate" aria-labelledby="gH">
+    <img class="stamp" src="/img/stamp-blur.png" width="220" height="220" alt="The Posted Up logo, blurred out">
+    <h1 id="gH">Private drop.</h1>
+    <p class="sub">Mystery bags for Saturday. Password only.</p>
+    <form id="pw" novalidate>
+      <label for="word">Password</label>
+      <input id="word" name="word" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="••••••••">
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+      <button type="submit">Unlock</button>
+    </form>
+    <p class="alt"><a id="joinLink" href="/join/">No password? Answer four quick questions</a></p>
+    <p class="fine" id="closeLine">Orders close Fri Oct 30, 9 PM. Saturday caps at 5 orders.</p>
+  </section>
+
+  <section id="open" aria-labelledby="oH" hidden>
+    <img class="stamp" src="/img/stamp-blur.png" width="220" height="220" alt="The Posted Up logo, blurred out">
+    <h1 id="oH">You're in.</h1>
+    <p class="chip">Closes tonight, Fri 9 PM</p>
+    <div class="card">
+      <div class="row"><h2>Mystery Bag</h2><span class="price">$30</span></div>
+      <span class="tag" style="align-self:flex-start">Sat Oct 31 only</span>
+      <div class="two">
+        <div class="half"><b>Trick</b>Savory: winter squash, kale, garlic, sweet potatoes</div>
+        <div class="half"><b>Treat</b>Sweet: a fresh pastry, cider, crisp apples</div>
+      </div>
+      <small>Shopped at the market Saturday morning. Pick Trick or Treat in Notes at checkout, or leave it blank and I'll choose. Vegan swap available.</small>
+      <a class="btn" id="goShop" href="/?box=mystery#shop">Claim a bag</a>
+    </div>
+    <p class="fine">Pickup at your usual meet-up spot or delivery. Prepay to hold your bag.</p>
+  </section>
+
+  <section id="closed" aria-labelledby="cH" hidden>
+    <img class="stamp" src="/img/stamp-blur.png" width="220" height="220" alt="The Posted Up logo, blurred out">
+    <h1 id="cH">This drop is closed.</h1>
+    <p class="sub">The next one is coming. Get first pick and the password before anyone else.</p>
+    <a class="btn" id="nextLink" href="/join/">Get first pick</a>
+  </section>
+</main>
+<script>
+(function(){
+  var END=new Date(2026,9,30,21,0); /* Fri Oct 30, 9 PM Chicago */
+  function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
+  var raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").toLowerCase();
+  var tag=(raw.indexOf("drop")===0?raw:("drop-1031"+(raw?"-"+raw:""))).slice(0,30);
+  var shop="/?s="+encodeURIComponent(tag)+"&box=mystery#shop";
+  var join="/join/?s="+encodeURIComponent(tag);
+  document.getElementById("goShop").href=shop;
+  document.getElementById("joinLink").href=join;
+  document.getElementById("nextLink").href=join;
+  function show(id){["gate","open","closed"].forEach(function(x){document.getElementById(x).hidden=(x!==id)})}
+  if(chiNow()>=END){show("closed");return}
+  var ok=false;try{ok=sessionStorage.getItem("pu-drop-1031")==="1"}catch(e){}
+  if(ok)show("open");
+  document.getElementById("pw").addEventListener("submit",function(e){
+    e.preventDefault();
+    var w=document.getElementById("word").value.toUpperCase().replace(/[^A-Z]/g,"");
+    var m=document.getElementById("msg");
+    if(w==="PUDETSOP"){try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}m.textContent="";show("open");window.scrollTo(0,0)}
+    else{m.textContent=w?"Not quite. Read it backwards.":"Type the password first."}
+  });
+})();
+</script>
+</body>
+</html>
