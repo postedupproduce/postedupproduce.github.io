@@ -542,7 +542,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <p class="meta">Light bites to fuel your practice and a nourishing plate to come back to. For one, about a week of sessions.</p>
     <p class="half">Before</p><ul id="asBefore"></ul>
     <p class="half">After</p><ul id="asAfter"></ul>
-    <div class="row2"><button type="button" class="go" data-asana style="flex:1 1 200px">Add the Asana Box</button><a href="#asana">See it with the boxes &rarr;</a></div>
+    <div class="row2"><button type="button" class="go" data-asana style="flex:1 1 200px">Add the Asana Box</button></div>
     <div id="asPair"><h3 style="margin:14px 0 4px">Special: the Asana Pair · $55</h3>
     <p class="meta">The Asana Box plus a few days of fruit. Save $5, through Sat Nov 21.</p>
     <div class="row2"><button type="button" class="go" data-asanapair style="flex:1 1 200px">Add the Asana Pair</button></div></div>
@@ -819,7 +819,7 @@ const BOXES=[
    makes:"A piece or two a day for a week, or a few days for two · ≈ $2.25 a piece",
    has:["Crisp apples, about 10 (a mix of sweet and tart)","Pears or Asian pears, about 4 (or more apples if pears are done)","A pint of frozen local blueberries, or a bag of dried","Fresh-pressed cider swap available on request"]},
   /* Asana Box (Oct 29, Sol): yoga before-and-after box, first sold via /luna. Starting price; est. cost ~$28 (~30%). Confirm after a market run. */
-  {id:"asana",name:"Asana Box",price:40,wt:"Before and after your practice, for one",desc:"Light bites before the mat, a nourishing plate after.",pick:"New · Yoga",
+  {id:"asana",name:"Asana Box",price:40,hideList:true,wt:"Before and after your practice, for one",desc:"Light bites before the mat, a nourishing plate after.",pick:"New · Yoga",
    makes:"Snacks before about 4 sessions and 3 or 4 easy post-practice plates for one",
    has:["Before: crisp apples or pears, about 4","Before: local blueberries, a snack bag dried or frozen","After: microgreens or salad greens","After: a dozen farm eggs (or local tofu for vegan)","After: 2 lb sweet potatoes for a warm roasted plate"]},
   /* Asana Pair special (Oct 29, Sol): Asana Box + Fruit Box · a few days, $55 (save $5). Shown through Sat Nov 21 via "until". Est. cost ~$43. */
@@ -1000,9 +1000,10 @@ function bCard(o){
   card.append(d,el("button",{type:"button",class:"badd","aria-pressed":String(!!o.on),onclick:o.toggle},o.on?"Added ✓ (tap to remove)":"Add "+o.name+" · $"+o.price));
   return card;
 }
+/* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(/^luna/.test(SRC_TAG)||state.box===b.id))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
+  for(const b of BOXES){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))continue;if(b.only&&!(/^luna/.test(SRC_TAG)||state.box===b.id))continue;if(b.hideList&&state.box!==b.id)continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
