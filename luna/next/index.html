@@ -280,7 +280,16 @@ document.querySelectorAll("a.go").forEach(a=>{a.href="../../?s="+s+"#"+a.dataset
 document.getElementById("home").href="../../?s="+s;
 
 /* Personal welcome: ?for=nathalys shows a note just for her and hides the preview bar. Readers never see it. */
-(function(){if((new URLSearchParams(location.search).get("for")||"").toLowerCase()==="nathalys"){document.getElementById("forHer").hidden=false;document.getElementById("pvBar").hidden=true;document.title="For Nathalys · Posted Up Produce"}})();
+(function(){
+  /* Personal notes by ?for= (Oct 29). Add a person here plus a /p/<name>/ link from tools/make_link.py. */
+  const N={
+    nathalys:["Nathalys, this is for your community.","A draft of the page your readers would land on. Nothing goes out without your OK, and I'd love your eyes on anything that should change.","Your neighbor M, Posted Up Produce"],
+    michelle:["Michelle, this is what I've been building.","The page for the Sosiego crew, before anyone else sees it. Click through like you're one of them and tell me what feels off. Nothing you do here places a real order unless you finish checkout.","Love, M"]
+  };
+  const k=(new URLSearchParams(location.search).get("for")||"").toLowerCase(),n=N[k];if(!n)return;
+  const box=document.getElementById("forHer");box.querySelector(".fh-hi").textContent=n[0];box.querySelectorAll("p")[1].textContent=n[1];box.querySelector(".fh-sig").textContent=n[2];
+  box.hidden=false;document.getElementById("pvBar").hidden=true;document.title="For "+k.charAt(0).toUpperCase()+k.slice(1)+" · Posted Up Produce";
+})();
 /* Practice cards: vegan toggle swaps the list on the card; Add = a small bow, then checkout with the box (and vegan) preselected. */
 document.querySelectorAll(".pcard").forEach(c=>{
   const vg=c.querySelector(".vg"),std=c.querySelector(".std"),veg=c.querySelector(".veg"),add=c.querySelector(".add");
