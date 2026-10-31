@@ -415,6 +415,11 @@ details.vdet .vote{border:0;padding:0 0 14px}
 @keyframes pu-hide{to{opacity:0}}
 @keyframes pu-out{to{opacity:0;visibility:hidden}}
 @media (prefers-reduced-motion:reduce){#pu-splash .pu-beat,#pu-splash .pu-bar,#pu-splash .pu-hint{display:none}#pu-splash,#pu-splash *{animation:none!important}#pu-splash .pu-skip .s1{opacity:0}#pu-splash .pu-skip .s2{opacity:1}#pu-splash{background:#EFE6D4;animation:pu-out .2s linear 1.5s forwards!important}}
+/* Declutter (Oct 31, Sol): home = hero, one special, best box, real hauls, how it works, standing order.
+   Hidden, not deleted: the Sweater Weather feature (still on Boxes), the home diet card (splash + top button cover it), Why Posted Up (lives on /how),
+   Halloween (orders closed), and Asana/Sosiego promos except for Sosiego visitors (html.calm). */
+#feature,#dietHome,#why,#halloween,#hwShop,#hwvShop{display:none!important}
+html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 /* Diet splash (Oct 31) */
 #pu-dsplash{position:fixed;inset:0;z-index:9999;background:#EFE6D4;color:#24392C;overflow:auto;display:grid;place-items:center;padding:max(24px,env(safe-area-inset-top)) 20px max(24px,env(safe-area-inset-bottom));animation:ds-in .3s ease both;font-family:var(--body)}
 #pu-dsplash.out{animation:ds-out .25s ease forwards}
@@ -600,13 +605,12 @@ details.vdet .vote{border:0;padding:0 0 14px}
       <p class="now" id="now" aria-live="polite" hidden>Chicago time</p>
       <div class="acts">
         <a class="act a1" href="#shop"><span>Order this week's box<small id="actSmall">Half Peck $50 · Full Crate $72 · Vegan $68</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
-        <a class="act a2" href="#shop" data-del><span>Get it delivered<small>Same day, to your door · from $8</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
-        <a class="act a3" href="#standing"><span>Set a Standing Order<small>Same box every Saturday · free delivery · skip any week</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
         <a class="act a3 dietbtn" href="#diet"><span>🥗 Match my diet<small>Vegan, gluten-free, high protein, no cooking · we pick the box</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+        <a class="act a3" href="#standing"><span>Set a Standing Order<small>Same box every Saturday · free delivery · skip any week</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="stops">
-        <div class="stop"><b>Saturdays only</b>Oct 31 · Nov 7, 14, 21</div>
-        <div class="stop"><b>Hyde Park</b>3–4 PM, or delivery</div>
+        <div class="stop"><b>Saturdays</b>Nov 7, 14, 21</div>
+        <div class="stop"><b>Hyde Park</b>3–4 PM, or delivered from $8</div>
         <div class="stop"><b>Order by</b>Fri 9 PM</div>
       </div>
     </div>
@@ -761,7 +765,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <a class="hop" href="#shop"><span aria-hidden="true">&larr;</span> Back to produce boxes</a>
   </section>
 
-  <section class="post" data-view="home" aria-labelledby="whyH">
+  <section class="post" data-view="home" id="why" aria-labelledby="whyH">
     <h2 id="whyH">Why Posted Up</h2>
     <div class="cmp" role="table" aria-label="Posted Up compared with a grocery delivery app and a season farm box">
       <div class="h" role="row"><span role="columnheader"><span class="sr">Compare</span></span><span role="columnheader">Posted Up</span><span role="columnheader">Delivery app</span><span role="columnheader">Season farm box</span></div>
@@ -780,7 +784,6 @@ details.vdet .vote{border:0;padding:0 0 14px}
   </section>
 
   <section class="post" data-view="home" id="standing" aria-labelledby="soH">
-    <p class="days" style="margin-bottom:10px"><b>Coming soon:</b> weekly boxes, office drops, gift boxes and boxes all winter from the indoor market. Order once and you get a vote, plus a treat.</p>
     <span class="k" style="display:block;font-size:14px;font-weight:700;color:var(--muted);margin-bottom:4px">New · Standing Order</span>
     <h2 id="soH">Set your box once. Skip any week.</h2>
     <p class="sub">Every Saturday we shop it fresh and hand it off the same afternoon. No season prepay: you pay week by week, and you can skip or stop by 9 PM Friday.</p>
@@ -1877,6 +1880,10 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   t=setTimeout(done,short?2200:7200);
   document.body.append(d);
 })();
+(function(){const sp=document.getElementById("spotlight");if(sp)sp.hidden=false;const sm=document.getElementById("actSmall");if(sm)sm.textContent="Half Peck $50 · Full Crate $72 · Vegan $68";
+  /* Home order: hero, Thanksgiving, best box, hauls, how it works, standing. */
+  const tg=document.getElementById("thanksgiving"),hero=document.querySelector("main [data-view='home']:not([id])")||null,sp2=document.getElementById("spotlight"),ha=document.getElementById("hauls"),how=document.getElementById("how");
+  if(tg&&sp2&&ha&&how){tg.after(sp2);sp2.after(ha);ha.after(how)}})();
 /* Diet splash (Oct 31, Sol): first screen asks "How do you eat?" and drops people straight into their matches.
    Once a day per phone (pu-dsplash-day); skipped for ?me, #deep links, calm visitors, and anyone who already picked a diet this session. */
 const DIET_SPLASH_ON=true;
