@@ -433,6 +433,11 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .spot.asana .go{background:var(--good);color:#fff}
 .spot.asana .row2 a{color:var(--good)}
 .spot.asana .half{font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--good);margin:4px 0 -2px}
+.hwbar.tgb{border-color:#8A5A2B;background:color-mix(in srgb,#8A5A2B 10%,var(--panel))}
+.hwbar.tgb .go,.spot.tg .go{background:#7A4A1E;color:#fff!important}
+.spot.tg .k{color:#8A5A2B}
+:root[data-theme="dark"] :is(.spot.tg .go,.hwbar.tgb .go){color:#fff}
+:root[data-theme="dark"] .spot.tg .k{color:#E0A96D}
 .hwbar.asb{border-color:var(--good)}.hwbar.asb .go{background:var(--good);color:#fff}
 /* Box spotlight on Home */
 .spot{display:grid;gap:10px}
@@ -515,7 +520,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .bprice{font:800 19px var(--body);white-space:nowrap}
 .bwhat{margin:0;font-size:15px;color:var(--ink)}
 .btag{margin:0;font-size:14px;font-weight:700;color:var(--good)}
-#fruit,#nocook,#breakfast,#grits,#asana,#asanapair,#grounding,#strength,#rest,#practice{scroll-margin-top:calc(var(--toph,120px) + 76px)}
+#thanks,#fruit,#nocook,#breakfast,#grits,#asana,#asanapair,#grounding,#strength,#rest,#practice{scroll-margin-top:calc(var(--toph,120px) + 76px)}
 .bmakes{margin:2px 0 0;font-size:16px;font-weight:800;line-height:1.35;color:var(--ink);background:var(--chip);border-radius:10px;padding:8px 10px}
 .bin-in{border-top:1px dashed var(--line);padding-top:2px}
 .bin-in summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;font-weight:700;font-size:16px;cursor:pointer}
@@ -602,6 +607,14 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <!-- Asana Box paused (Oct 29, Sol): home feature hidden; the Asana Pair stays in Boxes and the shop bar. Delete the style below to bring it back. -->
   <style>#asanaFeature{display:none!important}html:not(.calm) #asShop{display:none!important}</style>
   <!-- Oct 30, Sol: Asana Pair removed from the main site too (Boxes bar + list). Still shows for Sosiego/luna visitors (?s=luna...) via only:"luna". -->
+  <section class="post spot tg" data-view="home" id="thanksgiving" aria-labelledby="tgH" hidden>
+    <span class="k">🦃 Thanksgiving · pick up or delivered Sat 11/21</span>
+    <h2 id="tgH">Thanksgiving Sides Box · $95</h2>
+    <p class="meta" style="color:var(--ink)">$85 at a pickup with the beta founder rate</p>
+    <p class="meta">About 20 lb for a table of 6–8: potatoes for mash, sweet potatoes, squash, a pie pumpkin, Brussels sprouts, greens, apples for pie, stuffing veg and fresh herbs. Shopped at the last outdoor market of the year, and all of it keeps till Thursday.</p>
+    <div class="row2"><button type="button" class="go" data-tg style="flex:1 1 200px">Add the Thanksgiving box</button><a href="#thanks">See what's in it &rarr;</a></div>
+  </section>
+
   <section class="post spot asana" data-view="home" id="asanaFeature" aria-labelledby="asH">
     <span class="k">🧘 New · The Asana Box</span>
     <h2 id="asH">Before the mat, after the mat · $40</h2>
@@ -668,6 +681,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
   <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
     <h1 id="shopH" class="vh1">What are you craving?</h1>
     <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
+    <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8 · shopped and ready Sat 11/21</span><button type="button" class="go" data-tg>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
@@ -954,6 +968,11 @@ const BOXES=[
    has:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has"],
    veg:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has","Already plant-based. Cook the grits with water or veg stock"],
    recipe:"Recipe card in the bag: fish and grits with garlicky greens. Add a Great Lakes fillet (Meat, fish & eggs) or Lake Haul"},
+  /* Thanksgiving Sides Box (Oct 31, Sol): sides for a table of 6-8, shopped at the last outdoor market Sat Nov 21 (date-locked via THANKS_DATE). Starting price; est. cost ~$67 (~29%). Confirm prices on the Nov 7 run. */
+  {id:"thanks",name:"Thanksgiving Sides Box",price:95,until:"2026-11-22",wt:"~20 lb · sides for a table of 6–8",desc:"Everything for the sides, shopped at the last outdoor market of the year. All of it keeps till Thursday.",pick:"Thanksgiving · Sat 11/21 only",
+   makes:"Sides for 6–8 with leftovers: mash, sweet potatoes, squash, sprouts, greens, stuffing veg and a pie",
+   has:["3 lb potatoes for mash","3 lb sweet potatoes","A butternut squash","A pie pumpkin (or more squash)","1½ lb Brussels sprouts","Collards or kale, 2 bunches","3 lb apples for pie or crisp","Onions, shallots and garlic","Celery or celery root for stuffing","A bunch of sage, thyme and rosemary","Local cranberries, when a stand has them"],
+   recipe:"Recipe card in the bag: brown-butter sage squash, and a cider apple crisp"},
   /* I Don't Cook Box (Oct 27, Sol): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
   {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
    makes:"Snacks and easy plates for about a week for one, or a few days for two",
@@ -1099,7 +1118,7 @@ const WHO=[{id:"1",t:"Just me"},{id:"2",t:"Two of us"},{id:"3",t:"Family (3+)"}]
 /* What's in each box: meat, fish, egg, dairy, gluten, pork. cook / nocook / protein and who it suits (1, 2, 3 = family). */
 const DIET_BOX={
   halfpeck:{cook:1,who:[1,2]},crate:{cook:1,who:[2,3]},forever:{cook:1,protein:1,who:[1,2]},
-  fruitsm:{nocook:1,who:[1]},fruit:{nocook:1,who:[1,2]},coldsnap:{cook:1,who:[1,2]},
+  thanks:{cook:1,who:[3]},fruitsm:{nocook:1,who:[1]},fruit:{nocook:1,who:[1,2]},coldsnap:{cook:1,who:[1,2]},
   breakfast:{egg:1,gluten:1,cook:1,protein:1,who:[2,3]},grits:{gluten:1,cook:1,who:[2,3]},
   nocook:{dairy:1,meat:1,pork:1,gluten:1,nocook:1,who:[1,2]},
   asana:{egg:1,protein:1,who:[1]},asanapair:{egg:1,protein:1,who:[1]},
@@ -1211,7 +1230,7 @@ function bCard(o){
 /* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
+  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
@@ -1322,7 +1341,7 @@ async function sendOrder(id){
 }
 function count(){return (state.box?1:0)+(state.breadBox?1:0)+Object.values(state.qty).reduce((a,b)=>a+b,0)}
 /* Vegan toggle on every box (Oct 29, Sol). The Vegan Box and fruit-only boxes are already plant-based, so no toggle there. */
-const VEG_SKIP=["forever","fruitsm","fruit"];
+const VEG_SKIP=["forever","fruitsm","fruit","thanks"];
 function vegAble(b){return !!b&&!VEG_SKIP.includes(b.id)}
 function vegOn(b){return !!state.vegan&&vegAble(b)&&state.box===b.id}
 /* $1 perk (Oct 29, Sol): spend over $200 (not counting the perk item) and one add-on up to $25 drops to $1. */
@@ -1341,7 +1360,8 @@ function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>
 function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
 function total(){return subtotal()+fee()-discount()-founderOff()-perkOff()}
 function curStop(){return isDel()?delStop():STOPS.find(x=>x.id===state.fulfill)}
-function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;return ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES}
+const THANKS_DATE="2026-11-21";
+function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;const L=ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES;return state.box==="thanks"?L.filter(d=>d.v===THANKS_DATE):L}
 function setMode(m){
   if(m===state.mode)return;
   state.mode=m;
@@ -1351,6 +1371,7 @@ function setMode(m){
 }
 
 function renderTicket(){
+  if(state.box==="thanks"&&state.date!==THANKS_DATE){const ds=datesFor();if(ds.length)state.date=ds[0].v}
   if(state.reward==="5off"&&subtotal()<VOTE_MIN)state.reward="pastry";
   const t=document.getElementById("ticketBody");t.textContent="";
   const n=count(),b=BOXES.find(x=>x.id===state.box);
@@ -1722,6 +1743,13 @@ function nextVoteBlock(txt){
   return box;
 }
 /* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
+/* Thanksgiving (Oct 31, Sol): home card + shop bar until the Nov 20 9 PM cutoff passes; Add puts the box in the cart and locks the date to Sat 11/21. */
+(function(){
+  const end=new Date(2026,10,20,21,0);if(chiNow()>=end)return;
+  for(const id of ["thanksgiving","tgShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
+  const add=()=>{state.box="thanks";state.mode="box";if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
+  document.querySelectorAll("[data-tg]").forEach(b=>b.addEventListener("click",add));
+})();
 const HW_END=new Date(2026,10,1,0,0);
 function hwOn(){return chiNow()<HW_END}
 function hwInCart(){return state.hw&&state.box==="halfpeck"&&state.qty.cider>0&&state.qty.pastry>0}
