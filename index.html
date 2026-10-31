@@ -415,6 +415,26 @@ details.vdet .vote{border:0;padding:0 0 14px}
 @keyframes pu-hide{to{opacity:0}}
 @keyframes pu-out{to{opacity:0;visibility:hidden}}
 @media (prefers-reduced-motion:reduce){#pu-splash .pu-beat,#pu-splash .pu-bar,#pu-splash .pu-hint{display:none}#pu-splash,#pu-splash *{animation:none!important}#pu-splash .pu-skip .s1{opacity:0}#pu-splash .pu-skip .s2{opacity:1}#pu-splash{background:#EFE6D4;animation:pu-out .2s linear 1.5s forwards!important}}
+/* Diet splash (Oct 31) */
+#pu-dsplash{position:fixed;inset:0;z-index:9999;background:#EFE6D4;color:#24392C;overflow:auto;display:grid;place-items:center;padding:max(24px,env(safe-area-inset-top)) 20px max(24px,env(safe-area-inset-bottom));animation:ds-in .3s ease both;font-family:var(--body)}
+#pu-dsplash.out{animation:ds-out .25s ease forwards}
+#pu-dsplash .ds-in{width:min(100%,440px);display:grid;justify-items:center;gap:10px;text-align:center}
+#pu-dsplash .ds-hi{margin:0;font:800 18px/1.25 var(--body);color:#A9361F}
+#pu-dsplash .ds-logo{width:min(40vw,150px);height:auto;aspect-ratio:1;filter:drop-shadow(0 8px 14px rgba(36,57,44,.22));animation:ds-stamp .5s cubic-bezier(.2,1.5,.45,1) both}
+#pu-dsplash .ds-tag{margin:0;font:700 15px/1.2 var(--body);color:#5a6156}
+#pu-dsplash .ds-q{margin:6px 0 0;font:400 clamp(30px,9vw,40px)/1.05 var(--display)}
+#pu-dsplash .ds-sub{margin:0 0 4px;font-size:16px;color:#3d4a40}
+#pu-dsplash .ds-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+#pu-dsplash .ds-chip{min-height:46px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;padding:9px 16px;font:700 16px var(--body);cursor:pointer}
+#pu-dsplash .ds-chip[aria-pressed="true"]{background:#2f6b3f;border-color:#2f6b3f;color:#fff}
+#pu-dsplash .ds-go{margin-top:8px;width:100%;min-height:54px;border:0;border-radius:12px;background:#A9361F;color:#fff;font:800 18px var(--body);cursor:pointer}
+#pu-dsplash .ds-skip{min-height:44px;border:0;background:none;color:#24392C;font:700 15px var(--body);text-decoration:underline;cursor:pointer}
+#pu-dsplash .ds-cut{margin:0;background:#F3D58A;border-radius:999px;padding:7px 14px;font:800 14px/1.3 var(--body)}
+#pu-dsplash :focus-visible{outline:3px solid #D2452B;outline-offset:2px}
+@keyframes ds-in{from{opacity:0}to{opacity:1}}
+@keyframes ds-out{to{opacity:0;visibility:hidden}}
+@keyframes ds-stamp{0%{transform:scale(1.8) rotate(-12deg);opacity:0}60%{transform:scale(.95) rotate(3deg);opacity:1}100%{transform:none}}
+@media (prefers-reduced-motion:reduce){#pu-dsplash,#pu-dsplash *{animation:none!important}}
 /* Savasana overlay (Oct 29) */
 .sava{position:fixed;inset:0;z-index:60;background:#24392c;color:#f4ecd9;display:grid;place-items:center;padding:24px;animation:savaIn .8s ease both}
 .sava-in{display:grid;gap:14px;justify-items:center;text-align:center;max-width:360px}
@@ -1810,7 +1830,7 @@ const FEATURE_ID="coldsnap";
 /* Story splash (Oct 30, Sol): 5 beats, then the Harvest Stamp + live cutoff (and "Hey <name>" on ?s=p-name links).
    Full story once a day per phone (pu-splash-day), logo-only after that. Skipped for ?me, #deep links (#start still plays it) and calm (Sosiego) visitors.
    Set SPLASH_ON=false to switch it off. */
-const SPLASH_ON=true;
+const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip to true (and DIET_SPLASH_ON to false) to bring the story back. */
 (function(){
   if(!SPLASH_ON)return;
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
@@ -1856,6 +1876,39 @@ const SPLASH_ON=true;
   d.addEventListener("animationend",e=>{if(e.target===d&&e.animationName==="pu-out")done()});
   t=setTimeout(done,short?2200:7200);
   document.body.append(d);
+})();
+/* Diet splash (Oct 31, Sol): first screen asks "How do you eat?" and drops people straight into their matches.
+   Once a day per phone (pu-dsplash-day); skipped for ?me, #deep links, calm visitors, and anyone who already picked a diet this session. */
+const DIET_SPLASH_ON=true;
+(function(){
+  if(!DIET_SPLASH_ON)return;
+  let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
+  if(me||(location.hash&&location.hash!=="#start")||/[?&](me|diet|box)(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
+  if(state.diet&&state.diet.length&&location.hash!=="#start")return;
+  const today=new Date().toLocaleDateString("en-CA",{timeZone:"America/Chicago"});
+  try{if(localStorage.getItem("pu-dsplash-day")===today&&location.hash!=="#start")return;localStorage.setItem("pu-dsplash-day",today)}catch(e){}
+  const tag=(SRC_TAG||"").toLowerCase(),nm=(/^(?:svy-)?p-([a-z]{2,15})(?:-|$)/.exec(tag)||[])[1];
+  const ct=(document.getElementById("closeTop")||{}).textContent||"";
+  const cut=/^closes /i.test(ct)&&!/night before/i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):"Orders close 9 PM the night before";
+  const pick=new Set(state.diet||[]);
+  const d=el("div",{id:"pu-dsplash",role:"dialog","aria-modal":"true","aria-labelledby":"dsQ"});
+  const chips=el("div",{class:"ds-chips"});
+  const go=el("button",{type:"button",class:"ds-go"});
+  const label=()=>{go.textContent=pick.size?"Show my boxes →":"Show me everything →"};
+  for(const x of DIETS){const b=el("button",{type:"button",class:"ds-chip","aria-pressed":String(pick.has(x.id))},x.t);b.addEventListener("click",()=>{pick.has(x.id)?pick.delete(x.id):pick.add(x.id);b.setAttribute("aria-pressed",String(pick.has(x.id)));label()});chips.append(b)}
+  label();
+  const close=()=>{d.classList.add("out");setTimeout(()=>d.remove(),260);removeEventListener("keydown",key)};
+  const key=e=>{if(e.key==="Escape")close()};addEventListener("keydown",key);
+  go.addEventListener("click",()=>{if(pick.size){state.diet=[...pick];state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket();close();location.hash="#diet"}else{close();location.hash="#shop"}});
+  const skip=el("button",{type:"button",class:"ds-skip"},"Just looking around");skip.addEventListener("click",close);
+  d.append(el("div",{class:"ds-in"},
+    ...(nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[]),
+    el("img",{class:"ds-logo",src:"/logos/harvest-stamp.png",alt:"Posted Up: picked for you",width:"560",height:"560"}),
+    el("p",{class:"ds-tag"},"Market haul, picked for you."),
+    el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),
+    el("p",{class:"ds-sub"},"Pick any that fit. We'll match you to a box."),
+    chips,go,skip,el("p",{class:"ds-cut"},cut)));
+  document.body.append(d);setTimeout(()=>go.focus({preventScroll:true}),50);
 })();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
    Open the site once with ?me on your own phone/computer to stop counting your visits. Share links like ?s=ig or ?s=fam to tag sources. */
