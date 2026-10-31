@@ -501,6 +501,8 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .dadd button{flex:none;min-height:44px;border-radius:10px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 15px var(--body);padding:6px 12px;cursor:pointer}
 .dadd button[aria-pressed="true"]{background:var(--good);border-color:var(--good);color:#fff}
 .dbuild{width:100%;min-height:48px;border-radius:10px;border:2px dashed var(--good);background:transparent;color:var(--ink);font:700 16px var(--body);cursor:pointer}
+.dpick .k{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--good)}
+#dietHome .dchips{margin:4px 0 10px}
 .dnote{margin:0 0 14px;font-size:13px;color:var(--muted)}
 .dhide{margin:0;padding:8px 0;font-size:14px;color:var(--muted)}
 .dhide button{border:0;background:none;color:var(--good);font:700 14px var(--body);text-decoration:underline;cursor:pointer;min-height:44px;padding:0 4px}
@@ -635,6 +637,14 @@ details.vdet .vote{border:0;padding:0 0 14px}
     <p class="meta">~9–10 lb · makes about 4–5 meals' worth of veg for two · ≈ $5.50 a plate</p>
     <ul id="spotList"></ul>
     <div class="row2"><button type="button" class="go" id="spotAdd" style="flex:1 1 200px">Add the Half Peck</button><a href="#shop">Compare all boxes &rarr;</a></div>
+  </section>
+
+  <section class="post" data-view="home" id="dietHome" aria-labelledby="dhH">
+    <h2 id="dhH">🥗 Eat a certain way?</h2>
+    <p class="sub">Tap what fits and we'll match you to a box.</p>
+    <div class="dchips" id="dietHomeChips"></div>
+    <div class="dout" id="dietHomeOut" aria-live="polite"></div>
+    <a class="hop" href="#diet">See every match or build your own <span aria-hidden="true">&rarr;</span></a>
   </section>
 
   <section class="post" data-view="home" id="how" aria-labelledby="howH">
@@ -1131,7 +1141,25 @@ function dietAddons(){
   for(const id of ["lakehaul","meatbox","eggs","fish"])if(ok(id)&&out.length<2&&!(id==="fish"&&out.includes("lakehaul")))out.push(id);
   return out.map(id=>ITEMS.meat.find(i=>i.id===id)).filter(Boolean);
 }
+function renderDietHome(){
+  const c=document.getElementById("dietHomeChips"),o=document.getElementById("dietHomeOut");if(!c)return;
+  c.textContent="";o.textContent="";
+  for(const d of DIETS){const on=state.diet.includes(d.id);c.append(el("button",{type:"button",class:"dchip","aria-pressed":String(on),onclick:()=>{state.diet=on?state.diet.filter(x=>x!==d.id):state.diet.concat(d.id);state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket()}},d.t))}
+  if(!state.diet.length)return;
+  const top=BOXES.filter(boxShown).map(b=>({b,f:dietFit(b)})).filter(x=>x.f).sort((x,y)=>y.f.score-x.f.score)[0];
+  if(!top){o.append(el("p",{class:"dwhy"},"No box fits all of that yet. Build your own from what fits."));return}
+  const {b,f}=top,on=state.box===b.id;
+  o.append(el("div",{class:"dpick"+(on?" on":"")},
+    el("span",{class:"k"},"Your best match"),
+    el("div",{class:"dpick-top"},el("span",{},b.name),el("span",{},"$"+b.price)),
+    el("p",{class:"dwhy"},b.makes||b.wt),
+    ...(f.why.length?[el("p",{class:"dwhy"},el("b",{},"✓ "),f.why.join(" · "))]:[]),
+    el("button",{type:"button",class:"badd","aria-pressed":String(on),onclick:()=>{
+      if(on){state.box=null}else{state.box=b.id;state.mode="box";if(f.swap||(state.diet.includes("vegan")&&vegAble(b))){state.vegan=true;try{sessionStorage.setItem("pu-vegan","1")}catch(e){}}if(window.puCart)puCart()}
+      renderBoxes();renderItems();renderTicket()}},on?"Added ✓ (tap to remove)":"Add "+b.name+" · $"+b.price)));
+}
 function renderDiet(){
+  renderDietHome();
   const c=document.getElementById("dietChips"),w=document.getElementById("dietWho"),o=document.getElementById("dietOut");if(!c)return;
   c.textContent="";w.textContent="";o.textContent="";
   for(const d of DIETS){const on=state.diet.includes(d.id);c.append(el("button",{type:"button",class:"dchip","aria-pressed":String(on),onclick:()=>{state.diet=on?state.diet.filter(x=>x!==d.id):state.diet.concat(d.id);state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket()}},d.t))}
