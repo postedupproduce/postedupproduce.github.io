@@ -173,6 +173,35 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 
   <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
 </div>
+<canvas id="snow" aria-hidden="true"></canvas>
+<style>#snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}</style>
+<script>
+/* Falling snow + a few winter market things drifting down (Oct 31, Sol). Off with reduced motion; pauses when the tab is hidden. */
+(function(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const c=document.getElementById("snow"),x=c.getContext("2d");let W,H,dpr;
+  const dark=matchMedia("(prefers-color-scheme: dark)");
+  const things=["🍎","🥕","🥔","🍄","🧅","🥬","🎃","🍐","🧄","🫚"];
+  function size(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+  size();addEventListener("resize",size);
+  const n=Math.round(Math.min(70,W*H/9000));
+  const flakes=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:1+Math.random()*2.6,v:.35+Math.random()*.9,s:Math.random()*6.28,w:.4+Math.random()*.8}));
+  const items=Array.from({length:6},(_,i)=>({e:things[i%things.length],x:Math.random()*W,y:Math.random()*H*1.2-H*.4,v:.35+Math.random()*.4,s:Math.random()*6.28,a:Math.random()*6.28,z:18+Math.random()*10}));
+  let last=performance.now(),run=true;
+  document.addEventListener("visibilitychange",()=>{run=!document.hidden;if(run){last=performance.now();requestAnimationFrame(f)}});
+  function f(t){
+    if(!run)return;const k=Math.min(3,(t-last)/16.7);last=t;
+    x.clearRect(0,0,W,H);
+    x.fillStyle=dark.matches?"rgba(232,242,250,.8)":"rgba(140,185,215,.75)";
+    for(const p of flakes){p.y+=p.v*k;p.s+=.01*k;p.x+=Math.sin(p.s)*p.w*.5*k;if(p.y>H+5){p.y=-5;p.x=Math.random()*W}if(p.x>W+5)p.x=-5;if(p.x<-5)p.x=W+5;x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);x.fill()}
+    x.globalAlpha=.55;x.textAlign="center";x.textBaseline="middle";
+    for(const p of items){p.y+=p.v*k;p.s+=.008*k;p.a+=.01*k;const px=p.x+Math.sin(p.s)*20;if(p.y>H+40){p.y=-40-Math.random()*H;p.x=Math.random()*W;p.e=things[Math.floor(Math.random()*things.length)]}
+      x.save();x.translate(px,p.y);x.rotate(Math.sin(p.a)*.5);x.font=p.z+"px system-ui,Apple Color Emoji,Segoe UI Emoji,sans-serif";x.fillText(p.e,0,0);x.restore()}
+    x.globalAlpha=1;requestAnimationFrame(f);
+  }
+  requestAnimationFrame(f);
+})();
+</script>
 <script>
 /* Carry the ?s= tag through so Visits (site) and Contacts (sign-up) still show who sent them. */
 const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
