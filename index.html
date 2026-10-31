@@ -1963,6 +1963,8 @@ const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sau
   const q=new URLSearchParams(location.search),id=(q.get("box")||"").replace(/[^a-z]/g,"");
   try{if(q.get("vegan")==="1")sessionStorage.setItem("pu-vegan","1");else if(q.has("vegan"))sessionStorage.removeItem("pu-vegan");state.vegan=sessionStorage.getItem("pu-vegan")==="1"}catch(e){state.vegan=q.get("vegan")==="1"}
   if(id&&BOXES.some(b=>b.id===id)){state.box=id;state.mode="box";if(window.puCart)puCart()}
+  /* ?mode=pick (Oct 31): personal pages send "Build your own" straight into Build Your Own. */
+  else if(q.get("mode")==="pick")setMode("pick");
 })();
 (function(){const d=document.getElementById("diet");if(!d)return;if(new URLSearchParams(location.search).has("diet")||location.hash==="#diet")d.open=true;addEventListener("hashchange",()=>{if(location.hash==="#diet")d.open=true})})();
 renderBoxes();renderItems();renderTicket();loadCounts();
