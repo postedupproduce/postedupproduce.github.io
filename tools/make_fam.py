@@ -18,6 +18,10 @@ BOX = {
     has=["A fresh loaf, bagels or challah", "A local cheese", "Salami or seasoned tofu", "One ferment: kimchi, sauerkraut or pickles", "Apples and pears", "A jam, pesto or hot sauce"]),
   "fruit": dict(n="Fruit Box · a week", p=36, m="About 16 pieces, a piece or two a day",
     has=["About 10 crisp apples", "About 4 pears or Asian pears", "A pint of local blueberries, frozen or dried"]),
+  "meatbox": dict(n="Meat Lovers Box", p=89, m="About 14 portions, 7 meals for two, about $6.40 a plate", add=True,
+    has=["Steak night, 10 to 12 oz, a meal for two", "An everyday cut, about 1 lb (pork chops or stew meat)", "1 lb ground, about 4 burgers", "1 lb sausage, about 4 to 5 links"]),
+  "lakehaul": dict(n="Lake Haul", p=70, m="About 4 portions plus a smoked-fish snack", add=True,
+    has=["2 wild Great Lakes fish fillets, 8 to 16 oz each (walleye, whitefish or lake trout)", "Smoked fish or fish pate, a snack for 2 to 4"]),
   "thanks": dict(n="Thanksgiving Sides Box", p=95, m="Sides for 6 to 8, with leftovers", until="2026-11-22",
     has=["Potatoes and sweet potatoes", "Butternut squash and a pie pumpkin", "Brussels sprouts, collards or kale", "Apples for pie", "Onions, shallots, garlic, celery", "Sage, thyme and rosemary"]),
 }
@@ -31,8 +35,10 @@ PEOPLE = {
     sig="M, Posted Up Produce",
     picks=[
       ("crate", "Feeds the whole house", "The most cooking per dollar. A full week of veg for a hungry household."),
+      ("meatbox", "For the big eaters", "Steak night, burgers, sausage and an everyday cut. Grass-fed and pasture-raised, frozen packs."),
       ("breakfast", "For early ice", "Oats and a dozen eggs. Breakfast is handled before 6 AM practice."),
       ("nocook", "For tournament weekends", "Nothing to cook. Grab it between games and go."),
+      ("lakehaul", "For a lighter game night", "Wild Great Lakes fish, frozen packs. Lean protein that cooks in 15 minutes."),
       ("fruit", "For the rink bag", "Apples and pears that travel. Better than the vending machine."),
     ]),
   "sue": dict(
@@ -43,8 +49,10 @@ PEOPLE = {
     sig="M, Posted Up Produce",
     picks=[
       ("halfpeck", "For Dad's light dinners", "Veg-heavy sides. Pair kale, squash or beets with a palm of lean protein for a light plate."),
+      ("lakehaul", "Protein for Dad's light dinners", "Wild Great Lakes fish, frozen packs. A fillet plus Half Peck veg makes an easy light plate."),
       ("breakfast", "For the big breakfasts", "Oats, eggs and fruit for the meals that carry the day, and early ice times."),
       ("grits", "For after late practice", "Savory, warm and filling. Grits with greens and mushrooms, ready in 20 minutes."),
+      ("meatbox", "For the hungry players", "Steak night, burgers, sausage and an everyday cut. About 7 dinners for two."),
       ("thanks", "For Thanksgiving", "Every side for the table, shopped Sat Nov 21. All of it keeps till Thursday."),
       ("fruit", "For the rink bag", "Apples and pears that travel. Snacks for the stands and the car ride home."),
     ]),
@@ -68,7 +76,7 @@ for slug, c in PEOPLE.items():
     cards = []
     for bid, why_h, why in c["picks"]:
         b = BOX[bid]
-        cards.append(dict(id=bid, n=b["n"], p=b["p"], m=b["m"], has=b["has"], until=b.get("until", ""), wh=why_h, why=why))
+        cards.append(dict(add=b.get("add", False), id=bid, n=b["n"], p=b["p"], m=b["m"], has=b["has"], until=b.get("until", ""), wh=why_h, why=why))
     cfg = dict(tag=c["tag"], cards=cards, splash=slug)
     e = html.escape
     out = (TEMPLATE

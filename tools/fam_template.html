@@ -140,7 +140,7 @@ const today=new Intl.DateTimeFormat("en-CA",{timeZone:"America/Chicago"}).format
       el("p",{class:"why",text:c.why}),
       el("p",{class:"makes",text:c.m}),
       el("details",{},el("summary",{text:"What's in it"}),ul),
-      el("a",{class:"add",href:"/?s="+CFG.tag+"&box="+c.id+"#checkout","aria-label":"Add the "+c.n+", $"+c.p},"Add this box · $"+c.p)));
+      el("a",{class:"add",href:"/?s="+CFG.tag+(c.add?"&add=":"&box=")+c.id+"#checkout","aria-label":"Add the "+c.n+", $"+c.p},"Add this box · $"+c.p)));
   }
 })();
 /* Splash every visit; ?splash=off or ?me devices skip it. */
