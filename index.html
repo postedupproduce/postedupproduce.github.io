@@ -434,6 +434,8 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 #pu-dsplash .ds-chip{min-height:46px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;padding:9px 16px;font:700 16px var(--body);cursor:pointer}
 #pu-dsplash .ds-chip[aria-pressed="true"]{background:#2f6b3f;border-color:#2f6b3f;color:#fff}
 #pu-dsplash .ds-omni{flex-basis:100%;max-width:320px}
+#pu-dsplash .ds-again{flex-basis:100%;max-width:320px;min-height:56px;border-radius:16px;border:0;background:#24392C;color:#F8F2E6;padding:10px 16px;font:700 17px var(--body);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+#pu-dsplash .ds-again small{font:600 13px var(--body);opacity:.85}
 #pu-dsplash .ds-go{margin-top:8px;width:100%;min-height:54px;border:0;border-radius:12px;background:#A9361F;color:#fff;font:800 18px var(--body);cursor:pointer}
 #pu-dsplash .ds-skip{min-height:44px;border:0;background:none;color:#24392C;font:700 15px var(--body);text-decoration:underline;cursor:pointer}
 #pu-dsplash .ds-cut{margin:0;background:#F3D58A;border-radius:999px;padding:7px 14px;font:800 14px/1.3 var(--body)}
@@ -1163,10 +1165,10 @@ const DIET_EXTRA={bread1:["gluten","dairy","egg"],bread2:["gluten","dairy","egg"
 function dietTags(id){const b=DIET_BOX[id];const raw=b?Object.keys(b).filter(k=>b[k]===1):(DIET_ITEM[id]||DIET_EXTRA[id]||[]);return ["meat","fish","egg","dairy","gluten"].filter(k=>raw.includes(k))}
 function dietAnimal(id){return dietTags(id).some(k=>k!=="gluten")}
 function dietCodes(id){const t=dietTags(id),h=k=>t.includes(k),c=[];
-  if(!dietAnimal(id))c.push(["VG","🌱 VG","Vegan"]);else if(!h("meat")&&!h("fish"))c.push(["V","V","Vegetarian"]);
+  if(!dietAnimal(id))c.push(["VG","🌱 Vegan","Vegan"]);else if(!h("meat")&&!h("fish"))c.push(["V","Vegetarian","Vegetarian"]);
   if(h("meat"))c.push(["Meat","🥩 Meat","Contains meat"]);if(h("fish"))c.push(["Fish","🐟 Fish","Contains fish"]);
   return c}
-function dietChips(id,swap){const w=el("p",{class:"dchipsline"});for(const [k,lab,title] of dietCodes(id))w.append(el("span",{class:"dic"+(k==="VG"?" veg":""),title},lab));if(dietAnimal(id)&&swap)w.append(el("span",{class:"dic veg",title:"We can swap it to vegan"},"🌱 VG option"));return w}
+function dietChips(id,swap){const w=el("p",{class:"dchipsline"});for(const [k,lab,title] of dietCodes(id))w.append(el("span",{class:"dic"+(k==="VG"?" veg":""),title},lab));if(dietAnimal(id)&&swap)w.append(el("span",{class:"dic veg",title:"We can swap it to vegan"},"🌱 Vegan option"));return w}
 function dietMini(id){const c=dietCodes(id),lab=c.map(x=>x[2]).join(", ");return el("span",{class:"dmini",title:lab,"aria-label":lab},c.map(x=>x[0]).join(" "))}
 function itemBlocked(id){const tags=DIET_ITEM[id]||[];return state.diet.some(d=>(DIET_BLOCK[d]||[]).some(t=>tags.includes(t)))}
 function boxShown(b){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))return false;if(b.only&&!([].concat(b.only).some(o=>SRC_TAG.indexOf(o)===0)||state.box===b.id))return false;if(b.hideList&&state.box!==b.id)return false;return true}
@@ -1243,7 +1245,7 @@ function renderBoxes(){
   document.getElementById("breadboxes").hidden=!isBox;
   document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";
   for(const s of document.querySelectorAll(".seg button"))s.setAttribute("aria-checked",String(s.dataset.mode===state.mode));
-  if(!document.getElementById("dietLegend")){const pn=document.getElementById("produceNote");if(pn)pn.after(el("p",{id:"dietLegend",class:"dlegend"},"VG vegan · V vegetarian · 🥩 meat · 🐟 fish · VG option: we can make it vegan"))}
+  if(!document.getElementById("dietLegend")){const pn=document.getElementById("produceNote");if(pn)pn.after(el("p",{id:"dietLegend",class:"dlegend"},"On add-ons: VG vegan · V vegetarian · Meat · Fish. \"Vegan option\" means we can swap it plant-based."))}
   boxList();boxRow("breadboxes",BREADBOXES,"breadBox");renderDiet();
 }
 /* Craving menu (option D, Oct 27): one scannable list, jump buttons, "What's in it" dropdowns, buttons that say what they do. */
@@ -1254,6 +1256,7 @@ const OPEN_IN=new Set();
 function bCard(o){
   const card=el("div",{class:"bcard"+(o.on?" on":""),...(o.id?{id:o.id}:{})});
   card.append(el("div",{class:"bcard-top"},el("h3",{},o.name),el("span",{class:"bprice"},"$"+o.price)),...(o.diet?[dietChips(o.diet,o.swap)]:[]),el("p",{class:"bwhat"},o.what));
+  if(o.img)card.append(el("img",{src:o.img,alt:o.imgAlt||"",loading:"lazy",width:"1000",height:"750",style:"width:100%;height:150px;object-fit:cover;border-radius:12px;margin:6px 0 4px;display:block"}));
   if(o.makes)card.append(el("p",{class:"bmakes"},el("span",{"aria-hidden":"true"},"🍽 "),o.makes));
   if(o.tag)card.append(el("p",{class:"btag"},o.tag));
   const ul=el("ul",{});for(const h of o.has)ul.append(el("li",{},h));
@@ -1266,7 +1269,7 @@ function bCard(o){
 /* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({diet:b.id,swap:vegAble(b),id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
+  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({diet:b.id,swap:vegAble(b),...(b.id==="forever"?{img:"/img/haul-vegan.jpg",imgAlt:"A real Vegan Box from this pilot: mushrooms, local tofu, squash, sweet potatoes, apples, greens and a pastry"}:{}),id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
@@ -1424,11 +1427,12 @@ function renderTicket(){
       el("p",{class:"note",style:"margin:0 0 6px;color:var(--ink);font-weight:700"},ticketSummary()),
       ...(state.dupe?[el("p",{class:"note",style:"margin:0;color:var(--tomato);font-weight:700"},"You already placed this exact order, so here's your ticket. No need to order again."),el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;state.dupe=false;state.forceNew=true;renderTicket()}},"I really want a second order")]:[]),
       el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.wait?"You're on the waitlist for that day. Don't pay yet. If a spot opens, we'll text you to confirm and send payment details. Want a sure spot? Pick another day.":state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
-        "Pay by "+payByLabel()+". Your order is shopped once it's paid. We text you at each step.":
+        "Pay by "+payByLabel()+". Your order is shopped once it's paid. We text you at each step"+(isDel()?", including a heads-up before we head your way Saturday":"")+".":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       ...(!state.wait&&state.sendStatus==="sent"&&ZELLE?[payBlock(txt)]:[]),
       el("details",{class:"tix"},el("summary",{},"Show my order ticket"),pre,
       el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),msg),
+      ...(!state.wait&&state.sendStatus==="sent"?[(()=>{const no=(txt.match(/#(\d+)/)||[])[1]||"";return el("p",{class:"note",style:"margin:10px 0 0"},el("b",{},"Forgot something? "),"Text us what to add by "+payByLabel()+" and we send your new total. ",el("a",{href:"sms:+17738079223?&body="+encodeURIComponent("POSTED #"+no+" add: "),style:"color:var(--tomato);font-weight:700"},"Text to add →"))})()]:[]),
       el("div",{class:"contact"},
         el("div",{},"Text: ",el("code",{},"773-807-9223")),
         el("div",{},"Track it: ",el("a",{href:"/track.html?o="+(txt.match(/#(\d+)/)||[])[1],style:"color:var(--tomato);font-weight:700"},"Order status page"))),
@@ -1739,23 +1743,28 @@ function hookBlock(txt){
   return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name.replace(/^The /,"")+" every Saturday at $"+b.price+" a box, delivered free within 3 miles of Hyde Park (the 10% pickup rate doesn't apply). Every 4th box gets a free add-on. Skip any week."),btn,st);
 }
 /* Get 'em back (Oct 27): a device that ordered before sees "Reorder your last haul" on Home; one tap refills the cart, name and phone, then opens checkout. */
-const REORDER_ON=false; /* Off for now (Sol, Oct 27). Set true to bring back the welcome-back reorder card. */
+const REORDER_ON=false; /* Off for now (Oct 27). Set true to bring back the welcome-back reorder card on Home. */
+/* Same as last time (Nov 1, Malik): the last order saved on this phone powers a "Same as last time" button on the splash
+   (window.puLast), and its name, mobile, email and address prefill checkout. */
 (function(){
-  if(!REORDER_ON)return;
   let c=null;try{c=JSON.parse(localStorage.getItem("pu-cart")||"null")}catch(e){}
+  if(c){for(const k of ["name","phone","email","address"])if(!state[k]&&c[k])state[k]=c[k]}
   if(!c||(!c.box&&!c.breadBox&&!Object.keys(c.qty||{}).length))return;
   const b=BOXES.find(x=>x.id===c.box),bb=BREADBOXES.find(x=>x.id===c.breadBox);
   const bits=[b&&b.name,bb&&bb.name,...ALL.filter(i=>c.qty&&c.qty[i.id]).map(i=>c.qty[i.id]>1?c.qty[i.id]+" × "+i.nm:i.nm)].filter(Boolean);
-  const sec=document.getElementById("welcomeBack");if(!sec||!bits.length)return;
-  document.getElementById("wbWhat").textContent=(c.name?c.name.split(" ")[0]+", last time: ":"Last time: ")+bits.slice(0,5).join(", ")+(bits.length>5?" and more":"")+".";
-  sec.hidden=false;
-  document.getElementById("wbGo").addEventListener("click",()=>{
+  if(!bits.length)return;
+  const fl=String(c.fulfill||""),where=fl.startsWith("del-")?"delivered":((STOPS.find(x=>x.id===fl)||{}).name||"");
+  const go=()=>{
     state.box=b?b.id:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(c.qty&&c.qty[i.id])state.qty[i.id]=c.qty[i.id];
     state.mode=c.mode||"box";state.hw=!!c.hw&&typeof hwOn==="function"&&hwOn();state.hwv=!!c.hwv&&typeof hwOn==="function"&&hwOn();state.name=c.name||"";state.phone=c.phone||"";state.email=c.email||"";state.address=c.address||"";state.notes=c.notes||"";
     const okStop=STOPS.some(x=>x.id===c.fulfill)||DELIVERIES.some(x=>"del-"+x.id===c.fulfill);state.fulfill=okStop?c.fulfill:state.fulfill;
     if(!datesFor().length)state.fulfill=String(c.fulfill||"").startsWith("del-")?"del-hyde":"hyde";
     const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";
-    if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"});
+    if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
+  window.puLast={what:bits.slice(0,2).join(", ")+(bits.length>2?" +"+(bits.length-2)+" more":"")+(where?" · "+where:""),first:c.name?c.name.split(" ")[0]:"",go};
+  const sec=document.getElementById("welcomeBack");if(!REORDER_ON||!sec)return;
+  document.getElementById("wbWhat").textContent=(c.name?c.name.split(" ")[0]+", last time: ":"Last time: ")+bits.slice(0,5).join(", ")+(bits.length>5?" and more":"")+".";
+  sec.hidden=false;document.getElementById("wbGo").addEventListener("click",go);
 })();
 /* What's next vote (Oct 27, Sol): after ordering, pick what we should launch next; thank-you (pastry or fun produce) goes in THIS order.
    Posts "NEXT VOTE" to the Feedback tab; Sol adds the thank-you to the order by its number. */
@@ -1920,8 +1929,10 @@ const DIET_SPLASH_ON=true;
   let omni=false;const label=()=>{go.textContent=omni?"Show me the boxes →":pick.size?"Show my boxes →":"Show me everything →"};
   /* "I'm an omnivore" (Nov 1, Malik): one tap, clears the diet chips, goes straight to every box. */
 const om=el("button",{type:"button",class:"ds-chip ds-omni","aria-pressed":"false"},"🍽 I'm an omnivore");
+const again=window.puLast?el("button",{type:"button",class:"ds-again"},"↻ Same as last time"+(window.puLast.first?", "+window.puLast.first:""),el("small",{},window.puLast.what)):null;
+if(again)again.addEventListener("click",()=>{close();window.puLast.go()});
 for(const x of DIETS){const b=el("button",{type:"button",class:"ds-chip","aria-pressed":String(pick.has(x.id))},x.t);b.addEventListener("click",()=>{pick.has(x.id)?pick.delete(x.id):pick.add(x.id);b.setAttribute("aria-pressed",String(pick.has(x.id)));if(pick.size){omni=false;om.setAttribute("aria-pressed","false")}label()});chips.append(b)}
-om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",String(omni));if(omni){pick.clear();chips.querySelectorAll(".ds-chip:not(.ds-omni)").forEach(c=>c.setAttribute("aria-pressed","false"))}label()});chips.prepend(om);
+om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",String(omni));if(omni){pick.clear();chips.querySelectorAll(".ds-chip:not(.ds-omni)").forEach(c=>c.setAttribute("aria-pressed","false"))}label()});chips.prepend(om);if(again)chips.prepend(again);
   label();
   const close=()=>{d.classList.add("out");setTimeout(()=>d.remove(),260);removeEventListener("keydown",key)};
   const key=e=>{if(e.key==="Escape")close()};addEventListener("keydown",key);
