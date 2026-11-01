@@ -122,8 +122,9 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
   <section class="sign">
     <p id="welcome" hidden style="margin:0 0 8px;font-weight:700"></p>
     <h1>Get first pick of the harvest.</h1>
-    <p><b>Posted Up shops the Chicago farmers market for you.</b> Order by Friday night, pick up Saturday in Hyde Park or get it delivered. We're in a small invite-only beta.</p>
-    <p>Tell us your spot and how often you want to hear from us. 30 seconds, mostly taps.</p>
+    <p class="short" hidden>We shop the Chicago farmers market for you. 30 seconds. Texts only when you want. Stop anytime.</p>
+    <p class="long"><b>Posted Up shops the Chicago farmers market for you.</b> Order by Friday night, pick up Saturday in Hyde Park or get it delivered. We're in a small invite-only beta.</p>
+    <p class="long">Tell us your spot and how often you want to hear from us. 30 seconds, mostly taps.</p>
     <ul class="perks">
       <li>Only texts that fit your week. No group blasts, no spam.</li>
       <li>Boxes planned around your stop and your taste.</li>
@@ -184,7 +185,9 @@ f.addEventListener("submit",async e=>{
   const spots=picked("spot"),day=picked("day")[0],freq=picked("freq")[0],taste=f.querySelector("#taste").value.trim();
   if(!name)return void(err.textContent="Add your first name.");
   if(phone.replace(/\D/g,"").length<10)return void(err.textContent="Add a 10-digit mobile number.");
-  if(!spots.length)return void(err.textContent="Pick at least one spot.");
+  const qr=document.body.classList.contains("qr");
+  if(!spots.length&&!qr)return void(err.textContent="Pick at least one spot.");
+  if(!spots.length)spots.push("Not picked yet");
   if(!day)return void(err.textContent="Pick a day.");
   if(!freq)return void(err.textContent="Pick how often to hear from us.");
   const message=["SURVEY SIGN-UP","Mobile: "+phone,"Spot: "+spots.join(", "),"Day: "+day,"Texts: "+freq,taste&&"Taste: "+taste,"Source: "+src].filter(Boolean).join(" · ");
@@ -199,6 +202,7 @@ f.addEventListener("submit",async e=>{
     f.classList.add("done");f.replaceChildren(h,p1,a,p2);
     h.setAttribute("tabindex","-1");h.focus();
     f.after(marketCatch());
+    document.body.classList.add("in");
   }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
 });
 
@@ -245,6 +249,17 @@ function marketCatch(){
   return wrap;
 }
 </script>
-<script>(function(){var t=(new URLSearchParams(location.search).get("s")||"").toLowerCase();var w=document.getElementById("welcome");if(w&&t==="door24"){w.textContent="Hi from the wine bar. Scanned the tag? You\u2019re in the right place.";w.hidden=false}})();</script>
+<style>/* QR scans (?s=door24, Nov 1): one goal on screen. Short intro, name + mobile first, spot optional, no tabs, logo blurred until sign-up. */
+.qr .tabs,.qr .sign .long,.qr .sign .perks{display:none}
+.qr .mark{filter:blur(5px);transition:filter .8s ease}
+.qr.in .mark{filter:none}
+@media (prefers-reduced-motion:reduce){.qr .mark{transition:none}}
+</style>
+<script>(function(){var t=(new URLSearchParams(location.search).get("s")||"").toLowerCase();var w=document.getElementById("welcome");if(w&&t==="door24"){w.textContent="Hi from the wine bar. Scanned the tag? You\u2019re in the right place.";w.hidden=false}
+if(t==="door24"){document.body.classList.add("qr");
+var h=document.querySelector(".sign h1");if(h)h.textContent="Join the tasting list.";
+var s=document.querySelector(".sign .short");if(s)s.hidden=false;
+var f=document.getElementById("sv"),two=f&&f.querySelector(".two");if(two)f.prepend(two);
+var lg=f&&f.querySelector('input[name="spot"]');lg=lg&&lg.closest("fieldset").querySelector("legend");if(lg)lg.insertAdjacentHTML("beforeend"," <small>(optional)</small>");}})();</script>
 </body>
 </html>
