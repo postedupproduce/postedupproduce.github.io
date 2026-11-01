@@ -81,6 +81,7 @@ html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;
 @keyframes pu-bat{0%{transform:translate(0,0)}25%{transform:translate(30vw,-6vh)}50%{transform:translate(60vw,4vh)}75%{transform:translate(90vw,-8vh)}100%{transform:translate(120vw,0)}}
 @media (prefers-reduced-motion: reduce){html.spooky body::after{display:none}}
 </style>
+<style>/* Diet icons (Nov 1) */.dchipsline{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;padding:0}.dic{font-size:13px;line-height:1.2;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--chip);border:1px solid var(--line);white-space:nowrap}.dic.veg{color:var(--good);border-color:var(--good)}.dlegend{font-size:13px;color:var(--muted);margin:2px 0 12px}.dmini{font-size:13px;margin-left:6px;letter-spacing:1px;white-space:nowrap}</style>
 </head>
 <body>
 
@@ -1156,6 +1157,13 @@ try{const j=JSON.parse(sessionStorage.getItem("pu-diet")||"null");if(j){state.di
 (function(){const q=new URLSearchParams(location.search).get("diet");if(q){state.diet=q.toLowerCase().split(/[ ,]+/).filter(x=>DIETS.some(d=>d.id===x))}})();
 function dietSave(){try{sessionStorage.setItem("pu-diet",JSON.stringify({d:state.diet,who:state.who}))}catch(e){}}
 function dietLabel(){const a=DIETS.filter(d=>state.diet.includes(d.id)).map(d=>d.t),w=WHO.find(x=>x.id===state.who);return a.join(", ")+(w?(a.length?" · ":"")+"for "+w.t.toLowerCase().replace("just ",""):"")}
+/* Diet icons (Nov 1, Malik): show what's in every box and item at a glance. Vegan = no meat, fish, eggs or dairy; gluten is shown separately. */
+const DIET_ICON=[["meat","🥩","Meat"],["fish","🐟","Fish"],["egg","🥚","Eggs"],["dairy","🧀","Dairy"],["gluten","🌾","Gluten"]];
+const DIET_EXTRA={bread1:["gluten","dairy","egg"],bread2:["gluten","dairy","egg"]};
+function dietTags(id){const b=DIET_BOX[id];const raw=b?Object.keys(b).filter(k=>b[k]===1):(DIET_ITEM[id]||DIET_EXTRA[id]||[]);return DIET_ICON.map(x=>x[0]).filter(k=>raw.includes(k))}
+function dietAnimal(id){return dietTags(id).some(k=>k!=="gluten")}
+function dietChips(id,swap){const t=dietTags(id),w=el("p",{class:"dchipsline"});if(!dietAnimal(id))w.append(el("span",{class:"dic veg"},"🌱 Vegan"));for(const k of t){const x=DIET_ICON.find(y=>y[0]===k);w.append(el("span",{class:"dic"},x[1]+" "+x[2]))}if(dietAnimal(id)&&swap)w.append(el("span",{class:"dic veg"},"🌱 Vegan swap available"));return w}
+function dietMini(id){const t=dietTags(id),s=(dietAnimal(id)?"":"🌱")+t.map(k=>DIET_ICON.find(y=>y[0]===k)[1]).join("");const lab=(dietAnimal(id)?"":"Vegan")+(t.length?(dietAnimal(id)?"":", ")+"contains "+t.map(k=>DIET_ICON.find(y=>y[0]===k)[2].toLowerCase()).join(", "):"");return el("span",{class:"dmini",title:lab,"aria-label":lab},s)}
 function itemBlocked(id){const tags=DIET_ITEM[id]||[];return state.diet.some(d=>(DIET_BLOCK[d]||[]).some(t=>tags.includes(t)))}
 function boxShown(b){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))return false;if(b.only&&!([].concat(b.only).some(o=>SRC_TAG.indexOf(o)===0)||state.box===b.id))return false;if(b.hideList&&state.box!==b.id)return false;return true}
 /* Returns null if the box can't fit, else {score, swap (needs the vegan swap), why[]} */
@@ -1193,7 +1201,7 @@ function renderDietHome(){
   const {b,f}=top,on=state.box===b.id;
   o.append(el("div",{class:"dpick"+(on?" on":"")},
     el("span",{class:"k"},"Your best match"),
-    el("div",{class:"dpick-top"},el("span",{},b.name),el("span",{},"$"+b.price)),
+    el("div",{class:"dpick-top"},el("span",{},b.name),el("span",{},"$"+b.price)),dietChips(b.id,vegAble(b)),
     el("p",{class:"dwhy"},b.makes||b.wt),
     ...(f.why.length?[el("p",{class:"dwhy"},el("b",{},"✓ "),f.why.join(" · "))]:[]),
     el("button",{type:"button",class:"badd","aria-pressed":String(on),onclick:()=>{
@@ -1214,7 +1222,7 @@ function renderDiet(){
   for(const {b,f} of res){
     const on=state.box===b.id;
     o.append(el("div",{class:"dpick"+(on?" on":"")},
-      el("div",{class:"dpick-top"},el("span",{},b.name),el("span",{},"$"+b.price)),
+      el("div",{class:"dpick-top"},el("span",{},b.name),el("span",{},"$"+b.price)),dietChips(b.id,vegAble(b)),
       el("p",{class:"dwhy"},b.makes||b.wt),
       ...(f.why.length?[el("p",{class:"dwhy"},el("b",{},"✓ "),f.why.join(" · "))]:[]),
       el("button",{type:"button",class:"badd","aria-pressed":String(on),onclick:()=>{
@@ -1231,6 +1239,7 @@ function renderBoxes(){
   document.getElementById("breadboxes").hidden=!isBox;
   document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";
   for(const s of document.querySelectorAll(".seg button"))s.setAttribute("aria-checked",String(s.dataset.mode===state.mode));
+  if(!document.getElementById("dietLegend")){const pn=document.getElementById("produceNote");if(pn)pn.after(el("p",{id:"dietLegend",class:"dlegend"},"🌱 vegan · 🥚 eggs · 🧀 dairy · 🐟 fish · 🥩 meat · 🌾 gluten"))}
   boxList();boxRow("breadboxes",BREADBOXES,"breadBox");renderDiet();
 }
 /* Craving menu (option D, Oct 27): one scannable list, jump buttons, "What's in it" dropdowns, buttons that say what they do. */
@@ -1240,24 +1249,24 @@ const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",t
 const OPEN_IN=new Set();
 function bCard(o){
   const card=el("div",{class:"bcard"+(o.on?" on":""),...(o.id?{id:o.id}:{})});
-  card.append(el("div",{class:"bcard-top"},el("h3",{},o.name),el("span",{class:"bprice"},"$"+o.price)),el("p",{class:"bwhat"},o.what));
+  card.append(el("div",{class:"bcard-top"},el("h3",{},o.name),el("span",{class:"bprice"},"$"+o.price)),...(o.diet?[dietChips(o.diet,o.swap)]:[]),el("p",{class:"bwhat"},o.what));
   if(o.makes)card.append(el("p",{class:"bmakes"},el("span",{"aria-hidden":"true"},"🍽 "),o.makes));
   if(o.tag)card.append(el("p",{class:"btag"},o.tag));
   const ul=el("ul",{});for(const h of o.has)ul.append(el("li",{},h));
   const d=el("details",{class:"bin-in"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,...(o.recipe?[el("p",{class:"brecipe"},el("span",{"aria-hidden":"true"},"📝 "),o.recipe)]:[]),el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
   if(OPEN_IN.has(o.name))d.open=true;d.addEventListener("toggle",()=>{d.open?OPEN_IN.add(o.name):OPEN_IN.delete(o.name)});
-  if(o.veg){const b=o.veg,cb=el("input",{type:"checkbox"});cb.checked=vegOn(b);cb.addEventListener("change",()=>{state.vegan=cb.checked;try{cb.checked?sessionStorage.setItem("pu-vegan","1"):sessionStorage.removeItem("pu-vegan")}catch(e){}if(cb.checked&&state.box!==b.id){state.box=b.id;state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()});card.append(el("label",{class:"bveg"},cb,el("span",{},"Make it vegan",el("small",{}," plant-based swaps, all local"))))}
+  if(o.veg&&dietAnimal(o.diet)){const b=o.veg,cb=el("input",{type:"checkbox"});cb.checked=vegOn(b);cb.addEventListener("change",()=>{state.vegan=cb.checked;try{cb.checked?sessionStorage.setItem("pu-vegan","1"):sessionStorage.removeItem("pu-vegan")}catch(e){}if(cb.checked&&state.box!==b.id){state.box=b.id;state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()});card.append(el("label",{class:"bveg"},cb,el("span",{},"Make it vegan",el("small",{}," plant-based swaps, all local"))))}
   card.append(d,el("button",{type:"button",class:"badd","aria-pressed":String(!!o.on),onclick:o.toggle},o.on?"Added ✓ (tap to remove)":"Add "+o.name+" · $"+o.price));
   return card;
 }
 /* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
+  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({diet:b.id,swap:vegAble(b),id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
     toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
-    box.append(bCard({name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,makes:PROTEIN_INFO[id].makes,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
+    box.append(bCard({diet:id,name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,makes:PROTEIN_INFO[id].makes,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
       toggle:()=>{if(state.qty[id])delete state.qty[id];else{state.qty[id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));
   }
 }
@@ -1272,7 +1281,7 @@ function boxRow(wid,list,key){
     const btn=el("button",{class:"box",type:"button","aria-pressed":String(state[key]===b.id),onclick:()=>{state[key]=state[key]===b.id?null:b.id;if(state[key]&&window.puCart)puCart();renderBoxes();renderTicket()}});
     if(b.pick)btn.append(el("span",{class:"pick"},b.pick));
     const ul=el("ul",{class:"has"});for(const h of b.has)ul.append(el("li",{},h));
-    btn.append(el("h3",{},b.name),el("span",{class:"wt"},b.wt),el("p",{},b.desc),ul,el("span",{class:"price"},"$"+b.price),el("span",{class:"add"},state[key]===b.id?"In your order":"Add to order"));
+    btn.append(el("h3",{},b.name),dietChips(b.id),el("span",{class:"wt"},b.wt),el("p",{},b.desc),ul,el("span",{class:"price"},"$"+b.price),el("span",{class:"add"},state[key]===b.id?"In your order":"Add to order"));
     w.append(btn);
   }
 }
@@ -1294,7 +1303,7 @@ function renderItems(){
       if(!state.dietAll&&!q&&itemBlocked(it.id)){hid++;continue}
       const set=n=>{if(n>q&&window.puCart)puCart();state.qty[it.id]=Math.max(0,Math.min(9,n));if(!state.qty[it.id])delete state.qty[it.id];renderItems();renderTicket()};
       w.append(el("div",{class:"item"},
-        el("div",{style:"min-width:0"},el("div",{class:"nm"},it.nm),el("div",{class:"ds"},it.ds,el("b",{class:"iprice"},"$"+it.p))),
+        el("div",{style:"min-width:0"},el("div",{class:"nm"},it.nm,dietMini(it.id)),el("div",{class:"ds"},it.ds,el("b",{class:"iprice"},"$"+it.p))),
         el("div",{class:"qty"},
           el("button",{type:"button","aria-label":"Remove one "+it.nm,onclick:()=>set(q-1)},"−"),
           el("output",{},String(q)),
@@ -1447,8 +1456,8 @@ function renderTicket(){
   else if(subtotal()>=150)lines.append(el("p",{class:"note"},"Spend $"+(PERK_MIN+1-perkBase())+" more and pick any add-on for $1."));
   t.append(lines);
   if(n){const sug=[];
-    if(state.mode==="box"&&!state.breadBox)sug.push({t:"Bread Bag",p:23,go:()=>{state.breadBox="bread1";renderBoxes()}});
-    for(const id of ["eggs","hsmild","cider"]){const it=ALL.find(x=>x.id===id);if(it&&!state.qty[id])sug.push({t:id==="hsmild"?"Hot sauce":id==="cider"?"Apple cider":it.nm,p:it.p,go:()=>{state.qty[id]=1;renderItems()}})}
+    if(state.mode==="box"&&!state.breadBox&&!state.diet.some(d=>["vegan","df","gf"].includes(d)))sug.push({t:"Bread Bag",p:23,go:()=>{state.breadBox="bread1";renderBoxes()}});
+    for(const id of ["eggs","hsmild","cider"]){const it=ALL.find(x=>x.id===id);if(it&&!state.qty[id]&&!itemBlocked(id))sug.push({t:id==="hsmild"?"Hot sauce":id==="cider"?"Apple cider":it.nm,p:it.p,go:()=>{state.qty[id]=1;renderItems()}})}
     if(sug.length){const row=el("div",{class:"ups"},el("span",{class:"ups-h"},"Add to this order"));
       for(const x of sug.slice(0,3))row.append(el("button",{type:"button",class:"upb",onclick:()=>{x.go();if(window.puCart)puCart();renderTicket()}},"+ "+x.t+" $"+x.p));
       row.append(el("a",{href:"#inventory",class:"ups-more"},"See all add-ons →"));t.append(row)}}
@@ -1723,7 +1732,7 @@ function hookBlock(txt){
     try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["STANDING ORDER REQUEST","Mobile: "+state.phone.trim(),"Box: "+b.name+" ($"+b.price+")","Day: "+hookDay()+"s","Where: "+(isDel()?"My door":"Hyde Park meet-up"),"From order #"+no,"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
       btn.remove();st.textContent="You're in. We'll text you to confirm your weekly "+b.name+". Skip or stop any week by 9 PM the night before."}
     catch(x){btn.disabled=false;btn.textContent="Yes, make it weekly";st.textContent="That didn't go through. Text 773-807-9223."}}},"Yes, make it weekly");
-  return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name+" every Saturday at $"+b.price+" a box, delivered free within 3 miles of Hyde Park (the 10% pickup rate doesn't apply). Every 4th box gets a free add-on. Skip any week."),btn,st);
+  return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name.replace(/^The /,"")+" every Saturday at $"+b.price+" a box, delivered free within 3 miles of Hyde Park (the 10% pickup rate doesn't apply). Every 4th box gets a free add-on. Skip any week."),btn,st);
 }
 /* Get 'em back (Oct 27): a device that ordered before sees "Reorder your last haul" on Home; one tap refills the cart, name and phone, then opens checkout. */
 const REORDER_ON=false; /* Off for now (Sol, Oct 27). Set true to bring back the welcome-back reorder card. */
