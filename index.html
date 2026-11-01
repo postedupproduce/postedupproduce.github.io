@@ -1889,16 +1889,14 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   /* Home order: hero, Thanksgiving, best box, hauls, how it works, standing. */
   const tg=document.getElementById("thanksgiving"),hero=document.querySelector("main [data-view='home']:not([id])")||null,sp2=document.getElementById("spotlight"),ha=document.getElementById("hauls"),how=document.getElementById("how");
   if(tg&&sp2&&ha&&how){tg.after(sp2);sp2.after(ha);ha.after(how)}})();
-/* Diet splash (Oct 31, Sol): first screen asks "How do you eat?" and drops people straight into their matches.
-   Once a day per phone (pu-dsplash-day); skipped for ?me, #deep links, calm visitors, and anyone who already picked a diet this session. */
+/* Diet splash (Oct 31): first screen asks "How do you eat?" and drops people straight into their matches.
+   Every visit (Nov 1, Malik); still skipped for ?me devices, #deep links (except #start) and calm visitors. */
 const DIET_SPLASH_ON=true;
 (function(){
   if(!DIET_SPLASH_ON)return;
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
   if(me||(location.hash&&location.hash!=="#start")||/[?&](me|diet|box)(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
-  if(state.diet&&state.diet.length&&location.hash!=="#start")return;
   const today=new Date().toLocaleDateString("en-CA",{timeZone:"America/Chicago"});
-  try{if(localStorage.getItem("pu-dsplash-day")===today&&location.hash!=="#start")return;localStorage.setItem("pu-dsplash-day",today)}catch(e){}
   const tag=(SRC_TAG||"").toLowerCase(),nm=(/^(?:svy-)?p-([a-z]{2,15})(?:-|$)/.exec(tag)||[])[1];
   const ct=(document.getElementById("closeTop")||{}).textContent||"";
   const cut=/^closes /i.test(ct)&&!/night before/i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):"Orders close 9 PM the night before";
