@@ -81,7 +81,7 @@ html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;
 @keyframes pu-bat{0%{transform:translate(0,0)}25%{transform:translate(30vw,-6vh)}50%{transform:translate(60vw,4vh)}75%{transform:translate(90vw,-8vh)}100%{transform:translate(120vw,0)}}
 @media (prefers-reduced-motion: reduce){html.spooky body::after{display:none}}
 </style>
-<style>/* Diet icons (Nov 1) */.dchipsline{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;padding:0}.dic{font-size:13px;line-height:1.2;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--chip);border:1px solid var(--line);white-space:nowrap}.dic.veg{color:var(--good);border-color:var(--good)}.dlegend{font-size:13px;color:var(--muted);margin:2px 0 12px}.dmini{font-size:13px;margin-left:6px;letter-spacing:1px;white-space:nowrap}</style>
+<style>/* Diet icons (Nov 1) */.dchipsline{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;padding:0}.dic{font-size:13px;line-height:1.2;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--chip);border:1px solid var(--line);white-space:nowrap}.dic.veg{color:var(--good);border-color:var(--good)}.dlegend{font-size:13px;color:var(--muted);margin:2px 0 12px}.dmini{font-size:11px;font-weight:700;margin-left:8px;letter-spacing:.04em;white-space:nowrap;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 5px;vertical-align:2px}</style>
 </head>
 <body>
 
@@ -433,6 +433,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 #pu-dsplash .ds-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
 #pu-dsplash .ds-chip{min-height:46px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;padding:9px 16px;font:700 16px var(--body);cursor:pointer}
 #pu-dsplash .ds-chip[aria-pressed="true"]{background:#2f6b3f;border-color:#2f6b3f;color:#fff}
+#pu-dsplash .ds-omni{flex-basis:100%;max-width:320px}
 #pu-dsplash .ds-go{margin-top:8px;width:100%;min-height:54px;border:0;border-radius:12px;background:#A9361F;color:#fff;font:800 18px var(--body);cursor:pointer}
 #pu-dsplash .ds-skip{min-height:44px;border:0;background:none;color:#24392C;font:700 15px var(--body);text-decoration:underline;cursor:pointer}
 #pu-dsplash .ds-cut{margin:0;background:#F3D58A;border-radius:999px;padding:7px 14px;font:800 14px/1.3 var(--body)}
@@ -1157,13 +1158,18 @@ try{const j=JSON.parse(sessionStorage.getItem("pu-diet")||"null");if(j){state.di
 (function(){const q=new URLSearchParams(location.search).get("diet");if(q){state.diet=q.toLowerCase().split(/[ ,]+/).filter(x=>DIETS.some(d=>d.id===x))}})();
 function dietSave(){try{sessionStorage.setItem("pu-diet",JSON.stringify({d:state.diet,who:state.who}))}catch(e){}}
 function dietLabel(){const a=DIETS.filter(d=>state.diet.includes(d.id)).map(d=>d.t),w=WHO.find(x=>x.id===state.who);return a.join(", ")+(w?(a.length?" · ":"")+"for "+w.t.toLowerCase().replace("just ",""):"")}
-/* Diet icons (Nov 1, Malik): show what's in every box and item at a glance. Vegan = no meat, fish, eggs or dairy; gluten is shown separately. */
-const DIET_ICON=[["meat","🥩","Meat"],["fish","🐟","Fish"],["egg","🥚","Eggs"],["dairy","🧀","Dairy"],["gluten","🌾","Gluten"]];
+/* Diet labels (Nov 1, Malik): menu codes on every box and item. VG vegan, V vegetarian, GF no gluten ingredients, DF no dairy, plus Meat / Fish. */
 const DIET_EXTRA={bread1:["gluten","dairy","egg"],bread2:["gluten","dairy","egg"]};
-function dietTags(id){const b=DIET_BOX[id];const raw=b?Object.keys(b).filter(k=>b[k]===1):(DIET_ITEM[id]||DIET_EXTRA[id]||[]);return DIET_ICON.map(x=>x[0]).filter(k=>raw.includes(k))}
+/* Made foods: recipes vary by maker, so no GF/DF claim (sausage fillers, pâté with cream cheese, soy in sauces). */
+const DIET_MADE=["sausage","meatbox","lakehaul","hsmild","hsfruit","hsxhot","preserves","quesokit","nocook","mystery"];
+function dietTags(id){const b=DIET_BOX[id];const raw=b?Object.keys(b).filter(k=>b[k]===1):(DIET_ITEM[id]||DIET_EXTRA[id]||[]);return ["meat","fish","egg","dairy","gluten"].filter(k=>raw.includes(k))}
 function dietAnimal(id){return dietTags(id).some(k=>k!=="gluten")}
-function dietChips(id,swap){const t=dietTags(id),w=el("p",{class:"dchipsline"});if(!dietAnimal(id))w.append(el("span",{class:"dic veg"},"🌱 Vegan"));for(const k of t){const x=DIET_ICON.find(y=>y[0]===k);w.append(el("span",{class:"dic"},x[1]+" "+x[2]))}if(dietAnimal(id)&&swap)w.append(el("span",{class:"dic veg"},"🌱 Vegan swap available"));return w}
-function dietMini(id){const t=dietTags(id),s=(dietAnimal(id)?"":"🌱")+t.map(k=>DIET_ICON.find(y=>y[0]===k)[1]).join("");const lab=(dietAnimal(id)?"":"Vegan")+(t.length?(dietAnimal(id)?"":", ")+"contains "+t.map(k=>DIET_ICON.find(y=>y[0]===k)[2].toLowerCase()).join(", "):"");return el("span",{class:"dmini",title:lab,"aria-label":lab},s)}
+function dietCodes(id){const t=dietTags(id),h=k=>t.includes(k),c=[];
+  if(!dietAnimal(id))c.push(["VG","🌱 VG","Vegan"]);else if(!h("meat")&&!h("fish"))c.push(["V","V","Vegetarian"]);
+  if(h("meat"))c.push(["Meat","🥩 Meat","Contains meat"]);if(h("fish"))c.push(["Fish","🐟 Fish","Contains fish"]);
+  const sure=!DIET_MADE.includes(id);if(sure&&!h("gluten"))c.push(["GF","GF","No gluten ingredients"]);if(sure&&dietAnimal(id)&&!h("dairy"))c.push(["DF","DF","No dairy"]);return c}
+function dietChips(id,swap){const w=el("p",{class:"dchipsline"});for(const [k,lab,title] of dietCodes(id))w.append(el("span",{class:"dic"+(k==="VG"?" veg":""),title},lab));if(dietAnimal(id)&&swap)w.append(el("span",{class:"dic veg",title:"We can swap it to vegan"},"🌱 VG option"));return w}
+function dietMini(id){const c=dietCodes(id),lab=c.map(x=>x[2]).join(", ");return el("span",{class:"dmini",title:lab,"aria-label":lab},c.map(x=>x[0]).join(" "))}
 function itemBlocked(id){const tags=DIET_ITEM[id]||[];return state.diet.some(d=>(DIET_BLOCK[d]||[]).some(t=>tags.includes(t)))}
 function boxShown(b){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))return false;if(b.only&&!([].concat(b.only).some(o=>SRC_TAG.indexOf(o)===0)||state.box===b.id))return false;if(b.hideList&&state.box!==b.id)return false;return true}
 /* Returns null if the box can't fit, else {score, swap (needs the vegan swap), why[]} */
@@ -1239,7 +1245,7 @@ function renderBoxes(){
   document.getElementById("breadboxes").hidden=!isBox;
   document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";
   for(const s of document.querySelectorAll(".seg button"))s.setAttribute("aria-checked",String(s.dataset.mode===state.mode));
-  if(!document.getElementById("dietLegend")){const pn=document.getElementById("produceNote");if(pn)pn.after(el("p",{id:"dietLegend",class:"dlegend"},"🌱 vegan · 🥚 eggs · 🧀 dairy · 🐟 fish · 🥩 meat · 🌾 gluten"))}
+  if(!document.getElementById("dietLegend")){const pn=document.getElementById("produceNote");if(pn)pn.after(el("p",{id:"dietLegend",class:"dlegend"},"VG vegan · V vegetarian · GF no gluten ingredients · DF dairy-free · 🥩 meat · 🐟 fish · VG option: we can make it vegan"))}
   boxList();boxRow("breadboxes",BREADBOXES,"breadBox");renderDiet();
 }
 /* Craving menu (option D, Oct 27): one scannable list, jump buttons, "What's in it" dropdowns, buttons that say what they do. */
@@ -1913,12 +1919,15 @@ const DIET_SPLASH_ON=true;
   const d=el("div",{id:"pu-dsplash",role:"dialog","aria-modal":"true","aria-labelledby":"dsQ"});
   const chips=el("div",{class:"ds-chips"});
   const go=el("button",{type:"button",class:"ds-go"});
-  const label=()=>{go.textContent=pick.size?"Show my boxes →":"Show me everything →"};
-  for(const x of DIETS){const b=el("button",{type:"button",class:"ds-chip","aria-pressed":String(pick.has(x.id))},x.t);b.addEventListener("click",()=>{pick.has(x.id)?pick.delete(x.id):pick.add(x.id);b.setAttribute("aria-pressed",String(pick.has(x.id)));label()});chips.append(b)}
+  let omni=false;const label=()=>{go.textContent=omni?"Show me the boxes →":pick.size?"Show my boxes →":"Show me everything →"};
+  /* "I'm an omnivore" (Nov 1, Malik): one tap, clears the diet chips, goes straight to every box. */
+const om=el("button",{type:"button",class:"ds-chip ds-omni","aria-pressed":"false"},"🍽 I'm an omnivore");
+for(const x of DIETS){const b=el("button",{type:"button",class:"ds-chip","aria-pressed":String(pick.has(x.id))},x.t);b.addEventListener("click",()=>{pick.has(x.id)?pick.delete(x.id):pick.add(x.id);b.setAttribute("aria-pressed",String(pick.has(x.id)));if(pick.size){omni=false;om.setAttribute("aria-pressed","false")}label()});chips.append(b)}
+om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",String(omni));if(omni){pick.clear();chips.querySelectorAll(".ds-chip:not(.ds-omni)").forEach(c=>c.setAttribute("aria-pressed","false"))}label()});chips.prepend(om);
   label();
   const close=()=>{d.classList.add("out");setTimeout(()=>d.remove(),260);removeEventListener("keydown",key)};
   const key=e=>{if(e.key==="Escape")close()};addEventListener("keydown",key);
-  go.addEventListener("click",()=>{if(pick.size){state.diet=[...pick];state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket();close();location.hash="#diet"}else{close();location.hash="#shop"}});
+  go.addEventListener("click",()=>{if(omni){state.diet=[];state.dietAll=true;dietSave();renderItems();renderTicket();close();location.hash="#shop";return}if(pick.size){state.diet=[...pick];state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket();close();location.hash="#diet"}else{close();location.hash="#shop"}});
   const skip=el("button",{type:"button",class:"ds-skip"},"What is this?");skip.addEventListener("click",()=>{close();location.hash="#start"});
   d.append(el("div",{class:"ds-in"},
     ...(nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[]),
