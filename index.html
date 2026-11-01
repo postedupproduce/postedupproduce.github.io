@@ -54,7 +54,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://postedupproduce.github.io/">
 <link rel="canonical" href="https://postedupproduce.github.io/">
-<meta property="og:image" content="https://postedupproduce.github.io/og-fall2.jpg"><!-- Oct 30, Sol: fall/IG-theme preview (orange to purple to green, flag bag). Old one: /og.png -->
+<meta property="og:image" content="https://postedupproduce.github.io/og-sat.png"><!-- Nov 1: site-color preview, Saturdays/Hyde Park. Halloween one: /og-fall2.jpg. Old one: /og.png -->
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#24392c">
@@ -601,7 +601,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   <section class="post" data-view="home">
     <div class="sign">
       <h1>Market haul, picked for you.</h1>
-      <p class="lede">We shop small farms and makers at the farmers market, then hand you the best of the week the same day: picked up or delivered.</p>
+      <p class="lede">We shop small farms and makers at the Chicago farmers market, then hand you the best of the week the same day: picked up or delivered.</p>
       <p class="now" id="now" aria-live="polite" hidden>Chicago time</p>
       <div class="acts">
         <a class="act a1" href="#shop"><span>Order this week's box<small id="actSmall">Half Peck $50 · Full Crate $72 · Vegan $68</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
@@ -717,7 +717,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
       <fieldset><legend>How do you eat? Pick any that fit.</legend><div class="dchips" id="dietChips"></div></fieldset>
       <fieldset><legend>Who's eating?</legend><div class="dchips" id="dietWho"></div></fieldset>
       <div class="dout" id="dietOut" aria-live="polite"></div>
-      <p class="dnote">Your diet rides along on your order so we shop for it. We pack in a shared space and aren't a certified allergen-free kitchen. For a serious allergy, text us before you order.</p>
+      <p class="dnote">Your diet rides along on your order so we shop for it. We pack in a shared space, not an allergen-free kitchen. For a serious allergy, text us before you order.</p>
     </details>
     <nav class="jumps" aria-label="Jump to">
       <button type="button" data-jump="produce" aria-current="true">Produce</button>
@@ -1380,6 +1380,8 @@ const FOUNDER_PCT=10;
 const PROTEIN_BOXES=["meatbox","lakehaul"];
 function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);let s=(b?b.price:0)+(bb?bb.price:0);for(const id of PROTEIN_BOXES){const it=ITEMS.meat.find(x=>x.id===id);if(it&&state.qty[id])s+=it.p*state.qty[id]}return s}
 /* Beta founder rate: 10% off boxes on meet-up orders, rounded to whole dollars. */
+function payByLabel(){const d=state.date?new Date(state.date+"T12:00"):null;if(!d)return "9 PM the night before";const c=new Date(d);c.setDate(c.getDate()-1);return c.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+", 9 PM"}
+function ticketSummary(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox),d=DATES.find(x=>x.v===state.date),st=curStop();const items=[b&&b.name,bb&&bb.name].concat(ALL.filter(i=>state.qty[i.id]).map(i=>(state.qty[i.id]>1?state.qty[i.id]+"× ":"")+i.nm)).filter(Boolean);return items.slice(0,3).join(", ")+(items.length>3?" +"+(items.length-3)+" more":"")+" · "+(isDel()?"Delivered to your door, "+(d?d.label:state.date)+", after "+st.delAfter:st.name+", "+(d?d.label:state.date)+", "+st.time)}
 function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
 function total(){return subtotal()+fee()-discount()-founderOff()-perkOff()}
 function curStop(){return isDel()?delStop():STOPS.find(x=>x.id===state.fulfill)}
@@ -1406,18 +1408,19 @@ function renderTicket(){
     const msg=el("p",{class:"note",id:"copyMsg"},"");
     t.append(el("div",{class:"done"},
       el("h2",{},state.wait?"You're on the waitlist":"Order in! Last step: pay"),
+      el("p",{class:"note",style:"margin:0 0 6px;color:var(--ink);font-weight:700"},ticketSummary()),
       ...(state.dupe?[el("p",{class:"note",style:"margin:0;color:var(--tomato);font-weight:700"},"You already placed this exact order, so here's your ticket. No need to order again."),el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;state.dupe=false;state.forceNew=true;renderTicket()}},"I really want a second order")]:[]),
       el("p",{class:"note",style:"margin:0;color:var(--ink)"},state.wait?"You're on the waitlist for that day. Don't pay yet. If a spot opens, we'll text you to confirm and send payment details. Want a sure spot? Pick another day.":state.sendStatus==="sending"?"Sending your order…":state.sendStatus==="sent"?
-        "Pay by 9 PM the night before. Your order is shopped once it's paid. Your ticket is below; we text you at each step.":
+        "Pay by "+payByLabel()+". Your order is shopped once it's paid. We text you at each step.":
         "Last step: text this ticket to us by 9 PM the night before. It already starts with POSTED so we can find it. "+(ZELLE?"Then Zelle "+ZELLE+" or Apple Cash "+APPLE_CASH+", with POSTED and your order number in the memo.":"We'll reply with payment details.")+" Orders are confirmed once paid."),
       ...(!state.wait&&state.sendStatus==="sent"&&ZELLE?[payBlock(txt)]:[]),
-      ...(!state.wait&&state.sendStatus==="sent"&&state.box?[hookBlock(txt)]:[]),
-      ...(!state.wait&&state.sendStatus==="sent"?[nextVoteBlock(txt)]:[]),
       el("details",{class:"tix"},el("summary",{},"Show my order ticket"),pre,
       el("button",{class:"cta",type:"button",onclick:async()=>{try{await navigator.clipboard.writeText(txt);msg.textContent="Copied. Paste it into a text to 773-807-9223."}catch(e){const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent="Selected. Copy it with your device's copy command."}}},"Copy order ticket"),msg),
       el("div",{class:"contact"},
         el("div",{},"Text: ",el("code",{},"773-807-9223")),
         el("div",{},"Track it: ",el("a",{href:"/track.html?o="+(txt.match(/#(\d+)/)||[])[1],style:"color:var(--tomato);font-weight:700"},"Order status page"))),
+      ...(!state.wait&&state.sendStatus==="sent"&&state.box?[hookBlock(txt)]:[]),
+      ...(!state.wait&&state.sendStatus==="sent"?[nextVoteBlock(txt)]:[]),
       el("button",{class:"ghost",type:"button",onclick:()=>{state.sent=null;renderTicket()}},"Back to menu")));
     return;
   }
@@ -1672,11 +1675,12 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
    so the customer types nothing. Hidden until CARD_ON=true; preview with ?card=1. Fallback = the any-amount Square link. */
 const CARD_ON=true, CARD_LINK="https://square.link/u/HHv7KJyK";
 function cardOn(){return CARD_ON||new URLSearchParams(location.search).get("card")==="1"}
+function memoFor(no){return "POSTED #"+no}
 function mkCD(no,amt){
   const sm=el("small",{},"Total and order number filled in for you");
-  return el("a",{class:"pay-btn cd",href:CARD_LINK,onclick:async ev=>{ev.preventDefault();const a=ev.currentTarget;if(a.dataset.busy)return;a.dataset.busy="1";sm.textContent="Opening secure checkout…";
+  return el("a",{class:"pay-btn cd",href:CARD_LINK,target:"_blank",rel:"noopener",onclick:async ev=>{const a=ev.currentTarget;if(a.dataset.manual)return;ev.preventDefault();if(a.dataset.busy)return;a.dataset.busy="1";sm.textContent="Opening secure checkout…";
     try{const r=await fetch(ORDER_ENDPOINT+"?q=pay&o="+encodeURIComponent(no));const j=await r.json();if(j.ok&&j.url){location.href=j.url;return}throw new Error(j.err||"no link")}
-    catch(x){a.dataset.busy="";sm.textContent="Opening our card page. Enter $"+amt+" and order number "+no+".";location.href=CARD_LINK}}},"Pay by card or Apple Pay",sm);
+    catch(x){a.dataset.busy="";a.dataset.manual="1";a.replaceChildren("Pay by card or Apple Pay",sm);sm.replaceChildren("Our card page couldn't fill this in. Tap again, then enter ",el("b",{},"$"+amt),", and put ",el("b",{},memoFor(no))," in the note.")}}},"Pay by card or Apple Pay",sm);
 }
 function payBlock(txt){
   const amt=(txt.match(/TOTAL: \$([\d.]+)/)||[])[1]||"",no=(txt.match(/#(\d+)/)||[])[1]||"";
@@ -1699,6 +1703,7 @@ function payBlock(txt){
   const box=el("div",{class:"pay"},
     el("div",{class:"pay-amt"},el("span",{},"Pay now"),el("b",{},"$"+amt)),
     el("p",{class:"pay-memo"},"Memo: ",el("b",{},memo)),
+    ...(isDel()&&!(delStop()&&delStop().freeMiles)?[el("p",{class:"note",style:"margin:0 0 10px;color:var(--ink);font-weight:600"},"$"+amt+" covers delivery within 3 miles of "+delStop().area+". Farther out, we text the mileage add ($1.50 a mile) before we shop; you can pay that part by text.")]:[]),
     ...(cardOn()?[mkCD(no,amt)]:[]),
     ...(apple?[mkAC(),mkZL(),zsteps]:[mkZL(),zsteps,mkAC()]),
     st,
@@ -1718,7 +1723,7 @@ function hookBlock(txt){
     try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:["STANDING ORDER REQUEST","Mobile: "+state.phone.trim(),"Box: "+b.name+" ($"+b.price+")","Day: "+hookDay()+"s","Where: "+(isDel()?"My door":"Hyde Park meet-up"),"From order #"+no,"Source: "+(SRC_TAG||"confirmation")].join(" · "),times:"",hp:""})});
       btn.remove();st.textContent="You're in. We'll text you to confirm your weekly "+b.name+". Skip or stop any week by 9 PM the night before."}
     catch(x){btn.disabled=false;btn.textContent="Yes, make it weekly";st.textContent="That didn't go through. Text 773-807-9223."}}},"Yes, make it weekly");
-  return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name+" every Saturday. Your spot is held, delivery is free, every 4th box gets a free add-on. Skip any week."),btn,st);
+  return el("div",{class:"hook"},el("b",{},"Want this every week?"),el("span",{},"Same "+b.name+" every Saturday at $"+b.price+" a box, delivered free within 3 miles of Hyde Park (the 10% pickup rate doesn't apply). Every 4th box gets a free add-on. Skip any week."),btn,st);
 }
 /* Get 'em back (Oct 27): a device that ordered before sees "Reorder your last haul" on Home; one tap refills the cart, name and phone, then opens checkout. */
 const REORDER_ON=false; /* Off for now (Sol, Oct 27). Set true to bring back the welcome-back reorder card. */
@@ -1907,11 +1912,12 @@ const DIET_SPLASH_ON=true;
   const close=()=>{d.classList.add("out");setTimeout(()=>d.remove(),260);removeEventListener("keydown",key)};
   const key=e=>{if(e.key==="Escape")close()};addEventListener("keydown",key);
   go.addEventListener("click",()=>{if(pick.size){state.diet=[...pick];state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket();close();location.hash="#diet"}else{close();location.hash="#shop"}});
-  const skip=el("button",{type:"button",class:"ds-skip"},"Just looking around");skip.addEventListener("click",close);
+  const skip=el("button",{type:"button",class:"ds-skip"},"What is this?");skip.addEventListener("click",()=>{close();location.hash="#start"});
   d.append(el("div",{class:"ds-in"},
     ...(nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[]),
     el("img",{class:"ds-logo",src:"/logos/harvest-stamp.png",alt:"Posted Up: picked for you",width:"560",height:"560"}),
     el("p",{class:"ds-tag"},"Market haul, picked for you."),
+    el("p",{class:"ds-sub",style:"margin-top:4px"},"Your personal shopper at the Chicago farmers market. Order by Friday, pick up Saturday in Hyde Park or get it delivered."),
     el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),
     el("p",{class:"ds-sub"},"Pick any that fit. We'll match you to a box."),
     chips,go,skip,el("p",{class:"ds-cut"},cut)));

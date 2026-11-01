@@ -120,7 +120,9 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
   </div>
 
   <section class="sign">
+    <p id="welcome" hidden style="margin:0 0 8px;font-weight:700"></p>
     <h1>Get first pick of the harvest.</h1>
+    <p><b>Posted Up shops the Chicago farmers market for you.</b> Order by Friday night, pick up Saturday in Hyde Park or get it delivered. We're in a small invite-only beta.</p>
     <p>Tell us your spot and how often you want to hear from us. 30 seconds, mostly taps.</p>
     <ul class="perks">
       <li>Only texts that fit your week. No group blasts, no spam.</li>
@@ -192,7 +194,7 @@ f.addEventListener("submit",async e=>{
     await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
     const h=document.createElement("h2");h.textContent="You're on the list, "+name+"!";
     const p1=document.createElement("p");p1.className="sub";p1.textContent="You'll only hear from us the way you picked. Nothing that doesn't fit your spot.";
-    const p2=document.createElement("p");p2.className="sub";p2.textContent="Orders close 9 PM the night before pickup. Prepay by Zelle or Apple Cash and your box is hand-picked at market that morning.";
+    const p2=document.createElement("p");p2.className="sub";p2.textContent="Orders close 9 PM the night before pickup. Pay by card, Apple Pay, Zelle or Apple Cash and your box is hand-picked at market that morning.";
     const a=document.createElement("a");a.className="cta";a.href="../?s=survey";a.textContent="See what's in season this week";
     f.classList.add("done");f.replaceChildren(h,p1,a,p2);
     h.setAttribute("tabindex","-1");h.focus();
@@ -243,5 +245,6 @@ function marketCatch(){
   return wrap;
 }
 </script>
+<script>(function(){var t=(new URLSearchParams(location.search).get("s")||"").toLowerCase();var w=document.getElementById("welcome");if(w&&t==="door24"){w.textContent="Hi from the wine bar. Scanned the tag? You\u2019re in the right place.";w.hidden=false}})();</script>
 </body>
 </html>
