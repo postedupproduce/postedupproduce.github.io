@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>First pick · Posted Up Produce</title>
-<meta name="description" content="Get first pick of the harvest: tell us your spot, your day and how often to text you. 30 seconds.">
+<meta name="description" content="Get first pick of the harvest: tell us your spot and how often to text you. 30 seconds.">
 <meta property="og:title" content="Posted Up Produce: market haul, picked for you">
-<meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, pick up same day Wed and Sat.">
+<meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, pick up on Saturdays.">
 <meta property="og:image" content="https://postedupproduce.github.io/og.png">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#24392c">
@@ -121,7 +121,7 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
 
   <section class="sign">
     <h1>Get first pick of the harvest.</h1>
-    <p>Tell us your spot, your day, and how often you want to hear from us. 30 seconds, mostly taps.</p>
+    <p>Tell us your spot and how often you want to hear from us. 30 seconds, mostly taps.</p>
     <ul class="perks">
       <li>Only texts that fit your week. No group blasts, no spam.</li>
       <li>Boxes planned around your stop and your taste.</li>
@@ -146,9 +146,8 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
     </div>
 
     <fieldset>
-      <legend>Where works?</legend>
+      <legend>Where works? <small>Saturdays</small></legend>
       <div class="opts">
-        <label class="opt"><input type="checkbox" name="spot" value="Goose Island"><span>Goose Island<small>Wed 11:30 AM–1:30 PM</small></span></label>
         <label class="opt"><input type="checkbox" name="spot" value="Hyde Park"><span>Hyde Park<small>Sat 3–4 PM</small></span></label>
         <label class="opt"><input type="checkbox" name="spot" value="Rogers Park"><span>Rogers Park<small>delivery after 6 PM; not a meet-up yet</small></span></label>
         <label class="opt"><input type="checkbox" name="spot" value="Delivery"><span>Delivery</span></label>
@@ -156,14 +155,7 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
       </div>
     </fieldset>
 
-    <fieldset>
-      <legend>Which day?</legend>
-      <div class="row3">
-        <label class="opt"><input type="radio" name="day" value="Wednesday"><span>Wed</span></label>
-        <label class="opt"><input type="radio" name="day" value="Saturday"><span>Sat</span></label>
-        <label class="opt"><input type="radio" name="day" value="Either"><span>Either</span></label>
-      </div>
-    </fieldset>
+    <input type="radio" name="day" value="Saturday" checked hidden>
 
 
     <label for="taste">Anything you love or never want? (optional)<input id="taste" type="text" maxlength="300" placeholder="Love honeycrisp, no beets"></label>
@@ -199,7 +191,7 @@ f.addEventListener("submit",async e=>{
   try{
     await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
     const h=document.createElement("h2");h.textContent="You're on the list, "+name+"!";
-    const p1=document.createElement("p");p1.className="sub";p1.textContent="You'll only hear from us the way you picked. Nothing that doesn't fit your spot and day.";
+    const p1=document.createElement("p");p1.className="sub";p1.textContent="You'll only hear from us the way you picked. Nothing that doesn't fit your spot.";
     const p2=document.createElement("p");p2.className="sub";p2.textContent="Orders close 9 PM the night before pickup. Prepay by Zelle or Apple Cash and your box is hand-picked at market that morning.";
     const a=document.createElement("a");a.className="cta";a.href="../?s=survey";a.textContent="See what's in season this week";
     f.classList.add("done");f.replaceChildren(h,p1,a,p2);
