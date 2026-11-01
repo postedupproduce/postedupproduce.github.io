@@ -59,6 +59,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#24392c">
 <title>Posted Up Produce</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script>/* Calm checkout (Oct 29, Sol): visitors from the Sosiego page (?s=luna...) keep the calm palette through checkout. Set before paint. */
 (function(){try{var t=(new URLSearchParams(location.search).get("s")||sessionStorage.getItem("pu-src")||"").toLowerCase();if(/^luna/.test(t))document.documentElement.classList.add("calm");
 /* Spooky week (Oct 30, Sol): dark Halloween look for everyone but calm visitors, off at midnight Oct 31 Chicago. */
@@ -1140,7 +1143,7 @@ function loadCounts(){if(!ORDER_ENDPOINT)return;fetch(ORDER_ENDPOINT+"?q=counts"
 function el(t,a={},...k){const e=document.createElement(t);for(const[x,y]of Object.entries(a)){if(x==="class")e.className=y;else if(x.startsWith("on"))e.addEventListener(x.slice(2),y);else e.setAttribute(x,y)}for(const c of k)e.append(c);return e}
 
 /* Diet matcher (Oct 31, Sol): customers pick how they eat, we rank the boxes that fit (using the vegan swap when it helps) or filter Build Your Own. The diet rides on the order as "[Diet: ...]" in Notes. Gluten-free is matched only by boxes made without wheat, barley or rye; nothing is certified. */
-const DIETS=[{id:"vegan",t:"Vegan"},{id:"veg",t:"Vegetarian"},{id:"pesc",t:"Pescatarian"},{id:"gf",t:"Gluten-free"},{id:"df",t:"Dairy-free"},{id:"nopork",t:"No pork"},{id:"protein",t:"High protein"},{id:"nocook",t:"I don't cook"}];
+const DIETS=[{id:"vegan",t:"Vegan"},{id:"veg",t:"Vegetarian"},{id:"pesc",t:"Pescatarian"},{id:"nopork",t:"No pork"},{id:"protein",t:"High protein"},{id:"nocook",t:"I don't cook"}];
 const WHO=[{id:"1",t:"Just me"},{id:"2",t:"Two of us"},{id:"3",t:"Family (3+)"}];
 /* What's in each box: meat, fish, egg, dairy, gluten, pork. cook / nocook / protein and who it suits (1, 2, 3 = family). */
 const DIET_BOX={
