@@ -1158,16 +1158,14 @@ try{const j=JSON.parse(sessionStorage.getItem("pu-diet")||"null");if(j){state.di
 (function(){const q=new URLSearchParams(location.search).get("diet");if(q){state.diet=q.toLowerCase().split(/[ ,]+/).filter(x=>DIETS.some(d=>d.id===x))}})();
 function dietSave(){try{sessionStorage.setItem("pu-diet",JSON.stringify({d:state.diet,who:state.who}))}catch(e){}}
 function dietLabel(){const a=DIETS.filter(d=>state.diet.includes(d.id)).map(d=>d.t),w=WHO.find(x=>x.id===state.who);return a.join(", ")+(w?(a.length?" · ":"")+"for "+w.t.toLowerCase().replace("just ",""):"")}
-/* Diet labels (Nov 1, Malik): menu codes on every box and item. VG vegan, V vegetarian, GF no gluten ingredients, DF no dairy, plus Meat / Fish. */
+/* Diet labels (Nov 1, Malik): menu codes on every box and item. VG vegan, V vegetarian, plus Meat / Fish. No GF/DF claims (Malik, Nov 1). */
 const DIET_EXTRA={bread1:["gluten","dairy","egg"],bread2:["gluten","dairy","egg"]};
-/* Made foods: recipes vary by maker, so no GF/DF claim (sausage fillers, pâté with cream cheese, soy in sauces). */
-const DIET_MADE=["sausage","meatbox","lakehaul","hsmild","hsfruit","hsxhot","preserves","quesokit","nocook","mystery"];
 function dietTags(id){const b=DIET_BOX[id];const raw=b?Object.keys(b).filter(k=>b[k]===1):(DIET_ITEM[id]||DIET_EXTRA[id]||[]);return ["meat","fish","egg","dairy","gluten"].filter(k=>raw.includes(k))}
 function dietAnimal(id){return dietTags(id).some(k=>k!=="gluten")}
 function dietCodes(id){const t=dietTags(id),h=k=>t.includes(k),c=[];
   if(!dietAnimal(id))c.push(["VG","🌱 VG","Vegan"]);else if(!h("meat")&&!h("fish"))c.push(["V","V","Vegetarian"]);
   if(h("meat"))c.push(["Meat","🥩 Meat","Contains meat"]);if(h("fish"))c.push(["Fish","🐟 Fish","Contains fish"]);
-  const sure=!DIET_MADE.includes(id);if(sure&&!h("gluten"))c.push(["GF","GF","No gluten ingredients"]);if(sure&&dietAnimal(id)&&!h("dairy"))c.push(["DF","DF","No dairy"]);return c}
+  return c}
 function dietChips(id,swap){const w=el("p",{class:"dchipsline"});for(const [k,lab,title] of dietCodes(id))w.append(el("span",{class:"dic"+(k==="VG"?" veg":""),title},lab));if(dietAnimal(id)&&swap)w.append(el("span",{class:"dic veg",title:"We can swap it to vegan"},"🌱 VG option"));return w}
 function dietMini(id){const c=dietCodes(id),lab=c.map(x=>x[2]).join(", ");return el("span",{class:"dmini",title:lab,"aria-label":lab},c.map(x=>x[0]).join(" "))}
 function itemBlocked(id){const tags=DIET_ITEM[id]||[];return state.diet.some(d=>(DIET_BLOCK[d]||[]).some(t=>tags.includes(t)))}
@@ -1245,7 +1243,7 @@ function renderBoxes(){
   document.getElementById("breadboxes").hidden=!isBox;
   document.getElementById("produceNote").textContent=isBox?"We pick the best of the week. Boxes cost less than itemizing. Contents change weekly; these are this week's examples.":"Choose the kinds of things you want, and we shop the best example at market. Prices are per item.";
   for(const s of document.querySelectorAll(".seg button"))s.setAttribute("aria-checked",String(s.dataset.mode===state.mode));
-  if(!document.getElementById("dietLegend")){const pn=document.getElementById("produceNote");if(pn)pn.after(el("p",{id:"dietLegend",class:"dlegend"},"VG vegan · V vegetarian · GF no gluten ingredients · DF dairy-free · 🥩 meat · 🐟 fish · VG option: we can make it vegan"))}
+  if(!document.getElementById("dietLegend")){const pn=document.getElementById("produceNote");if(pn)pn.after(el("p",{id:"dietLegend",class:"dlegend"},"VG vegan · V vegetarian · 🥩 meat · 🐟 fish · VG option: we can make it vegan"))}
   boxList();boxRow("breadboxes",BREADBOXES,"breadBox");renderDiet();
 }
 /* Craving menu (option D, Oct 27): one scannable list, jump buttons, "What's in it" dropdowns, buttons that say what they do. */
