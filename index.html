@@ -437,6 +437,8 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 #pu-dsplash .ds-chip{min-height:46px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;padding:9px 16px;font:700 16px var(--body);cursor:pointer}
 #pu-dsplash .ds-chip[aria-pressed="true"]{background:#2f6b3f;border-color:#2f6b3f;color:#fff}
 #pu-dsplash .ds-omni{flex-basis:100%;max-width:320px}
+.pu-bad{border-color:#B3261E!important;box-shadow:0 0 0 2px #B3261E!important;border-radius:10px}
+.pu-errline{margin:6px 0 0;color:#B3261E;font-weight:700;font-size:15px}
 #pu-dsplash .ds-q2{margin:2px 0 0;font:800 17px var(--body);color:#24392C}
 #pu-dsplash .ds-stops{gap:6px;margin-bottom:4px}
 #pu-dsplash .ds-stop{min-height:44px;padding:5px 12px;font-size:15px;display:flex;flex-direction:column;align-items:center;line-height:1.15}
@@ -1547,10 +1549,13 @@ function renderTicket(){
   f.append(err,el("button",{class:"cta",type:"submit"},isWait()?"Join the waitlist":"Get my order ticket"),el("div",{class:"cutoff"},"Orders close 9 PM the night before pickup. Pay up front by card, Apple Pay, Zelle or Apple Cash; no payment at pickup."));
   if(!n)f.querySelector(".cta").disabled=true;
   f.addEventListener("submit",e=>{e.preventDefault();
-    if(!state.name.trim()||state.phone.replace(/\D/g,"").length<10){err.textContent="Add your name and a 10-digit mobile number so we can confirm by text.";return}
-    if(state.email.trim()&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email.trim())){err.textContent="That email doesn't look right. Fix it or leave it blank.";return}
-    if(isDel()&&state.address.trim().length<6){err.textContent="Add a delivery address so we can confirm it's in our area.";return}
-    if(!state.agree){err.textContent="Tick the box to agree to the Order Terms before getting your ticket.";return}
+    /* Errors at the field (Nov 1, uxdesign.cc review): mark the field, say what's wrong, scroll to it. */
+    const bad=(id,msg)=>{err.textContent=msg;const x=document.getElementById(id);if(!x)return;const m=x.type==="checkbox"?(x.closest("label")||x):x;m.setAttribute("aria-invalid","true");m.classList.add("pu-bad");document.getElementById("puFieldErr")?.remove();m.after(el("p",{id:"puFieldErr",class:"pu-errline",role:"alert"},msg));x.setAttribute("aria-describedby","err");x.scrollIntoView({behavior:"smooth",block:"center"});setTimeout(()=>x.focus({preventScroll:true}),350)};
+    if(!state.name.trim())return bad("name","Add your name so we know whose bag it is.");
+    if(state.phone.replace(/\D/g,"").length<10)return bad("phone","Add a 10-digit mobile number so we can confirm by text.");
+    if(state.email.trim()&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email.trim()))return bad("email","That email doesn't look right. Fix it or leave it blank.");
+    if(isDel()&&state.address.trim().length<6)return bad("address","Add a delivery address so we can confirm it's in our area.");
+    if(!state.agree)return bad("agree","Tick the box to agree to the Order Terms before getting your ticket.");
     
     DATES=pickupDates();if(state.date&&!DATES.some(d=>d.v===state.date)){const nx=datesFor()[0];state.date=nx?nx.v:"";renderTicket();document.getElementById("err").textContent="Orders for that day closed at 9 PM the night before. "+(nx?"We moved you to "+nx.label+". Check it and tap again.":"No pickup day is open right now.");return}
     if(!state.date){err.textContent="No pickup day is open right now. Check back for the next market.";return}
@@ -1921,6 +1926,8 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   if(tg&&sp2&&ha&&how){tg.after(sp2);sp2.after(ha);ha.after(how)}})();
 /* Diet splash (Oct 31): first screen asks "How do you eat?" and drops people straight into their matches.
    Every visit (Nov 1, Malik); still skipped for ?me devices, #deep links (except #start) and calm visitors. */
+addEventListener("input",e=>{const x=e.target,m=x&&x.type==="checkbox"?x.closest("label"):x;if(m&&m.classList&&m.classList.contains("pu-bad")){m.classList.remove("pu-bad");m.removeAttribute("aria-invalid");document.getElementById("puFieldErr")?.remove();const er=document.getElementById("err");if(er)er.textContent=""}});
+addEventListener("change",e=>{const x=e.target,m=x&&x.type==="checkbox"?x.closest("label"):null;if(m&&m.classList.contains("pu-bad")){m.classList.remove("pu-bad");m.removeAttribute("aria-invalid");document.getElementById("puFieldErr")?.remove()}});
 const DIET_SPLASH_ON=true;
 /* Stop first (Nov 1, Malik): pick where you'll grab it on the welcome screen; remembered on this phone (pu-stop). */
 function puSetStop(v){const ok=STOPS.some(x=>x.id===v&&forThem(x))||DELIVERIES.some(x=>"del-"+x.id===v&&forThem(x));if(!ok)return;state.fulfill=v;try{localStorage.setItem("pu-stop",v)}catch(e){}const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}
@@ -2018,6 +2025,16 @@ const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sau
   const ad=(q.get("add")||"").replace(/[^a-z]/g,"");if(PROTEIN_BOXES.includes(ad)){state.qty[ad]=1;if(window.puCart)puCart()}
 })();
 (function(){const d=document.getElementById("diet");if(!d)return;if(new URLSearchParams(location.search).has("diet")||location.hash==="#diet")d.open=true;addEventListener("hashchange",()=>{if(location.hash==="#diet")d.open=true})})();
+/* Saved cart (Nov 1, uxdesign.cc review): picks survive a reload or a later visit on this phone for 7 days (pu-draft); cleared once the order is placed. */
+(function(){
+  let d=null;try{d=JSON.parse(localStorage.getItem("pu-draft")||"null")}catch(e){}
+  if(d&&Date.now()-(d.at||0)<6048e5&&!count()){
+    const b=BOXES.find(x=>x.id===d.box&&boxShown(x)),bb=BREADBOXES.find(x=>x.id===d.breadBox);
+    state.box=b?b.id:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(d.qty&&d.qty[i.id]>0)state.qty[i.id]=d.qty[i.id];
+    if(d.mode==="pick"||d.mode==="box")state.mode=d.mode;
+  }
+  const rt=renderTicket;renderTicket=function(){rt.apply(this,arguments);try{if(state.sent||!count())localStorage.removeItem("pu-draft");else localStorage.setItem("pu-draft",JSON.stringify({box:state.box,breadBox:state.breadBox,qty:state.qty,mode:state.mode,at:Date.now()}))}catch(e){}};
+})();
 renderBoxes();renderItems();renderTicket();loadCounts();
 </script>
 
