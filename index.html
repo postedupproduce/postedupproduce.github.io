@@ -87,7 +87,7 @@ html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;
 @media (prefers-reduced-motion: reduce){html.spooky body::after{display:none}}
 </style>
 <style>/* Diet icons (Nov 1) */.dchipsline{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;padding:0}.dic{font-size:13px;line-height:1.2;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--chip);border:1px solid var(--line);white-space:nowrap}.dic.veg{color:var(--good);border-color:var(--good)}.dlegend{font-size:13px;color:var(--muted);margin:2px 0 12px}.dmini{font-size:11px;font-weight:700;margin-left:8px;letter-spacing:.04em;white-space:nowrap;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 5px;vertical-align:2px}</style>
-<script src="/tour.js?v=1" defer></script>
+<script src="/tour.js?v=2" defer></script>
 <style>/* Tour button on the splashes (Nov 2, Malik) */
 #pu-splash .pu-tourb{position:absolute;left:50%;bottom:calc(max(28px,env(safe-area-inset-bottom)) + 62px);transform:translateX(-50%);z-index:3;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;cursor:pointer;font:700 15px/1 var(--body);color:#F8F2E6;background:#24392C;border:2px solid #24392C;border-radius:999px;padding:12px 18px}
 #pu-splash .pu-tourb .pl,#pu-dsplash .ds-tour .pl{width:0;height:0;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
@@ -483,12 +483,14 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 .hwbar.tgb{border-color:#8A5A2B;background:color-mix(in srgb,#8A5A2B 10%,var(--panel))}
 .hwbar.tgb .go,.spot.tg .go{background:#7A4A1E;color:#fff!important}
 .spot.tg .k{color:#8A5A2B}
-.hwbar.dwb{border-color:#C0661B;background:color-mix(in srgb,#E8962E 12%,var(--panel))}
-.hwbar.dwb .go,.spot.dw .go{background:#A8460B;color:#fff!important}
-.spot.dw{border-color:#C0661B}
-.spot.dw .k{color:#A8460B}
-:root[data-theme="dark"] .spot.dw .k{color:#F0A05A}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .spot.dw .k{color:#F0A05A}}
+/* Diwali colors (Nov 2, Malik): marigold border + rangoli magenta, option A of the special-box palettes. */
+.hwbar.dwb{border-color:#E2A21A;background:color-mix(in srgb,#E2A21A 12%,var(--panel))}
+.hwbar.dwb .go,.spot.dw .go{background:#A3195B;color:#fff!important}
+.spot.dw{border:3px solid #E2A21A;border-radius:14px;padding:18px;background:color-mix(in srgb,#E2A21A 12%,var(--panel))}
+.spot.dw .k,.spot.dw .row2 a,#specialBin h3{color:#A3195B}
+#specialBin{border-left:4px solid #E2A21A;padding-left:12px}
+:root[data-theme="dark"] :is(.spot.dw .k,.spot.dw .row2 a,#specialBin h3){color:#F2A0C8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(.spot.dw .k,.spot.dw .row2 a,#specialBin h3){color:#F2A0C8}}
 :root[data-theme="dark"] :is(.spot.tg .go,.hwbar.tgb .go){color:#fff}
 :root[data-theme="dark"] .spot.tg .k{color:#E0A96D}
 .hwbar.asb{border-color:var(--good)}.hwbar.asb .go{background:var(--good);color:#fff}
@@ -727,6 +729,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 
   <section class="post" data-view="home" id="how" aria-labelledby="howH">
     <h2 id="howH">How it works</h2>
+    <button type="button" class="tourBtn" data-tour><span class="pl" aria-hidden="true"></span>Watch it in action · 45 sec</button>
     <ol class="steps">
       <li><span><b>Order and pay by 9 PM</b> the night before, by card, Apple Pay, Zelle or Apple Cash. Pick a box, build your own, or <a href="#diet">match one to your diet</a>.</span></li>
       <li><span><b>We shop the morning market</b> and hand-select what's peaking.</span></li>
