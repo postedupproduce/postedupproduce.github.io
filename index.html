@@ -548,6 +548,12 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 .dpick-top span:last-child{white-space:nowrap}
 .dwhy{margin:0;font-size:14px;color:var(--ink);line-height:1.4}
 .dpick .badd{min-height:44px;font-size:16px}
+.dsize{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:8px}
+.dsize button{min-height:52px;border-radius:10px;border:2px solid var(--line);background:transparent;color:var(--ink);font:500 14px/1.25 var(--body);cursor:pointer;text-align:left;padding:8px 10px}
+.dsize button b{display:block;font-size:15px}
+.dsize button[aria-checked="true"]{border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent)}
+.dinside ul{font-size:14px}
+.dbyo{background:none;border:0;padding:4px 0;color:var(--ink);text-decoration:underline;font:600 14px var(--body);cursor:pointer;justify-self:start}
 .dadd{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px}
 .dadd button{flex:none;min-height:44px;border-radius:10px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 15px var(--body);padding:6px 12px;cursor:pointer}
 .dadd button[aria-pressed="true"]{background:var(--good);border-color:var(--good);color:#fff}
@@ -1257,23 +1263,35 @@ function renderDiet(){
   for(const x of WHO){const on=state.who===x.id;w.append(el("button",{type:"button",class:"dchip","aria-pressed":String(on),onclick:()=>{state.who=on?"":x.id;dietSave();renderDiet();renderTicket()}},x.t))}
   const lab=dietLabel();document.getElementById("dietSum").textContent=lab?"Matching for: "+lab:"Tell us how you eat. We'll point you to a box, or help you build one.";
   if(!state.diet.length&&!state.who)return;
-  const res=BOXES.filter(boxShown).map(b=>({b,f:dietFit(b)})).filter(x=>x.f).sort((x,y)=>y.f.score-x.f.score).slice(0,3);
+  /* Size tiers (Nov 2, Malik): sibling boxes show as one card with a size picker; every card gets "What's in it" and a build-your-own way out. */
+  const res0=BOXES.filter(boxShown).map(b=>({b,f:dietFit(b)})).filter(x=>x.f).sort((x,y)=>y.f.score-x.f.score);
+  const seenT=new Set(),res=[];for(const x of res0){const t=tierOf(x.b.id);if(t){if(seenT.has(t.key))continue;seenT.add(t.key)}res.push(x);if(res.length===3)break}
   o.append(el("h3",{},res.length?"Boxes that fit you":"No box fits all of that yet"));
   if(!res.length)o.append(el("p",{class:"dwhy"},"Build your own from what fits, and tell us anything else in Notes at checkout."));
-  for(const {b,f} of res){
+  for(const r of res){
+    const t=tierOf(r.b.id),sz=t?t.ids.map(id=>BOXES.find(x=>x.id===id)).filter(x=>x&&boxShown(x)):[];
+    const pickId=t?(sz.find(x=>x.id===state.box)||sz.find(x=>x.id===DIET_TIER[t.key])||r.b).id:r.b.id;
+    const b=BOXES.find(x=>x.id===pickId)||r.b,f=dietFit(b)||r.f;
     const on=state.box===b.id;
+    const inUl=el("ul",{});for(const h of (b.has||[]))inUl.append(el("li",{},h));
     o.append(el("div",{class:"dpick"+(on?" on":"")},
-      el("div",{class:"dpick-top"},el("span",{},b.name),el("span",{},"$"+b.price)),dietChips(b.id,vegAble(b)),
+      el("div",{class:"dpick-top"},el("span",{},t?t.name:b.name),el("span",{},"$"+b.price)),dietChips(b.id,vegAble(b)),
+      ...(sz.length>1?[el("div",{class:"dsize",role:"radiogroup","aria-label":"Size"},...sz.map(x=>el("button",{type:"button",role:"radio","aria-checked":String(x.id===b.id),onclick:()=>{DIET_TIER[t.key]=x.id;if(state.box&&t.ids.includes(state.box)){state.box=x.id;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket()}else renderDiet()}},el("b",{},x.name.replace(t.name,"").replace(/^\s*·\s*/,"")||x.name),el("span",{}," $"+x.price+" · "+x.wt))))]:[]),
       el("p",{class:"dwhy"},b.makes||b.wt),
       ...(f.why.length?[el("p",{class:"dwhy"},el("b",{},"✓ "),f.why.join(" · "))]:[]),
+      ...((b.has||[]).length?[el("details",{class:"bin-in dinside"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),inUl)]:[]),
       el("button",{type:"button",class:"badd","aria-pressed":String(on),onclick:()=>{
         if(on){state.box=null}else{state.box=b.id;state.mode="box";if(f.swap||(state.diet.includes("vegan")&&vegAble(b))){state.vegan=true;try{sessionStorage.setItem("pu-vegan","1")}catch(e){}}if(window.puCart)puCart()}
-        renderBoxes();renderItems();renderTicket()}},on?"Added ✓ (tap to remove)":"Add "+b.name+" · $"+b.price)));
+        renderBoxes();renderItems();renderTicket()}},on?"Added ✓ (tap to remove)":"Add "+b.name+" · $"+b.price),
+      el("button",{type:"button",class:"dbyo",onclick:()=>{if(on){state.box=null}setMode("pick");renderDiet();const s=document.getElementById("sec-produce");if(s)s.scrollIntoView({behavior:"smooth",block:"start"})}},"Rather choose each item? Build your own →")));
   }
   const ad=dietAddons();
   if(ad.length){o.append(el("h3",{},"Add protein"));for(const it of ad){const q=state.qty[it.id]||0;o.append(el("div",{class:"dadd"},el("span",{},it.nm+" · $"+it.p),el("button",{type:"button","aria-pressed":String(!!q),onclick:()=>{if(q)delete state.qty[it.id];else{state.qty[it.id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}},q?"Added ✓":"Add")))}}
   if(state.diet.some(d=>DIET_BLOCK[d]))o.append(el("button",{type:"button",class:"dbuild",onclick:()=>{state.dietAll=false;setMode("pick");renderDiet();const s=document.getElementById("sec-produce");if(s)s.scrollIntoView({block:"start"})}},state.mode==="pick"?"Building your own: showing only what fits ✓":"Build my own box instead →"));
 }
+const TIERS=[{key:"fruit",name:"Fruit Box",ids:["fruitsm","fruit"]},{key:"produce",name:"Produce box",ids:["halfpeck","crate"]}];
+const DIET_TIER={};
+function tierOf(id){return TIERS.find(t=>t.ids.includes(id))||null}
 function renderBoxes(){
   const isBox=state.mode==="box";
   document.getElementById("boxes").hidden=!isBox;
