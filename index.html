@@ -437,6 +437,10 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 #pu-dsplash .ds-chip{min-height:46px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;padding:9px 16px;font:700 16px var(--body);cursor:pointer}
 #pu-dsplash .ds-chip[aria-pressed="true"]{background:#2f6b3f;border-color:#2f6b3f;color:#fff}
 #pu-dsplash .ds-omni{flex-basis:100%;max-width:320px}
+#pu-dsplash .ds-q2{margin:2px 0 0;font:800 17px var(--body);color:#24392C}
+#pu-dsplash .ds-stops{gap:6px;margin-bottom:4px}
+#pu-dsplash .ds-stop{min-height:44px;padding:5px 12px;font-size:15px;display:flex;flex-direction:column;align-items:center;line-height:1.15}
+#pu-dsplash .ds-stop small{font:600 12px var(--body);opacity:.8}
 #pu-dsplash .ds-again{flex-basis:100%;max-width:320px;min-height:56px;border-radius:16px;border:0;background:#24392C;color:#F8F2E6;padding:10px 16px;font:700 17px var(--body);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
 #pu-dsplash .ds-again small{font:600 13px var(--body);opacity:.85}
 #pu-dsplash .ds-go{margin-top:8px;width:100%;min-height:54px;border:0;border-radius:12px;background:#A9361F;color:#fff;font:800 18px var(--body);cursor:pointer}
@@ -1918,6 +1922,9 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
 /* Diet splash (Oct 31): first screen asks "How do you eat?" and drops people straight into their matches.
    Every visit (Nov 1, Malik); still skipped for ?me devices, #deep links (except #start) and calm visitors. */
 const DIET_SPLASH_ON=true;
+/* Stop first (Nov 1, Malik): pick where you'll grab it on the welcome screen; remembered on this phone (pu-stop). */
+function puSetStop(v){const ok=STOPS.some(x=>x.id===v&&forThem(x))||DELIVERIES.some(x=>"del-"+x.id===v&&forThem(x));if(!ok)return;state.fulfill=v;try{localStorage.setItem("pu-stop",v)}catch(e){}const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}
+(function(){let v="";try{v=localStorage.getItem("pu-stop")||""}catch(e){}if(v){try{puSetStop(v)}catch(e){}}})();
 (function(){
   if(!DIET_SPLASH_ON)return;
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
@@ -1938,6 +1945,12 @@ if(again)again.addEventListener("click",()=>{close();window.puLast.go()});
 for(const x of DIETS){const b=el("button",{type:"button",class:"ds-chip","aria-pressed":String(pick.has(x.id))},x.t);b.addEventListener("click",()=>{pick.has(x.id)?pick.delete(x.id):pick.add(x.id);b.setAttribute("aria-pressed",String(pick.has(x.id)));if(pick.size){omni=false;om.setAttribute("aria-pressed","false")}label()});chips.append(b)}
 om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",String(omni));if(omni){pick.clear();chips.querySelectorAll(".ds-chip:not(.ds-omni)").forEach(c=>c.setAttribute("aria-pressed","false"))}label()});chips.prepend(om);if(again)chips.prepend(again);
   label();
+  const stopRow=el("div",{class:"ds-chips ds-stops",role:"group","aria-label":"Where will you grab it?"});
+  const delOpt=DELIVERIES.find(x=>forThem(x)&&x.days.includes(6));
+  const sOpts=[...STOPS.filter(forThem).map(s=>[s.id,s.name,s.time.replace(/:00/g,"").replace(/ ?(AM|PM)/g,"")]),...(delOpt?[["del-"+delOpt.id,"🚪 Delivery",delOpt.freeMiles?"free nearby":"from $"+DELIVERY_FEE]]:[])];
+  let saved="";try{saved=localStorage.getItem("pu-stop")||""}catch(e){}
+  for(const [v,n,s] of sOpts){const b=el("button",{type:"button",class:"ds-chip ds-stop","aria-pressed":String(saved===v||(saved.startsWith("del-")&&v.startsWith("del-")))},n,el("small",{},s));
+    b.addEventListener("click",()=>{stopRow.querySelectorAll(".ds-stop").forEach(c=>c.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");puSetStop(v)});stopRow.append(b)}
   const close=()=>{d.classList.add("out");setTimeout(()=>d.remove(),260);removeEventListener("keydown",key)};
   const key=e=>{if(e.key==="Escape")close()};addEventListener("keydown",key);
   go.addEventListener("click",()=>{if(omni){state.diet=[];state.dietAll=true;dietSave();renderItems();renderTicket();close();location.hash="#shop";return}if(pick.size){state.diet=[...pick];state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket();close();location.hash="#diet"}else{close();location.hash="#shop"}});
@@ -1946,7 +1959,8 @@ om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",Strin
     ...(nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[]),
     el("img",{class:"ds-logo",src:"/logos/harvest-stamp.png",alt:"Posted Up: picked for you",width:"560",height:"560"}),
     el("p",{class:"ds-tag"},"Market haul, picked for you."),
-    el("p",{class:"ds-sub",style:"margin-top:4px"},"Your personal shopper at the Chicago farmers market. Order by Friday, pick up Saturday in Goose Island, Hyde Park or Rogers Park, or get it delivered."),
+    el("p",{class:"ds-sub",style:"margin-top:4px"},"Your personal shopper at the Chicago farmers market. Order by Friday, get it Saturday."),
+    el("p",{class:"ds-q2"},"Where will you grab it?"),stopRow,
     el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),
     el("p",{class:"ds-sub"},"Pick any that fit. We'll match you to a box."),
     chips,go,skip,el("p",{class:"ds-cut"},cut)));
