@@ -476,6 +476,12 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 .hwbar.tgb{border-color:#8A5A2B;background:color-mix(in srgb,#8A5A2B 10%,var(--panel))}
 .hwbar.tgb .go,.spot.tg .go{background:#7A4A1E;color:#fff!important}
 .spot.tg .k{color:#8A5A2B}
+.hwbar.dwb{border-color:#C0661B;background:color-mix(in srgb,#E8962E 12%,var(--panel))}
+.hwbar.dwb .go,.spot.dw .go{background:#A8460B;color:#fff!important}
+.spot.dw{border-color:#C0661B}
+.spot.dw .k{color:#A8460B}
+:root[data-theme="dark"] .spot.dw .k{color:#F0A05A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .spot.dw .k{color:#F0A05A}}
 :root[data-theme="dark"] :is(.spot.tg .go,.hwbar.tgb .go){color:#fff}
 :root[data-theme="dark"] .spot.tg .k{color:#E0A96D}
 .hwbar.asb{border-color:var(--good)}.hwbar.asb .go{background:var(--good);color:#fff}
@@ -646,6 +652,13 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   <!-- Asana Box paused (Oct 29, Sol): home feature hidden; the Asana Pair stays in Boxes and the shop bar. Delete the style below to bring it back. -->
   <style>#asanaFeature{display:none!important}html:not(.calm) #asShop{display:none!important}</style>
   <!-- Oct 30, Sol: Asana Pair removed from the main site too (Boxes bar + list). Still shows for Sosiego/luna visitors (?s=luna...) via only:"luna". -->
+  <!-- Diwali Kit spotlight (Nov 2, Sol): home card + shop bar until the Fri Nov 6 9 PM cutoff. -->
+  <section class="post spot dw" data-view="home" id="diwaliSpot" aria-labelledby="dwH" hidden>
+    <span class="k">🪔 Diwali · this Saturday only, Sat 11/7</span>
+    <h2 id="dwH">Diwali Kit · $30</h2>
+    <p class="meta">Diwali is Sunday, Nov 8. Everything for gajar halwa and aloo palak: 2 lb carrots, a bunch of spinach, 2 lb potatoes, onions and garlic, plus a recipe card. Picked from a close radius, $4 less than buying it all separately. Add it to any box or order it on its own.</p>
+    <div class="row2"><button type="button" class="go" data-dw style="flex:1 1 200px">Add the Diwali Kit</button><a href="#inventory">See add-ons &rarr;</a></div>
+  </section>
   <section class="post spot tg" data-view="home" id="thanksgiving" aria-labelledby="tgH" hidden>
     <span class="k">🦃 Thanksgiving · ready this Saturday, or any Sat through 11/21</span>
     <h2 id="tgH">Thanksgiving Sides Box · $95</h2>
@@ -720,6 +733,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
     <h1 id="shopH" class="vh1">What are you craving?</h1>
     <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
+    <div class="hwbar dwb" id="dwShop" hidden><span><b>🪔 Diwali Kit · $30</b>Carrots, spinach, potatoes, onions &amp; garlic + recipe card · Sat 11/7 only</span><button type="button" class="go" data-dw>Add it</button></div>
     <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8 · ready this Saturday or any Sat through 11/21</span><button type="button" class="go" data-tg>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
@@ -1820,6 +1834,13 @@ function nextVoteBlock(txt){
   return box;
 }
 /* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
+/* Diwali Kit (Nov 2, Sol): home card + shop bar until the Fri Nov 6 9 PM cutoff; Add puts one kit in the cart (date locks to Sat 11/7). */
+(function(){
+  const it=ITEMS.special.find(i=>i.id==="diwali");if(!it||!itemLive(it))return;
+  for(const id of ["diwaliSpot","dwShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
+  const add=()=>{if(!state.qty.diwali)state.qty.diwali=1;if(window.puCart)puCart();renderItems();renderTicket();location.hash="#checkout"};
+  document.querySelectorAll("[data-dw]").forEach(b=>b.addEventListener("click",add));
+})();
 /* Thanksgiving (Oct 31, Sol): home card + shop bar until the Nov 20 9 PM cutoff passes; Add puts the box in the cart and limits dates to Saturdays through 11/21. */
 (function(){
   const end=new Date(2026,10,20,21,0);if(chiNow()>=end)return;
