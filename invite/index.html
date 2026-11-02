@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700;800&display=swap">
 <style>
-/* Friend invite gate (Nov 1, Malik): the Halloween /drop/ "name + IG handle gets you in" flow, kept year-round for friend links.
+/* Friend invite gate (Nov 1, Malik): the Halloween /drop/ "name + one unique ID (IG, LinkedIn or other) gets you in" flow, kept year-round for friend links.
    No password, no closing date. Sign-ups land in the Feedback tab (type "feedback", shows on Contacts), then go to the order site. */
 :root{
   --bg:#F2EBDD;--panel:#F8F2E6;--ink:#24392C;--muted:#4a5a4e;--line:#d9ccb3;
@@ -51,6 +51,15 @@ small{color:var(--muted);font-size:14px;font-weight:600}
 .what summary{font-weight:800;min-height:44px;display:flex;align-items:center;cursor:pointer}
 .what p{margin:0 0 12px;font-size:16px}
 @media (prefers-reduced-motion: reduce){.stamp{animation:none}}
+.via{border:0;padding:0;margin:0}
+.via legend{font-weight:700;font-size:15px;padding:0;margin-bottom:6px}
+.chips{display:flex;gap:8px}
+.chips label{flex:1;position:relative}
+.chips input{position:absolute;opacity:0;width:1px;height:1px;min-height:0}
+.chips span{display:flex;align-items:center;justify-content:center;min-height:44px;border:2px solid var(--line);border-radius:999px;background:#fff;font-weight:700;font-size:15px;cursor:pointer}
+.chips input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+.chips input:focus-visible+span{outline:3px solid var(--tomato);outline-offset:2px}
+input.bad{border-color:var(--bad)}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -62,12 +71,20 @@ small{color:var(--muted);font-size:14px;font-weight:600}
     <img class="stamp" src="/img/stamp-blur.png" width="200" height="200" alt="The Posted Up logo, blurred out">
     <p class="hi" id="hiLine">A friend sent you an invite.</p>
     <h1 id="aH">Get in.</h1>
-    <p class="sub">Two quick things and you're in. Invite only for now.</p>
+    <p class="sub">Your name and one way to find you. Invite only for now.</p>
     <form id="askForm" novalidate>
       <label for="aName">First name</label>
       <input id="aName" type="text" autocomplete="given-name">
-      <label for="aIg">Instagram handle</label>
+      <fieldset class="via"><legend>Where can we find you?</legend>
+        <div class="chips" role="radiogroup">
+          <label><input type="radio" name="via" value="ig" checked><span>Instagram</span></label>
+          <label><input type="radio" name="via" value="li"><span>LinkedIn</span></label>
+          <label><input type="radio" name="via" value="other"><span>Other</span></label>
+        </div>
+      </fieldset>
+      <label for="aIg" id="aIgL">Instagram handle</label>
       <input id="aIg" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@yourhandle">
+      <small id="aIgHint">So we know it's really you. One per person.</small>
       <label for="aPh">Mobile <small>(optional, for pickup texts)</small></label>
       <input id="aPh" type="tel" autocomplete="tel" inputmode="tel">
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
@@ -103,15 +120,29 @@ small{color:var(--muted);font-size:14px;font-weight:600}
   /* Already let in on this phone: skip the form. */
   var ok=false;try{ok=localStorage.getItem("pu-invited")==="1"}catch(e){}
   if(ok){location.replace(shop);return}
-  document.getElementById("askForm").addEventListener("submit",function(e){
+  /* One unique way to find you (Nov 1): Instagram, LinkedIn, or other (TikTok, website, who sent you). Field changes with the pick; errors show on blur. */
+  var VIA={ig:{l:"Instagram handle",ph:"@yourhandle",h:"So we know it's really you. One per person.",e:"Add your Instagram handle, like @yourname."},
+    li:{l:"LinkedIn profile",ph:"linkedin.com/in/yourname",h:"Paste your profile link or just the name after /in/.",e:"Add your LinkedIn link, like linkedin.com/in/yourname."},
+    other:{l:"TikTok, website, or who invited you",ph:"@tiktok, yoursite.com, or a friend's name",h:"Anything that tells us who you are.",e:"Add a TikTok, website, or the friend who sent you."}};
+  var f=document.getElementById("askForm"),idIn=document.getElementById("aIg");
+  function via(){return (f.querySelector('input[name="via"]:checked')||{}).value||"ig"}
+  function clean(v,k){v=v.trim();
+    if(k==="ig"){v=v.replace(/^https?:\/\/(www\.)?instagram\.com\//i,"").replace(/[/?#].*$/,"").replace(/^@+/,"");return /^[A-Za-z0-9._]{2,30}$/.test(v)?"@"+v:""}
+    if(k==="li"){var m=/linkedin\.com\/in\/([^/?#\s]+)/i.exec(v);v=(m?m[1]:v.replace(/^@+/,"")).replace(/\/+$/,"");try{v=decodeURIComponent(v)}catch(x){}return /^[\w\u00C0-\u024F-]{3,100}$/.test(v)?"linkedin.com/in/"+v:""}
+    v=v.replace(/\s+/g," ").slice(0,80);return v.length>=3?v:""}
+  function setVia(){var c=VIA[via()];document.getElementById("aIgL").textContent=c.l;idIn.placeholder=c.ph;document.getElementById("aIgHint").textContent=c.h;idIn.autocapitalize=via()==="other"?"sentences":"none";idIn.classList.remove("bad");document.getElementById("aMsg").textContent=""}
+  f.addEventListener("change",function(e){if(e.target.name==="via"){setVia();idIn.focus()}});
+  idIn.addEventListener("blur",function(){if(!idIn.value.trim())return;var ok=!!clean(idIn.value,via());idIn.classList.toggle("bad",!ok);document.getElementById("aMsg").textContent=ok?"":VIA[via()].e});
+  f.addEventListener("submit",function(e){
     e.preventDefault();var m=document.getElementById("aMsg");m.textContent="";
-    var nm=document.getElementById("aName").value.trim(),ig=document.getElementById("aIg").value.trim().replace(/^@+/,""),ph=document.getElementById("aPh").value.trim();
-    if(!nm){m.textContent="Add your first name.";return}
-    if(!/^[A-Za-z0-9._]{2,30}$/.test(ig)){m.textContent="Add your Instagram handle.";return}
+    var k=via(),nm=document.getElementById("aName").value.trim(),id=clean(idIn.value,k),ph=document.getElementById("aPh").value.trim();
+    if(!nm){m.textContent="Add your first name.";document.getElementById("aName").focus();return}
+    if(!id){m.textContent=VIA[k].e;idIn.classList.add("bad");idIn.focus();return}
     if(ph&&ph.replace(/\D/g,"").length<10){m.textContent="Add a 10-digit mobile, or leave it blank.";return}
-    var msg=["SURVEY SIGN-UP","Mobile: "+(ph||"none"),"Spot: Not picked yet","Day: Saturday","Texts: IG DM @"+ig,"Source: invite-"+raw].join(" · ");
-    var body={type:"feedback",name:nm,contact:"",message:msg,times:"",hp:document.querySelector('#askForm input[name="website"]').value};
-    var b=e.target.querySelector("button[type=submit]");b.disabled=true;b.textContent="One sec…";
+    var tx=k==="ig"?"IG DM "+id:k==="li"?"LinkedIn "+id:"Other: "+id.replace(/·/g,"-");
+    var msg=["SURVEY SIGN-UP","Mobile: "+(ph||"none"),"Spot: Not picked yet","Day: Saturday","Texts: "+tx,"Source: invite-"+raw].join(" · ");
+    var body={type:"feedback",name:nm,contact:"",message:msg,times:"",hp:f.querySelector('input[name="website"]').value};
+    var b=f.querySelector("button[type=submit]");b.disabled=true;b.textContent="One sec…";
     fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)}).catch(function(){}).then(go);
   });
 })();
