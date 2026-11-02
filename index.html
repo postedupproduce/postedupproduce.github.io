@@ -647,10 +647,10 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   <style>#asanaFeature{display:none!important}html:not(.calm) #asShop{display:none!important}</style>
   <!-- Oct 30, Sol: Asana Pair removed from the main site too (Boxes bar + list). Still shows for Sosiego/luna visitors (?s=luna...) via only:"luna". -->
   <section class="post spot tg" data-view="home" id="thanksgiving" aria-labelledby="tgH" hidden>
-    <span class="k">🦃 Thanksgiving · pick up or delivered Sat 11/21</span>
+    <span class="k">🦃 Thanksgiving · ready this Saturday, or any Sat through 11/21</span>
     <h2 id="tgH">Thanksgiving Sides Box · $95</h2>
     <p class="meta" style="color:var(--ink)">$85 at a pickup with the beta founder rate</p>
-    <p class="meta">About 20 lb for a table of 6–8: potatoes for mash, sweet potatoes, squash, a pie pumpkin, Brussels sprouts, greens, apples for pie, stuffing veg and fresh herbs. Shopped at the last outdoor market of the year, and all of it keeps till Thursday.</p>
+    <p class="meta">About 20 lb for a table of 6–8: potatoes for mash, sweet potatoes, squash, a pie pumpkin, Brussels sprouts, greens, apples for pie, stuffing veg and fresh herbs. Shopped fresh the Saturday you pick: 11/7, 11/14 or 11/21. The roots, squash and apples keep for weeks; for the crispest greens and sprouts, pick 11/21.</p>
     <div class="row2"><button type="button" class="go" data-tg style="flex:1 1 200px">Add the Thanksgiving box</button><a href="#thanks">See what's in it &rarr;</a></div>
   </section>
 
@@ -720,7 +720,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   <section class="post" data-view="shop" id="shop" aria-labelledby="shopH">
     <h1 id="shopH" class="vh1">What are you craving?</h1>
     <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
-    <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8 · shopped and ready Sat 11/21</span><button type="button" class="go" data-tg>Add it</button></div>
+    <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8 · ready this Saturday or any Sat through 11/21</span><button type="button" class="go" data-tg>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
@@ -1013,8 +1013,8 @@ const BOXES=[
    has:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has"],
    veg:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has","Already plant-based. Cook the grits with water or veg stock"],
    recipe:"Recipe card in the bag: fish and grits with garlicky greens. Add a Great Lakes fillet (Meat, fish & eggs) or Lake Haul"},
-  /* Thanksgiving Sides Box (Oct 31, Sol): sides for a table of 6-8, shopped at the last outdoor market Sat Nov 21 (date-locked via THANKS_DATE). Starting price; est. cost ~$67 (~29%). Confirm prices on the Nov 7 run. */
-  {id:"thanks",name:"Thanksgiving Sides Box",price:95,until:"2026-11-22",wt:"~20 lb · sides for a table of 6–8",desc:"Everything for the sides, shopped at the last outdoor market of the year. All of it keeps till Thursday.",pick:"Thanksgiving · Sat 11/21 only",
+  /* Thanksgiving Sides Box (Oct 31, Sol; Nov 2: open to any Saturday through Nov 21, latest = THANKS_DATE): sides for a table of 6-8. Starting price; est. cost ~$67 (~29%). Confirm prices on the Nov 7 run. */
+  {id:"thanks",name:"Thanksgiving Sides Box",price:95,until:"2026-11-22",wt:"~20 lb · sides for a table of 6–8",desc:"Everything for the sides, shopped fresh the Saturday you pick. Roots, squash and apples keep for weeks; pick 11/21 for the crispest greens and sprouts.",pick:"Thanksgiving · any Sat through 11/21",
    makes:"Sides for 6–8 with leftovers: mash, sweet potatoes, squash, sprouts, greens, stuffing veg and a pie",
    has:["3 lb potatoes for mash","3 lb sweet potatoes","A butternut squash","A pie pumpkin (or more squash)","1½ lb Brussels sprouts","Collards or kale, 2 bunches","3 lb apples for pie or crisp","Onions, shallots and garlic","Celery or celery root for stuffing","A bunch of sage, thyme and rosemary","Local cranberries, when a stand has them"],
    recipe:"Recipe card in the bag: brown-butter sage squash, and a cider apple crisp"},
@@ -1426,7 +1426,7 @@ function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/
 function total(){return subtotal()+fee()-discount()-founderOff()-perkOff()}
 function curStop(){return isDel()?delStop():STOPS.find(x=>x.id===state.fulfill)}
 const THANKS_DATE="2026-11-21",DIWALI_DATE="2026-11-07";
-function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;const L=ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES;return state.box==="thanks"?L.filter(d=>d.v===THANKS_DATE):state.qty.diwali?L.filter(d=>d.v===DIWALI_DATE):L}
+function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;const L=ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES;let R=L;if(state.box==="thanks")R=R.filter(d=>d.v<=THANKS_DATE);if(state.qty.diwali)R=R.filter(d=>d.v===DIWALI_DATE);return R}
 function setMode(m){
   if(m===state.mode)return;
   state.mode=m;
@@ -1436,8 +1436,7 @@ function setMode(m){
 }
 
 function renderTicket(){
-  if(state.box==="thanks"&&state.date!==THANKS_DATE){const ds=datesFor();if(ds.length)state.date=ds[0].v}
-  if(state.qty.diwali&&state.box!=="thanks"&&state.date!==DIWALI_DATE){const ds=datesFor();if(ds.length)state.date=ds[0].v}
+  if((state.box==="thanks"||state.qty.diwali)&&!datesFor().some(d=>d.v===state.date)){const ds=datesFor();if(ds.length)state.date=ds[0].v}
   if(state.reward==="5off"&&subtotal()<VOTE_MIN)state.reward="pastry";
   const t=document.getElementById("ticketBody");t.textContent="";
   const n=count(),b=BOXES.find(x=>x.id===state.box);
@@ -1821,7 +1820,7 @@ function nextVoteBlock(txt){
   return box;
 }
 /* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
-/* Thanksgiving (Oct 31, Sol): home card + shop bar until the Nov 20 9 PM cutoff passes; Add puts the box in the cart and locks the date to Sat 11/21. */
+/* Thanksgiving (Oct 31, Sol): home card + shop bar until the Nov 20 9 PM cutoff passes; Add puts the box in the cart and limits dates to Saturdays through 11/21. */
 (function(){
   const end=new Date(2026,10,20,21,0);if(chiNow()>=end)return;
   for(const id of ["thanksgiving","tgShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
