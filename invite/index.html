@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>You're invited · Posted Up Produce</title>
+<meta name="description" content="A friend invited you to Posted Up, a personal shopper for Chicago farmers markets.">
+<meta property="og:title" content="You're invited to Posted Up.">
+<meta property="og:description" content="Chicago farmers market, picked for you. Invite only for now.">
+<meta property="og:image" content="https://postedupproduce.github.io/og-sat.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Friend invite gate (Nov 1, Malik): the Halloween /drop/ "name + IG handle gets you in" flow, kept year-round for friend links.
+   No password, no closing date. Sign-ups land in the Feedback tab (type "feedback", shows on Contacts), then go to the order site. */
+:root{
+  --bg:#F2EBDD;--panel:#F8F2E6;--ink:#24392C;--muted:#4a5a4e;--line:#d9ccb3;
+  --tomato:#A9361F;--wheat:#F3D58A;--bad:#A9361F;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--body)}
+body{min-height:100vh;background-image:radial-gradient(circle at 50% -5%,rgba(243,213,138,.55),transparent 55%)}
+main{max-width:440px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) 22px 40px;display:flex;flex-direction:column;gap:16px}
+.top{display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.brand{font-weight:800;letter-spacing:.14em;font-size:14px}
+.beta{border:2px solid currentColor;border-radius:999px;padding:2px 10px;font-weight:800;font-size:12px}
+.stamp{width:200px;height:200px;display:block;margin:4px auto 0;animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.hi{margin:0;text-align:center;font-weight:800;color:var(--tomato)}
+h1{font:400 34px/1.08 var(--display);margin:0;text-align:center}
+.sub{margin:0;text-align:center;color:var(--muted)}
+form{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+label{font-weight:700;font-size:15px}
+input{font:600 18px var(--body);color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 16px;min-height:52px;width:100%}
+input:focus{outline:3px solid var(--tomato);outline-offset:2px;border-color:var(--tomato)}
+button,.btn{display:flex;align-items:center;justify-content:center;font:800 18px var(--body);color:#fff;background:var(--tomato);border:0;border-radius:999px;padding:14px 22px;min-height:52px;width:100%;text-decoration:none;cursor:pointer}
+button[disabled]{opacity:.7}
+.msg{min-height:24px;margin:0;text-align:center;font-weight:700;color:var(--bad)}
+.alt{text-align:center;margin:0}
+.alt a{color:var(--ink);font-weight:700;display:inline-flex;align-items:center;min-height:44px}
+small{color:var(--muted);font-size:14px;font-weight:600}
+.fine{font-size:14px;color:var(--muted);text-align:center;margin:0}
+.what{background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:4px 16px}
+.what summary{font-weight:800;min-height:44px;display:flex;align-items:center;cursor:pointer}
+.what p{margin:0 0 12px;font-size:16px}
+@media (prefers-reduced-motion: reduce){.stamp{animation:none}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><span class="brand">POSTED UP</span><span class="beta">BETA</span></div>
+
+  <section id="ask" aria-labelledby="aH">
+    <img class="stamp" src="/img/stamp-blur.png" width="200" height="200" alt="The Posted Up logo, blurred out">
+    <p class="hi" id="hiLine">A friend sent you an invite.</p>
+    <h1 id="aH">Get in.</h1>
+    <p class="sub">Two quick things and you're in. Invite only for now.</p>
+    <form id="askForm" novalidate>
+      <label for="aName">First name</label>
+      <input id="aName" type="text" autocomplete="given-name">
+      <label for="aIg">Instagram handle</label>
+      <input id="aIg" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@yourhandle">
+      <label for="aPh">Mobile <small>(optional, for pickup texts)</small></label>
+      <input id="aPh" type="tel" autocomplete="tel" inputmode="tel">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+      <p class="msg" id="aMsg" role="status" aria-live="polite"></p>
+      <button type="submit">Let me in</button>
+    </form>
+    <p class="fine">Only used to invite you. No spam.</p>
+    <details class="what">
+      <summary>What is Posted Up?</summary>
+      <p>Posted Up Produce is a personal shopper for Chicago farmers markets. Order by Friday at 9 PM, I shop the market Saturday morning, and you pick it up in Goose Island, Hyde Park or Rogers Park, or get it delivered.</p>
+      <p>Small farms and makers, close radius. Invite only while we're in beta.</p>
+    </details>
+  </section>
+
+  <section id="open" aria-labelledby="oH" hidden>
+    <img class="stamp" src="/logos/harvest-stamp.png" width="200" height="200" alt="Posted Up: picked for you">
+    <h1 id="oH">You're in.</h1>
+    <p class="sub">Taking you to this week's haul…</p>
+    <a class="btn" id="goShop" href="/">Shop this week</a>
+  </section>
+</main>
+<script>
+(function(){
+  var EP="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+  var raw=(new URLSearchParams(location.search).get("s")||"friend").replace(/[^a-z0-9-]/gi,"").toLowerCase().slice(0,30)||"friend";
+  var shop="/?s="+encodeURIComponent(raw);
+  document.getElementById("goShop").href=shop;
+  /* ?s=friend-maya → "Maya sent you an invite." */
+  var who=(/^(?:friend|ig-f|ref)-([a-z]{2,15})$/.exec(raw)||[])[1];
+  if(who)document.getElementById("hiLine").textContent=who.charAt(0).toUpperCase()+who.slice(1)+" sent you an invite.";
+  function show(id){["ask","open"].forEach(function(x){document.getElementById(x).hidden=(x!==id)})}
+  function go(){try{localStorage.setItem("pu-invited","1")}catch(x){}show("open");setTimeout(function(){location.replace(shop)},900)}
+  /* Already let in on this phone: skip the form. */
+  var ok=false;try{ok=localStorage.getItem("pu-invited")==="1"}catch(e){}
+  if(ok){location.replace(shop);return}
+  document.getElementById("askForm").addEventListener("submit",function(e){
+    e.preventDefault();var m=document.getElementById("aMsg");m.textContent="";
+    var nm=document.getElementById("aName").value.trim(),ig=document.getElementById("aIg").value.trim().replace(/^@+/,""),ph=document.getElementById("aPh").value.trim();
+    if(!nm){m.textContent="Add your first name.";return}
+    if(!/^[A-Za-z0-9._]{2,30}$/.test(ig)){m.textContent="Add your Instagram handle.";return}
+    if(ph&&ph.replace(/\D/g,"").length<10){m.textContent="Add a 10-digit mobile, or leave it blank.";return}
+    var msg=["SURVEY SIGN-UP","Mobile: "+(ph||"none"),"Spot: Not picked yet","Day: Saturday","Texts: IG DM @"+ig,"Source: invite-"+raw].join(" · ");
+    var body={type:"feedback",name:nm,contact:"",message:msg,times:"",hp:document.querySelector('#askForm input[name="website"]').value};
+    var b=e.target.querySelector("button[type=submit]");b.disabled=true;b.textContent="One sec…";
+    fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)}).catch(function(){}).then(go);
+  });
+})();
+</script>
+</body>
+</html>
