@@ -173,7 +173,7 @@ const clean=v=>(v||"").replace(/\+/g," ").replace(/[^A-Za-z\u00C0-\u017F' &-]/g,
 const forName=clean(P.get("for")),fromName=clean(P.get("from"));
 const hello=document.getElementById("hello");
 /* Partner logos (Nov 2, Sol): a ?s= tag ending in a partner key shows our logo beside theirs in the welcome card. Logo files live in /logos/partner-<key>.png (192px square). */
-const PARTNERS={gge:{logo:"/logos/partner-gge.png",alt:"Partner logo"}};
+const PARTNERS={gge:{logo:"/logos/partner-gge.png?v=3",alt:"Partner logo"}};
 const pk=(P.get("with")||(raw.match(/-([a-z]+)$/)||[])[1]||"").toLowerCase(),pt=Object.prototype.hasOwnProperty.call(PARTNERS,pk)?PARTNERS[pk]:null;
 if(pt){const im=document.getElementById("partnerLogo");im.src=pt.logo;im.alt=forName?forName+" logo":pt.alt;im.onerror=()=>{document.getElementById("helloPair").hidden=true};document.getElementById("helloPair").hidden=false}
 if(forName){
