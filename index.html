@@ -87,6 +87,13 @@ html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;
 @media (prefers-reduced-motion: reduce){html.spooky body::after{display:none}}
 </style>
 <style>/* Diet icons (Nov 1) */.dchipsline{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;padding:0}.dic{font-size:13px;line-height:1.2;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--chip);border:1px solid var(--line);white-space:nowrap}.dic.veg{color:var(--good);border-color:var(--good)}.dlegend{font-size:13px;color:var(--muted);margin:2px 0 12px}.dmini{font-size:11px;font-weight:700;margin-left:8px;letter-spacing:.04em;white-space:nowrap;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 5px;vertical-align:2px}</style>
+<script src="/tour.js?v=1" defer></script>
+<style>/* Tour button on the splashes (Nov 2, Malik) */
+#pu-splash .pu-tourb{position:absolute;left:50%;bottom:calc(max(28px,env(safe-area-inset-bottom)) + 62px);transform:translateX(-50%);z-index:3;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;cursor:pointer;font:700 15px/1 var(--body);color:#F8F2E6;background:#24392C;border:2px solid #24392C;border-radius:999px;padding:12px 18px}
+#pu-splash .pu-tourb .pl,#pu-dsplash .ds-tour .pl{width:0;height:0;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
+#pu-splash .pu-tourb:focus-visible{outline:3px solid #D2452B;outline-offset:2px}
+#pu-dsplash .ds-tour{margin-top:4px;width:100%;min-height:50px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;font:700 16px var(--body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px}
+</style>
 </head>
 <body>
 
@@ -1952,7 +1959,7 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   const d=document.createElement("div");d.id="pu-splash";d.setAttribute("role","presentation");if(short)d.className="short";
   d.innerHTML=bar+beat(1,b0,"You pick from the farmers market")+beat(2,b1,"Order by 9&nbsp;PM")+beat(3,b2,"We shop the market at sunrise")+beat(4,b3,"Your bag gets packed")+beat(5,b4,"Posted up at your spot, or at your door")
     +'<div class="pu-land">'+(nm?'<p class="pu-hi"></p>':'')+(boo?'<p class="pu-hi pu-boo">🦇 You\'re in on the Halloween drop<br>Mystery Bag · Saturday only 🎃</p>':'')+'<img class="pu-logo" src="/logos/harvest-stamp.png" alt="Posted Up: picked for you" width="560" height="560"><p class="pu-tag">Market haul, picked for you.</p><p class="pu-cut"></p></div>'
-    +'<p class="pu-hint">Tap for next, hold to pause</p><span class="pu-skip"><button type="button" class="s1">Skip intro</button><span class="s2">Tap to start</span></span>';
+    +'<button type="button" class="pu-tourb" data-tour><span class="pl" aria-hidden="true"></span>Watch how it works · 45 sec</button><p class="pu-hint">Tap for next, hold to pause</p><span class="pu-skip"><button type="button" class="s1">Skip intro</button><span class="s2">Tap to start</span></span>';
   if(nm)d.querySelector(".pu-hi").textContent="Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you";
   d.querySelector(".pu-cut").textContent=cut;
   /* Story controls (Oct 30, Sol): tap = next beat (on the logo frame, tap = into the site); press and hold = pause; Skip intro = straight in. */
@@ -1964,6 +1971,7 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   const done=()=>{clearTimeout(t);clearTimeout(hold);d.remove();removeEventListener("keydown",key)};
   const key=e=>{if(e.key==="Escape"){e.preventDefault();done()}else if(e.key==="Enter"||e.key===" "||e.key==="ArrowRight"){e.preventDefault();next()}};
   addEventListener("keydown",key);
+  const tb=d.querySelector(".pu-tourb");tb.addEventListener("pointerdown",e=>e.stopPropagation());tb.addEventListener("pointerup",e=>e.stopPropagation());tb.addEventListener("click",()=>done());
   const skip=d.querySelector(".pu-skip .s1");skip.addEventListener("pointerdown",e=>e.stopPropagation());skip.addEventListener("pointerup",e=>e.stopPropagation());skip.addEventListener("click",e=>{e.stopPropagation();done()});
   d.addEventListener("pointerdown",e=>{clearTimeout(t);held=false;hold=setTimeout(()=>{held=true;anims().forEach(a=>a.pause())},220)});
   const release=go=>{clearTimeout(hold);if(held){held=false;anims().forEach(a=>a.play())}else if(go)next()};
@@ -2014,6 +2022,7 @@ om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",Strin
   const close=()=>{d.classList.add("out");setTimeout(()=>d.remove(),260);removeEventListener("keydown",key)};
   const key=e=>{if(e.key==="Escape")close()};addEventListener("keydown",key);
   go.addEventListener("click",()=>{if(omni){state.diet=[];state.dietAll=true;dietSave();renderItems();renderTicket();close();location.hash="#shop";return}if(pick.size){state.diet=[...pick];state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket();close();location.hash="#diet"}else{close();location.hash="#shop"}});
+  const tourB=el("button",{type:"button",class:"ds-tour","data-tour":""},el("span",{class:"pl","aria-hidden":"true"}),"Watch how it works · 45 sec");tourB.addEventListener("click",()=>close());
   const skip=el("button",{type:"button",class:"ds-skip"},"What is this?");skip.addEventListener("click",()=>{close();location.hash="#start"});
   d.append(el("div",{class:"ds-in"},
     ...(nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[]),
@@ -2023,7 +2032,7 @@ om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",Strin
     el("p",{class:"ds-q2"},"Where will you grab it?"),stopRow,
     el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),
     el("p",{class:"ds-sub"},"Pick any that fit. We'll match you to a box."),
-    chips,go,skip,el("p",{class:"ds-cut"},cut)));
+    chips,go,tourB,skip,el("p",{class:"ds-cut"},cut)));
   document.body.append(d);setTimeout(()=>go.focus({preventScroll:true}),50);
 })();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.

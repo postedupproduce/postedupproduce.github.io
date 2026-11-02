@@ -62,6 +62,7 @@ small{color:var(--muted);font-size:14px;font-weight:600}
 input.bad{border-color:var(--bad)}
 [hidden]{display:none!important}
 </style>
+<script src="/tour.js?v=1" defer></script>
 </head>
 <body>
 <main>
@@ -97,6 +98,7 @@ input.bad{border-color:var(--bad)}
       <p>Posted Up Produce is a personal shopper for Chicago farmers markets. Order by Friday at 9 PM, I shop the market Saturday morning, and you pick it up in Goose Island, Hyde Park or Rogers Park, or get it delivered.</p>
       <p>Small farms and makers, close radius. Invite only while we're in beta.</p>
     </details>
+    <button type="button" class="tourBtn" data-tour><span class="pl" aria-hidden="true"></span>Watch how it works · 45 sec, with music</button>
   </section>
 
   <section id="open" aria-labelledby="oH" hidden>
@@ -104,6 +106,7 @@ input.bad{border-color:var(--bad)}
     <h1 id="oH">You're in.</h1>
     <p class="sub">Taking you to this week's haul…</p>
     <a class="btn" id="goShop" href="/">Shop this week</a>
+    <button type="button" class="tourBtn" data-tour style="max-width:360px"><span class="pl" aria-hidden="true"></span>Watch how it works · 45 sec</button>
   </section>
 </main>
 <script>
