@@ -754,6 +754,11 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 
   <section class="post" data-view="inventory" id="inventory" aria-labelledby="addH">
     <h1 id="addH" class="vh1">Add to your order</h1>
+    <div class="bin" id="specialBin" hidden>
+      <h3>Diwali Kit · this Saturday only</h3>
+      <p class="sub">Diwali is Sunday, Nov 8. Everything for gajar halwa and aloo palak, picked from a close radius. Add it to any order for pickup Sat 11/7. Orders close Friday at 9 PM.</p>
+      <div class="items" data-cat="special"></div>
+    </div>
     <nav class="row tabs" role="tablist" aria-label="Menu sections">
       <button class="tab" role="tab" aria-selected="true" data-go="meat">Meat, fish &amp; eggs</button>
       <button class="tab" role="tab" aria-selected="false" data-go="bread">Bread &amp; cheese</button>
@@ -1025,6 +1030,10 @@ const BREADBOXES=[
   {id:"bread2",name:"Bakery Bundle",price:42,wt:"2 loaves + 2 pastries",desc:"Enough for the week, with something for the freezer.",pick:"",makes:"About 24–28 slices, plus 2 treats",has:["2 sourdough loaves (about 12–14 slices each)","2 pastries"]}
 ];
 const ITEMS={
+  /* Diwali Kit (Nov 2, Sol): add-on for Sat Nov 7 only (Diwali is Sun Nov 8). Hidden after the Fri Nov 6 9 PM cutoff via "until"; date-locked via DIWALI_DATE. Est. cost ~$20. */
+  special:[
+    {id:"diwali",nm:"Diwali Kit",ds:"For gajar halwa and aloo palak · 2 lb carrots, a bunch of spinach, 2 lb potatoes, onions & garlic, plus a recipe card · Sat 11/7 only · save $4 vs. buying separately",p:30,until:"2026-11-06T21:00:00-06:00"}
+  ],
   produce:[
     {id:"apples",nm:"Apples, 2 lb",ds:"About 6 apples · e.g. Honeycrisp, Gala, EverCrisp, Pink Lady",p:13},
     {id:"apples4",nm:"Apples, 4 lb",ds:"About 12 apples · a mix of sweet and tart",p:20},
@@ -1311,13 +1320,16 @@ function renderPrefs(){
     w.append(el("button",{class:"pref",type:"button","data-s":s,"aria-label":p+(s?": "+s:""),onclick:()=>{const n=s===""?"more":s==="more"?"skip":"";if(n)state.prefs[p]=n;else delete state.prefs[p];renderPrefs();renderTicket()}},(s==="more"?"+ ":"")+p));
   }
 }
+function itemLive(it){return !it.until||chiNow()<new Date(it.until)}
 function renderItems(){
+  const sb=document.getElementById("specialBin");if(sb)sb.hidden=!ITEMS.special.some(itemLive);
   for(const w of document.querySelectorAll(".items")){
     w.textContent="";
     w.hidden=state.mode==="box"&&PICK_ONLY.includes(w.dataset.cat);
     if(!ITEMS[w.dataset.cat].length){w.append(el("p",{class:"soon"},"Coming soon. We're lining up local bakers now."));continue}
     let hid=0;
     for(const it of ITEMS[w.dataset.cat]){
+      if(!itemLive(it)){delete state.qty[it.id];continue}
       const q=state.qty[it.id]||0;
       if(!state.dietAll&&!q&&itemBlocked(it.id)){hid++;continue}
       const set=n=>{if(n>q&&window.puCart)puCart();state.qty[it.id]=Math.max(0,Math.min(9,n));if(!state.qty[it.id])delete state.qty[it.id];renderItems();renderTicket()};
@@ -1413,8 +1425,8 @@ function ticketSummary(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.f
 function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
 function total(){return subtotal()+fee()-discount()-founderOff()-perkOff()}
 function curStop(){return isDel()?delStop():STOPS.find(x=>x.id===state.fulfill)}
-const THANKS_DATE="2026-11-21";
-function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;const L=ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES;return state.box==="thanks"?L.filter(d=>d.v===THANKS_DATE):L}
+const THANKS_DATE="2026-11-21",DIWALI_DATE="2026-11-07";
+function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;const L=ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES;return state.box==="thanks"?L.filter(d=>d.v===THANKS_DATE):state.qty.diwali?L.filter(d=>d.v===DIWALI_DATE):L}
 function setMode(m){
   if(m===state.mode)return;
   state.mode=m;
@@ -1425,6 +1437,7 @@ function setMode(m){
 
 function renderTicket(){
   if(state.box==="thanks"&&state.date!==THANKS_DATE){const ds=datesFor();if(ds.length)state.date=ds[0].v}
+  if(state.qty.diwali&&state.box!=="thanks"&&state.date!==DIWALI_DATE){const ds=datesFor();if(ds.length)state.date=ds[0].v}
   if(state.reward==="5off"&&subtotal()<VOTE_MIN)state.reward="pastry";
   const t=document.getElementById("ticketBody");t.textContent="";
   const n=count(),b=BOXES.find(x=>x.id===state.box);
