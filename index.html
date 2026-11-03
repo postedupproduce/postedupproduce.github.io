@@ -322,7 +322,7 @@ details.terms[open] summary::after{content:"−"}
 .act.a1{background:var(--tomato);color:#fff}
 .act.a2{background:#F3D58A;color:#24392C}
 .act.a3{background:transparent;color:var(--board-ink);border-color:color-mix(in srgb,var(--board-ink) 60%,transparent)}
-.sign .stops{grid-template-columns:repeat(3,1fr)}
+.sign .stops{grid-template-columns:repeat(2,1fr)}
 .sign .stop{background:color-mix(in srgb,var(--board-ink) 12%,transparent);border-color:transparent;color:var(--board-ink)}
 .ticket .where{display:grid;gap:10px;background:var(--chip);border-radius:12px;padding:12px}
 .ticket .where>b{font-size:17px}
@@ -641,13 +641,13 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
       <p class="now" id="now" aria-live="polite" hidden>Chicago time</p>
       <div class="acts">
         <a class="act a1" href="#shop"><span>Order this week's box<small id="actSmall">Half Peck $50 · Full Crate $72 · Vegan $68</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
-        <a class="act a3 dietbtn" href="#diet"><span>🥗 Match my diet<small>Vegan, gluten-free, high protein, no cooking · we pick the box</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
+        <a class="act a3 dietbtn" href="#diet"><span>🥗 Match my diet<small>Vegan, vegetarian, high protein, no cooking · we pick the box</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
         <a class="act a3" href="#standing"><span>Set a Standing Order<small>Same box every Saturday · free delivery · skip any week</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="stops">
         <div class="stop"><b>Saturdays</b>Nov 7, 14, 21</div>
-        <div class="stop"><b>Pick up</b>Goose Island 12–1 · Hyde Park 2–3 · Rogers Park 4–5, or delivered from $8</div>
         <div class="stop"><b>Order by</b>Fri 9 PM</div>
+        <div class="stop" style="grid-column:1/-1"><b>Pick up</b>Goose Island 12–1<br>Hyde Park 2–3<br>Rogers Park 4–5<br>or delivered from $8</div>
       </div>
     </div>
   </section>
@@ -1988,6 +1988,10 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   /* Home order: hero, Thanksgiving, best box, hauls, how it works, standing. */
   const tg=document.getElementById("thanksgiving"),hero=document.querySelector("main [data-view='home']:not([id])")||null,sp2=document.getElementById("spotlight"),ha=document.getElementById("hauls"),how=document.getElementById("how");
   if(tg&&sp2&&ha&&how){tg.after(sp2);sp2.after(ha);ha.after(how)}})();
+/* Less for new phones (Nov 3, Malik; choice-overload research, Chernev et al. 2015): a first-time visitor sees one seasonal card on Home, the one closing soonest. Returning phones (pu-cart or pu-last) see them all. The Boxes view still shows every seasonal bar. */
+(function(){let back=false;try{back=!!(localStorage.getItem("pu-cart")||localStorage.getItem("pu-last"))}catch(e){}if(back)return;
+  const shown=["diwaliSpot","thanksgiving"].map(id=>document.getElementById(id)).filter(e=>e&&!e.hidden);
+  shown.slice(1).forEach(e=>{e.hidden=true})})();
 /* Diet splash (Oct 31): first screen asks "How do you eat?" and drops people straight into their matches.
    Every visit (Nov 1, Malik); still skipped for ?me devices, #deep links (except #start) and calm visitors. */
 addEventListener("input",e=>{const x=e.target,m=x&&x.type==="checkbox"?x.closest("label"):x;if(m&&m.classList&&m.classList.contains("pu-bad")){m.classList.remove("pu-bad");m.removeAttribute("aria-invalid");document.getElementById("puFieldErr")?.remove();const er=document.getElementById("err");if(er)er.textContent=""}});
