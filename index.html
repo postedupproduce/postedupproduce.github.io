@@ -457,6 +457,18 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 #pu-dsplash .ds-go{margin-top:8px;width:100%;min-height:54px;border:0;border-radius:12px;background:#A9361F;color:#fff;font:800 18px var(--body);cursor:pointer}
 #pu-dsplash .ds-skip{min-height:44px;border:0;background:none;color:#24392C;font:700 15px var(--body);text-decoration:underline;cursor:pointer}
 #pu-dsplash .ds-cut{margin:0;background:#F3D58A;border-radius:999px;padding:7px 14px;font:800 14px/1.3 var(--body)}
+/* Welcome loop (Nov 3, Malik): new phones see real market and haul photos first; the loop is the tour's play button (tap = sound on). */
+#pu-dsplash .ds-loop{position:relative;display:block;width:100%;aspect-ratio:2/1;border:0;padding:0;border-radius:18px;overflow:hidden;background:#24392C;cursor:pointer;box-shadow:0 10px 24px rgba(36,57,44,.25)}
+#pu-dsplash .ds-loop img.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:ds-fade 18s linear infinite}
+#pu-dsplash .ds-loop img.ph:nth-child(1){animation-delay:-1s}#pu-dsplash .ds-loop img.ph:nth-child(2){animation-delay:2s}#pu-dsplash .ds-loop img.ph:nth-child(3){animation-delay:5s}#pu-dsplash .ds-loop img.ph:nth-child(4){animation-delay:8s}#pu-dsplash .ds-loop img.ph:nth-child(5){animation-delay:11s}#pu-dsplash .ds-loop img.ph:nth-child(6){animation-delay:14s}
+@keyframes ds-fade{0%{opacity:0;transform:scale(1.08)}5%{opacity:1}17%{opacity:1}22%{opacity:0;transform:scale(1)}100%{opacity:0}}
+#pu-dsplash .ds-loop::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(20,30,24,.72))}
+#pu-dsplash .ds-loop .st{position:absolute;left:10px;top:10px;width:50px;height:50px;z-index:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.35))}
+#pu-dsplash .ds-loop .pb{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:2;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;background:#F8F2E6;color:#24392C;border-radius:999px;padding:9px 16px;font:800 15px var(--body);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+#pu-dsplash .ds-loop .pb .pl{width:0;height:0;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
+#pu-dsplash .ds-one{margin:4px 0 0;font:400 clamp(22px,6.4vw,27px)/1.1 var(--display);color:#24392C}
+#pu-dsplash .ds-again.top{margin-bottom:6px}
+@media (prefers-reduced-motion:reduce){#pu-dsplash .ds-loop img.ph{animation:none}#pu-dsplash .ds-loop img.ph:first-child{opacity:1}}
 #pu-dsplash :focus-visible{outline:3px solid #D2452B;outline-offset:2px}
 @keyframes ds-in{from{opacity:0}to{opacity:1}}
 @keyframes ds-out{to{opacity:0;visibility:hidden}}
@@ -2030,15 +2042,21 @@ om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",Strin
   go.addEventListener("click",()=>{if(omni){state.diet=[];state.dietAll=true;dietSave();renderItems();renderTicket();close();location.hash="#shop";return}if(pick.size){state.diet=[...pick];state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket();close();location.hash="#diet"}else{close();location.hash="#shop"}});
   const tourB=el("button",{type:"button",class:"ds-tour","data-tour":""},el("span",{class:"pl","aria-hidden":"true"}),"Watch how it works · 45 sec");tourB.addEventListener("click",()=>close());
   const skip=el("button",{type:"button",class:"ds-skip"},"What is this?");skip.addEventListener("click",()=>{close();location.hash="#start"});
-  d.append(el("div",{class:"ds-in"},
-    ...(nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[]),
-    el("img",{class:"ds-logo",src:"/logos/harvest-stamp.png",alt:"Posted Up: picked for you",width:"560",height:"560"}),
-    el("p",{class:"ds-tag"},"Market haul, picked for you."),
-    el("p",{class:"ds-sub",style:"margin-top:4px"},"Your personal shopper at the Chicago farmers market. Order by Friday, get it Saturday."),
-    el("p",{class:"ds-q2"},"Where will you grab it?"),stopRow,
-    el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),
-    el("p",{class:"ds-sub"},"Pick any that fit. We'll match you to a box."),
-    chips,go,tourB,skip,el("p",{class:"ds-cut"},cut)));
+  /* Order of operations (Nov 3, Malik): new phones see it first (photo loop = tour button), then where and when, then how you eat, then the boxes. Returning phones get the fastest path first: Same as last time, then the rest; no loop. */
+  const hi=nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[];
+  const where=[el("p",{class:"ds-q2"},"Where will you grab it?"),stopRow];
+  const eat=[el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),chips,go];
+  if(again){again.classList.add("top");
+    d.append(el("div",{class:"ds-in"},...hi,el("img",{class:"ds-logo",src:"/logos/harvest-stamp.png",alt:"Posted Up: picked for you",width:"560",height:"560",style:"width:min(26vw,96px)"}),again,el("p",{class:"ds-cut"},cut),...where,...eat,tourB,skip));
+  }else{
+    const PH=["haul-vegan","squash","haul-byo","apples","carrots","sweetpotato"];
+    const loop=el("button",{type:"button",class:"ds-loop","data-tour":"","aria-label":"Watch how it works, 45 seconds, with sound"},
+      ...PH.map((p,k)=>el("img",{class:"ph",src:"/img/"+p+".jpg",alt:"",loading:k?"lazy":"eager"})),
+      el("img",{class:"st",src:"/logos/harvest-stamp.png",alt:""}),
+      el("span",{class:"pb"},el("span",{class:"pl","aria-hidden":"true"}),"See it in 45 sec · sound on"));
+    loop.addEventListener("click",()=>close());
+    d.append(el("div",{class:"ds-in"},...hi,loop,el("p",{class:"ds-one"},"Your shopper at the farmers market."),el("p",{class:"ds-cut"},cut),...where,...eat,skip));
+  }
   document.body.append(d);setTimeout(()=>go.focus({preventScroll:true}),50);
 })();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
