@@ -140,8 +140,8 @@ const kp=document.getElementById("kp"),err=document.getElementById("err");
 /* Before the 9 PM cutoff, ordering is the main goal: Shop stays on top. Once the next pickup has closed
    (9 PM the night before through pickup day, Chicago time), the sign-up moves to the top. */
 (()=>{const p=Object.fromEntries(new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",weekday:"short",hour:"numeric",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date()).map(x=>[x.type,x.value]));
-  const d=p.year+"-"+p.month+"-"+p.day,h=+p.hour,wd=p.weekday,weds=d<="2026-10-28";
-  const closed=(wd==="Fri"&&h>=21)||wd==="Sat"||(weds&&((wd==="Tue"&&h>=21)||wd==="Wed"));
+  const d=p.year+"-"+p.month+"-"+p.day,h=+p.hour,wd=p.weekday;
+  const closed=(wd==="Fri"&&h>=21)||wd==="Sat";
   if(closed){document.body.classList.add("flip");const pick=document.querySelector(".pick");pick.before(kp);kp.querySelector("h2").textContent="This week's closed. Keep me posted";const sb=document.querySelector("#goShop b"),ss=document.querySelector("#goShop span:last-child");sb.textContent="Order ahead";ss.textContent="Lock in a box for the next pickup."}})();
 kp.addEventListener("submit",async e=>{
   e.preventDefault();err.textContent="";

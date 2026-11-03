@@ -1124,13 +1124,12 @@ const DELIVERY_FEE=8, FLAT_MILES=3, PER_MILE=1.5;
 function isDel(){return state.fulfill.startsWith("del-")}
 /* Opt-in: free early door drop-off for meet-up orders if it fits Sol's route that day. Not a promise; Sol texts to set it up. */
 function earlyOK(){return !isDel()&&state.early&&state.date!==LATE_DAY}
-/* Delivery windows (Oct 27, Sol): the original after-2/4/6 PM windows from each old stop, both market days, plus Wed after 10:30 AM.
+/* Delivery windows from each stop, Saturdays only (no Wednesday markets; Wednesday shops removed Nov 3).
    The sheet still logs "Delivery from <name>", same as the original site, so delivery-time data stays comparable. */
 const DELIVERIES=[
-  {id:"am",name:"Goose Island (morning)",area:"Goose Island",delAfter:"10:30 AM",days:[3]},
-  {id:"goose",name:"Goose Island",area:"Goose Island",delAfter:"1:00 PM",days:[3,6]},
-  {id:"hyde",name:"Hyde Park",area:"Hyde Park",delAfter:"3:00 PM",days:[3,6]},
-  {id:"rogers",name:"Rogers Park",area:"Rogers Park",delAfter:"5:00 PM",days:[3,6]},
+  {id:"goose",name:"Goose Island",area:"Goose Island",delAfter:"1:00 PM",days:[6]},
+  {id:"hyde",name:"Hyde Park",area:"Hyde Park",delAfter:"3:00 PM",days:[6]},
+  {id:"rogers",name:"Rogers Park",area:"Rogers Park",delAfter:"5:00 PM",days:[6]},
   /* Sosiego visitors (Oct 29, Sol): free delivery within 5 miles of Goose Island, Saturdays after ~10:30 AM; farther is a small per-mile add texted by Sol. */
   {id:"lunafree",name:"Goose Island",area:"Goose Island",delAfter:"10:30 AM",days:[6],luna:true,freeMiles:5}
 ];
@@ -1152,17 +1151,17 @@ const PICK_ONLY=["produce","bread"];
 const SRC_TAG=(()=>{let t=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();try{if(t)sessionStorage.setItem("pu-src",t);else t=sessionStorage.getItem("pu-src")||""}catch(e){}return t})();
 if(/^luna/.test(SRC_TAG))state.fulfill="rogers";
 
-/* Pickup dates follow the market: last Wednesday Oct 28 (GCM newsletter Oct 23, 2026); Saturdays through Nov 21; indoor market Dec 5–Mar 20. */
+/* Pickup dates follow the market: Saturdays only (no Wednesday markets) through Nov 21; indoor market Dec 5–Mar 20. */
 /* Chicago wall-clock time, whatever the visitor's device time zone is. */
 function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
 const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 function pickupDates(){
-  const out=[],now=chiNow(),wedEnd=new Date(2026,9,28,23,59),satEnd=new Date(2026,10,21,23,59);
+  const out=[],now=chiNow(),satEnd=new Date(2026,10,21,23,59);
   for(let i=0;i<40&&out.length<10;i++){
     const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i);
     const day=d.getDay();
-    const isWed=day===3&&d<=wedEnd, isSat=day===6&&d<=satEnd;
-    if(!isWed&&!isSat)continue;
+    const isSat=day===6&&d<=satEnd;
+    if(!isSat)continue;
     const cut=new Date(d);cut.setDate(cut.getDate()-1);cut.setHours(21,0,0,0);
     if(now>cut)continue;
     out.push({v:ymd(d),label:d.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"})});
@@ -1547,7 +1546,7 @@ function renderTicket(){
   const open=STOPS.filter(st=>forThem(st)&&DATES.some(d=>new Date(d.v+"T12:00").getDay()===st.day));
   for(const s of open)fs.append(el("option",{value:s.id},s.dayName+" pickup · "+s.name+", "+s.time));
   const openDel=DELIVERIES.filter(x=>forThem(x)&&DATES.some(d=>x.days.includes(new Date(d.v+"T12:00").getDay())));
-  for(const x of openDel)fs.append(el("option",{value:"del-"+x.id},(x.freeMiles?"Free delivery to my door · Sat after "+x.delAfter+" · within "+x.freeMiles+" mi of "+x.area:"Delivery to my door · after "+x.delAfter+(x.days.length===1?" (Wed only)":"")+" · near "+x.area+" (from $"+DELIVERY_FEE+")")));
+  for(const x of openDel)fs.append(el("option",{value:"del-"+x.id},(x.freeMiles?"Free delivery to my door · Sat after "+x.delAfter+" · within "+x.freeMiles+" mi of "+x.area:"Delivery to my door · after "+x.delAfter+" · near "+x.area+" (from $"+DELIVERY_FEE+")")));
   fs.value=state.fulfill;
   fs.addEventListener("change",()=>{state.fulfill=fs.value;const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()});
   where.append(el("label",{for:"fulfill"},"Meet-up spot or delivery",fs),el("div",{class:"cutoff"},isDel()?(delStop().freeMiles?"Free within "+delStop().freeMiles+" miles of "+delStop().area+". Farther out, I text you a small per-mile add before your order is final.":"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of "+delStop().area+", then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window."):"We text the exact meet-up spot after you order."));
@@ -1643,7 +1642,7 @@ function tickNow(){
   const d=DATES[0];
   let next="";
   if(d){const pd=new Date(d.v+"T12:00");const cut=new Date(pd);cut.setDate(cut.getDate()-1);
-    next=" · Next orders close "+cut.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+" at 9 PM for "+d.label+(pd.getDay()===3?" pickup or delivery":" pickup");}
+    next=" · Next orders close "+cut.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+" at 9 PM for "+d.label+" pickup";}
   el.textContent="Now in Chicago: "+t+next;const ct=document.getElementById("closeTop");if(ct&&d){const pd=new Date(d.v+"T12:00");const cut=new Date(pd);cut.setDate(cut.getDate()-1);ct.textContent="Closes "+cut.toLocaleDateString("en-US",{month:"short",day:"numeric"})+", 9 PM";}
 }
 tickNow();setInterval(()=>{const fresh=pickupDates();if(fresh.map(d=>d.v).join()!==DATES.map(d=>d.v).join()){DATES=fresh;if(!datesFor().some(d=>d.v===state.date))state.date=datesFor()[0]?.v||"";if(!state.sent)renderTicket()}tickNow()},30000);
@@ -1654,7 +1653,7 @@ const PHOTOS={"Grapes":WM+"7/7b/Concord_grapes.jpg/330px-Concord_grapes.jpg","Po
 const SEASON={
   9:{t:"September harvest",items:["Tomatoes","Sweet corn","Peppers","Eggplant","Melons","Apples","Pears","Grapes","Green beans","Summer squash","Kale","Potatoes","Onions","Herbs"]},
   10:{t:"October harvest",items:["Apples","Pears","Winter squash","Pumpkins","Sweet potatoes","Potatoes","Brussels sprouts","Kale & collards","Spinach","Cabbage","Cauliflower","Beets","Carrots","Turnips & rutabaga","Parsnips","Celery root","Radishes","Leeks & onions","Garlic","Fennel","Last peppers","Mushrooms","Microgreens","Herbs","Fresh apple cider"]},
-  11:{t:"November harvest",items:["Apples","Pears","Winter squash","Sweet potatoes","Potatoes","Brussels sprouts","Kale","Cabbage","Beets","Carrots","Parsnips","Turnips & rutabaga","Leeks & onions","Garlic","Celery root","Spinach","Microgreens"]},
+  11:{t:"November harvest",items:["Apples","Winter squash","Sweet potatoes","Potatoes","Brussels sprouts","Kale","Cabbage","Beets","Carrots","Parsnips","Turnips & rutabaga","Leeks & onions","Garlic","Celery root","Spinach","Microgreens"]},
   12:{t:"Winter market",items:["Storage apples","Winter squash","Potatoes","Sweet potatoes","Onions","Garlic","Carrots","Beets","Cabbage","Microgreens","Mushrooms"]}
 };
 /* Where each item usually comes from: regions only, never farm names (public rule). */
@@ -1723,7 +1722,7 @@ talkForm("soForm",f=>{const n=f.querySelector("#soName").value.trim(),p=f.queryS
   const b=f.querySelector('input[name="soBox"]:checked'),w=f.querySelector('input[name="soWhere"]:checked');
   const src=(new URLSearchParams(location.search).get("s")||"next").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"next";
   return {type:"feedback",name:n,contact:"",message:["STANDING ORDER REQUEST","Mobile: "+p,"Box: "+b.value+" ($"+b.dataset.p+")","Day: Saturdays","Where: "+w.value,"Source: "+src].join(" · "),times:"",ok:"We'll text you to confirm your Standing Order and your first Saturday."}});
-document.querySelectorAll("[data-del]").forEach(a=>a.addEventListener("click",()=>{const nx=DATES[0]?new Date(DATES[0].v+"T12:00").getDay():6;state.fulfill="del-"+((DELIVERIES.find(x=>x.days.includes(nx))||DELIVERIES[2]).id);const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}));
+document.querySelectorAll("[data-del]").forEach(a=>a.addEventListener("click",()=>{const nx=DATES[0]?new Date(DATES[0].v+"T12:00").getDay():6;state.fulfill="del-"+((DELIVERIES.find(x=>x.days.includes(nx))||DELIVERIES[1]).id);const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}));
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
 document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{const r=document.getElementById(b.dataset.row);r.scrollBy({left:Number(b.dataset.dir)*r.clientWidth*0.8,behavior:"smooth"})}));
 /* Carry the incoming ?s= tag onto every site tab so Visits/Contacts attribution survives. */
