@@ -2059,6 +2059,54 @@ om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",Strin
   }
   document.body.append(d);setTimeout(()=>go.focus({preventScroll:true}),50);
 })();
+/* Now Showing (Nov 3, Malik): a 6-second "movie theater" open on every visit, in the 45-sec tour's look. Lights dim, five photo beats, the stamp + cutoff, lights up on the welcome screen.
+   Silent (phones block sound before a tap); the Sound button opens the full 45-sec tour with music. Any tap skips to the welcome screen. Same skips as the welcome screen (?me, #deep links except #start, calm/Sosiego, ?diet/?box links); reduced motion skips it. Switch off with SHOW_ON=false. */
+const SHOW_ON=true;
+(function(){
+  if(!SHOW_ON||!DIET_SPLASH_ON)return;
+  let me=false;try{me=!!localStorage.getItem("pu-me")||/[?&]me(=|&|$)/.test(location.search)}catch(e){}
+  if(me||(location.hash&&location.hash!=="#start")||/[?&](me|diet|box)(=|&|$)/.test(location.search)||document.documentElement.classList.contains("calm"))return;
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const B=[["/img/haul-vegan.jpg","Now showing","You pick."],["/img/carrots.jpg","Order by 9 PM","The night before."],["/img/squash.jpg","Saturday sunrise","We shop the market."],["/img/haul-byo.jpg","Hand-picked","Packed for you."],["/img/apples.jpg","Goose Island · Hyde Park · Rogers Park","Posted up."]];
+  const BEAT=950,DIM=400,LOGO=1100;
+  B.forEach(b=>{const i=new Image();i.src=b[0]});
+  const st=document.createElement("style");st.textContent=`
+#pu-show{position:fixed;inset:0;z-index:100001;background:#141a16;color:#f4ecd9;display:grid;grid-template-rows:auto 1fr auto;gap:12px;padding:max(14px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));font-family:var(--body,system-ui,sans-serif);opacity:0;animation:pu-dim ${DIM}ms ease forwards;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#pu-show.up{animation:pu-up .45s ease forwards}
+@keyframes pu-dim{from{opacity:0}to{opacity:1}}@keyframes pu-up{from{opacity:1}to{opacity:0}}
+#pu-show .sb{display:flex;gap:6px;max-width:640px;width:100%;justify-self:center}#pu-show .sb i{flex:1;height:4px;border-radius:2px;background:rgba(244,236,217,.25);overflow:hidden}#pu-show .sb i b{display:block;height:100%;width:0;background:#f0b94a}
+#pu-show .sb i.on b{width:100%;transition:width ${BEAT}ms linear}#pu-show .sb i.done b{width:100%}
+#pu-show .stg{position:relative;overflow:hidden;border-radius:18px;max-width:640px;width:100%;justify-self:center;background:#1d251f;box-shadow:0 0 0 1px rgba(244,236,217,.08),0 18px 40px rgba(0,0,0,.5)}
+#pu-show .ph{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:opacity .35s ease,transform 1.6s linear}
+#pu-show .ph.in{opacity:1;transform:scale(1.14)}
+#pu-show .sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,22,.05) 35%,rgba(20,26,22,.9) 80%)}
+#pu-show .tx{position:absolute;left:0;right:0;bottom:0;padding:22px 20px 26px;display:grid;gap:8px}
+#pu-show .tx .n{font:700 13px/1.2 var(--body,system-ui,sans-serif);letter-spacing:.14em;text-transform:uppercase;color:#f0b94a}
+#pu-show .tx h2{margin:0;font:400 clamp(34px,10vw,52px)/1.02 var(--display,Georgia,serif);color:#f4ecd9}
+#pu-show .tx>*{opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}#pu-show .tx.in>*{opacity:1;transform:none}#pu-show .tx.in>*:nth-child(2){transition-delay:.1s}
+#pu-show .lg{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;opacity:0;transition:opacity .35s}#pu-show .lg.in{opacity:1}
+#pu-show .lg img{width:min(46vw,190px);height:auto;filter:drop-shadow(0 10px 20px rgba(0,0,0,.5));transform:scale(.8);transition:transform .5s cubic-bezier(.2,1.5,.45,1)}#pu-show .lg.in img{transform:none}
+#pu-show .lg p{margin:0;font:700 16px var(--body,system-ui,sans-serif);color:#f4ecd9}#pu-show .lg .cut{background:#F3D58A;color:#24392C;border-radius:999px;padding:7px 14px;font:800 14px/1.3 var(--body,system-ui,sans-serif)}
+#pu-show .ct{display:flex;gap:10px;justify-content:center;max-width:640px;width:100%;justify-self:center}
+#pu-show .ct button{min-height:48px;border-radius:999px;border:2px solid rgba(244,236,217,.5);background:transparent;color:#f4ecd9;font:700 15px/1 var(--body,system-ui,sans-serif);padding:0 18px;cursor:pointer}
+#pu-show .ct .snd{background:#f0b94a;border-color:#f0b94a;color:#1f2a22}
+#pu-show .hint{position:absolute;top:12px;right:14px;font:600 12px var(--body,system-ui,sans-serif);color:rgba(244,236,217,.75);background:rgba(20,26,22,.55);border-radius:999px;padding:5px 10px}`;
+  document.head.append(st);
+  const ct=(document.getElementById("closeTop")||{}).textContent||"";
+  const cut=/^closes /i.test(ct)&&!/night before/i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):"Orders close 9 PM the night before";
+  const d=document.createElement("div");d.id="pu-show";d.setAttribute("role","dialog");d.setAttribute("aria-label","Posted Up: now showing");
+  d.innerHTML='<div class="sb" aria-hidden="true">'+B.map(()=>"<i><b></b></i>").join("")+'</div><div class="stg">'+B.map(b=>'<div class="ph" style="background-image:url(\''+b[0]+'\')"></div>').join("")+'<div class="sh"></div><div class="tx" aria-live="polite"><span class="n"></span><h2></h2></div><span class="hint">Tap to skip</span><div class="lg"><img src="/logos/harvest-stamp.png" alt="Posted Up: picked for you" width="560" height="560"><p>Market haul, picked for you.</p><span class="cut"></span></div></div><div class="ct"><button type="button" class="snd" data-k="snd">🔊 Watch with sound · 45 sec</button><button type="button" data-k="skip">Skip</button></div>';
+  d.querySelector(".cut").textContent=cut;
+  document.body.append(d);document.documentElement.style.overflow="hidden";
+  const bars=[...d.querySelectorAll(".sb i")],phs=[...d.querySelectorAll(".ph")],tx=d.querySelector(".tx"),n=tx.querySelector(".n"),h=tx.querySelector("h2"),lg=d.querySelector(".lg");
+  let k=-1,t=null,gone=false;
+  const end=()=>{if(gone)return;gone=true;clearTimeout(t);d.classList.add("up");document.documentElement.style.overflow="";setTimeout(()=>d.remove(),470)};
+  const step=()=>{k++;if(k<B.length){phs.forEach((p,j)=>p.classList.toggle("in",j===k));bars.forEach((b,j)=>{b.classList.toggle("done",j<k);b.classList.toggle("on",j===k)});tx.classList.remove("in");n.textContent=B[k][1];h.textContent=B[k][2];void tx.offsetWidth;tx.classList.add("in");t=setTimeout(step,BEAT)}
+    else{bars.forEach(b=>{b.classList.remove("on");b.classList.add("done")});tx.classList.remove("in");phs.forEach(p=>p.classList.remove("in"));lg.classList.add("in");t=setTimeout(end,LOGO)}};
+  d.addEventListener("click",e=>{const b=e.target.closest("button");if(b&&b.dataset.k==="snd"){e.stopPropagation();if(window.puTour)window.puTour(b);end();return}end()});
+  addEventListener("keydown",function kd(e){if(gone){removeEventListener("keydown",kd);return}if(e.key==="Escape"||e.key===" "||e.key==="Enter"){e.preventDefault();end()}});
+  setTimeout(step,DIM);
+})();
 /* Anonymous visit counting to the sheet's Visits tab: no cookies, no IP, no names; a random ID kept on this device.
    Open the site once with ?me on your own phone/computer to stop counting your visits. Share links like ?s=ig or ?s=fam to tag sources. */
 (function(){
