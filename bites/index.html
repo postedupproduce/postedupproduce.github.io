@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Better Bites · Posted Up Produce</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Tap what you reach for. I'll shop the farmers market version: same crunch, same sweet.">
+<meta property="og:title" content="Better Bites · keep the cravings, swap the junk">
+<meta property="og:description" content="Tap what you reach for: chips, sweets, soda, fast food. I'll shop the farmers market version Saturday morning.">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta property="og:url" content="https://postedupproduce.github.io/bites/">
+<meta name="theme-color" content="#C2410C">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Better Bites (Nov 3, M): tangerine snack-pack palette. Built on the /p/gabrielle/ pattern. */
+:root{--bg:#FFF1DF;--paper:#FFFAF2;--ink:#22201A;--soft:#6B6155;--rule:#EED9BF;--wine:#C2410C;--gold:#FFC94A;--green:#2F6B3F;--on:#2F6B3F;--on-ink:#FFFAF2;
+  --disp:"Big Shoulders Display","Impact",sans-serif;--sans:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#1B1712;--paper:#26201A;--ink:#FFF1DF;--soft:#C8B9A6;--rule:#3E352B;--wine:#FB923C;--gold:#FFC94A;--green:#8FCB9B;--on:#FFC94A;--on-ink:#22201A;color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--sans);padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.wrap{max-width:560px;margin:0 auto;padding:10px 20px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;min-height:56px}
+.brand{font:900 22px/1 var(--disp);text-transform:uppercase;letter-spacing:.02em;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.beta{font:700 12px/1 var(--sans);border:1px solid var(--rule);border-radius:999px;padding:5px 9px;color:var(--soft)}
+.hero{background:#C2410C;color:#FFF6EA;border-radius:18px;padding:26px 22px 24px;margin-top:6px;position:relative;overflow:hidden}
+.hero .hi{margin:0 0 8px;font:700 14px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#FFE08A}
+h1,h2{font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:.01em;margin:0;line-height:.95;text-wrap:balance}
+h1{font-size:clamp(44px,13vw,64px)}
+.hero p.lede{margin:14px 0 0;font-size:17px}
+.sig{margin:10px 0 0;font-size:15px;color:#FFE3C7}
+.sec{margin:34px 0 0}
+.step{font:700 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--wine);margin:0 0 8px}
+h2{font-size:34px}
+.sub{margin:6px 0 0;color:var(--soft);font-size:15px}
+.chips{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.chip{min-width:64px;min-height:52px;border-radius:14px;border:2px solid var(--rule);background:var(--paper);color:var(--ink);font:900 26px/1 var(--disp);cursor:pointer;padding:0 14px}
+.chip small{display:block;font:500 12px/1 var(--sans);margin-top:3px;color:var(--soft)}
+.chip[aria-pressed="true"]{background:var(--on);border-color:var(--on);color:var(--on-ink)}
+.chip[aria-pressed="true"] small{color:inherit}
+.menus{display:grid;gap:12px;margin-top:14px}
+.menu{display:block;width:100%;text-align:left;border:2px solid var(--rule);background:var(--paper);border-radius:16px;padding:16px 16px 14px;cursor:pointer;color:var(--ink);font:inherit;position:relative}
+.menu[aria-pressed="true"]{border-color:var(--wine);box-shadow:0 0 0 2px var(--wine) inset}
+.menu .mt{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.menu b{font:900 26px/1 var(--disp);text-transform:uppercase}
+.menu .tick{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--rule);display:grid;place-items:center;font-weight:700}
+.menu[aria-pressed="true"] .tick{background:var(--wine);border-color:var(--wine);color:#FFFAF2}
+.menu .what{margin:6px 0 0;font-size:15px}
+.menu .pour{margin:8px 0 0;font-size:14px;color:var(--soft)}
+.menu .pour span{font-weight:700;color:var(--wine)}
+.bag{margin-top:14px;background:var(--paper);border:2px solid var(--rule);border-radius:16px;padding:6px 14px}
+.row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:0}
+.row .n{font-weight:700;font-size:16px}
+.row .d{font-size:13px;color:var(--soft)}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:44px;height:44px;border-radius:12px;border:2px solid var(--rule);background:var(--bg);color:var(--ink);font:700 22px/1 var(--sans);cursor:pointer}
+.qty output{min-width:28px;text-align:center;font-weight:700}
+.empty{padding:16px 2px;color:var(--soft);margin:0}
+.fine{font-size:14px;color:var(--soft);margin:12px 2px 0}
+.dock{position:fixed;left:0;right:0;bottom:0;background:#22201A;color:#FFF1DF;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));z-index:5}
+.dock .in{max-width:560px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dock .tot{font:900 30px/1 var(--disp)}
+.dock .tot small{display:block;font:500 13px/1.2 var(--sans);color:#D9C4B8}
+.go{border:0;border-radius:14px;background:#FFC94A;color:#22201A;font:700 17px/1 var(--sans);min-height:52px;padding:0 18px;cursor:pointer}
+.go:disabled{opacity:.45;cursor:not-allowed}
+.bump{animation:bump .35s ease}
+@keyframes bump{40%{transform:scale(1.12)}}
+@media (prefers-reduced-motion:reduce){.bump{animation:none}}
+.alt{margin:22px 0 0;font-size:15px;color:var(--soft)}
+.chip.word{font:700 16px/1.1 var(--sans);min-height:48px}
+.menu .em{font-size:28px;line-height:1;margin-right:8px}
+.menu .inst{margin:8px 0 0;font-size:14px;color:var(--soft)}
+.menu .inst span{font-weight:700;color:var(--green)}
+.boxalt{margin-top:26px;background:var(--paper);border:2px dashed var(--rule);border-radius:16px;padding:16px}
+.boxalt p{margin:0}
+.boxalt a{display:inline-block;margin-top:10px;font-weight:700;color:var(--wine)}
+.trio{position:absolute;right:16px;top:14px;font-size:28px;opacity:.9}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><a class="brand" id="home" href="/?s=bites">Posted Up Produce</a><span class="beta">Beta</span></header>
+
+  <section class="hero" aria-labelledby="h1">
+    <span class="trio" aria-hidden="true">🍎🥕🥤</span>
+    <p class="hi" id="hi">Better Bites</p>
+    <h1 id="h1">Keep the cravings. Swap the junk.</h1>
+    <p class="lede">Tap what you usually reach for. I'll shop the farmers market version Saturday morning: same crunch, same sweet, mostly nothing to cook.</p>
+    <p class="sig">M, Posted Up Produce</p>
+  </section>
+
+  <section class="sec" aria-labelledby="s1">
+    <p class="step">Step 1</p>
+    <h2 id="s1">Who's snacking?</h2>
+    <div class="chips" role="group" aria-label="Who's snacking" id="who"></div>
+    <p class="sub" style="margin-top:14px">How do you eat?</p>
+    <div class="chips" role="group" aria-label="How do you eat" id="diet" style="margin-top:8px"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="s2">
+    <p class="step">Step 2</p>
+    <h2 id="s2">What do you reach for?</h2>
+    <p class="sub">Tap one or a few. Each one adds its swap to your bag.</p>
+    <div class="menus" id="menus"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="s3">
+    <p class="step">Step 3</p>
+    <h2 id="s3">Your bag</h2>
+    <p class="sub">Add, take out, or bump anything up. Prices are per item.</p>
+    <div class="bag" id="bag" aria-live="polite"></div>
+    <p class="fine">Orders close Friday 9 PM for Saturday. Pickup or delivery, your call at checkout. Whatever's not at market that morning becomes a credit or a swap you OK.</p>
+    <div class="boxalt">
+      <p><b>Rather I just pick?</b> The Better Bites box is $35: crisp apples, snacking roots, fresh-pressed cider, and a jar of pickles or a bag of dried berries. About a week of snacks for one.</p>
+      <a id="boxlink" href="/?s=bites&amp;box=bites#shop">Get the $35 box instead →</a>
+    </div>
+    <p class="alt">Want something else? <a id="all" href="/?s=bites&amp;mode=pick#shop">See everything at market this week</a>.</p>
+  </section>
+</div>
+
+<div class="dock" role="region" aria-label="Your total">
+  <div class="in">
+    <p class="tot" id="tot" style="margin:0">$0<small>Tap a craving to start</small></p>
+    <button class="go" id="go" type="button" disabled>Send to my cart</button>
+  </div>
+</div>
+
+<script>
+/* Better Bites (Nov 3, M): for friends trying to eat less junk food. Same pattern as /p/gabrielle/: picks write the main site's
+   saved cart (localStorage pu-draft, mode pick) and land on /?s=<tag>&note=...#checkout. Tag defaults to "bites"; ?s=bites-name greets by name.
+   Items mirror index.html ITEMS (ids and prices as of Nov 3). If a price changes there, the cart shows the real one at checkout. */
+const ORDER_ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
+const TAG=/^bites/.test(raw)?raw:(raw?"bites-"+raw:"bites");
+const nm=(TAG.match(/^bites-([a-z]+)$/)||[])[1];
+if(nm&&!["ig","txt","share","friend"].includes(nm))document.getElementById("hi").textContent="Better Bites · for "+nm[0].toUpperCase()+nm.slice(1);
+document.getElementById("home").href="/?s="+TAG;
+document.getElementById("all").href="/?s="+TAG+"&mode=pick#shop";
+document.getElementById("boxlink").href="/?s="+TAG+"&box=bites#shop";
+
+/* [name, detail, price, vegan?] */
+const ITEMS={roots:["Root vegetables, 2 lb","Carrots, radishes, turnips: the snappy ones",8,1],preserves:["Jams & pickles","A jar: dilly beans or pickles (or jam)",13,1],
+ apples:["Apples, 2 lb","About 6, crisp and sweet",13,1],dryfruit:["Local blueberries, dried or frozen","Snack bag dried, or a frozen pint",10,1],
+ cider:["Fresh-pressed apple cider","Jug · great over ice or with sparkling water",9,1],gcheesekit:["Grilled Cheese Kit","About 6 sandwiches · sourdough, cheddar, butter",38,0],
+ potatoes:["Potatoes & sweet potatoes, 2 lb","Oven fries in 30 minutes",10,1],hsmild:["Hot sauce: mild & green","Bottle · for the fries",10,1],
+ cheddar:["Cave-aged cheddar","A wedge, slice it with apples",22,0],pears:["Pears & Asian pears, 2 lb","About 5, while they last",12,1],
+ pastry:["Pastry","Each · croissant, scone, muffin",8,1],oats2:["Rolled oats, 2 lb","Stone-ground · about 20 bowls",10,1]};
+/* Cravings: items feed about one person for a week; scale items double for the house. vg = plant-based version. */
+const CRAVE=[
+ {id:"chips",e:"🥨",n:"Chips & crunchy",inst:"snappy roots and a jar of pickles",items:{roots:1,preserves:1},scale:["roots"]},
+ {id:"sweets",e:"🍬",n:"Candy & sweets",inst:"crisp apples and dried blueberries",items:{apples:1,dryfruit:1},scale:["apples","dryfruit"]},
+ {id:"soda",e:"🥤",n:"Soda",inst:"fresh-pressed cider, cold",items:{cider:1},scale:["cider"]},
+ {id:"fast",e:"🍟",n:"Fast food",inst:"a 10-minute grilled cheese",vinst:"oven fries with green hot sauce",items:{gcheesekit:1},vg:{potatoes:1,hsmild:1},scale:["potatoes"]},
+ {id:"late",e:"🌙",n:"Late-night snacks",inst:"cheddar and sliced pears",vinst:"pears and dried blueberries",items:{cheddar:1,pears:1},vg:{pears:1,dryfruit:1},scale:["pears"]},
+ {id:"bakery",e:"🍩",n:"Donuts & pastries",inst:"a real bakery pastry or two",items:{pastry:2},scale:["pastry"]},
+ {id:"cereal",e:"🥣",n:"Sugary cereal",inst:"stone-ground oats with dried berries",items:{oats2:1,dryfruit:1},scale:[]}
+];
+const WHO=[[1,"🙋","just me"],[2,"👯","two of us"],[4,"🏠","the house"]];
+const DIET=[["all","I eat everything"],["veg","Vegetarian"],["vegan","Vegan"]];
+const st={who:1,diet:"all",picks:new Set(),qty:{}};
+const el=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==="text")e.textContent=v;else if(x.startsWith("on"))e.addEventListener(x.slice(2),v);else e.setAttribute(x,v)}for(const c of k)if(c!=null)e.append(c);return e};
+const plant=()=>st.diet==="vegan";
+const setOf=c=>plant()&&c.vg?c.vg:c.items;
+function rebuild(){
+  const f=st.who>=4?2:1,sum={};
+  for(const c of CRAVE)if(st.picks.has(c.id))for(const[k,v]of Object.entries(setOf(c)))sum[k]=(sum[k]||0)+v*(c.scale.includes(k)?f:1);
+  if(st.who===2)for(const k of Object.keys(sum))if(["apples","roots","cider","pastry"].includes(k))sum[k]+=1;
+  st.qty=sum;render();
+}
+function render(){
+  document.getElementById("who").replaceChildren(...WHO.map(([n,e,l])=>el("button",{type:"button",class:"chip","aria-pressed":String(st.who===n),onclick:()=>{st.who=n;rebuild()}},e,el("small",{text:l}))));
+  document.getElementById("diet").replaceChildren(...DIET.map(([v,l])=>el("button",{type:"button",class:"chip word","aria-pressed":String(st.diet===v),onclick:()=>{st.diet=v;rebuild()}},l)));
+  document.getElementById("menus").replaceChildren(...CRAVE.map(c=>{const on=st.picks.has(c.id);
+    return el("button",{type:"button",class:"menu","aria-pressed":String(on),onclick:()=>{on?st.picks.delete(c.id):st.picks.add(c.id);rebuild()}},
+      el("span",{class:"mt"},el("b",{},el("span",{class:"em","aria-hidden":"true",text:c.e}),c.n),el("span",{class:"tick","aria-hidden":"true",text:on?"✓":"+"})),
+      el("p",{class:"inst"},"Swap it for: ",el("span",{text:plant()&&c.vinst?c.vinst:c.inst})))}));
+  const ids=Object.keys(st.qty).filter(k=>st.qty[k]>0);
+  document.getElementById("bag").replaceChildren(...(ids.length?ids.map(k=>{const[n,d,p]=ITEMS[k];return el("div",{class:"row"},
+      el("div",{},el("div",{class:"n",text:n}),el("div",{class:"d",text:d+" · $"+p})),
+      el("div",{class:"qty"},el("button",{type:"button","aria-label":"One less "+n,onclick:()=>{st.qty[k]--;render()}},"−"),
+        el("output",{"aria-label":n+" quantity",text:String(st.qty[k])}),
+        el("button",{type:"button","aria-label":"One more "+n,onclick:()=>{st.qty[k]++;render()}},"+")))})
+    :[el("p",{class:"empty",text:"Tap a craving above and your bag fills in here."})]));
+  const tot=ids.reduce((a,k)=>a+ITEMS[k][2]*st.qty[k],0),n=ids.reduce((a,k)=>a+st.qty[k],0);
+  const t=document.getElementById("tot");t.replaceChildren("$"+tot,el("small",{text:n?n+" item"+(n>1?"s":"")+" · "+st.picks.size+" swap"+(st.picks.size>1?"s":""):"Tap a craving to start"}));
+  t.classList.remove("bump");void t.offsetWidth;if(n)t.classList.add("bump");
+  document.getElementById("go").disabled=!n;
+}
+document.getElementById("go").addEventListener("click",()=>{
+  const qty={};for(const[k,v]of Object.entries(st.qty))if(v>0)qty[k]=v;
+  try{localStorage.setItem("pu-draft",JSON.stringify({box:null,breadBox:null,qty,mode:"pick",at:Date.now()}))}catch(e){}
+  const note=["Better Bites: "+CRAVE.filter(c=>st.picks.has(c.id)).map(c=>c.n).join(", ")];
+  if(st.qty.preserves)note.push("pickles or dilly beans, please");
+  if(st.diet==="vegan")note.push(st.qty.pastry?"plant-based, vegan pastry please":"plant-based");else if(st.diet==="veg")note.push("vegetarian");
+  location.href="/?"+new URLSearchParams({s:TAG,note:note.join(" · ")}).toString()+"#checkout";
+});
+render();
+
+/* Anonymous visit count, same as the main site: no cookies, no names. ?me skips your own devices. */
+(function(){
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
+  let vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  const dev=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?"Phone":"Computer";
+  let fresh=true;try{fresh=!sessionStorage.getItem("pu-v");sessionStorage.setItem("pu-v","1")}catch(e){}
+  if(fresh)fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:TAG,device:dev,returning:ret,vid})}).catch(()=>{});
+})();
+</script>
+</body>
+</html>
