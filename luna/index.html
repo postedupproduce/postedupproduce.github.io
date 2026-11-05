@@ -140,7 +140,7 @@ a{color:inherit}
 </div>
 <script>
 /* Luna Llena newsletter landing (Oct 29). Default tag is "luna"; it rides onto every outbound link so visits and orders show [via luna]. */
-const ORDER_ENDPOINT="https://script.google.com/macros/s/AKfycbxWfiyUZxBEjWBUExyoXUVr-DBnfCj3DEWzvysGMYaIp_UbaJ1YrWXYzHeFVXdjIXx4/exec";
+const ORDER_ENDPOINT="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
 const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
 const s=raw||"luna";
 document.querySelectorAll("a.go").forEach(a=>{a.href="../?s="+s+"#"+a.dataset.hash});
