@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>For Steph · Posted Up Produce</title>
+<meta name="description" content="A personal shopper for Chicago farmers markets. Order by Friday night, pickup or delivery Saturday.">
+<meta property="og:title" content="Steph, fresh out the box.">
+<meta property="og:description" content="Chicago farmers market, picked for you. Boxes from $24.">
+<meta property="og:image" content="https://postedupproduce.github.io/og-sat.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Personal page for Steph (Nov 6, Malik): copy of /days/ with his greeting; default tag p-steph. */
+/* Story landing (Nov 5, Malik): the Instagram "Days, not weeks" Story's link sticker lands here (?s=ig-r2).
+   One screen that repeats the Story (headline, $24, the date), one main button into checkout with the kit in the cart,
+   then all boxes, then an optional text sign-up. Sources: Beniwal "Landing the second click" (UX Collective, 2022),
+   Decali "The new landing page is to have no landing page at all" (UX Collective, 2020), Fairbanks mobile sign-up (2019). */
+:root{
+  --bg:#F2EBDD;--panel:#F8F2E6;--ink:#24392C;--muted:#4a5a4e;--line:#d9ccb3;
+  --tomato:#A9361F;--wheat:#F3D58A;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--body)}
+body{min-height:100vh;background-image:radial-gradient(circle at 50% -5%,rgba(243,213,138,.55),transparent 55%)}
+main{max-width:440px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 22px 40px;display:flex;flex-direction:column;gap:14px}
+.top{display:flex;justify-content:space-between;align-items:center;min-height:44px}
+.brand{font-weight:800;letter-spacing:.14em;font-size:14px}
+.beta{border:2px solid currentColor;border-radius:999px;padding:2px 10px;font-weight:800;font-size:12px}
+.hero{display:flex;align-items:center;gap:14px}
+.stamp{width:96px;height:96px;flex-shrink:0}
+.k{margin:0;font-weight:800;color:var(--tomato);font-size:15px}
+h1{font:400 40px/1.02 var(--display);margin:2px 0 0}
+.sub{margin:0;color:var(--muted)}
+.when{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.when div{background:var(--ink);color:#fff;border-radius:14px;padding:10px 14px}
+.when b{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--wheat)}
+.when span{font-weight:800;font-size:18px;line-height:1.25}
+.kit{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.kit h2{font:400 24px/1.1 var(--display);margin:0}
+.kit p{margin:0;font-size:16px}
+.price{font-weight:800}
+.btn{display:flex;align-items:center;justify-content:center;font:800 18px var(--body);color:#fff;background:var(--tomato);border:0;border-radius:999px;padding:14px 22px;min-height:52px;width:100%;text-decoration:none;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.small{font-size:15px;font-weight:600;color:var(--muted);margin:2px 0 0;text-align:center}
+.alt{text-align:center;margin:0}
+.alt a{color:var(--ink);font-weight:700;display:inline-flex;align-items:center;min-height:44px}
+.fine{font-size:14px;color:var(--muted);text-align:center;margin:0}
+.closed .open-only{display:none}
+.closed-only{display:none}
+.closed .closed-only{display:block}
+</style>
+</head>
+<body>
+<main id="m">
+  <div class="top"><span class="brand">POSTED UP</span><span class="beta">BETA</span></div>
+
+  <div class="hero">
+    <img class="stamp" src="/logos/harvest-stamp.png" width="96" height="96" alt="Posted Up: picked for you">
+    <div>
+      <p class="k">Steph, this one's for you</p>
+      <h1>Fresh out the box.</h1>
+    </div>
+  </div>
+  <p class="sub">I shop the Chicago farmers market Saturday morning, fruit too, and bring it to your door or a pickup in Goose Island, Hyde Park or Rogers Park.</p>
+
+  <div class="when open-only" aria-label="This week">
+    <div><b>Market day</b><span id="sat">Saturday</span></div>
+    <div><b>Order by</b><span id="cut">Friday, 9 PM</span></div>
+  </div>
+
+  <section class="kit open-only" aria-labelledby="kitH">
+    <h2 id="kitH">Start here: Sweater Weather Kit</h2>
+    <p><span class="price">$24.</span> Local garlic, fresh-pressed cider and a bunch of herbs for tea.</p>
+    <a class="btn" id="kitGo" href="/?box=coldsnap#checkout">Order the $24 kit</a>
+    <a class="btn ghost" id="allGo" href="/#shop">See every box</a>
+    <p class="small">Half Peck $50 · Full Crate $72 · plus fruit, eggs, meat, fish, cheese and bread</p>
+  </section>
+
+  <section class="kit closed-only" aria-labelledby="clH">
+    <h2 id="clH">Saturdays are on pause</h2>
+    <p>The fall run is done. Get a text when the next market day opens.</p>
+  </section>
+
+  <p class="alt"><a id="joinGo" href="/join/">Not this week? Get a text when orders open &rarr;</a></p>
+  <p class="fine">Invite only for now. Pay ahead by 9 PM the night before.</p>
+</main>
+<script>
+(function(){
+  /* Carry the ?s= tag onto every link so Visits and Contacts keep the source. */
+  var q=new URLSearchParams(location.search);
+  var s=(q.get("s")||"p-steph").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"days";
+  [["kitGo","/?box=coldsnap","#checkout"],["allGo","/","#shop"],["joinGo","/join/",""]].forEach(function(r){
+    var a=document.getElementById(r[0]);var u=new URL(r[1],location.origin);u.searchParams.set("s",s);a.setAttribute("href",u.pathname+u.search+r[2]);
+  });
+
+  /* Next market day and cutoff in Chicago time: Saturdays through Nov 21, 2026; cutoff 9 PM Friday. */
+  var DAYS=["2026-11-07","2026-11-14","2026-11-21"];
+  function chiNow(){var p=new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());var o={};p.forEach(function(x){o[x.type]=x.value});return new Date(o.year+"-"+o.month+"-"+o.day+"T"+(o.hour==="24"?"00":o.hour)+":"+o.minute+":00")}
+  var now=chiNow(),next=null;
+  for(var i=0;i<DAYS.length;i++){var sat=new Date(DAYS[i]+"T12:00:00"),cut=new Date(sat);cut.setDate(sat.getDate()-1);cut.setHours(21,0,0,0);if(now<cut){next={sat:sat,cut:cut};break}}
+  if(!next){document.getElementById("m").classList.add("closed");return}
+  var md=function(d){return d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})};
+  document.getElementById("sat").textContent=md(next.sat);
+  document.getElementById("cut").textContent=md(next.cut)+", 9 PM";
+})();
+/* Visit counting, same as the order page: one per browser session, no names, skipped on Malik's devices (pu-me). */
+(function(){
+  var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
+  var vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  var src=(new URLSearchParams(location.search).get("s")||"p-steph").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase()||"days";
+  var dev=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?"Phone":"Computer";
+  var fresh=true;try{fresh=!sessionStorage.getItem("pu-v");sessionStorage.setItem("pu-v","1")}catch(e){}
+  if(fresh)fetch(EP,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:src,device:dev,returning:ret,vid:vid})}).catch(function(){});
+})();
+</script>
+</body>
+</html>
