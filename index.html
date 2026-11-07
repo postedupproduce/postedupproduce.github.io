@@ -968,6 +968,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
           <li><b>Pickup days.</b> Pickups are on the day we shop: Saturdays at Goose Island (12–1 PM), Hyde Park (2–3 PM) or Rogers Park (4–5 PM) through November 21, the last box of the pilot. Delivery is same-day. Other days or times may be arranged by text.</li>
           <li><b>Beta founder rate.</b> Boxes (produce, bread, Meat Lovers Box and Lake Haul) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later, and it doesn't stack with free Standing Order delivery: meet up and save 10%, or take free delivery, each week.</li>
+          <li><b>Seasoned Rate.</b> Customers 60 and older get 10% off their whole order, delivery included, on the honor system: just check the box at checkout. It stacks with the beta founder rate, taken after the founder 10%.
           <li><b>Free early drop-off.</b> On pickup orders you can opt in to a free early drop-off at your door. It's never guaranteed: we text you first when our route allows it. If we don't text, pick up at your meet-up window as usual. Questions: text 773-807-9223.</li>
           <li><b>Standing Order.</b> A Standing Order is a weekly order we set up by text. Each week we send a pay link; your box is shopped only once it's paid by 9 PM the night before. Skip any week by 9 PM the night before, or stop anytime, by text. Unpaid by the cutoff means no box and no charge. Standing Order delivery is free within 3 miles of the meet-up stop; beyond that we text you the per-mile add before you pay. Every 4th paid Standing Order box includes a free add-on (pastry, hot sauce or cider) of our choosing from what's at market.</li>
           <li><b>Cooler bag deposit.</b> Your order can ride in an insulated cooler bag from the stand to you. If we pack your order in a Posted Up cooler bag, we add a $15 deposit to that order. Hand the bag back at any meet-up or delivery and the full $15 becomes a credit on your next order.</li>
@@ -1164,7 +1165,8 @@ const LATE_DAY="2026-10-31";
 if(chiNow()<new Date(2026,10,1)){const r=STOPS.find(x=>x.id==="rogers");if(r){r.time="1:00–2:00 PM";r.delAfter="1:00 PM"}const lf=DELIVERIES.find(x=>x.id==="lunafree");if(lf)lf.delAfter="1:00 PM"}
 function isLuna(){return /^luna/.test(SRC_TAG)}
 function forThem(x){return isLuna()?!x.notLuna&&(x.luna||!DELIVERIES.includes(x)):!x.luna}
-const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false};
+const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false,seasoned:false};
+try{state.seasoned=localStorage.getItem("pu-seasoned")==="1"}catch(e){}
 const PICK_ONLY=["produce","bread"];
 /* Order attribution (Oct 26): the link tag (?s=p-name etc.) rides along on the order's Notes as "[via tag]", kept for the browser session. */
 const SRC_TAG=(()=>{let t=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();try{if(t)sessionStorage.setItem("pu-src",t);else t=sessionStorage.getItem("pu-src")||""}catch(e){}return t})();
@@ -1438,6 +1440,7 @@ function orderText(id){
   if(state.logo&&voteOpen()){L.push("Logo vote: "+logoName());if(state.reward)L.push("Thank-you: "+rewardName()+(discount()?" (−$5)":state.reward==="5off"?" (needs a $30+ order, not applied)":""));if(state.why.trim())L.push("Why: "+state.why.trim())}
   if(perkOff())L.push("Over-$"+PERK_MIN+" perk: "+perkItem().nm+" for $1 — −$"+perkOff());
   if(founderOff())L.push("Beta founder rate (meet-up, "+FOUNDER_PCT+"% off boxes) — −$"+founderOff());
+  if(seasonedOff())L.push("Seasoned Rate (60+, "+SEASONED_PCT+"% off the whole order) — −$"+seasonedOff());
   if(fee())L.push("Delivery fee — $"+fee()+" flat (+$"+PER_MILE.toFixed(2)+"/mi beyond "+FLAT_MILES+" mi, confirmed by text)");
   L.push("","TOTAL: $"+total());
   L.push("","I agree to the Posted Up Produce Order Terms (October 2026), including the refund and cancellation policy.");
@@ -1454,7 +1457,7 @@ function orderPayload(id){
   return {orderNo:id,received:new Date().toISOString(),pickupDate:state.date,name:state.name.trim(),phone:state.phone.trim(),email:state.email.trim(),
     fulfillment:(isDel()?"Delivery from ":"Meet-up: ")+st.name,address:isDel()?state.address.trim():"",
     style:state.mode==="box"?"Shopper's Choice":"Build Your Own",ifUnavailable:state.sub==="replace"?"Swap OK":state.sub==="refund"?"Refund":"Credit",
-    notes:[vegOn(BOXES.find(x=>x.id===state.box))?"[Vegan box]":"",dietLabel()?"[Diet: "+dietLabel()+"]":"",perkOff()?"[$1 perk: "+perkItem().nm+"]":"",hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",hwvInCart()?"[Vegan Harvest Moon: pie pumpkin in the Vegan Box]":"",haulInfo()?"[Haul: ~"+haulInfo().meals+" meals for 2, "+haulInfo().plate+"/plate]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
+    notes:[vegOn(BOXES.find(x=>x.id===state.box))?"[Vegan box]":"",dietLabel()?"[Diet: "+dietLabel()+"]":"",perkOff()?"[$1 perk: "+perkItem().nm+"]":"",seasonedOff()?"[Seasoned Rate 60+: −$"+seasonedOff()+"]":"",hwInCart()?"[Halloween Haul: pie pumpkin in the Half Peck]":"",hwvInCart()?"[Vegan Harvest Moon: pie pumpkin in the Vegan Box]":"",haulInfo()?"[Haul: ~"+haulInfo().meals+" meals for 2, "+haulInfo().plate+"/plate]":"",state.notes.trim(),SRC_TAG?"[via "+SRC_TAG+"]":""].filter(Boolean).join(" "),items,deliveryFee:fee(),total:total(),
     logoVote:state.logo&&voteOpen()?logoName():"",voteReward:state.logo&&voteOpen()?(discount()?"$5 off":REWARD_SHEET[state.reward]||""):"",voteComment:state.logo&&voteOpen()?state.why.trim():"",voteDiscount:discount(),founder:founderOff()?"Yes":"",founderDiscount:founderOff(),earlyDrop:earlyOK()?"Yes":"",waitlist:isWait()?"Yes":""};
 }
 async function sendOrder(id){
@@ -1482,8 +1485,12 @@ function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>
 /* Beta founder rate: 10% off boxes on meet-up orders, rounded to whole dollars. */
 function payByLabel(){const d=state.date?new Date(state.date+"T12:00"):null;if(!d)return "9 PM the night before";const c=new Date(d);c.setDate(c.getDate()-1);return c.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+", 9 PM"}
 function ticketSummary(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox),d=DATES.find(x=>x.v===state.date),st=curStop();const items=[b&&b.name,bb&&bb.name].concat(ALL.filter(i=>state.qty[i.id]).map(i=>(state.qty[i.id]>1?state.qty[i.id]+"× ":"")+i.nm)).filter(Boolean);return items.slice(0,3).join(", ")+(items.length>3?" +"+(items.length-3)+" more":"")+" · "+(isDel()?"Delivered to your door, "+(d?d.label:state.date)+", after "+st.delAfter:st.name+", "+(d?d.label:state.date)+", "+st.time)}
-function founderOff(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
-function total(){return subtotal()+fee()-discount()-founderOff()-perkOff()}
+function founderRaw(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
+/* Seasoned Rate (Nov 7, Malik): 60+ on the honor system, 10% off the whole order (items + delivery, after the $1 perk). Stacks with the founder rate (Malik): taken after the founder 10%. */
+const SEASONED_PCT=10;
+function seasonedOff(){return state.seasoned&&count()?Math.round((subtotal()+fee()-perkOff()-founderRaw())*SEASONED_PCT/100):0}
+function founderOff(){return founderRaw()}
+function total(){return subtotal()+fee()-discount()-founderOff()-perkOff()-seasonedOff()}
 function curStop(){return isDel()?delStop():STOPS.find(x=>x.id===state.fulfill)}
 const THANKS_DATE="2026-11-21",DIWALI_DATE="2026-11-07";
 function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;const L=ds?DATES.filter(d=>ds.includes(new Date(d.v+"T12:00").getDay())):DATES;let R=L;if(state.box==="thanks")R=R.filter(d=>d.v<=THANKS_DATE);if(state.qty.diwali)R=R.filter(d=>d.v===DIWALI_DATE);return R}
@@ -1538,6 +1545,7 @@ function renderTicket(){
   for(const i of ALL.filter(i=>state.qty[i.id]))lines.append(el("div",{class:"line"},el("span",{},state.qty[i.id]+" × "+i.nm),el("span",{},"$"+state.qty[i.id]*i.p)));
   if(founderOff())lines.append(el("div",{class:"line"},el("span",{},"Beta founder rate ("+FOUNDER_PCT+"% off boxes)"),el("span",{},"−$"+founderOff())));
   else if(isDel()&&boxSum())lines.append(el("p",{class:"note"},"Tip: pick a meet-up instead of delivery and your box is "+FOUNDER_PCT+"% off."));
+  if(seasonedOff())lines.append(el("div",{class:"line"},el("span",{},"Seasoned Rate ("+SEASONED_PCT+"% off)"),el("span",{},"−$"+seasonedOff())));
   if(discount())lines.append(el("div",{class:"line"},el("span",{},"Logo vote thank-you"),el("span",{},"−$5")));
   if(state.logo&&state.reward&&state.reward!=="5off"&&voteOpen())lines.append(el("div",{class:"line"},el("span",{},"Thank-you: "+rewardName()),el("span",{},"Free")));
   if(fee())lines.append(el("div",{class:"line"},el("span",{},"Delivery (from)"),el("span",{},"$"+fee())));
@@ -1582,6 +1590,8 @@ function renderTicket(){
   if(!isDel()&&state.date!==LATE_DAY){const ed=el("input",{id:"early",type:"checkbox"});ed.checked=!!state.early;ed.addEventListener("change",()=>{state.early=ed.checked});
     where.append(el("label",{for:"early",class:"agree"},ed,el("span",{},el("b",{},"OK to drop it at my door earlier, free"),el("br"),"If I'm done shopping early and you're on my route, I'll bring it to you before pickup. I text first to get your address; if it doesn't fit, pick up as planned. Questions? Text 773-807-9223.")))}
   f.append(inp("name","Name","text","First and last"),inp("phone","Mobile number","tel","For pickup texts"));
+  {const sz=el("input",{id:"seasoned",type:"checkbox"});sz.checked=!!state.seasoned;sz.addEventListener("change",()=>{state.seasoned=sz.checked;try{localStorage.setItem("pu-seasoned",sz.checked?"1":"0")}catch(e){}renderTicket();const s2=document.getElementById("seasoned");if(s2)s2.focus()});
+    f.append(el("label",{for:"seasoned",class:"agree"},sz,el("span",{},el("b",{},"Seasoned Rate: 60 or better? Take "+SEASONED_PCT+"% off"),el("br"),"Your whole order, delivery included. No ID needed. Picking up? It stacks with the founder rate.")))}
   const ss=el("select",{id:"sub"});
   ss.append(el("option",{value:"credit"},"Credit it to my next order"),el("option",{value:"replace"},"Replace it with equal or greater value"),el("option",{value:"refund"},"Refund me for it"));
   ss.value=state.sub;ss.addEventListener("change",()=>state.sub=ss.value);
