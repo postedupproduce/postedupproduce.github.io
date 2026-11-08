@@ -98,8 +98,88 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 #howSplash .go2{min-height:48px;border:0;background:none;color:var(--ink);font:700 16px var(--body);text-decoration:underline;cursor:pointer}
 @keyframes hs-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}#howSplash .in{animation:hs-in .4s ease both}@media (prefers-reduced-motion:reduce){#howSplash .in{animation:none}}
 </style>
+<style>/* Motion on the stranger page (Nov 7, Malik): silent looping photo strip of how we work the market, plus a ticker. Nothing blocks, nothing to skip. */
+.reel{position:relative;height:200px;border-radius:16px;overflow:hidden;background:#24392C;margin:0 0 14px}
+.reel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:reelIn 15s linear infinite;transform:scale(1.06)}
+.reel img:nth-child(2){animation-delay:3s}.reel img:nth-child(3){animation-delay:6s}.reel img:nth-child(4){animation-delay:9s}.reel img:nth-child(5){animation-delay:12s}
+@keyframes reelIn{0%{opacity:0;transform:scale(1.06)}4%{opacity:1}20%{opacity:1;transform:scale(1)}24%{opacity:0}100%{opacity:0}}
+.reel .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 12px;background:linear-gradient(transparent,rgba(20,32,25,.85));color:#F8F2E6;font:800 20px/1.15 var(--body);text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.reel .cap small{display:block;font:700 11px/1.3 var(--body);letter-spacing:.14em;text-transform:uppercase;opacity:.85;margin-bottom:3px}
+.tick{overflow:hidden;white-space:nowrap;border-top:2px solid #24392C;border-bottom:2px solid #24392C;background:#F8F2E6;color:#24392C;font:700 13px/2.4 var(--body);letter-spacing:.04em;margin:0 0 18px}
+.tick span{display:inline-block;padding-left:100%;animation:tick 28s linear infinite}
+@keyframes tick{to{transform:translateX(-100%)}}
+@media (prefers-reduced-motion:reduce){.reel img{animation:none;opacity:0}.reel img:first-child{opacity:1;transform:none}.tick span{animation:none;padding-left:12px}}
+</style>
+<style>/* Sticky one-button bar (Nov 7, Malik; ConversionXL / sticky add-to-cart evidence, nav eval Nov 1). Hides once the real button is on screen. */
+.stickbar{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px max(10px,env(safe-area-inset-bottom));background:rgba(242,235,221,.96);backdrop-filter:blur(6px);border-top:2px solid #24392C;transform:translateY(110%);transition:transform .25s ease}
+.stickbar.show{transform:none}
+.stickbar a{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:999px;background:#A9361F;color:#fff;font:800 17px var(--body);text-decoration:none}
+body.hasbar{padding-bottom:132px}
+.stickbar .season{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 0 8px}
+.stickbar .season .sl{font:800 11px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:#A9361F;margin-right:4px}
+.stickbar .season img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #F8F2E6;box-shadow:0 1px 3px rgba(36,57,44,.25);animation:bob 3s ease-in-out infinite}
+.stickbar .season img:nth-child(odd){animation-delay:-1.5s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media (prefers-reduced-motion:reduce){.stickbar .season img{animation:none}}
+/* Ref arrivals (?s=ref-*): one-job page, fewer exits. */
+html.ref .tabs a:not([data-keep]){display:none}
+</style>
+<style>/* Welcome gate (Nov 7, Malik): one friendly screen before the page, one tap, once per phone. Not a splash that plays at you: nothing moves until they choose. */
+#gate{position:fixed;inset:0;z-index:9000;background:#24392C;color:#F8F2E6;display:grid;place-items:center;padding:24px;text-align:center}
+#gate .in{display:grid;justify-items:center;gap:14px;max-width:360px}
+#gate img{width:140px;height:140px;border-radius:50%;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#gate h2{margin:0;font:400 30px/1.05 var(--display,"Alfa Slab One",serif)}
+#gate p{margin:0;font:500 16px/1.45 var(--body);opacity:.92}
+#gate button{min-height:54px;width:100%;border:0;border-radius:999px;background:#A9361F;color:#fff;font:800 18px var(--body);cursor:pointer}
+#gate small{font:600 12px var(--body);opacity:.7}
+#gate.out{animation:gate-out .3s ease forwards}@keyframes gate-out{to{opacity:0;transform:scale(1.02)}}
+html.gated{overflow:hidden}
+
+</style>
+<style>/* Breathing room + subtle motion (Nov 7, Malik). Spacing on an 8-pt rhythm (UX Planet / Prototypr 8pt grid; line-height 1.5 for body per WCAG, Uxcel); motion 150–300 ms ease-out, nothing over 400 ms (NN/g 100 ms–1 s thresholds; Material 200–300 ms on phones); all off under prefers-reduced-motion. */
+.wrap{gap:32px;padding-bottom:48px}
+.sign{padding:28px 22px 26px;gap:16px}
+.sign p{line-height:1.55}
+.card{padding:24px 20px;gap:16px}
+.card h2{font-size:26px;line-height:32px}
+.sub{font-size:15px;line-height:24px}
+.kicker{letter-spacing:.1em}
+.steps{gap:16px}.steps li{gap:14px}
+.chain{gap:12px}.chain li{padding:8px 0 8px 14px;line-height:24px}
+.stops{gap:10px}.stop{padding:12px 10px;line-height:1.4}
+.boxes{gap:10px}.boxes li{padding:14px 14px;gap:6px 12px;line-height:1.4}
+.reel{margin-bottom:16px}.tick{margin-bottom:24px;font-size:13px;line-height:32px}
+.tabs{gap:4px}.tabs a{padding:10px 12px}
+.row2{gap:12px}
+.feat{border-color:#E2A21A;border-width:2px;background:color-mix(in srgb,#E2A21A 10%,var(--panel))}.feat .kicker{color:#A9361F}.feat .go{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;background:#A9361F;color:#fff;font:800 17px var(--body)}
+/* Reveal on scroll: fade + 16px rise, 320 ms, children staggered 60 ms. */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .32s ease-out,transform .32s ease-out}
+.rv.in{opacity:1;transform:none}
+.rv .stg>*{opacity:0;transform:translateY(10px);transition:opacity .28s ease-out,transform .28s ease-out}
+.rv.in .stg>*{opacity:1;transform:none}
+.rv.in .stg>:nth-child(1){transition-delay:.06s}.rv.in .stg>:nth-child(2){transition-delay:.12s}.rv.in .stg>:nth-child(3){transition-delay:.18s}.rv.in .stg>:nth-child(4){transition-delay:.24s}.rv.in .stg>:nth-child(5){transition-delay:.30s}.rv.in .stg>:nth-child(6){transition-delay:.36s}
+/* Press feedback: 2–3% scale, 120 ms. Stamp settles into place once. */
+.go,button.ghost,.stickbar a,#gateGo,.tabs a{transition:transform .12s ease-out,background-color .15s ease-out}
+.go:active,button.ghost:active,.stickbar a:active,#gateGo:active{transform:scale(.97)}
+.tabs a:active{transform:scale(.95)}
+.stop,.boxes li{transition:transform .15s ease-out,box-shadow .15s ease-out}
+.stop:active,.boxes li:active{transform:translateY(-2px);box-shadow:0 4px 10px rgba(36,57,44,.15)}
+.stamp{animation:stampIn .6s cubic-bezier(.2,1.4,.4,1) both;animation-delay:.3s}
+@keyframes stampIn{from{opacity:0;transform:rotate(-6deg) scale(1.3)}to{opacity:1;transform:rotate(8deg) scale(1)}}
+@media (prefers-reduced-motion:reduce){.rv,.rv .stg>*{opacity:1;transform:none;transition:none}.stamp{animation:none}.go:active,button.ghost:active,.stickbar a:active,#gateGo:active,.tabs a:active,.stop:active,.boxes li:active{transform:none}}
+</style>
 </head>
 <body>
+<div id="gate" role="dialog" aria-labelledby="gateH" hidden>
+  <div class="in">
+    <img src="/logos/harvest-stamp.png" alt="" width="140" height="140">
+    <h2 id="gateH">A friend sent you here.</h2>
+    <p>Posted Up is a personal shopper for the Chicago farmers market. No subscription, no spam, order only the weeks you want. Have a look around.</p>
+    <button type="button" id="gateGo">Come on in →</button>
+    <small>One tap, then the whole site is yours.</small>
+  </div>
+</div>
+
 <div class="wrap">
   <div class="topbar">
     <header class="top"><a class="brand" id="home" href="../"><img class="mark" src="/logos/stamp-96.png" width="32" height="32" alt="">Posted Up Produce <span class="beta">Beta</span></a></header>
@@ -110,6 +190,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
   <a href="/#inventory">Add-ons</a>
       <a href="/services/">Services</a>
       <a href="/join/">First pick</a>
+      <a href="/faq/">Questions</a>
       <a href="/#talk">Contact</a>
       <a href="/play/">Play</a>
     </nav>
@@ -117,6 +198,11 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 
   <div class="hello" id="hello" role="status" hidden><div class="pair" id="helloPair" hidden><span class="chip"><img src="/logos/harvest-stamp.png" alt="Posted Up Produce" width="72" height="72"></span><span class="x" aria-hidden="true">+</span><span class="chip"><img id="partnerLogo" alt="" width="72" height="72"></span></div><b id="helloName"></b><span id="helloSub"></span><button type="button" class="tourBtn" data-tour><span class="pl" aria-hidden="true"></span>Watch how it works · 45 sec, with music</button></div>
 
+  <div class="reel" aria-hidden="true">
+    <img src="/img/haul-vegan.jpg" alt="" loading="eager"><img src="/img/carrots.jpg" alt="" loading="lazy"><img src="/img/squash.jpg" alt="" loading="lazy"><img src="/img/haul-byo.jpg" alt="" loading="lazy"><img src="/img/apples.jpg" alt="" loading="lazy">
+    <div class="cap"><small id="reelK">How we work the market</small><span id="reelT">You pick. We shop. Posted up.</span></div>
+  </div>
+  <div class="tick" aria-hidden="true"><span>Order by Fri 9 PM &nbsp;·&nbsp; Market day Saturday &nbsp;·&nbsp; Pick up free, or delivery from $8 &nbsp;·&nbsp; No subscription &nbsp;·&nbsp; Order by Fri 9 PM &nbsp;·&nbsp; Market day Saturday &nbsp;·&nbsp; Pick up free, or delivery from $8 &nbsp;·&nbsp; No subscription &nbsp;·&nbsp;</span></div>
   <section class="sign">
     <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
     <span class="kicker">What it is</span>
@@ -125,14 +211,27 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
     <p>No subscription. No season commitment. Order the weeks you want.</p>
   </section>
 
+  <section class="card feat" aria-labelledby="featH">
+    <span class="kicker">Featured this week</span>
+    <h2 id="featH">🏀 Game Day Kit</h2>
+    <p class="sub">Snack duty, done. Apples, carrots, cheese, bread and fresh-pressed cider, picked Saturday morning. The stuff kids actually eat. Rinse, slice, hand it to the bench.</p>
+    <ul class="boxes feat-tiers">
+      <li><b>Feeds 6</b><span class="p">$39</span><span>6 apples, 2 lb carrots, goat cheese, a jug of cider · save $5</span></li>
+      <li><b>Feeds 12 <i class="tag">Most teams</i></b><span class="p">$75</span><span>A dozen apples, 2 lb carrots, cheddar, a sourdough loaf, a jug of cider · save $13</span></li>
+      <li><b>Feeds 24</b><span class="p">$139</span><span>Two dozen apples, 4 lb carrots, two cheeses, two loaves with pastries, two jugs of cider · save $25</span></li>
+    </ul>
+    <div class="row2"><a class="go" id="featGo" href="../#inventory" style="flex:1 1 200px;text-align:center;text-decoration:none">Pick a size &rarr;</a></div>
+    <p class="sub" style="font-size:13px">Whole season, tournament or banquet? <a href="/services/">Sourcing services &rarr;</a></p>
+  </section>
   <section class="card" aria-labelledby="whyH">
     <h2 id="whyH">Why it's different</h2>
     <ul class="chain">
       <li><b>Grocery store</b>Farm → packer → distributor → warehouse → store → you. Days in cold storage along the way. Farmers get about 18¢ of every grocery food dollar (USDA, 2024).</li>
       <li class="us"><b>Posted Up</b>Farm stand → your shopper → you. Hours, in a cooler we check by hand.</li>
     </ul>
-    <p class="sub">Started by a South Side organizer with 20+ years in Chicago food systems, to get more people eating from local farms without the 7 AM market run.</p>
+    <p class="sub">Run by a Chicagoan with 20+ years in local food: farmers markets, urban farms and community food programs, Produce Safety Alliance certified. Built so more people eat from local farms without the 7 AM market run.</p>
     <p class="sub">We pay the farmer their full stand price, so every dollar we spend on your food goes to the farm or maker who grew or baked it. Our shopping and handoff fee is built into our prices.</p>
+    <p class="sub"><b>Every farm we buy from is certified.</b> The market we shop was the first in the country to require every farmer to hold a third-party sustainability certification: USDA Organic, Certified Naturally Grown, Food Alliance, Animal Welfare Approved and others. We only say "organic" when a farm is certified organic, and neither can they. Ask about any item and we'll tell you the farm's certification.</p>
     <p class="sub"><b>Picked that morning. Hours to your hands, not days in a warehouse.</b> Hand-picked, or it's on us: not happy with an item, or it wasn't at market? Credit or refund, your choice.</p>
   </section>
 
@@ -206,7 +305,7 @@ if(forName){
 /* Share button: builds a friend link that says who sent it, instead of forwarding their own personal link. */
 if(forName){
   const btn=document.getElementById("shareBtn");btn.hidden=false;
-  const slug=raw.startsWith("p-")?raw.slice(2):(raw||"friend");
+  const slug=raw.startsWith("p-")?raw.slice(2):raw.startsWith("ref-")?raw.slice(4):(raw||"friend");
   const url=location.origin+"/how/?s=ref-"+slug+"&from="+encodeURIComponent(forName);
   const msg=forName+" thought you'd like this: a personal shopper for the Chicago farmers market. "+url;
   btn.addEventListener("click",async()=>{
@@ -234,6 +333,50 @@ if(forName){(function(){
   tb.addEventListener("click",close);go.addEventListener("click",close);
   document.body.append(sp);setTimeout(()=>tb.focus({preventScroll:true}),60);
 })()}
+</script>
+<script>
+/* Captions ride along with the photo loop (same beats as the home intro). Stops on reduced motion. */
+(function(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const B=[["Now showing","You pick."],["Order by 9 PM","The night before."],["Saturday sunrise","We shop the market."],["Hand-picked","Packed for you."],["Goose Island · Hyde Park · Rogers Park","Posted up."]];
+  const k=document.getElementById("reelK"),t=document.getElementById("reelT");let i=0;
+  const tickB=()=>{k.textContent=B[i][0];t.textContent=B[i][1];i=(i+1)%B.length};tickB();setInterval(tickB,3000);
+})();
+</script>
+<div class="stickbar" id="stickbar">
+  <div class="season" aria-label="In season this week"><span class="sl">In season</span><img src="/img/apples.jpg" alt="" title="Apples"><img src="/img/squash.jpg" alt="" title="Squash"><img src="/img/beets.jpg" alt="" title="Beets"><img src="/img/carrots.jpg" alt="" title="Carrots"><img src="/img/brussels.jpg" alt="" title="Brussels sprouts"><img src="/img/pears.jpg" alt="" title="Pears"><img src="/img/pumpkins.jpg" alt="" title="Pie pumpkins"></div>
+  <a id="stickShop" href="../#shop">See this week's boxes</a>
+</div>
+<script>
+(function(){
+  const raw=(new URLSearchParams(location.search).get("s")||"").toLowerCase();
+  if(/^ref-/.test(raw)){document.documentElement.classList.add("ref");document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(t==="Home"||t==="How it works"||t==="Boxes"||t==="Questions")a.setAttribute("data-keep","")})}
+  const fg=document.getElementById("featGo");if(fg&&raw)fg.href="../?s="+raw+"#inventory";
+  const bar=document.getElementById("stickbar"),real=document.getElementById("shop"),link=document.getElementById("stickShop");
+  if(!bar||!real)return;link.href=real.getAttribute("href");document.body.classList.add("hasbar");
+  const io=new IntersectionObserver(es=>{bar.classList.toggle("show",!es[0].isIntersecting)},{rootMargin:"0px 0px -10px 0px"});io.observe(real);
+  setTimeout(()=>{if(!bar.classList.contains("show")&&real.getBoundingClientRect().top>innerHeight)bar.classList.add("show")},400);
+})();
+</script>
+<script>
+/* Welcome gate (Nov 7, Malik): friend links only (?s=ref-*), every visit; skipped for ?me devices. "<Name> sent you here." when the link carries &from=. */
+(function(){const g=document.getElementById("gate");if(!g)return;const q=new URLSearchParams(location.search);const tag=(q.get("s")||"").toLowerCase();let me=false;try{me=!!localStorage.getItem("pu-me")||q.has("me")}catch(e){}
+  if(!/^ref-/.test(tag)||me){g.remove();return}
+  const fr=(q.get("from")||"").replace(/[^a-z' -]/gi,"").trim().slice(0,24);
+  if(fr)document.getElementById("gateH").textContent=fr.charAt(0).toUpperCase()+fr.slice(1)+" sent you here.";
+  g.hidden=false;document.documentElement.classList.add("gated");
+  document.getElementById("gateGo").addEventListener("click",()=>{g.classList.add("out");document.documentElement.classList.remove("gated");setTimeout(()=>g.remove(),320)});
+  setTimeout(()=>document.getElementById("gateGo").focus({preventScroll:true}),50);
+})();
+</script>
+<script>
+/* Scroll reveal: sections fade up as they enter (20% visible); lists stagger their children. One-shot, no re-trigger. */
+(function(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const secs=[...document.querySelectorAll(".wrap > section, .wrap > .card")];
+  secs.forEach(s=>{s.classList.add("rv");s.querySelectorAll(".steps, .boxes, .chain, .stops").forEach(l=>l.classList.add("stg"))});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.2,rootMargin:"0px 0px -40px 0px"});
+  secs.forEach(s=>io.observe(s));
+  setTimeout(()=>secs.forEach(s=>{if(s.getBoundingClientRect().top<innerHeight)s.classList.add("in")}),80);
+})();
 </script>
 </body>
 </html>
