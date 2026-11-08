@@ -298,9 +298,8 @@ if(forName){
   document.getElementById("helloSub").textContent="Thanks for taking a look. Here's the one-minute version of how it works.";
   hello.hidden=false;document.title="Welcome, "+forName+" · Posted Up Produce";
 }else if(fromName){
-  document.getElementById("helloName").textContent="Welcome! "+fromName+" sent you.";
-  document.getElementById("helloSub").textContent="They thought you'd like this. Here's the one-minute version of how it works.";
-  hello.hidden=false;
+  /* Nov 7, Malik: the welcome gate already greets ref links by name; no second box on the page. */
+  document.title="Posted Up Produce · "+fromName+" sent you";
 }
 /* Share button: builds a friend link that says who sent it, instead of forwarding their own personal link. */
 if(forName){
