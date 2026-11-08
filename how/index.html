@@ -99,7 +99,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 @keyframes hs-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}#howSplash .in{animation:hs-in .4s ease both}@media (prefers-reduced-motion:reduce){#howSplash .in{animation:none}}
 </style>
 <style>/* Motion on the stranger page (Nov 7, Malik): silent looping photo strip of how we work the market, plus a ticker. Nothing blocks, nothing to skip. */
-.reel{position:relative;height:200px;border-radius:16px;overflow:hidden;background:#24392C;margin:0 0 14px}
+.reel{position:relative;height:176px;border-radius:16px;overflow:hidden;background:#24392C;margin:0 0 14px}
 .reel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:reelIn 15s linear infinite;transform:scale(1.06)}
 .reel img:nth-child(2){animation-delay:3s}.reel img:nth-child(3){animation-delay:6s}.reel img:nth-child(4){animation-delay:9s}.reel img:nth-child(5){animation-delay:12s}
 @keyframes reelIn{0%{opacity:0;transform:scale(1.06)}4%{opacity:1}20%{opacity:1;transform:scale(1)}24%{opacity:0}100%{opacity:0}}
@@ -214,30 +214,6 @@ html.gated{overflow:hidden}
     <p>No subscription. No season commitment. Order the weeks you want.</p>
   </section>
 
-  <section class="card feat" aria-labelledby="featH">
-    <span class="kicker">Featured this week</span>
-    <h2 id="featH">🏀 Game Day Kit</h2>
-    <p class="sub">Snack duty, done. Apples, carrots, cheese, bread and fresh-pressed cider, picked Saturday morning. The stuff kids actually eat. Rinse, slice, hand it to the bench.</p>
-    <ul class="boxes feat-tiers">
-      <li><b>Feeds 6</b><span class="p">$39</span><span>6 apples, 2 lb carrots, goat cheese, a jug of cider · save $5</span></li>
-      <li><b>Feeds 12 <i class="tag">Most teams</i></b><span class="p">$75</span><span>A dozen apples, 2 lb carrots, cheddar, a sourdough loaf, a jug of cider · save $13</span></li>
-      <li><b>Feeds 24</b><span class="p">$139</span><span>Two dozen apples, 4 lb carrots, two cheeses, two loaves with pastries, two jugs of cider · save $25</span></li>
-    </ul>
-    <div class="row2"><a class="go" id="featGo" href="../#inventory" style="flex:1 1 200px;text-align:center;text-decoration:none">Pick a size &rarr;</a></div>
-    <p class="sub" style="font-size:13px">Whole season, tournament or banquet? <a href="/services/">Sourcing services &rarr;</a></p>
-  </section>
-  <section class="card" aria-labelledby="whyH">
-    <h2 id="whyH">Why it's different</h2>
-    <ul class="chain">
-      <li><b>Grocery store</b>Farm → packer → distributor → warehouse → store → you. Days in cold storage along the way. Farmers get about 18¢ of every grocery food dollar (USDA, 2024).</li>
-      <li class="us"><b>Posted Up</b>Farm stand → your shopper → you. Hours, in a cooler we check by hand.</li>
-    </ul>
-    <p class="sub">Run by a Chicagoan with 20+ years in local food: farmers markets, urban farms and community food programs, Produce Safety Alliance certified. Built so more people eat from local farms without the 7 AM market run.</p>
-    <p class="sub">We pay the farmer their full stand price, so every dollar we spend on your food goes to the farm or maker who grew or baked it. Our shopping and handoff fee is built into our prices.</p>
-    <p class="sub"><b>Every farm we buy from is certified.</b> The market we shop was the first in the country to require every farmer to hold a third-party sustainability certification: USDA Organic, Certified Naturally Grown, Food Alliance, Animal Welfare Approved and others. We only say "organic" when a farm is certified organic, and neither can they. Ask about any item and we'll tell you the farm's certification.</p>
-    <p class="sub"><b>Picked that morning. Hours to your hands, not days in a warehouse.</b> Hand-picked, or it's on us: not happy with an item, or it wasn't at market? Credit or refund, your choice.</p>
-  </section>
-
   <section class="card" aria-labelledby="howH">
     <h2 id="howH">How it works</h2>
     <button type="button" class="tourBtn" data-tour><span class="pl" aria-hidden="true"></span>Watch how it works · 45 sec, with music</button>
@@ -255,7 +231,7 @@ html.gated{overflow:hidden}
     <p class="sub"><b>Order by Fri 9 PM.</b> Saturdays through Nov 21, the last box of the pilot.</p>
   </section>
 
-  <section class="card" aria-labelledby="boxH">
+<section class="card" aria-labelledby="boxH">
     <h2 id="boxH">What you get</h2>
     <ul class="boxes">
       <li><b>Half Peck <i class="tag">Most popular</i></b><span class="p">$50</span><span>~9–10 lb. A week of sides and a couple of mains for two.</span></li>
@@ -266,6 +242,31 @@ html.gated{overflow:hidden}
     </ul>
     <p class="sub">Add bread, pastries, eggs, cheese and pantry goods, or pair a meat or fish box with any produce box. Boxes are built from whatever is peaking that week, and you can tell us what you love or never want.</p>
     <p class="sub"><b>Beta founder rate:</b> boxes picked up at a meet-up during the pilot are 10% off.</p>
+  </section>
+
+<section class="card" aria-labelledby="whyH">
+    <h2 id="whyH">Why it's different</h2>
+    <ul class="chain">
+      <li><b>Grocery store</b>Farm → packer → distributor → warehouse → store → you. Days in cold storage along the way. Farmers get about 18¢ of every grocery food dollar (USDA, 2024).</li>
+      <li class="us"><b>Posted Up</b>Farm stand → your shopper → you. Hours, in a cooler we check by hand.</li>
+    </ul>
+    <p class="sub">Run by a Chicagoan with 20+ years in local food: farmers markets, urban farms and community food programs, Produce Safety Alliance certified. Built so more people eat from local farms without the 7 AM market run.</p>
+    <p class="sub">We pay the farmer their full stand price, so every dollar we spend on your food goes to the farm or maker who grew or baked it. Our shopping and handoff fee is built into our prices.</p>
+    <p class="sub"><b>Every farm we buy from is certified.</b> The market we shop was the first in the country to require every farmer to hold a third-party sustainability certification: USDA Organic, Certified Naturally Grown, Food Alliance, Animal Welfare Approved and others. We only say "organic" when a farm is certified organic, and neither can they. Ask about any item and we'll tell you the farm's certification.</p>
+    <p class="sub"><b>Picked that morning. Hours to your hands, not days in a warehouse.</b> Hand-picked, or it's on us: not happy with an item, or it wasn't at market? Credit or refund, your choice.</p>
+  </section>
+
+<section class="card feat" aria-labelledby="featH">
+    <span class="kicker">Featured this week</span>
+    <h2 id="featH">🏀 Game Day Kit</h2>
+    <p class="sub">Snack duty, done. Apples, carrots, cheese, bread and fresh-pressed cider, picked Saturday morning. The stuff kids actually eat. Rinse, slice, hand it to the bench.</p>
+    <ul class="boxes feat-tiers">
+      <li><b>Feeds 6</b><span class="p">$39</span><span>6 apples, 2 lb carrots, goat cheese, a jug of cider · save $5</span></li>
+      <li><b>Feeds 12 <i class="tag">Most teams</i></b><span class="p">$75</span><span>A dozen apples, 2 lb carrots, cheddar, a sourdough loaf, a jug of cider · save $13</span></li>
+      <li><b>Feeds 24</b><span class="p">$139</span><span>Two dozen apples, 4 lb carrots, two cheeses, two loaves with pastries, two jugs of cider · save $25</span></li>
+    </ul>
+    <div class="row2"><a class="go" id="featGo" href="../#inventory" style="flex:1 1 200px;text-align:center;text-decoration:none">Pick a size &rarr;</a></div>
+    <p class="sub" style="font-size:13px">Whole season, tournament or banquet? <a href="/services/">Sourcing services &rarr;</a></p>
   </section>
 
   <section class="ctas" aria-label="Next steps">
