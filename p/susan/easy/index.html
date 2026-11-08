@@ -90,6 +90,7 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 .fbq{margin:0;font-weight:700}
 .sent{background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin:0;font-weight:700}
 .link{background:none;border:0;color:var(--ink);font:700 17px var(--body);text-decoration:underline;min-height:44px;cursor:pointer;padding:0}
+.rcard[hidden]{display:none}
 .rcard{background:#fffdf6;border-radius:6px;padding:14px 16px 6px;box-shadow:0 2px 0 #e3d6bb,0 6px 14px rgba(36,57,44,.12);transform:rotate(-.6deg)}
 .rcard .rtop{border-bottom:2px solid #d9584a;padding-bottom:8px}
 .rcard .rk{display:block;font-size:14px;font-weight:700;color:var(--tomato);text-transform:uppercase;letter-spacing:.06em}
@@ -225,6 +226,8 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
     var t=document.querySelector("input[name=t]:checked"),lvl=t?[].indexOf.call(document.querySelectorAll("input[name=t]"),t)+1:0;
     /* Extras already inside the chosen size can't be added twice */
     [].forEach.call(f.querySelectorAll("input[data-in]"),function(x){var inc=lvl>=+x.dataset.in;x.disabled=inc;if(inc)x.checked=false;x.closest(".ex").style.opacity=inc?.45:1;x.closest(".ex").querySelector("i").textContent=inc?"in your box":"$"+x.dataset.p});
+    /* Recipe card only when the size includes the delicata (sizes 2 and 3) */
+    var rc=document.querySelector(".rcard");if(rc)rc.hidden=lvl<2;
     var ex=[].filter.call(f.querySelectorAll("input"),function(x){return x.checked}),sum=t?+t.dataset.p:0;
     ex.forEach(function(x){sum+=+x.dataset.p});tot.textContent="$"+sum;
     var o=(document.querySelector("input[name=o]:checked")||{}).value||"";
