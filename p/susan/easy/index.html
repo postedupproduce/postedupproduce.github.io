@@ -90,6 +90,7 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 .fbq{margin:0;font-weight:700}
 .sent{background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin:0;font-weight:700}
 .link{background:none;border:0;color:var(--ink);font:700 17px var(--body);text-decoration:underline;min-height:44px;cursor:pointer;padding:0}
+.seg4 label{flex:1 1 45%}
 .rcard[hidden]{display:none}
 .rcard{background:#fffdf6;border-radius:6px;padding:14px 16px 6px;box-shadow:0 2px 0 #e3d6bb,0 6px 14px rgba(36,57,44,.12);transform:rotate(-.6deg)}
 .rcard .rtop{border-bottom:2px solid #d9584a;padding-bottom:8px}
@@ -120,6 +121,27 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
     <p class="row"><b>Keeps</b><span>Apples · local tofu · microgreens · the pastry (as an extra)</span></p>
     <p class="row"><b>Swaps</b><span>Kabocha for a delicata: no peeling, 25 minutes in the oven</span></p>
     <p class="row"><b>Drops</b><span>Oyster mushrooms, sweet potatoes, kale, onions and garlic. Good food, but they all need cooking.</span></p>
+  </section>
+
+  <section class="card" aria-labelledby="pastH">
+    <h2 id="pastH">How was that box?</h2>
+    <p class="fbq" id="p1">How much of it did you two get through?</p>
+    <div class="seg seg4" role="radiogroup" aria-labelledby="p1">
+      <label><input type="radio" name="ate" value="all of it"><span>All of it</span></label>
+      <label><input type="radio" name="ate" value="most of it"><span>Most of it</span></label>
+      <label><input type="radio" name="ate" value="about half"><span>About half</span></label>
+      <label><input type="radio" name="ate" value="less than half"><span>Less than half</span></label>
+    </div>
+    <p class="fbq" id="p2">Overall</p>
+    <div class="seg" role="radiogroup" aria-labelledby="p2">
+      <label><input type="radio" name="liked" value="loved it"><span>Loved it</span></label>
+      <label><input type="radio" name="liked" value="it was fine"><span>It was fine</span></label>
+      <label><input type="radio" name="liked" value="not for us"><span>Not for us</span></label>
+    </div>
+    <label for="pn" class="fbq">What did you love, and what went to waste?</label>
+    <textarea id="pn" placeholder="e.g. loved the mushrooms, the kabocha sat too long"></textarea>
+    <p class="why" id="fit">Tap above and I'll start you at the size that fits.</p>
+    <a class="btn" id="nextGo" href="#boxH">See your next box &darr;</a>
   </section>
 
   <section class="card" aria-labelledby="boxH">
@@ -233,11 +255,22 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
     var o=(document.querySelector("input[name=o]:checked")||{}).value||"";
     var fb=["amt","pr","yn","rd"].map(function(k){var x=document.querySelector("input[name="+k+"]:checked");return x?{amt:"Amount: ",pr:"Prices: ",yn:"Would order: ",rd:"Page: "}[k]+x.value:""}).filter(Boolean).join(". ");
     window.__fb=fb;
-    var body="Hi Malik, Susan here. I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(fb?fb+". ":"")+(n.value.trim()?"Change: "+n.value.trim():"");
+    var pa=["ate","liked"].map(function(k){var x=document.querySelector("input[name="+k+"]:checked");return x?x.value:""}).filter(Boolean),pnv=document.getElementById("pn").value.trim();
+    var past=(pa.length||pnv)?"Oct 24 box: "+pa.join(", ")+(pnv?(pa.length?". ":"")+pnv:"")+". ":"";
+    var body="Hi Malik, Susan here. "+past+"Next time I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(fb?fb+". ":"")+(n.value.trim()?"Change: "+n.value.trim():"");
     window.__body=body.trim();
     var ios=/iPhone|iPad|Mac/i.test(navigator.userAgent);
     send.setAttribute("href","sms:+17738079223"+(ios?"&":"?")+"body="+encodeURIComponent(body.trim()));
   }
+  var picked=false,TN=document.querySelectorAll("input[name=t]");
+  [].forEach.call(TN,function(x){x.addEventListener("change",function(e){if(e.isTrusted)picked=true})});
+  [].forEach.call(document.querySelectorAll("input[name=ate]"),function(x){x.addEventListener("change",function(){
+    var small=/half/.test(x.value),i=small?0:1,nm=["Breakfast & snacks","Plus easy lunches"][i];
+    if(!picked){TN[i].checked=true}
+    document.getElementById("fit").textContent=(small?"Got it, a smaller box then. ":"Good, nothing went to waste. ")+(picked?"":"I'd start you at "+nm+".");
+  })});
+  document.getElementById("nextGo").addEventListener("click",function(e){e.preventDefault();upd();document.getElementById("boxH").scrollIntoView({behavior:"smooth",block:"start"})});
+  document.getElementById("pn").addEventListener("input",upd);
   document.addEventListener("change",upd);n.addEventListener("input",upd);upd();
   var post=document.getElementById("post"),ok=document.getElementById("ok");
   post.addEventListener("click",function(){
