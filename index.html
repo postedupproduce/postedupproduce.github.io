@@ -94,6 +94,7 @@ html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;
 #pu-splash .pu-tourb:focus-visible{outline:3px solid #D2452B;outline-offset:2px}
 #pu-dsplash .ds-tour{margin-top:4px;width:100%;min-height:50px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;font:700 16px var(--body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px}
 </style>
+<style>/* Share on every page (Nov 7, Malik). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
 </head>
 <body>
 
@@ -1009,7 +1010,8 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
       <p><b>&copy; 2026 123 Footprint, LLC. All rights reserved.</b> Posted Up Produce&trade;, The Post-Up&trade;, the logos, the box and ordering system, menu, written content and site design belong to 123 Footprint, LLC. Don't copy, adapt or resell them without written permission. Produce photos belong to their photographers and are used under their own licenses (see Photo credits).</p>
       <p><b>Want to build something together?</b> We're open to collaborations with farms, makers, markets and community groups. Use "Pick a time to meet" on <a href="#talk">Home</a>.</p>
     </div>
-    <p class="foot">Fresh produce should always be washed before eating, even when farm-direct. Availability depends on weather, harvest and which makers are at market that day.</p>
+    <button type="button" class="pu-share" data-share>Send this to a friend</button>
+<p class="foot">Fresh produce should always be washed before eating, even when farm-direct. Availability depends on weather, harvest and which makers are at market that day.</p>
   </section>
 </main>
 
@@ -2241,5 +2243,16 @@ const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sau
 renderBoxes();renderItems();renderTicket();loadCounts();
 </script>
 
+<script>
+/* Share (Nov 7, Malik): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
+(function(){const b=document.querySelector("[data-share]");if(!b)return;
+  const url=location.origin+"/how/?s=ref-shared";
+  const msg="Thought you'd like this: a personal shopper for the Chicago farmers market. Order by Friday night, pick up Saturday or get it delivered. "+url;
+  b.addEventListener("click",async()=>{
+    if(navigator.share){try{await navigator.share({title:"Posted Up Produce",text:msg});return}catch(e){if(e&&e.name==="AbortError")return}}
+    try{await navigator.clipboard.writeText(msg);b.textContent="Copied. Paste it in a text!"}catch(e){location.href="sms:?&body="+encodeURIComponent(msg)}
+  });
+})();
+</script>
 </body>
 </html>

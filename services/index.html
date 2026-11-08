@@ -122,6 +122,7 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
 select{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:11px 12px;width:100%;min-height:48px}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>/* Share on every page (Nov 7, Malik). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
 </head>
 <body>
 <div class="wrap">
@@ -224,7 +225,8 @@ select{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line
     <button class="cta" type="submit">Send it, I'll text you back</button>
   </form>
 
-  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Rather just talk? Text 773-807-9223.</p>
+  <button type="button" class="pu-share" data-share>Send this to a friend</button>
+<p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Rather just talk? Text 773-807-9223.</p>
 </div>
 <script>
 const ENDPOINT="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
@@ -250,6 +252,17 @@ f.addEventListener("submit",async e=>{
     f.classList.add("done");f.replaceChildren(h,p,a);h.setAttribute("tabindex","-1");h.focus();
   }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
 });
+</script>
+<script>
+/* Share (Nov 7, Malik): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
+(function(){const b=document.querySelector("[data-share]");if(!b)return;
+  const url=location.origin+"/how/?s=ref-shared";
+  const msg="Thought you'd like this: a personal shopper for the Chicago farmers market. Order by Friday night, pick up Saturday or get it delivered. "+url;
+  b.addEventListener("click",async()=>{
+    if(navigator.share){try{await navigator.share({title:"Posted Up Produce",text:msg});return}catch(e){if(e&&e.name==="AbortError")return}}
+    try{await navigator.clipboard.writeText(msg);b.textContent="Copied. Paste it in a text!"}catch(e){location.href="sms:?&body="+encodeURIComponent(msg)}
+  });
+})();
 </script>
 </body>
 </html>

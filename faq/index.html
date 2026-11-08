@@ -116,6 +116,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 .go,summary{transition:transform .12s ease-out}.go:active{transform:scale(.97)}
 @media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
 </style>
+<style>/* Share on every page (Nov 7, Malik). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
 </head>
 <body>
 <div class="wrap">
@@ -179,7 +180,8 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
     <a class="go" href="sms:+17738079223">Text us</a>
     <a class="go" id="shopGo" href="/#shop" style="background:var(--board)">See this week's boxes</a>
   </section>
-  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+  <button type="button" class="pu-share" data-share>Send this to a friend</button>
+<p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
 </div>
 <script>
 /* Carry the ?s= tag through; one answer open at a time. */
@@ -188,6 +190,17 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
   if(/^ref-/.test(raw))document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(!(t==="Home"||t==="How it works"||t==="Boxes"||t==="Questions"))a.hidden=true});
   const ds=[...document.querySelectorAll(".faq details")];ds.forEach(d=>d.addEventListener("toggle",()=>{if(d.open)ds.forEach(o=>{if(o!==d)o.open=false})}));
   const h=location.hash.slice(1);if(h){const t=document.getElementById(h);if(t&&t.tagName==="DETAILS")t.open=true}
+})();
+</script>
+<script>
+/* Share (Nov 7, Malik): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
+(function(){const b=document.querySelector("[data-share]");if(!b)return;
+  const url=location.origin+"/how/?s=ref-shared";
+  const msg="Thought you'd like this: a personal shopper for the Chicago farmers market. Order by Friday night, pick up Saturday or get it delivered. "+url;
+  b.addEventListener("click",async()=>{
+    if(navigator.share){try{await navigator.share({title:"Posted Up Produce",text:msg});return}catch(e){if(e&&e.name==="AbortError")return}}
+    try{await navigator.clipboard.writeText(msg);b.textContent="Copied. Paste it in a text!"}catch(e){location.href="sms:?&body="+encodeURIComponent(msg)}
+  });
 })();
 </script>
 </body>
