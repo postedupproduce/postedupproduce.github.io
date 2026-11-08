@@ -64,6 +64,26 @@ h1{font:400 38px/1.02 var(--display);margin:2px 0 0}
 .seg input:focus-visible+span{outline:2px solid var(--tomato);outline-offset:4px}
 textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12px;padding:10px;width:100%;min-height:70px;background:#fff;color:var(--ink)}
 .why{font-size:15px;color:var(--muted);margin:0}
+.tier{display:block;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer;position:relative}
+.tier:has(input:checked){border-color:var(--ink);box-shadow:0 0 0 2px var(--ink) inset}
+.tier input{position:absolute;opacity:0;pointer-events:none}
+.tier input:focus-visible~.th{outline:2px solid var(--tomato);outline-offset:4px}
+.th{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.th b{font-size:18px}
+.th s{color:var(--muted);font-weight:500;font-size:14px;margin-right:6px}
+.th em{font-style:normal;font-weight:800;font-size:18px}
+.tier p{margin:4px 0 0;font-size:15px;color:var(--muted)}
+.tier ul{margin:6px 0 0;padding-left:18px;font-size:15px}
+.tier .tag{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tomato)}
+.ex{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+.ex:first-of-type{border-top:0}
+.ex input{width:22px;height:22px;margin:2px 10px 0 0;accent-color:var(--ink);flex-shrink:0}
+.ex .l{display:flex;flex:1}
+.ex b{display:block;font-size:16px}
+.ex span{display:block;font-size:14px;color:var(--muted)}
+.ex i{font-style:normal;font-weight:800;white-space:nowrap}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:0;font-weight:800;font-size:18px}
+.total small{font-weight:500;color:var(--muted);font-size:14px}
 </style>
 </head>
 <body>
@@ -76,21 +96,43 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
       <h1>Something like this?</h1>
     </div>
   </div>
-  <p class="sub">A smaller box for two who don't cook much. Most of it you eat as is. One thing goes in the oven, and that's the only cooking. It's a draft, so uncheck anything you'd skip.</p>
+  <p class="sub">A smaller box for two who don't cook much. Most of it you eat as is. Pick a size, add any ready-to-eat extras, and it texts me your picks. Nothing gets ordered.</p>
 
   <section class="card" aria-labelledby="boxH">
-    <h2 id="boxH">The Easy Two</h2>
+    <h2 id="boxH">Pick a size</h2>
+    <div id="tiers" role="radiogroup" aria-labelledby="boxH" style="display:flex;flex-direction:column;gap:10px">
+      <label class="tier"><input type="radio" name="t" value="Easy Two · Breakfast &amp; snacks" data-p="47" data-was="54">
+        <div class="th"><b>Breakfast &amp; snacks</b><span><s>$54</s><em>$47</em></span></div>
+        <p>No cooking at all. Toast, fruit, cheese.</p>
+        <ul><li>Apples &amp; pears, about 6</li><li>Sourdough loaf (freezes well)</li><li>Fresh goat cheese or local tofu</li><li>A jar of jam or apple butter</li></ul></label>
+      <label class="tier"><input type="radio" name="t" value="Easy Two · Plus easy lunches" data-p="59" data-was="69" checked>
+        <div class="th"><b>Plus easy lunches</b><span><s>$69</s><em>$59</em></span></div>
+        <p>Everything above, plus salads and one thing in the oven.</p>
+        <ul><li>Washed salad greens or microgreens</li><li>One delicata squash: slice, oil, salt, 25 min at 425</li></ul>
+        <span class="tag">Most like your last box</span></label>
+      <label class="tier"><input type="radio" name="t" value="Easy Two · The good stuff" data-p="92" data-was="108">
+        <div class="th"><b>The good stuff</b><span><s>$108</s><em>$92</em></span></div>
+        <p>Everything above, plus a few treats for the week.</p>
+        <ul><li>A wedge of cave-aged cheddar</li><li>A jug of fresh-pressed cider</li><li>A fresh pastry</li></ul></label>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="exH">
+    <h2 id="exH">Ready-to-eat extras</h2>
+    <p class="why">From the same farms and makers. No cooking needed.</p>
     <form id="f">
-      <label class="pick"><input type="checkbox" name="i" value="Apples and pears" data-p="13" checked><div><b>Apples &amp; pears, about 6</b><span>Eat as is, or slice onto the cheese and bread.</span></div></label>
-      <label class="pick"><input type="checkbox" name="i" value="Salad greens or microgreens" data-p="8" checked><div><b>Salad greens or microgreens</b><span>Already washed. Two or three salads, or a handful on toast.</span></div></label>
-      <label class="pick"><input type="checkbox" name="i" value="Sourdough loaf" data-p="14" checked><div><b>A sourdough loaf</b><span>Freezes well. Toast a slice at a time so none goes stale.</span></div></label>
-      <label class="pick"><input type="checkbox" name="i" value="Local tofu or a cheese" data-p="14" checked><div><b>Local tofu or a fresh cheese</b><span>Your call each week. Both keep a week in the fridge.</span></div></label>
-      <label class="pick"><input type="checkbox" name="i" value="Delicata squash" data-p="7" checked><div><b>One delicata squash</b><span>No peeling. Slice, oil, salt, 25 minutes at 425. The one thing you cook.</span></div></label>
-      <label class="pick"><input type="checkbox" name="i" value="Dozen eggs" data-p="10"><div><b>Add: a dozen farm eggs</b><span>Only if you'd use them.</span></div></label>
-      <label class="pick"><input type="checkbox" name="i" value="Fresh-pressed cider" data-p="9"><div><b>Add: a jug of fresh-pressed cider</b><span>While the season lasts.</span></div></label>
-      <label class="pick"><input type="checkbox" name="i" value="A pastry" data-p="8"><div><b>Add: a pastry</b><span>Like last time.</span></div></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Cave-aged cheddar" data-p="22" data-in="3"><span><b>Cave-aged cheddar</b><span>Wedge, from an Illinois dairy farm</span></span></span><i>$22</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh goat cheese (extra)" data-p="14"><span><b>Another fresh cheese</b><span>Herbed chèvre, or feta in herbs and oil</span></span></span><i>$14</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Pastry" data-p="8" data-in="3"><span><b>A pastry</b><span>Croissant, scone, danish or muffin</span></span></span><i>$8</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh-pressed cider" data-p="9" data-in="3"><span><b>Fresh-pressed cider</b><span>A jug, while in season</span></span></span><i>$9</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Jams &amp; pickles" data-p="13"><span><b>Jams &amp; pickles</b><span>Jam, apple butter, dilly beans or giardiniera</span></span></span><i>$13</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Grass-fed butter" data-p="13"><span><b>Grass-fed butter</b><span>1 lb, for the toast</span></span></span><i>$13</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Local blueberries, dried or frozen" data-p="10"><span><b>Local blueberries</b><span>Dried snack bag, or a frozen pint</span></span></span><i>$10</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Maple syrup" data-p="19"><span><b>Maple syrup</b><span>Pint, for yogurt, oats or tea</span></span></span><i>$19</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Farm eggs" data-p="10"><span><b>Farm eggs</b><span>A dozen, only if you'd use them</span></span></span><i>$10</i></label>
     </form>
-    <p class="price"><span>Bought one by one: <span id="sum">$56</span></span><small>box price about <span id="box">$45</span> · draft</small></p>
+    <p class="total"><span>Your box: <span id="tot">$59</span></span><small>draft prices</small></p>
+    <p class="credit">New: 60 or over? The Seasoned Rate takes 10% off the whole order, delivery included. Just tick the box at checkout.</p>
   </section>
 
   <section class="card" aria-labelledby="oftH">
@@ -106,7 +148,7 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
   <section class="card" aria-labelledby="noteH">
     <h2 id="noteH">Anything else?</h2>
     <label for="n" class="why">Something you'd want that isn't here, or anything you'd never eat.</label>
-    <textarea id="n" placeholder="e.g. more fruit, no squash, soup would be nice"></textarea>
+    <textarea id="n" placeholder="e.g. more fruit, no squash, tofu instead of cheese"></textarea>
     <a class="btn" id="send" href="sms:+17738079223">Text Malik my picks</a>
     <p class="fine">Nothing gets ordered. This just sends me your picks so we can talk.</p>
   </section>
@@ -116,13 +158,15 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 </main>
 <script>
 (function(){
-  var f=document.getElementById("f"),sum=document.getElementById("sum"),box=document.getElementById("box"),n=document.getElementById("n"),send=document.getElementById("send");
-  function picks(){return Array.prototype.filter.call(f.querySelectorAll("input"),function(x){return x.checked})}
+  var f=document.getElementById("f"),tot=document.getElementById("tot"),n=document.getElementById("n"),send=document.getElementById("send");
   function upd(){
-    var p=picks(),t=0;p.forEach(function(x){t+=+x.dataset.p});
-    sum.textContent="$"+t;box.textContent="$"+Math.max(0,Math.round(t*0.8));
+    var t=document.querySelector("input[name=t]:checked"),lvl=t?[].indexOf.call(document.querySelectorAll("input[name=t]"),t)+1:0;
+    /* Extras already inside the chosen size can't be added twice */
+    [].forEach.call(f.querySelectorAll("input[data-in]"),function(x){var inc=lvl>=+x.dataset.in;x.disabled=inc;if(inc)x.checked=false;x.closest(".ex").style.opacity=inc?.45:1;x.closest(".ex").querySelector("i").textContent=inc?"in your box":"$"+x.dataset.p});
+    var ex=[].filter.call(f.querySelectorAll("input"),function(x){return x.checked}),sum=t?+t.dataset.p:0;
+    ex.forEach(function(x){sum+=+x.dataset.p});tot.textContent="$"+sum;
     var o=(document.querySelector("input[name=o]:checked")||{}).value||"";
-    var body="Hi Malik, Susan here. For the Easy Two I'd keep: "+(p.length?p.map(function(x){return x.value}).join(", "):"nothing yet")+". "+(o?"How often: "+o+". ":"")+(n.value.trim()?"Also: "+n.value.trim():"");
+    var body="Hi Malik, Susan here. I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(n.value.trim()?"Also: "+n.value.trim():"");
     var ios=/iPhone|iPad|Mac/i.test(navigator.userAgent);
     send.setAttribute("href","sms:+17738079223"+(ios?"&":"?")+"body="+encodeURIComponent(body.trim()));
   }
