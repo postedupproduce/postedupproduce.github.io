@@ -23,12 +23,12 @@
 :root{--bg:#F2EBDD;--panel:#F8F2E6;--ink:#24392C;--muted:#4a5a4e;--line:#d9ccb3;--tomato:#A9361F;--wheat:#F3D58A;
   --display:"Alfa Slab One","Rockwell",Georgia,serif;--body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--body)}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.55 var(--body)}
 body{min-height:100vh;background-image:radial-gradient(circle at 50% -5%,rgba(243,213,138,.55),transparent 55%)}
 main{max-width:440px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 22px 40px;display:flex;flex-direction:column;gap:14px}
 .top{display:flex;justify-content:space-between;align-items:center;min-height:44px}
 .brand{font-weight:800;letter-spacing:.14em;font-size:14px}
-.beta{border:2px solid currentColor;border-radius:999px;padding:2px 10px;font-weight:800;font-size:12px}
+.beta{border:2px solid currentColor;border-radius:999px;padding:2px 10px;font-weight:800;font-size:14px}
 .hero{display:flex;align-items:center;gap:14px}
 .stamp{width:84px;height:84px;flex-shrink:0}
 .k{margin:0;font-weight:800;color:var(--tomato);font-size:15px}
@@ -38,13 +38,13 @@ h1{font:400 38px/1.02 var(--display);margin:2px 0 0}
 .card h2{font:400 22px/1.1 var(--display);margin:0}
 .card ul{margin:0;padding-left:20px}
 .card li{margin:2px 0}
-.row{display:flex;gap:10px;align-items:flex-start;margin:0;font-size:16px}
-.row b{min-width:62px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.row{display:flex;gap:10px;align-items:flex-start;margin:0;font-size:17px}
+.row b{min-width:66px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:2px}
 .credit{background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin:0;font-weight:700}
 .btn{display:flex;align-items:center;justify-content:center;font:800 18px var(--body);color:#fff;background:var(--tomato);border:0;border-radius:999px;padding:14px 22px;min-height:52px;width:100%;text-decoration:none;text-align:center;cursor:pointer}
 .alt{text-align:center;margin:0}
 .alt a{color:var(--ink);font-weight:700;display:inline-flex;align-items:center;min-height:44px}
-.fine{font-size:14px;color:var(--muted);text-align:center;margin:0}
+.fine{font-size:16px;color:var(--muted);text-align:center;margin:0}
 .closed .open-only{display:none}
 .closed-only{display:none}
 .closed .closed-only{display:flex}
@@ -57,13 +57,13 @@ h1{font:400 38px/1.02 var(--display);margin:2px 0 0}
 .price{display:flex;justify-content:space-between;align-items:baseline;margin:0;font-weight:800}
 .price small{font-weight:500;color:var(--muted);font-size:14px}
 .seg{display:flex;flex-wrap:wrap;gap:8px}
-.seg label{flex:1 1 30%;min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center;border:2px solid var(--line);border-radius:12px;padding:8px;font-weight:700;font-size:15px;cursor:pointer;background:#fff}
+.seg label{flex:1 1 30%;min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center;border:2px solid var(--line);border-radius:12px;padding:8px;font-weight:700;font-size:16px;cursor:pointer;background:#fff}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg input:checked+span{color:#fff}
 .seg label:has(input:checked){background:var(--ink);border-color:var(--ink);color:#fff}
 .seg input:focus-visible+span{outline:2px solid var(--tomato);outline-offset:4px}
 textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12px;padding:10px;width:100%;min-height:70px;background:#fff;color:var(--ink)}
-.why{font-size:15px;color:var(--muted);margin:0}
+.why{font-size:16px;color:var(--muted);margin:0}
 .tier{display:block;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;cursor:pointer;position:relative}
 .tier:has(input:checked){border-color:var(--ink);box-shadow:0 0 0 2px var(--ink) inset}
 .tier input{position:absolute;opacity:0;pointer-events:none}
@@ -72,18 +72,25 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 .th b{font-size:18px}
 .th s{color:var(--muted);font-weight:500;font-size:14px;margin-right:6px}
 .th em{font-style:normal;font-weight:800;font-size:18px}
-.tier p{margin:4px 0 0;font-size:15px;color:var(--muted)}
-.tier ul{margin:6px 0 0;padding-left:18px;font-size:15px}
-.tier .tag{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tomato)}
+.tier p{margin:4px 0 0;font-size:16px;color:var(--muted)}
+.tier ul{margin:6px 0 0;padding-left:18px;font-size:16px}
+.tier .tag{display:inline-block;margin-top:6px;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tomato)}
 .ex{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
 .ex:first-of-type{border-top:0}
 .ex input{width:22px;height:22px;margin:2px 10px 0 0;accent-color:var(--ink);flex-shrink:0}
 .ex .l{display:flex;flex:1}
 .ex b{display:block;font-size:16px}
-.ex span{display:block;font-size:14px;color:var(--muted)}
+.ex span{display:block;font-size:16px;color:var(--muted)}
 .ex i{font-style:normal;font-weight:800;white-space:nowrap}
 .total{display:flex;justify-content:space-between;align-items:baseline;margin:0;font-weight:800;font-size:18px}
-.total small{font-weight:500;color:var(--muted);font-size:14px}
+.photo{width:100%;height:auto;border-radius:12px;display:block}
+.tier .th{align-items:center}
+.thumb{width:64px;height:64px;border-radius:10px;object-fit:cover;flex-shrink:0}
+.tin{display:flex;gap:12px;align-items:center}
+.fbq{margin:0;font-weight:700}
+.sent{background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin:0;font-weight:700}
+.link{background:none;border:0;color:var(--ink);font:700 17px var(--body);text-decoration:underline;min-height:44px;cursor:pointer;padding:0}
+.total small{font-weight:500;color:var(--muted);font-size:16px}
 </style>
 </head>
 <body>
@@ -100,6 +107,7 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 
   <section class="card" aria-labelledby="lastH">
     <h2 id="lastH">Your Oct 24 box</h2>
+    <img class="photo" src="/img/haul-vegan.jpg" width="800" height="600" alt="A Vegan Box on a picnic table: oyster mushrooms, tofu, squash, sweet potatoes, onions, garlic, apples, greens and microgreens" loading="lazy">
     <p class="why">The Vegan Box, $61, plus a pastry. Here's what this keeps and what it drops.</p>
     <p class="row"><b>Keeps</b><span>Apples · local tofu · microgreens · the pastry (as an extra)</span></p>
     <p class="row"><b>Swaps</b><span>Kabocha for a delicata: no peeling, 25 minutes in the oven</span></p>
@@ -110,16 +118,16 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
     <h2 id="boxH">Pick a size</h2>
     <div id="tiers" role="radiogroup" aria-labelledby="boxH" style="display:flex;flex-direction:column;gap:10px">
       <label class="tier"><input type="radio" name="t" value="Easy Two · Breakfast &amp; snacks" data-p="47" data-was="54">
-        <div class="th"><b>Breakfast &amp; snacks</b><span><s>$54</s><em>$47</em></span></div>
+        <div class="th"><span class="tin"><img class="thumb" src="/img/apples.jpg" alt="Apples" width="64" height="64" loading="lazy"><b>Breakfast &amp; snacks</b></span><span><s>$54</s><em>$47</em></span></div>
         <p>No cooking at all. Toast, fruit, cheese.</p>
         <ul><li>Apples &amp; pears, about 6</li><li>Sourdough loaf (freezes well)</li><li>Local tofu like last time, or fresh goat cheese</li><li>A jar of jam or apple butter</li></ul></label>
       <label class="tier"><input type="radio" name="t" value="Easy Two · Plus easy lunches" data-p="59" data-was="69" checked>
-        <div class="th"><b>Plus easy lunches</b><span><s>$69</s><em>$59</em></span></div>
+        <div class="th"><span class="tin"><img class="thumb" src="/img/squash.jpg" alt="Delicata and other winter squash" width="64" height="64" loading="lazy"><b>Plus easy lunches</b></span><span><s>$69</s><em>$59</em></span></div>
         <p>Everything above, plus salads and one thing in the oven.</p>
         <ul><li>Washed salad greens or microgreens</li><li>One delicata squash: slice, oil, salt, 25 min at 425</li></ul>
         <span class="tag">Closest to your Oct 24 box</span></label>
       <label class="tier"><input type="radio" name="t" value="Easy Two · The good stuff" data-p="92" data-was="108">
-        <div class="th"><b>The good stuff</b><span><s>$108</s><em>$92</em></span></div>
+        <div class="th"><span class="tin"><img class="thumb" src="/img/pears.jpg" alt="Pears" width="64" height="64" loading="lazy"><b>The good stuff</b></span><span><s>$108</s><em>$92</em></span></div>
         <p>Everything above, plus a few treats for the week.</p>
         <ul><li>A wedge of cave-aged cheddar</li><li>A jug of fresh-pressed cider</li><li>A fresh pastry</li></ul></label>
     </div>
@@ -154,14 +162,41 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
   </section>
 
   <section class="card" aria-labelledby="noteH">
-    <h2 id="noteH">Anything else?</h2>
-    <label for="n" class="why">Something you'd want that isn't here, or anything you'd never eat.</label>
-    <textarea id="n" placeholder="e.g. more fruit, no squash, tofu instead of cheese"></textarea>
+    <h2 id="noteH">Your feedback</h2>
+    <p class="why">Be honest, even blunt. "Too much" or "not for me" helps more than nice. Tap one in each.</p>
+    <p class="fbq" id="q1">For the two of you, the amount looks</p>
+    <div class="seg" role="radiogroup" aria-labelledby="q1">
+      <label><input type="radio" name="amt" value="too little"><span>Too little</span></label>
+      <label><input type="radio" name="amt" value="about right"><span>About right</span></label>
+      <label><input type="radio" name="amt" value="too much"><span>Too much</span></label>
+    </div>
+    <p class="fbq" id="q2">The prices feel</p>
+    <div class="seg" role="radiogroup" aria-labelledby="q2">
+      <label><input type="radio" name="pr" value="fair"><span>Fair</span></label>
+      <label><input type="radio" name="pr" value="a bit high"><span>A bit high</span></label>
+      <label><input type="radio" name="pr" value="too high"><span>Too high</span></label>
+    </div>
+    <p class="fbq" id="q3">Would you order something like this?</p>
+    <div class="seg" role="radiogroup" aria-labelledby="q3">
+      <label><input type="radio" name="yn" value="yes, soon"><span>Yes, soon</span></label>
+      <label><input type="radio" name="yn" value="maybe later"><span>Maybe later</span></label>
+      <label><input type="radio" name="yn" value="not for us"><span>Not for us</span></label>
+    </div>
+    <p class="fbq" id="q4">This page was</p>
+    <div class="seg" role="radiogroup" aria-labelledby="q4">
+      <label><input type="radio" name="rd" value="easy to read"><span>Easy to read</span></label>
+      <label><input type="radio" name="rd" value="okay"><span>Okay</span></label>
+      <label><input type="radio" name="rd" value="hard to read"><span>Hard to read</span></label>
+    </div>
+    <label for="n" class="fbq">What would you change, add or take out?</label>
+    <textarea id="n" placeholder="e.g. more fruit, no squash, tofu instead of cheese, bigger photos"></textarea>
     <a class="btn" id="send" href="sms:+17738079223">Text Malik my picks</a>
-    <p class="fine">Nothing gets ordered. This just sends me your picks so we can talk.</p>
+    <p class="alt"><button type="button" class="link" id="post">Rather not text? Send it here instead</button></p>
+    <p class="sent" id="ok" hidden>Got it, thank you. I'll read every word.</p>
+    <p class="fine">Nothing gets ordered. Feedback with your name earns a bonus produce pick on your next order.</p>
   </section>
 
-  <p class="fine">Rather just talk it through? Reply to my text and we'll find 15 minutes.</p>
+  <p class="fine">Rather just talk it through? Call or text <a href="tel:+17738079223" style="color:var(--ink);font-weight:700">773-807-9223</a> and we'll find 15 minutes.</p>
   <p class="alt"><a href="/p/susan/">Or order the Vegan Box again &rarr;</a></p>
 </main>
 <script>
@@ -174,11 +209,21 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
     var ex=[].filter.call(f.querySelectorAll("input"),function(x){return x.checked}),sum=t?+t.dataset.p:0;
     ex.forEach(function(x){sum+=+x.dataset.p});tot.textContent="$"+sum;
     var o=(document.querySelector("input[name=o]:checked")||{}).value||"";
-    var body="Hi Malik, Susan here. I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(n.value.trim()?"Also: "+n.value.trim():"");
+    var fb=["amt","pr","yn","rd"].map(function(k){var x=document.querySelector("input[name="+k+"]:checked");return x?{amt:"Amount: ",pr:"Prices: ",yn:"Would order: ",rd:"Page: "}[k]+x.value:""}).filter(Boolean).join(". ");
+    window.__fb=fb;
+    var body="Hi Malik, Susan here. I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(fb?fb+". ":"")+(n.value.trim()?"Change: "+n.value.trim():"");
+    window.__body=body.trim();
     var ios=/iPhone|iPad|Mac/i.test(navigator.userAgent);
     send.setAttribute("href","sms:+17738079223"+(ios?"&":"?")+"body="+encodeURIComponent(body.trim()));
   }
   document.addEventListener("change",upd);n.addEventListener("input",upd);upd();
+  var post=document.getElementById("post"),ok=document.getElementById("ok");
+  post.addEventListener("click",function(){
+    upd();post.disabled=true;post.textContent="Sending...";
+    var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
+    fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:"Susan (p/susan/easy)",contact:"",message:"EASY TWO FEEDBACK · "+window.__body,times:"",source:"p-susan-easy"})})
+      .then(function(){ok.hidden=false;post.textContent="Sent";},function(){post.disabled=false;post.textContent="Didn't send. Try again, or text instead"});
+  });
 })();
 /* Visit counting, same as the other /p/ pages: one per browser session, no names, skipped on Malik's devices (pu-me). */
 (function(){
