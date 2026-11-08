@@ -84,13 +84,19 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 .ex i{font-style:normal;font-weight:800;white-space:nowrap}
 .total{display:flex;justify-content:space-between;align-items:baseline;margin:0;font-weight:800;font-size:18px}
 .photo{width:100%;height:auto;border-radius:12px;display:block}
-.tier .th{align-items:center}
+.tier .th{align-items:center;flex-wrap:wrap;row-gap:4px}
 .thumb{width:64px;height:64px;border-radius:10px;object-fit:cover;flex-shrink:0}
 .tin{display:flex;gap:12px;align-items:center}
 .fbq{margin:0;font-weight:700}
 .sent{background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;margin:0;font-weight:700}
 .link{background:none;border:0;color:var(--ink);font:700 17px var(--body);text-decoration:underline;min-height:44px;cursor:pointer;padding:0}
 .seg4 label{flex:1 1 45%}
+.sbar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px max(16px,env(safe-area-inset-left)) max(10px,env(safe-area-inset-bottom));box-shadow:0 -4px 14px rgba(0,0,0,.15);transition:transform .2s}
+.sbar.off{transform:translateY(110%)}
+.sbar span{font-size:16px;line-height:1.2}.sbar b{display:block;font-size:20px}
+.sbar .btn{width:auto;flex:0 0 auto;min-height:48px;padding:10px 20px;font-size:17px}
+main{padding-bottom:110px}
 .rcard[hidden]{display:none}
 .rcard{background:#fffdf6;border-radius:6px;padding:14px 16px 6px;box-shadow:0 2px 0 #e3d6bb,0 6px 14px rgba(36,57,44,.12);transform:rotate(-.6deg)}
 .rcard .rtop{border-bottom:2px solid #d9584a;padding-bottom:8px}
@@ -112,15 +118,15 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
       <h1>Something like this?</h1>
     </div>
   </div>
-  <p class="sub">A smaller box for two who don't cook much. Most of it you eat as is. Pick a size, add any ready-to-eat extras, and it texts me your picks. Nothing gets ordered.</p>
+  <p class="sub">A smaller box for two who don't cook much. Tap what fits and it texts me. Nothing gets ordered.</p>
 
   <section class="card" aria-labelledby="lastH">
     <h2 id="lastH">Your Oct 24 box</h2>
     <img class="photo" src="/img/haul-vegan.jpg" width="800" height="600" alt="A Vegan Box on a picnic table: oyster mushrooms, tofu, squash, sweet potatoes, onions, garlic, apples, greens and microgreens" loading="lazy">
-    <p class="why">The Vegan Box, $61, plus a pastry. Here's what this keeps and what it drops.</p>
-    <p class="row"><b>Keeps</b><span>Apples · local tofu · microgreens · the pastry (as an extra)</span></p>
-    <p class="row"><b>Swaps</b><span>Kabocha for a delicata: no peeling, 25 minutes in the oven</span></p>
-    <p class="row"><b>Drops</b><span>Oyster mushrooms, sweet potatoes, kale, onions and garlic. Good food, but they all need cooking.</span></p>
+    <p class="why">The Vegan Box, $61, plus a pastry.</p>
+    <p class="row"><b>Keeps</b><span>Apples, tofu, microgreens, the pastry</span></p>
+    <p class="row"><b>Swaps</b><span>Kabocha for delicata (no peeling)</span></p>
+    <p class="row"><b>Drops</b><span>Anything that needs real cooking</span></p>
   </section>
 
   <section class="card" aria-labelledby="pastH">
@@ -138,8 +144,6 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
       <label><input type="radio" name="liked" value="it was fine"><span>It was fine</span></label>
       <label><input type="radio" name="liked" value="not for us"><span>Not for us</span></label>
     </div>
-    <label for="pn" class="fbq">What did you love, and what went to waste?</label>
-    <textarea id="pn" placeholder="e.g. loved the mushrooms, the kabocha sat too long"></textarea>
     <p class="why" id="fit">Tap above and I'll start you at the size that fits.</p>
     <a class="btn" id="nextGo" href="#boxH">See your next box &darr;</a>
   </section>
@@ -177,17 +181,17 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 
   <section class="card" aria-labelledby="exH">
     <h2 id="exH">Ready-to-eat extras</h2>
-    <p class="why">From the same farms and makers. No cooking needed.</p>
+    <p class="why">Same farms and makers. All optional.</p>
     <form id="f">
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Cave-aged cheddar" data-p="22" data-in="3"><span><b>Cave-aged cheddar</b><span>Wedge, from an Illinois dairy farm</span></span></span><i>$22</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh goat cheese (extra)" data-p="14"><span><b>Another fresh cheese</b><span>Herbed chèvre, or feta in herbs and oil</span></span></span><i>$14</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Pastry" data-p="8" data-in="3"><span><b>A pastry</b><span>Croissant, scone, danish or muffin</span></span></span><i>$8</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh-pressed cider" data-p="9" data-in="3"><span><b>Fresh-pressed cider</b><span>A jug, while in season</span></span></span><i>$9</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Jams &amp; pickles" data-p="13"><span><b>Jams &amp; pickles</b><span>Jam, apple butter, dilly beans or giardiniera</span></span></span><i>$13</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Grass-fed butter" data-p="13"><span><b>Grass-fed butter</b><span>1 lb, for the toast</span></span></span><i>$13</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Local blueberries, dried or frozen" data-p="10"><span><b>Local blueberries</b><span>Dried snack bag, or a frozen pint</span></span></span><i>$10</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Maple syrup" data-p="19"><span><b>Maple syrup</b><span>Pint, for yogurt, oats or tea</span></span></span><i>$19</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Farm eggs" data-p="10"><span><b>Farm eggs</b><span>A dozen, only if you'd use them</span></span></span><i>$10</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Cave-aged cheddar" data-p="22" data-in="3"><span><b>Cave-aged cheddar</b></span></span><i>$22</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh goat cheese (extra)" data-p="14"><span><b>Another fresh cheese</b></span></span><i>$14</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Pastry" data-p="8" data-in="3"><span><b>A pastry</b></span></span><i>$8</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh-pressed cider" data-p="9" data-in="3"><span><b>Fresh-pressed cider</b></span></span><i>$9</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Jams &amp; pickles" data-p="13"><span><b>Jams &amp; pickles</b></span></span><i>$13</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Grass-fed butter" data-p="13"><span><b>Grass-fed butter</b></span></span><i>$13</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Local blueberries, dried or frozen" data-p="10"><span><b>Local blueberries</b></span></span><i>$10</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Maple syrup" data-p="19"><span><b>Maple syrup</b></span></span><i>$19</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Farm eggs" data-p="10"><span><b>Farm eggs</b></span></span><i>$10</i></label>
     </form>
     <p class="total"><span>Your box: <span id="tot">$59</span></span><small>draft prices</small></p>
     <p class="credit">New: 60 or over? The Seasoned Rate takes 10% off the whole order, delivery included. Just tick the box at checkout.</p>
@@ -195,7 +199,7 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 
   <section class="card" aria-labelledby="oftH">
     <h2 id="oftH">How often?</h2>
-    <p class="why">Most people who quit a farm box say it was too much food. So you pick the pace, and you can skip any week by text.</p>
+    <p class="why">Skip any week by text.</p>
     <div class="seg" role="radiogroup" aria-labelledby="oftH">
       <label><input type="radio" name="o" value="every week"><span>Every week</span></label>
       <label><input type="radio" name="o" value="every other week" checked><span>Every other week</span></label>
@@ -204,34 +208,16 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
   </section>
 
   <section class="card" aria-labelledby="noteH">
-    <h2 id="noteH">Your feedback</h2>
-    <p class="why">Be honest, even blunt. "Too much" or "not for me" helps more than nice. Tap one in each.</p>
-    <p class="fbq" id="q1">For the two of you, the amount looks</p>
-    <div class="seg" role="radiogroup" aria-labelledby="q1">
-      <label><input type="radio" name="amt" value="too little"><span>Too little</span></label>
-      <label><input type="radio" name="amt" value="about right"><span>About right</span></label>
-      <label><input type="radio" name="amt" value="too much"><span>Too much</span></label>
-    </div>
+    <h2 id="noteH">Send it to me</h2>
+    <p class="why">Be honest, even blunt. It helps more than nice.</p>
     <p class="fbq" id="q2">The prices feel</p>
     <div class="seg" role="radiogroup" aria-labelledby="q2">
       <label><input type="radio" name="pr" value="fair"><span>Fair</span></label>
       <label><input type="radio" name="pr" value="a bit high"><span>A bit high</span></label>
       <label><input type="radio" name="pr" value="too high"><span>Too high</span></label>
     </div>
-    <p class="fbq" id="q3">Would you order something like this?</p>
-    <div class="seg" role="radiogroup" aria-labelledby="q3">
-      <label><input type="radio" name="yn" value="yes, soon"><span>Yes, soon</span></label>
-      <label><input type="radio" name="yn" value="maybe later"><span>Maybe later</span></label>
-      <label><input type="radio" name="yn" value="not for us"><span>Not for us</span></label>
-    </div>
-    <p class="fbq" id="q4">This page was</p>
-    <div class="seg" role="radiogroup" aria-labelledby="q4">
-      <label><input type="radio" name="rd" value="easy to read"><span>Easy to read</span></label>
-      <label><input type="radio" name="rd" value="okay"><span>Okay</span></label>
-      <label><input type="radio" name="rd" value="hard to read"><span>Hard to read</span></label>
-    </div>
-    <label for="n" class="fbq">What would you change, add or take out?</label>
-    <textarea id="n" placeholder="e.g. more fruit, no squash, tofu instead of cheese, bigger photos"></textarea>
+    <label for="n" class="fbq">Anything to change? (optional)</label>
+    <textarea id="n" placeholder="e.g. loved the mushrooms, more fruit, no squash"></textarea>
     <a class="btn" id="send" href="sms:+17738079223">Text Malik my picks</a>
     <p class="alt"><button type="button" class="link" id="post">Rather not text? Send it here instead</button></p>
     <p class="sent" id="ok" hidden>Got it, thank you. I'll read every word.</p>
@@ -241,6 +227,7 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
   <p class="fine">Rather just talk it through? Call or text <a href="tel:+17738079223" style="color:var(--ink);font-weight:700">773-807-9223</a> and we'll find 15 minutes.</p>
   <p class="alt"><a href="/p/susan/">Or order the Vegan Box again &rarr;</a></p>
 </main>
+<div class="sbar off" id="sbar" aria-hidden="true"><span>Your box<b id="tot2">$59</b></span><a class="btn" id="send2" href="sms:+17738079223" tabindex="-1">Text Malik my picks</a></div>
 <script>
 (function(){
   var f=document.getElementById("f"),tot=document.getElementById("tot"),n=document.getElementById("n"),send=document.getElementById("send");
@@ -255,12 +242,13 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
     var o=(document.querySelector("input[name=o]:checked")||{}).value||"";
     var fb=["amt","pr","yn","rd"].map(function(k){var x=document.querySelector("input[name="+k+"]:checked");return x?{amt:"Amount: ",pr:"Prices: ",yn:"Would order: ",rd:"Page: "}[k]+x.value:""}).filter(Boolean).join(". ");
     window.__fb=fb;
-    var pa=["ate","liked"].map(function(k){var x=document.querySelector("input[name="+k+"]:checked");return x?x.value:""}).filter(Boolean),pnv=document.getElementById("pn").value.trim();
+    var pa=["ate","liked"].map(function(k){var x=document.querySelector("input[name="+k+"]:checked");return x?x.value:""}).filter(Boolean),pnv="";
     var past=(pa.length||pnv)?"Oct 24 box: "+pa.join(", ")+(pnv?(pa.length?". ":"")+pnv:"")+". ":"";
     var body="Hi Malik, Susan here. "+past+"Next time I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(fb?fb+". ":"")+(n.value.trim()?"Change: "+n.value.trim():"");
     window.__body=body.trim();
     var ios=/iPhone|iPad|Mac/i.test(navigator.userAgent);
     send.setAttribute("href","sms:+17738079223"+(ios?"&":"?")+"body="+encodeURIComponent(body.trim()));
+    var t2=document.getElementById("tot2"),s2=document.getElementById("send2");if(t2){t2.textContent=tot.textContent;s2.setAttribute("href",send.getAttribute("href"))}
   }
   var picked=false,TN=document.querySelectorAll("input[name=t]");
   [].forEach.call(TN,function(x){x.addEventListener("change",function(e){if(e.isTrusted)picked=true})});
@@ -270,8 +258,15 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
     document.getElementById("fit").textContent=(small?"Got it, a smaller box then. ":"Good, nothing went to waste. ")+(picked?"":"I'd start you at "+nm+".");
   })});
   document.getElementById("nextGo").addEventListener("click",function(e){e.preventDefault();upd();document.getElementById("boxH").scrollIntoView({behavior:"smooth",block:"start"})});
-  document.getElementById("pn").addEventListener("input",upd);
+  
   document.addEventListener("change",upd);n.addEventListener("input",upd);upd();
+  /* Bottom bar: shows once she's past her old box, hides when the big send button is on screen */
+  (function(){var bar=document.getElementById("sbar"),start=document.getElementById("pastH"),inView=false,past=false;
+    function show(){bar.classList.toggle("off",!past||inView)}
+    if(!("IntersectionObserver" in window)){bar.classList.remove("off");return}
+    new IntersectionObserver(function(e){inView=e[0].isIntersecting;show()}).observe(send);
+    window.addEventListener("scroll",function(){past=start.getBoundingClientRect().top<innerHeight*0.5;show()},{passive:true});
+  })();
   var post=document.getElementById("post"),ok=document.getElementById("ok");
   post.addEventListener("click",function(){
     upd();post.disabled=true;post.textContent="Sending...";
