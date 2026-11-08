@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Questions · Posted Up Produce</title>
+<meta name="description" content="Plain answers: how Posted Up works, prices, pickup, delivery, paying, cancelling, allergies and more.">
+<meta property="og:title" content="Posted Up Produce: questions, answered">
+<meta property="og:description" content="How it works, what it costs, where to pick up, how to pay, and what happens if something goes wrong.">
+<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#24392c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#5a6156;--board:#24392c;--board-ink:#f4ecd9;
+  --tomato:#A9361F;--line:#d6c9ae;--good:#2f6b3f;--star:#d89a1c;
+  --display:"Alfa Slab One","Rockwell",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--good:#79b98a;--star:#f0b94a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#171d19;--panel:#202822;--ink:#ece4d2;--muted:#a7ad9f;--board:#2c4535;--board-ink:#f4ecd9;
+  --tomato:#e3654c;--line:#38443a;--good:#79b98a;--star:#f0b94a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 40px;display:grid;gap:22px}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-top:env(safe-area-inset-top,0px)}
+.brand{font:400 19px/1 var(--display);text-decoration:none}
+.beta{font:700 11px/1 var(--body);background:var(--tomato);color:#fff;border-radius:999px;padding:4px 7px;vertical-align:3px;margin-left:4px}
+.sign{position:relative;background:var(--board);color:var(--board-ink);border-radius:14px;padding:24px 20px;display:grid;gap:12px;overflow:hidden}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--star)}
+.sign h1{font-size:clamp(30px,9vw,44px);line-height:1.04}
+.kicker{padding-right:90px}
+.sign p{margin:0;font-size:17px}
+.stamp{position:absolute;right:14px;top:14px;transform:rotate(8deg);border:2px solid var(--star);color:var(--star);border-radius:6px;padding:4px 7px;font:700 11px/1.15 var(--body);text-align:center;letter-spacing:.04em}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:18px 16px;display:grid;gap:12px}
+.card h2{font-size:24px;line-height:1.15}
+.sub{margin:0;color:var(--muted);font-size:15px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--board);color:var(--board-ink);font:400 20px/1 var(--display)}
+.stops{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stop{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:10px;font-size:14px}
+.stop b{display:block;font-size:15px}
+.boxes{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.boxes li{display:grid;grid-template-columns:1fr auto;gap:4px 10px;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:12px}
+.boxes b{font-size:16px}
+.boxes .p{font:400 20px/1 var(--display);color:var(--tomato)}
+.boxes span:not(.p){grid-column:1/-1;font-size:14px;color:var(--muted)}
+.tag{font:700 11px/1 var(--body);background:var(--good);color:#fff;border-radius:999px;padding:3px 6px;margin-left:6px;vertical-align:2px}
+.chain{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.chain li{border-left:4px solid var(--line);padding:4px 0 4px 12px;font-size:15px}
+.chain li.us{border-color:var(--tomato)}
+.chain b{display:block;font-size:16px}
+.ctas{display:grid;gap:10px}
+.cta{display:block;text-align:center;text-decoration:none;background:var(--tomato);color:#fff;border-radius:10px;padding:15px 16px;font-weight:700;font-size:17px;min-height:52px}
+.ghost{display:block;text-align:center;text-decoration:none;border:1.5px solid var(--ink);border-radius:10px;padding:13px 14px;font-weight:700;min-height:48px}
+.foot{font-size:13px;color:var(--muted);margin:0}
+
+/* Site tabs: same bar on every customer page, sticky under the logo. */
+.topbar{position:sticky;top:0;z-index:6;margin:-14px -16px 0;padding:12px 16px 0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:grid;gap:6px}
+.tabs{display:flex;gap:2px;margin:0 -6px;padding-bottom:8px}
+.tabs a{flex:none;font:700 13px/1 var(--body);color:var(--muted);text-decoration:none;padding:8px 8px;border-radius:999px;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+@media(max-width:374px){.tabs a{font-size:12px;padding:8px 6px}}
+@media(hover:hover) and (pointer:fine){.tabs a:hover{background:color-mix(in srgb,var(--ink) 9%,transparent);color:var(--ink)}.tabs a[aria-current="page"]:hover{background:var(--ink);color:var(--bg)}}
+@media(min-width:700px){.wrap{max-width:640px}.tabs a{font-size:14px;padding:9px 12px}}
+.tabs{overflow-x:auto;scrollbar-width:none;max-width:calc(100% + 12px)}.tabs::-webkit-scrollbar{display:none}@media(max-width:430px){.tabs{gap:0}.tabs a{font-size:12px;padding:8px 6px}}
+
+/* Personal welcome: ?for=Name (their own link) or ?from=Name (a friend's share link). Names live only in the URL. */
+.hello[hidden]{display:none}
+.hello{background:var(--panel);border:2px solid var(--tomato);border-radius:14px;padding:16px 18px;display:grid;gap:4px}
+.hello b{font:400 clamp(24px,7vw,30px)/1.1 var(--display)}
+.hello>span{color:var(--muted);font-size:16px}
+.pair{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px}.pair .chip{background:#fbf6ea;border-radius:50%;width:104px;height:104px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none}.pair .chip img{display:block;width:92px;height:92px;border-radius:50%;object-fit:contain}.pair .x{font:400 26px/1 var(--display);color:var(--muted)}
+button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.2 var(--body);cursor:pointer}
+.tabs{overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}@media(max-width:430px){.tabs{gap:0}.tabs a{font-size:12px;padding:8px 4px}}
+</style><style>/* Logo on every page (Oct 29) */.brand{display:inline-flex;align-items:center;gap:8px}.brand .mark{width:32px;height:32px;flex:none;border-radius:50%}</style><style>/* Personal welcome splash (Nov 2, Malik): shows once per visit for ?for= links. */
+#howSplash{position:fixed;inset:0;z-index:9000;background:var(--bg);color:var(--ink);display:grid;place-items:center;overflow:auto;padding:max(24px,env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+#howSplash[hidden]{display:none}
+#howSplash .in{width:min(100%,440px);display:grid;justify-items:center;gap:12px;text-align:center}
+#howSplash .hi{margin:0;font:800 18px/1.25 var(--body);color:var(--tomato)}
+#howSplash h2{font:400 clamp(30px,9vw,40px)/1.05 var(--display);margin:0}
+#howSplash p{margin:0;color:var(--muted);font-size:16px}
+#howSplash .pair{margin:0}
+#howSplash .go2{min-height:48px;border:0;background:none;color:var(--ink);font:700 16px var(--body);text-decoration:underline;cursor:pointer}
+@keyframes hs-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}#howSplash .in{animation:hs-in .4s ease both}@media (prefers-reduced-motion:reduce){#howSplash .in{animation:none}}
+</style>
+<style>/* FAQ (Nov 7, Malik): one page, plain answers, each from the Order Terms or Malik's call. Accordions: tap to open, one at a time. */
+.wrap{gap:24px}
+.faq{display:grid;gap:10px}
+.faq details{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:0;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:16px 48px 16px 18px;font:700 17px/1.35 var(--body);position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:18px;top:12px;font:400 26px/1 var(--display);color:var(--tomato);transition:transform .2s ease-out}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details[open] summary{border-bottom:1.5px solid var(--line)}
+.faq .a{padding:14px 18px 18px;font-size:15px;line-height:24px;color:var(--ink)}
+.faq .a p{margin:0 0 10px}.faq .a p:last-child{margin:0}
+.faq .a a{color:var(--tomato);font-weight:700}
+.faq h2{font-size:22px;line-height:28px;margin:8px 0 0}
+.lead{background:var(--board);color:var(--board-ink);border-radius:14px;padding:26px 22px;display:grid;gap:12px}
+.lead h1{font-size:clamp(28px,8vw,40px);line-height:1.05}
+.lead p{margin:0;font-size:17px;line-height:1.55}
+.ask{background:var(--panel);border:1.5px solid var(--line);border-radius:12px;padding:20px 18px;display:grid;gap:10px;text-align:center}
+.ask a.go{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:999px;background:var(--tomato);color:#fff;font:800 17px var(--body);text-decoration:none}
+.go,summary{transition:transform .12s ease-out}.go:active{transform:scale(.97)}
+@media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="topbar">
+    <header class="top"><a class="brand" id="home" href="../"><img class="mark" src="/logos/stamp-96.png" width="32" height="32" alt="">Posted Up Produce <span class="beta">Beta</span></a></header>
+    <nav class="tabs" aria-label="Site pages">
+      <a href="/">Home</a>
+      <a href="/how/">How it works</a>
+      <a href="/#shop">Boxes</a>
+  <a href="/#inventory">Add-ons</a>
+      <a href="/services/">Services</a>
+      <a href="/join/">First pick</a>
+      <a href="/faq/" aria-current="page">Questions</a>
+      <a href="/#talk">Contact</a>
+      <a href="/play/">Play</a>
+    </nav>
+  </div>
+
+  <section class="lead">
+    <span class="kicker">Questions</span>
+    <h1>Ask us anything. Here's the usual.</h1>
+    <p>Plain answers, same ones we'd text you. Anything else: text 773-807-9223.</p>
+  </section>
+  <h2 class="sec" style="font-size:22px;line-height:28px;margin:8px 0 -8px;color:var(--muted);font-family:var(--body);font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:13px">The basics</h2>
+  <div class="faq">
+    <details id="what-is-posted-up"><summary>What is Posted Up?</summary><div class="a"><p>A personal shopper for the Chicago farmers market. You order a box, we shop small farms and makers at the market Saturday morning, pick the best of the week, and hand it to you that afternoon at a meet-up near you, or deliver it. We don't grow or make the food; we shop it for you.</p></div></details>
+    <details id="how-does-it-work-step-by-step"><summary>How does it work, step by step?</summary><div class="a"><p>1. Order and pay by Friday 9 PM. 2. We shop the market at sunrise Saturday. 3. Pick it up at a meet-up (Goose Island 12–1, Hyde Park 2–3, Rogers Park 4–5) or get it delivered the same day.</p><p><a href='/how/'>The longer version, with pictures &rarr;</a></p></div></details>
+    <details id="is-it-a-subscription"><summary>Is it a subscription?</summary><div class="a"><p>No. Order the weeks you want, skip the weeks you don't. If you want the same box every Saturday, a Standing Order sets that up by text: we send a pay link each week, you skip any week by Friday 9 PM, and you can stop anytime.</p></div></details>
+    <details id="who-s-behind-it"><summary>Who's behind it?</summary><div class="a"><p>Posted Up Produce is a beta run by 123 Footprint, LLC, run by a Chicagoan with 20+ years in local food: farmers markets, urban farms and community food programs, Produce Safety Alliance certified. Questions go to a real phone: text 773-807-9223.</p></div></details>
+  </div>
+  <h2 class="sec" style="font-size:22px;line-height:28px;margin:8px 0 -8px;color:var(--muted);font-family:var(--body);font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:13px">Money</h2>
+  <div class="faq">
+    <details id="how-much-does-it-cost"><summary>How much does it cost?</summary><div class="a"><p>Half Peck $50, Full Crate $72, The Vegan Box $68, Meat Lovers Box $89, Lake Haul $70, Better Bites $35. Add-ons like bread, eggs and cheese are priced per item. Boxes picked up at a meet-up during the beta are 10% off (the founder rate). Everything we spend on food goes to the farm or maker at their full stand price; our shopping and handoff fee is built into the box price.</p></div></details>
+    <details id="how-do-i-pay"><summary>How do I pay?</summary><div class="a"><p>By card, Apple Pay, Zelle or Apple Cash, in full by Friday 9 PM. Your order is shopped only once it's paid; we text a confirmation. We can't take cash or card for orders at pickup, because we buy everything at market that morning. Cash at pickup is fine for a tip or a small extra you add by text.</p></div></details>
+    <details id="can-i-cancel"><summary>Can I cancel?</summary><div class="a"><p>Yes, by Friday 9 PM for a full refund. After that we've committed to shop for you, so a cancellation can't be refunded.</p></div></details>
+    <details id="are-there-discounts"><summary>Are there discounts?</summary><div class="a"><p>Two. The beta founder rate: 10% off boxes picked up at a meet-up, and if you complete one paid meet-up order during the pilot you keep that 10% through the 2027 season. The Seasoned Rate: 60 or older, 10% off your whole order, delivery included, on the honor system; tick the box at checkout. They stack.</p></div></details>
+  </div>
+  <h2 class="sec" style="font-size:22px;line-height:28px;margin:8px 0 -8px;color:var(--muted);font-family:var(--body);font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:13px">Pickup and delivery</h2>
+  <div class="faq">
+    <details id="where-and-when-do-i-pick-up"><summary>Where and when do I pick up?</summary><div class="a"><p>Saturdays, the same day we shop: Goose Island 12–1 PM, Hyde Park 2–3 PM, Rogers Park 4–5 PM, through Nov 21, the last outdoor market. We text you when we're posted up. Other days or times can be arranged by text.</p></div></details>
+    <details id="do-you-deliver-what-does-it-cost"><summary>Do you deliver? What does it cost?</summary><div class="a"><p>Yes, same day: after 1 PM near Goose Island, after 3 PM near Hyde Park, after 5 PM near Rogers Park. $8 within 3 miles of a meet-up stop. Farther out, text us your address and we quote it before you pay. Standing Order delivery is free within 3 miles.</p></div></details>
+    <details id="what-if-i-miss-my-pickup-window"><summary>What if I miss my pickup window?</summary><div class="a"><p>Text us. Same day, we'll meet you at a later stop or hold your box until the last one. Another day costs the delivery fee, since we're making a trip. Your box is packed cold either way.</p></div></details>
+    <details id="can-i-order-for-someone-else"><summary>Can I order for someone else?</summary><div class="a"><p>Yes. Put their name and phone number in the Notes at checkout and we'll text them the pickup or delivery details. Good for a new parent, a friend who's sick, or a thank-you.</p></div></details>
+  </div>
+  <h2 class="sec" style="font-size:22px;line-height:28px;margin:8px 0 -8px;color:var(--muted);font-family:var(--body);font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:13px">The food</h2>
+  <div class="faq">
+    <details id="what-s-in-the-box"><summary>What's in the box?</summary><div class="a"><p>Whatever is peaking that week, chosen by us at the market. The examples on the menu are typical, not promised, and weights are approximate. Right now that means apples, pears, sweet potatoes, beets, squash, greens, onions and garlic, with bread, eggs, cheese, meat and fish as add-ons.</p></div></details>
+    <details id="can-i-say-what-i-want"><summary>Can I say what I want?</summary><div class="a"><p>Yes. Pick Shopper's Choice and tell us what you love or never want in the Notes, or Build Your Own and choose the kinds of things you want; we buy the best example at market. Vegan, vegetarian, pescatarian and no-pork boxes are on the menu.</p></div></details>
+    <details id="what-about-allergies"><summary>What about allergies?</summary><div class="a"><p>Your diet rides along on your order so we shop for it. We pack in a shared space, not an allergen-free kitchen. For a serious allergy, text us before you order and we'll tell you honestly whether we can do it.</p></div></details>
+    <details id="is-it-organic"><summary>Is it organic?</summary><div class="a"><p>Some of it is certified organic, and we say so only when the farm holds that certification. All of it is certified something: the market we shop was the first in the country to require every farmer to carry a third-party sustainability certification (USDA Organic, Certified Naturally Grown, Food Alliance, Animal Welfare Approved and others), and farms there can't use the word "organic" without the USDA certificate. Ask about any item and we'll tell you which certification its farm holds.</p></div></details>
+    <details id="something-was-missing-or-not-good"><summary>Something was missing, or not good?</summary><div class="a"><p>Hand-picked, or it's on us. If an item you paid for wasn't at market, its full price becomes a credit on your next order, or ask and we refund it within 2 days the way you paid. Not happy with something? Same: credit or refund, your choice. If you opted in to swaps, we may substitute something of equal or greater value and tell you at handoff.</p></div></details>
+    <details id="how-is-it-kept-cold"><summary>How is it kept cold?</summary><div class="a"><p>Hours from the stand to your hands, in a cooler we check by hand. If your order rides in a Posted Up cooler bag, there's a $15 deposit you get back when you return it.</p></div></details>
+  </div>
+  <h2 class="sec" style="font-size:22px;line-height:28px;margin:8px 0 -8px;color:var(--muted);font-family:var(--body);font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:13px">Later</h2>
+  <div class="faq">
+    <details id="what-happens-after-nov-21"><summary>What happens after Nov 21?</summary><div class="a"><p>The market moves indoors. We keep shopping, every Saturday from Dec 5 through March 20 (off Dec 26 and Jan 2). Same deal: no subscription, order the weeks you want. <a href='/winter/'>Winter details &rarr;</a></p></div></details>
+    <details id="can-you-do-a-team-an-office-a-retreat"><summary>Can you do a team, an office, a retreat?</summary><div class="a"><p>Yes. The Game Day Kit feeds 6, 12 or 24 for $39 to $139. For anything bigger, a whole season, or a restaurant line, <a href='/services/'>tell us the headcount and we quote it &rarr;</a></p></div></details>
+  </div>
+  <section class="ask">
+    <b>Still wondering?</b>
+    <a class="go" href="sms:+17738079223">Text us</a>
+    <a class="go" id="shopGo" href="/#shop" style="background:var(--board)">See this week's boxes</a>
+  </section>
+  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+</div>
+<script>
+/* Carry the ?s= tag through; one answer open at a time. */
+(function(){const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
+  if(raw)document.querySelectorAll("a[href^='/']").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",raw);a.setAttribute("href",u.pathname+u.search+u.hash)});
+  if(/^ref-/.test(raw))document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(!(t==="Home"||t==="How it works"||t==="Boxes"||t==="Questions"))a.hidden=true});
+  const ds=[...document.querySelectorAll(".faq details")];ds.forEach(d=>d.addEventListener("toggle",()=>{if(d.open)ds.forEach(o=>{if(o!==d)o.open=false})}));
+  const h=location.hash.slice(1);if(h){const t=document.getElementById(h);if(t&&t.tagName==="DETAILS")t.open=true}
+})();
+</script>
+</body>
+</html>
