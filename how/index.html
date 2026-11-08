@@ -395,5 +395,22 @@ if(forName){(function(){
   });
 })();
 </script>
+<script>
+/* Visit ping (Nov 8, Malik): /how/ is the stranger door, so it logs a Visit to the Visits tab like home does.
+   Same rules as index.html: ?me / pu-me devices never count; one Visit per browser session (pu-v), so tapping
+   through to home doesn't count twice. pu-src keeps the tag for the order note. */
+(function(){
+  const EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
+  let vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  const q=new URLSearchParams(location.search),ua=navigator.userAgent,ref=document.referrer;
+  let src=(q.get("s")||q.get("utm_source")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
+  if(src){try{sessionStorage.setItem("pu-src",src)}catch(e){}}
+  if(!src){if(/Instagram/i.test(ua))src="Instagram";else if(/FBAN|FBAV|FB_IAB/i.test(ua))src="Facebook";else if(ref&&!ref.includes(location.host)){try{src=new URL(ref).hostname.replace(/^www\./,"")}catch(e){src="Other site"}}else src="Direct / text"}
+  const dev=/Mobi|Android|iPhone|iPad/i.test(ua)?"Phone":"Computer";
+  let fresh=true;try{fresh=!sessionStorage.getItem("pu-v");sessionStorage.setItem("pu-v","1")}catch(e){}
+  if(fresh)fetch(EP,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:src,device:dev,returning:ret,vid})}).catch(()=>{});
+})();
+</script>
 </body>
 </html>
