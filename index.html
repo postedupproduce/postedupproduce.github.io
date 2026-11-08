@@ -20,7 +20,7 @@
 .hook span{font-size:16px}
 .spot.back{border:3px solid var(--good);border-radius:14px;padding:18px;background:var(--panel)}
 .spot.back .k{color:var(--good)}
-.hwbar{display:flex;align-items:center;justify-content:space-between;gap:12px;border:3px solid #E0782F;border-radius:12px;padding:12px 14px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
+.hwbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;border:3px solid #E0782F;border-radius:12px;padding:12px 14px;background:color-mix(in srgb,#E0782F 10%,var(--panel))}
 .hwbar[hidden]{display:none}
 .hwbar span{font-size:14px;line-height:1.35;color:var(--ink)}
 .hwbar b{display:block;font-size:18px}
@@ -504,9 +504,10 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 .hwbar.tgb .go,.spot.tg .go{background:#7A4A1E;color:#fff!important}
 .spot.tg .k{color:#8A5A2B}
 /* Diwali colors (Nov 2, Malik): marigold border + rangoli magenta, option A of the special-box palettes. */
-.hwbar.dwb{border-color:#E2A21A;background:color-mix(in srgb,#E2A21A 12%,var(--panel))}
+.hwbar.dwb,.hwbar.gdb{border-color:#E2A21A;background:color-mix(in srgb,#E2A21A 12%,var(--panel))}
 .hwbar.dwb .go,.spot.dw .go{background:#A3195B;color:#fff!important}
-.spot.dw{border:3px solid #E2A21A;border-radius:14px;padding:18px;background:color-mix(in srgb,#E2A21A 12%,var(--panel))}
+.gd .tiers{display:grid;gap:8px;margin-top:12px}.gd .tier{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;border:2px solid #E2A21A;border-radius:12px;padding:10px 12px;background:var(--panel)}.gd .tier.on{border-color:#A3195B}.gd .tier b{font-size:16px}.gd .tier b i{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#A3195B;margin-left:6px}.gd .tier span{grid-column:1;font-size:13px;line-height:1.35;color:var(--muted)}.gd .tier .go{grid-row:1/3;grid-column:2;min-height:44px;padding:0 18px}.gd .gdnote,.hwbar .gdnote{grid-column:1/-1;font-size:13px;font-weight:700;color:#A3195B;text-decoration:underline}.hwbar .gdnote{flex-basis:100%}
+.spot.dw,.spot.gd{border:3px solid #E2A21A;border-radius:14px;padding:18px;background:color-mix(in srgb,#E2A21A 12%,var(--panel))}
 .spot.dw .k,.spot.dw .row2 a,#specialBin h3{color:#A3195B}
 #specialBin{border-left:4px solid #E2A21A;padding-left:12px}
 :root[data-theme="dark"] :is(.spot.dw .k,.spot.dw .row2 a,#specialBin h3){color:#F2A0C8}
@@ -643,7 +644,8 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   <a href="#inventory">Add-ons</a>
   <a href="#how">How it works</a>
   <a href="/services/">Services</a>
-  <a href="#talk">Contact</a>
+  <a href="/faq/">Questions</a>
+<a href="#talk">Contact</a>
   <a href="/play/">Play</a>
 </nav></header>
 
@@ -666,7 +668,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
         <a class="act a3" href="#standing"><span>Set a Standing Order<small>Same box every Saturday · free delivery · skip any week</small></span><span class="ar" aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="stops">
-        <div class="stop"><b>Saturdays</b>Nov 7, 14, 21</div>
+        <div class="stop"><b>Saturdays</b><span id="satList">Nov 7, 14, 21</span></div>
         <div class="stop"><b>Order by</b>Fri 9 PM</div>
         <div class="stop" style="grid-column:1/-1"><b>Pick up</b>Goose Island 12–1<br>Hyde Park 2–3<br>Rogers Park 4–5<br>or delivered from $8</div>
       </div>
@@ -695,11 +697,21 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <p class="meta">Diwali is Sunday, Nov 8. Everything for gajar halwa and aloo palak: 2 lb carrots, a bunch of spinach, 2 lb potatoes, onions and garlic, plus a recipe card. Picked from a close radius, $4 less than buying it all separately. Add it to any box or order it on its own.</p>
     <div class="row2"><button type="button" class="go" data-dw style="flex:1 1 200px">Add the Diwali Kit</button><a href="#inventory">See add-ons &rarr;</a></div>
   </section>
+  <section class="post spot gd" data-view="home" id="gamedaySpot" aria-labelledby="gdH" hidden>
+    <span class="k">🏀 Game Day Kit · for whoever has snack duty</span>
+    <h2 id="gdH">Game Day Kit · from $39</h2>
+    <p class="meta">Snack duty, done. Apples, carrots, cheese, bread and fresh-pressed cider, picked at the market Saturday morning. The stuff kids actually eat: apple slices, carrot sticks, bread and cheese, a cup of cider. Rinse, slice, done. Pick the size for your bench. Whole season, tournament or banquet? <a href="/services/" style="color:inherit;font-weight:700">Sourcing services &rarr;</a></p>
+    <div class="tiers">
+      <div class="tier"><b>Feeds 6 · $39</b><span>6 apples, 2 lb carrots, fresh goat cheese, a jug of cider · save $5</span><button type="button" class="go" data-gd="gameday-s">Add</button></div>
+      <div class="tier on"><b>Feeds 12 · $75 <i>Most teams</i></b><span>A dozen apples, 2 lb carrots, cave-aged cheddar, a sourdough loaf, a jug of cider · save $13</span><button type="button" class="go" data-gd="gameday">Add</button></div>
+      <div class="tier"><b>Feeds 24 · $139</b><span>Two dozen apples, 4 lb carrots, cheddar and goat cheese, two loaves with pastries, two jugs of cider · save $25</span><button type="button" class="go" data-gd="gameday-xl">Add</button></div>
+    </div>
+  </section>
   <section class="post spot tg" data-view="home" id="thanksgiving" aria-labelledby="tgH" hidden>
-    <span class="k">🦃 Thanksgiving · ready this Saturday, or any Sat through 11/21</span>
+    <span class="k" id="tgK">🦃 Thanksgiving · ready this Saturday, or any Sat through 11/21</span>
     <h2 id="tgH">Thanksgiving Sides Box · $95</h2>
     <p class="meta" style="color:var(--ink)">$85 at a pickup with the beta founder rate</p>
-    <p class="meta">About 20 lb for a table of 6–8: potatoes for mash, sweet potatoes, squash, a pie pumpkin, Brussels sprouts, greens, apples for pie, stuffing veg and fresh herbs. Shopped fresh the Saturday you pick: 11/7, 11/14 or 11/21. The roots, squash and apples keep for weeks; for the crispest greens and sprouts, pick 11/21.</p>
+    <p class="meta">About 20 lb for a table of 6–8: potatoes for mash, sweet potatoes, squash, a pie pumpkin, Brussels sprouts, greens, apples for pie, stuffing veg and fresh herbs. Shopped fresh the Saturday you pick: <span id="tgDates">11/7, 11/14 or 11/21</span>. The roots, squash and apples keep for weeks; for the crispest greens and sprouts, pick 11/21.</p>
     <div class="row2"><button type="button" class="go" data-tg style="flex:1 1 200px">Add the Thanksgiving box</button><a href="#thanks">See what's in it &rarr;</a></div>
   </section>
 
@@ -771,6 +783,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <h1 id="shopH" class="vh1">What are you craving?</h1>
     <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
     <div class="hwbar dwb" id="dwShop" hidden><span><b>🪔 Diwali Kit · $30</b>Carrots, spinach, potatoes, onions &amp; garlic + recipe card · Sat 11/7 only</span><button type="button" class="go" data-dw>Add it</button></div>
+    <div class="hwbar gdb" id="gdShop" hidden><span><b>🏀 Game Day Kit · $39 / $75 / $139</b>Apples, carrots, cheese, bread, cider · feeds 6, 12 or 24 · all sizes in Add-ons</span><button type="button" class="go" data-gd="gameday">Add · 12</button></div>
     <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8 · ready this Saturday or any Sat through 11/21</span><button type="button" class="go" data-tg>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
@@ -806,8 +819,8 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   <section class="post" data-view="inventory" id="inventory" aria-labelledby="addH">
     <h1 id="addH" class="vh1">Add to your order</h1>
     <div class="bin" id="specialBin" hidden>
-      <h3>Diwali Kit · this Saturday only</h3>
-      <p class="sub">Diwali is Sunday, Nov 8. Everything for gajar halwa and aloo palak, picked from a close radius. Add it to any order for pickup Sat 11/7. Orders close Friday at 9 PM.</p>
+      <h3>Specials this week</h3>
+      <p class="sub">Kits built for an occasion, picked from a close radius. Add one to any order, or order it on its own. Orders close Friday at 9 PM.</p>
       <div class="items" data-cat="special"></div>
     </div>
     <nav class="row tabs" role="tablist" aria-label="Menu sections">
@@ -974,7 +987,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
           <li><b>What you get.</b> You get the box or item groups you ordered, chosen by us at market that day. Examples on the menu are typical, not promised. Weights are approximate.</li>
           <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the pilot (November 21) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
-          <li><b>Pickup days.</b> Pickups are on the day we shop: Saturdays at Goose Island (12–1 PM), Hyde Park (2–3 PM) or Rogers Park (4–5 PM) through November 21, the last box of the pilot. Delivery is same-day. Other days or times may be arranged by text.</li>
+          <li><b>Pickup days.</b> Pickups are on the day we shop: Saturdays at Goose Island (12–1 PM), Hyde Park (2–3 PM) or Rogers Park (4–5 PM) through November 21, the last box of the pilot. Delivery is same-day, $8 within 3 miles of a meet-up stop; farther out we quote by text before you pay. Other days or times may be arranged by text. Missed pickups: text us and we'll meet you at a later stop the same day or hold your order until the last one; another day costs the delivery fee.</li>
           <li><b>Beta founder rate.</b> Boxes (produce, bread, Meat Lovers Box and Lake Haul) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later, and it doesn't stack with free Standing Order delivery: meet up and save 10%, or take free delivery, each week.</li>
           <li><b>Seasoned Rate.</b> Customers 60 and older get 10% off their whole order, delivery included, on the honor system: just check the box at checkout. It stacks with the beta founder rate, taken after the founder 10%.
           <li><b>Free early drop-off.</b> On pickup orders you can opt in to a free early drop-off at your door. It's never guaranteed: we text you first when our route allows it. If we don't text, pick up at your meet-up window as usual. Questions: text 773-807-9223.</li>
@@ -1090,6 +1103,9 @@ const BREADBOXES=[
 const ITEMS={
   /* Diwali Kit (Nov 2, Sol): add-on for Sat Nov 7 only (Diwali is Sun Nov 8). Hidden after the Fri Nov 6 9 PM cutoff via "until"; date-locked via DIWALI_DATE. Est. cost ~$20. */
   special:[
+    {id:"gameday-s",nm:"Game Day Kit · Feeds 6",ds:"Feeds about 6 · 6 apples, 2 lb carrots, fresh goat cheese and a jug of fresh-pressed cider · rinse, slice, done · save $5 vs. buying each · Saturdays through 11/21",p:39,until:"2026-11-20T21:00:00-06:00"},
+    {id:"gameday",nm:"Game Day Kit · Feeds 12",ds:"Feeds about 12 · a dozen apples, 2 lb carrots, a wedge of cave-aged cheddar, a sourdough loaf and a jug of fresh-pressed cider · rinse, slice, done · save $13 vs. buying each · Saturdays through 11/21",p:75,until:"2026-11-20T21:00:00-06:00"},
+    {id:"gameday-xl",nm:"Game Day Kit · Feeds 24",ds:"Feeds about 24 · two dozen apples, 4 lb carrots, cave-aged cheddar and fresh goat cheese, two sourdough loaves with pastries and two jugs of cider · save $25 vs. buying each · Saturdays through 11/21",p:139,until:"2026-11-20T21:00:00-06:00"},
     {id:"diwali",nm:"Diwali Kit",ds:"For gajar halwa and aloo palak · 2 lb carrots, a bunch of spinach, 2 lb potatoes, onions & garlic, plus a recipe card · Sat 11/7 only · save $4 vs. buying separately",p:30,until:"2026-11-06T21:00:00-06:00"}
   ],
   produce:[
@@ -1198,6 +1214,18 @@ function pickupDates(){
   return out;
 }
 let DATES=pickupDates();
+/* Stale dates (Nov 7, Malik; stranger review): the Saturdays line and the Thanksgiving pick dates follow DATES, so a date drops off once its Friday 9 PM cutoff passes. */
+(function(){const ds=DATES.map(d=>new Date(d.v+"T12:00:00"));if(!ds.length)return;
+  const sl=document.getElementById("satList");if(sl)sl.textContent=ds[0].toLocaleDateString("en-US",{month:"short"})+" "+ds.map(d=>d.getDate()).join(", ");
+  const md=d=>(d.getMonth()+1)+"/"+d.getDate(),m=ds.map(md);
+  const td=document.getElementById("tgDates");if(td)td.textContent=m.length>1?m.slice(0,-1).join(", ")+" or "+m[m.length-1]:m[0];
+  const tk=document.getElementById("tgK");if(tk)tk.textContent=m.length>1?"🦃 Thanksgiving · ready this Saturday, or any Sat through "+m[m.length-1]:"🦃 Thanksgiving · ready Sat "+m[0]+", the last box of the pilot";
+})();
+/* Ref arrivals (Nov 7, Malik; stranger review): ?s=ref-* on #shop lands on the Half Peck card, and the tab bar keeps Home / Boxes / How it works only (ConversionXL: every nav link on a one-job page is an exit). */
+(function(){const raw=(new URLSearchParams(location.search).get("s")||"").toLowerCase();if(!/^ref-/.test(raw))return;
+  document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(!(t==="Home"||t==="How it works"||t==="Boxes"||t==="Questions"))a.hidden=true});
+  if(location.hash==="#shop"){let n=0;const go=()=>{const c=[...document.querySelectorAll(".bcard")].find(e=>/^Half Peck/.test(e.querySelector("h3")?.textContent||""));if(c&&c.getBoundingClientRect().height>0){c.scrollIntoView({block:"start"});scrollBy(0,-(document.querySelector(".topbar")?.offsetHeight||0)-8)}else if(n++<10)setTimeout(go,150)};setTimeout(go,250)}
+})();
 /* Start on whichever stop has the soonest open day. */
 (function(){const d0=DATES[0];if(!d0)return;const wd=new Date(d0.v+"T12:00").getDay();const st=STOPS.find(x=>x.day===wd);if(st)state.fulfill=st.id})();
 state.date=DATES[0]?.v||"";
@@ -1230,7 +1258,7 @@ const DIET_BOX={
   asana:{egg:1,protein:1,who:[1]},asanapair:{egg:1,protein:1,who:[1]},
   grounding:{cook:1,who:[1]},strength:{egg:1,cook:1,protein:1,who:[1]},rest:{gluten:1,nocook:1,who:[1]},practice:{egg:1,gluten:1,protein:1,who:[1,2]},
   mystery:{gluten:1,dairy:1,egg:1,who:[1,2]},bites:{meat:1,nocook:1,who:[1]}};
-const DIET_ITEM={meatbox:["meat","pork"],ground:["meat","pork"],sausage:["meat","pork"],lakehaul:["fish"],fish:["fish"],eggs:["egg"],
+const DIET_ITEM={"gameday-s":["dairy"],gameday:["dairy","gluten"],"gameday-xl":["dairy","gluten","egg"],meatbox:["meat","pork"],ground:["meat","pork"],sausage:["meat","pork"],lakehaul:["fish"],fish:["fish"],eggs:["egg"],
   sour:["gluten"],pastry:["gluten","dairy","egg"],quesokit:["dairy"],gcheesekit:["dairy","gluten"],chevre:["dairy"],cheddar:["dairy"],
   butter:["dairy"],oats2:["gluten"],grits2:["gluten"],mix:["gluten"]};
 const DIET_BLOCK={vegan:["meat","fish","egg","dairy"],veg:["meat","fish"],pesc:["meat"],nopork:["pork"],df:["dairy"],gf:["gluten"]};
@@ -1911,6 +1939,14 @@ function nextVoteBlock(txt){
   const add=()=>{if(!state.qty.diwali)state.qty.diwali=1;if(window.puCart)puCart();renderItems();renderTicket();location.hash="#checkout"};
   document.querySelectorAll("[data-dw]").forEach(b=>b.addEventListener("click",add));
 })();
+/* Game Day Kit (Nov 7, Malik): three sizes (gameday-s / gameday / gameday-xl); home card + shop bar until the Nov 20 9 PM cutoff; Add puts that size in the cart. */
+(function(){
+  const live=ITEMS.special.filter(i=>/^gameday/.test(i.id)&&itemLive(i));if(!live.length)return;
+  for(const id of ["gamedaySpot","gdShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
+  document.querySelectorAll("[data-gd]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.gd||"gameday";state.qty[id]=(state.qty[id]||0)+1;if(window.puCart)puCart();renderItems();renderTicket();
+    /* Add and stay (Nov 7, Malik): no jump to checkout; a note with a link instead. */
+    let n=b.parentElement.querySelector(".gdnote");if(!n){n=el("a",{class:"gdnote",href:"#checkout"});b.parentElement.append(n)}n.textContent="Added · "+state.qty[id]+" in cart · View cart →"}));
+})();
 /* Thanksgiving (Oct 31, Sol): home card + shop bar until the Nov 20 9 PM cutoff passes; Add puts the box in the cart and limits dates to Saturdays through 11/21. */
 (function(){
   const end=new Date(2026,10,20,21,0);if(chiNow()>=end)return;
@@ -2030,9 +2066,9 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   /* Home order: hero, Thanksgiving, best box, hauls, how it works, standing. */
   const tg=document.getElementById("thanksgiving"),hero=document.querySelector("main [data-view='home']:not([id])")||null,sp2=document.getElementById("spotlight"),ha=document.getElementById("hauls"),how=document.getElementById("how");
   if(tg&&sp2&&ha&&how){tg.after(sp2);sp2.after(ha);ha.after(how)}})();
-/* Less for new phones (Nov 3, Malik; choice-overload research, Chernev et al. 2015): a first-time visitor sees one seasonal card on Home, the one closing soonest. Returning phones (pu-cart or pu-last) see them all. The Boxes view still shows every seasonal bar. */
+/* Less for new phones (Nov 3, Malik; choice-overload research, Chernev et al. 2015): a first-time visitor sees one seasonal card on Home (Nov 7, Malik: the Game Day Kit, the cheapest way in; Thanksgiving closes the same night). Returning phones (pu-cart or pu-last) see them all. The Boxes view still shows every seasonal bar. */
 (function(){let back=false;try{back=!!(localStorage.getItem("pu-cart")||localStorage.getItem("pu-last"))}catch(e){}if(back)return;
-  const shown=["diwaliSpot","thanksgiving"].map(id=>document.getElementById(id)).filter(e=>e&&!e.hidden);
+  const shown=["gamedaySpot","thanksgiving","diwaliSpot"].map(id=>document.getElementById(id)).filter(e=>e&&!e.hidden);
   shown.slice(1).forEach(e=>{e.hidden=true})})();
 /* Diet splash (Oct 31): first screen asks "How do you eat?" and drops people straight into their matches.
    Every visit (Nov 1, Malik); still skipped for ?me devices, #deep links (except #start) and calm visitors. */
