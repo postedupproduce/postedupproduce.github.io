@@ -62,11 +62,11 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<script>/* Friend gate (Nov 1, Sol): ?s=friend... links go to /invite/ first (name + IG, LinkedIn or other unique ID). Once let in on a phone (pu-invited) or ?me / pu-me, no gate. */
+<script>/* Friend gate (Nov 1): ?s=friend... links go to /invite/ first (name + IG, LinkedIn or other unique ID). Once let in on a phone (pu-invited) or ?me / pu-me, no gate. */
 (function(){try{var q=new URLSearchParams(location.search),t=(q.get("s")||"").toLowerCase();if(!/^friend/.test(t)||q.has("me"))return;if(localStorage.getItem("pu-invited")==="1"||localStorage.getItem("pu-me"))return;document.documentElement.style.visibility="hidden";location.replace("/invite/"+location.search)}catch(e){}})();</script>
-<script>/* Calm checkout (Oct 29, Sol): visitors from the Sosiego page (?s=luna...) keep the calm palette through checkout. Set before paint. */
+<script>/* Calm checkout (Oct 29): visitors from the Sosiego page (?s=luna...) keep the calm palette through checkout. Set before paint. */
 (function(){try{var t=(new URLSearchParams(location.search).get("s")||sessionStorage.getItem("pu-src")||"").toLowerCase();if(/^luna/.test(t))document.documentElement.classList.add("calm");
-/* Spooky week (Oct 30, Sol): dark Halloween look for everyone but calm visitors, off at midnight Oct 31 Chicago. */
+/* Spooky week (Oct 30): dark Halloween look for everyone but calm visitors, off at midnight Oct 31 Chicago. */
 var c=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}));if(!/^luna/.test(t)&&c<new Date(2026,10,1)){var h=document.documentElement;h.classList.add("spooky");h.setAttribute("data-theme","dark");var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#141019"}}catch(e){}})();</script>
 <style>
 html.calm{--bg:#EEF0EA;--panel:#F8F9F5;--ink:#2A3228;--muted:#58614F;--board:#2C2937;--board-ink:#EEE9F3;--tomato:#4E6B54;--line:#D3D8CC;--chip:#E4E8DF;--good:#4E6B54}
@@ -78,7 +78,7 @@ html.calm .calm-note{display:block}
 </style>
 <link rel="preload" as="image" href="/logos/harvest-stamp.png">
 <style>/* Logo on every page (Oct 29) */.brand{display:inline-flex;align-items:center;gap:8px}.act.a3.dietbtn{background:#2f6b3f;border-color:#2f6b3f;color:#fff}.act.a3.dietbtn small{color:inherit;opacity:.92}.act.a3.dietbtn .ar{color:#fff}.brand .mark{width:32px;height:32px;flex:none;border-radius:50%}</style>
-<style>/* Spooky week tokens + decor (Oct 30, Sol). Removed automatically after Oct 31 by the script above. */
+<style>/* Spooky week tokens + decor (Oct 30). Removed automatically after Oct 31 by the script above. */
 :root.spooky[data-theme="dark"]{--bg:#141019;--panel:#1f1826;--ink:#f1e8d6;--muted:#b9afc4;--board:#2a1d33;--board-ink:#f4ecd9;--tomato:#F28C38;--line:#3a2f45;--chip:#2a2232;--good:#a6d873}
 html.spooky body{background-image:radial-gradient(circle at 85% -10%,rgba(242,140,56,.16),transparent 45%)}
 html.spooky body::before{content:"";position:fixed;top:0;right:0;width:150px;height:150px;pointer-events:none;z-index:1;opacity:.5;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 150' fill='none' stroke='%23f1e8d6' stroke-width='1.2'%3E%3Cpath d='M150 0L20 130M150 0L60 145M150 0L5 80M150 0L100 150M150 0L0 30'/%3E%3Cpath d='M128 18q8 6 16 4M106 36q18 14 38 8M84 56q30 22 60 12M62 76q42 30 86 16M40 96q56 38 110 20'/%3E%3C/svg%3E") no-repeat top right/contain}
@@ -88,13 +88,13 @@ html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;
 </style>
 <style>/* Diet icons (Nov 1) */.dchipsline{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px;padding:0}.dic{font-size:13px;line-height:1.2;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--chip);border:1px solid var(--line);white-space:nowrap}.dic.veg{color:var(--good);border-color:var(--good)}.dlegend{font-size:13px;color:var(--muted);margin:2px 0 12px}.dmini{font-size:11px;font-weight:700;margin-left:8px;letter-spacing:.04em;white-space:nowrap;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 5px;vertical-align:2px}</style>
 <script src="/tour.js?v=2" defer></script>
-<style>/* Tour button on the splashes (Nov 2, Malik) */
+<style>/* Tour button on the splashes (Nov 2) */
 #pu-splash .pu-tourb{position:absolute;left:50%;bottom:calc(max(28px,env(safe-area-inset-bottom)) + 62px);transform:translateX(-50%);z-index:3;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;cursor:pointer;font:700 15px/1 var(--body);color:#F8F2E6;background:#24392C;border:2px solid #24392C;border-radius:999px;padding:12px 18px}
 #pu-splash .pu-tourb .pl,#pu-dsplash .ds-tour .pl{width:0;height:0;border-left:11px solid currentColor;border-top:7px solid transparent;border-bottom:7px solid transparent}
 #pu-splash .pu-tourb:focus-visible{outline:3px solid #D2452B;outline-offset:2px}
 #pu-dsplash .ds-tour{margin-top:4px;width:100%;min-height:50px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;font:700 16px var(--body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px}
 </style>
-<style>/* Share on every page (Nov 7, Malik). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
+<style>/* Share on every page (Nov 7). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
 </head>
 <body>
 
@@ -251,7 +251,7 @@ textarea{min-height:72px;resize:vertical}
 .agree{display:flex;gap:12px;align-items:flex-start;font-weight:400;font-size:15px}
 .agree input{width:26px;height:26px;min-height:0;margin-top:1px;flex:none;accent-color:var(--tomato)}
 .agree a{color:var(--tomato);font-weight:700}
-/* Favorite color (Nov 7, Malik): optional one-tap question at checkout, saved to Notes. */
+/* Favorite color (Nov 7): optional one-tap question at checkout, saved to Notes. */
 .favc{border:0;margin:0;padding:0;display:grid;gap:8px}
 .favc legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
 .favc legend small{font-weight:400;color:var(--muted)}
@@ -394,7 +394,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 .from{margin:10px 0 0;text-align:center;font-size:14px;font-weight:700;opacity:.85}
 .trust+.fomo a,.fomo a{color:#ffb4a3;font-weight:700}
 .ups-more{font-size:14px;font-weight:700;color:var(--tomato);text-decoration:none;padding:8px 4px}
-/* Story splash (Oct 30, Sol): 6 beats in ~6.4 s. What we do -> night order -> sunrise market -> packed bag -> posted up -> Harvest Stamp.
+/* Story splash (Oct 30): 6 beats in ~6.4 s. What we do -> night order -> sunrise market -> packed bag -> posted up -> Harvest Stamp.
    Full story once a day per phone, then logo-only (.short). Tap skips. Reduced motion: logo only, still. */
 #mystery{scroll-margin-top:calc(var(--toph,117px) + 64px)}
 #pu-splash{--t0:4.5s;--out:6.1s;position:fixed;inset:0;z-index:9999;overflow:hidden;background:#EFE6D4;color:#24392C;font-family:var(--body);cursor:pointer;-webkit-tap-highlight-color:transparent;animation:pu-sky 4.5s linear both,pu-out .35s ease-in var(--out) forwards}
@@ -437,7 +437,7 @@ details.vdet .vote{border:0;padding:0 0 14px}
 @keyframes pu-hide{to{opacity:0}}
 @keyframes pu-out{to{opacity:0;visibility:hidden}}
 @media (prefers-reduced-motion:reduce){#pu-splash .pu-beat,#pu-splash .pu-bar,#pu-splash .pu-hint{display:none}#pu-splash,#pu-splash *{animation:none!important}#pu-splash .pu-skip .s1{opacity:0}#pu-splash .pu-skip .s2{opacity:1}#pu-splash{background:#EFE6D4;animation:pu-out .2s linear 1.5s forwards!important}}
-/* Declutter (Oct 31, Sol): home = hero, one special, best box, real hauls, how it works, standing order.
+/* Declutter (Oct 31): home = hero, one special, best box, real hauls, how it works, standing order.
    Hidden, not deleted: the Sweater Weather feature (still on Boxes), the home diet card (splash + top button cover it), Why Posted Up (lives on /how),
    Halloween (orders closed), and Asana/Sosiego promos except for Sosiego visitors (html.calm). */
 #feature,#dietHome,#why,#halloween,#hwShop,#hwvShop{display:none!important}
@@ -466,7 +466,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 #pu-dsplash .ds-go{margin-top:8px;width:100%;min-height:54px;border:0;border-radius:12px;background:#A9361F;color:#fff;font:800 18px var(--body);cursor:pointer}
 #pu-dsplash .ds-skip{min-height:44px;border:0;background:none;color:#24392C;font:700 15px var(--body);text-decoration:underline;cursor:pointer}
 #pu-dsplash .ds-cut{margin:0;background:#F3D58A;border-radius:999px;padding:7px 14px;font:800 14px/1.3 var(--body)}
-/* Welcome loop (Nov 3, Malik): new phones see real market and haul photos first; the loop is the tour's play button (tap = sound on). */
+/* Welcome loop (Nov 3): new phones see real market and haul photos first; the loop is the tour's play button (tap = sound on). */
 #pu-dsplash .ds-loop{position:relative;display:block;width:100%;aspect-ratio:2/1;border:0;padding:0;border-radius:18px;overflow:hidden;background:#24392C;cursor:pointer;box-shadow:0 10px 24px rgba(36,57,44,.25)}
 #pu-dsplash .ds-loop img.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:ds-fade 18s linear infinite}
 #pu-dsplash .ds-loop img.ph:nth-child(1){animation-delay:-1s}#pu-dsplash .ds-loop img.ph:nth-child(2){animation-delay:2s}#pu-dsplash .ds-loop img.ph:nth-child(3){animation-delay:5s}#pu-dsplash .ds-loop img.ph:nth-child(4){animation-delay:8s}#pu-dsplash .ds-loop img.ph:nth-child(5){animation-delay:11s}#pu-dsplash .ds-loop img.ph:nth-child(6){animation-delay:14s}
@@ -504,7 +504,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 .hwbar.tgb{border-color:#8A5A2B;background:color-mix(in srgb,#8A5A2B 10%,var(--panel))}
 .hwbar.tgb .go,.spot.tg .go{background:#7A4A1E;color:#fff!important}
 .spot.tg .k{color:#8A5A2B}
-/* Diwali colors (Nov 2, Malik): marigold border + rangoli magenta, option A of the special-box palettes. */
+/* Diwali colors (Nov 2): marigold border + rangoli magenta, option A of the special-box palettes. */
 .hwbar.dwb,.hwbar.gdb{border-color:#E2A21A;background:color-mix(in srgb,#E2A21A 12%,var(--panel))}
 .hwbar.dwb .go,.spot.dw .go{background:#A3195B;color:#fff!important}
 .gd .tiers{display:grid;gap:8px;margin-top:12px}.gd .tier{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;border:2px solid #E2A21A;border-radius:12px;padding:10px 12px;background:var(--panel)}.gd .tier.on{border-color:#A3195B}.gd .tier b{font-size:16px}.gd .tier b i{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#A3195B;margin-left:6px}.gd .tier span{grid-column:1;font-size:13px;line-height:1.35;color:var(--muted)}.gd .tier .go{grid-row:1/3;grid-column:2;min-height:44px;padding:0 18px}.gd .gdnote,.hwbar .gdnote{grid-column:1/-1;font-size:13px;font-weight:700;color:#A3195B;text-decoration:underline}.hwbar .gdnote{flex-basis:100%}
@@ -688,10 +688,10 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <div class="row2"><button type="button" class="go" data-hwv style="flex:1 1 200px">Add the Vegan Harvest Moon</button></div>
   </section>
 
-  <!-- Asana Box paused (Oct 29, Sol): home feature hidden; the Asana Pair stays in Boxes and the shop bar. Delete the style below to bring it back. -->
+  <!-- Asana Box paused (Oct 29): home feature hidden; the Asana Pair stays in Boxes and the shop bar. Delete the style below to bring it back. -->
   <style>#asanaFeature{display:none!important}html:not(.calm) #asShop{display:none!important}</style>
-  <!-- Oct 30, Sol: Asana Pair removed from the main site too (Boxes bar + list). Still shows for Sosiego/luna visitors (?s=luna...) via only:"luna". -->
-  <!-- Diwali Kit spotlight (Nov 2, Sol): home card + shop bar until the Fri Nov 6 9 PM cutoff. -->
+  <!-- Oct 30: Asana Pair removed from the main site too (Boxes bar + list). Still shows for Sosiego/luna visitors (?s=luna...) via only:"luna". -->
+  <!-- Diwali Kit spotlight (Nov 2): home card + shop bar until the Fri Nov 6 9 PM cutoff. -->
   <section class="post spot dw" data-view="home" id="diwaliSpot" aria-labelledby="dwH" hidden>
     <span class="k">🪔 Diwali · this Saturday only, Sat 11/7</span>
     <h2 id="dwH">Diwali Kit · $30</h2>
@@ -1028,22 +1028,22 @@ const BOXES=[
   {id:"forever",name:"The Vegan Box",price:68,wt:"~9 lb",desc:"Fully vegan and all local. No dairy, egg, honey or fish sauce; swaps stay vegan and local.",pick:"New · Vegan",
    makes:"Makes about 5 plant-based meals for two · ≈ $7 a plate",
    has:["½ lb local mushrooms, 2–3 sides (or another local mushroom)","1 block local tofu, 2 mains (or local beans/grains)","2 lb sweet potatoes, about 4 medium (or potatoes)","1 winter squash, 2–4 sides (or pie pumpkin)","Kale or collards, 2–3 sides (or chard, cabbage)","Onions + garlic (or leeks, shallots)","2 lb orchard apples, about 6 (or pears)","Microgreens, tops a week of meals (or salad greens)"]},
-  /* Fruit boxes (Oct 27, Sol): for people who don't cook. Sized by days, not pounds. Prices are starting guesses; confirm after a market run. */
+  /* Fruit boxes (Oct 27): for people who don't cook. Sized by days, not pounds. Prices are starting guesses; confirm after a market run. */
   {id:"fruitsm",name:"Fruit Box · a few days",price:20,wt:"~3 lb · about 8 pieces",desc:"No cooking. Late-season orchard fruit picked ripe for you, plus local blueberries.",pick:"New · No cooking",
    makes:"Fruit for a few days for one · ≈ $2.50 a piece",
    has:["Crisp apples, about 5 (a mix of sweet and tart)","Pears or Asian pears, about 2 (or more apples if pears are done)","Local blueberries, frozen or dried (fresh season is over)"]},
   {id:"fruit",name:"Fruit Box · a week",price:36,wt:"~6 lb · about 16 pieces",desc:"No cooking. A week of late-season orchard fruit, plus local blueberries.",pick:"New · No cooking",
    makes:"A piece or two a day for a week, or a few days for two · ≈ $2.25 a piece",
    has:["Crisp apples, about 10 (a mix of sweet and tart)","Pears or Asian pears, about 4 (or more apples if pears are done)","A pint of frozen local blueberries, or a bag of dried","Fresh-pressed cider swap available on request"]},
-  /* Asana Box (Oct 29, Sol): yoga before-and-after box, first sold via /luna. Starting price; est. cost ~$28 (~30%). Confirm after a market run. */
+  /* Asana Box (Oct 29): yoga before-and-after box, first sold via /luna. Starting price; est. cost ~$28 (~30%). Confirm after a market run. */
   {id:"asana",name:"Asana Box",price:40,hideList:true,wt:"Before and after your practice, for one",desc:"Light bites before the mat, a nourishing plate after.",pick:"New · Yoga",
    makes:"Snacks before about 4 sessions and 3 or 4 easy post-practice plates for one",
    has:["Before: crisp apples or pears, about 4","Before: local blueberries, a snack bag dried or frozen","After: microgreens or salad greens","After: a dozen farm eggs (or local tofu for vegan)","After: 2 lb sweet potatoes for a warm roasted plate"]},
-  /* Asana Pair special (Oct 29, Sol): Asana Box + Fruit Box · a few days, $55 (save $5). Shown through Sat Nov 21 via "until". Est. cost ~$43. */
+  /* Asana Pair special (Oct 29): Asana Box + Fruit Box · a few days, $55 (save $5). Shown through Sat Nov 21 via "until". Est. cost ~$43. */
   {id:"asanapair",name:"Asana Pair",price:55,only:"luna",until:"2026-11-22",wt:"Asana Box + Fruit Box · a few days · save $5",desc:"Special through Nov 21.",pick:"Special · through Nov 21",
    makes:"Before-and-after bites for about a week of practice, plus fruit for a few days, for one",
    has:["Everything in the Asana Box: apples or pears, local blueberries, microgreens, a dozen eggs (or tofu), 2 lb sweet potatoes","Plus a Fruit Box · a few days: about 5 apples, 2 pears and local blueberries"]},
-  /* Practice boxes (Oct 29, Sol): Grounding / Strength / Rest at $41, all three $108 (saves $15). Shown only to Sosiego-page visitors (?s=luna...) or when picked via ?box=. Vegan toggle via ?vegan=1 swaps to "veg". Est. costs ~$28 / $27.50 / $25 / $80.50. */
+  /* Practice boxes (Oct 29): Grounding / Strength / Rest at $41, all three $108 (saves $15). Shown only to Sosiego-page visitors (?s=luna...) or when picked via ?box=. Vegan toggle via ?vegan=1 swaps to "veg". Est. costs ~$28 / $27.50 / $25 / $80.50. */
   {id:"grounding",name:"Grounding Box",price:41,only:"luna",wt:"Rooted, warming food for one",desc:"Roots and squash to roast and settle into.",pick:"Sosiego · Grounding",
    makes:"About 4 meals for one · ≈ $10 a plate",
    has:["2 lb sweet potatoes","2 lb beets or carrots","A winter squash","Onions and garlic","2 lb apples"],
@@ -1060,17 +1060,17 @@ const BOXES=[
    makes:"About 12 meals for one, or 6 for two · ≈ $9 a plate",
    has:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: a dozen farm eggs, hearty greens, local mushrooms, microgreens","Rest: a sourdough loaf, fresh-pressed cider, pears, local blueberries"],
    veg:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: local tofu, hearty greens, local mushrooms, microgreens","Rest: a vegan loaf, fresh-pressed cider, pears, local blueberries"]},
-  /* Mystery Bag (Oct 30, Sol): first password drop, Sat Oct 31 only. Shown to ?s=drop... visitors (unlocked at /drop/) or via ?box=mystery. Est. cost ~$21 either way (~30%). */
+  /* Mystery Bag (Oct 30): first password drop, Sat Oct 31 only. Shown to ?s=drop... visitors (unlocked at /drop/) or via ?box=mystery. Est. cost ~$21 either way (~30%). */
   {id:"mystery",name:"Mystery Bag",price:30,only:["drop","referral"],until:"2026-11-01",wt:"Trick or Treat · picked for you",desc:"Private drop. Say Trick or Treat in Notes, or leave it blank and I'll pick.",pick:"Private drop · Sat only",
    makes:"Trick: about 4 sides for two · Treat: a few days of sweet things for one",
    has:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a fresh pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"],
    veg:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a vegan pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"]},
-  /* Sweater Weather Kit (renamed from Cold Snap Kit, Oct 30, Sol): low-price cold-weather starter, all local. No health claims. Est. cost ~$17 (garlic ~$6, cider ~$7, herbs ~$4) at $24, ~29%. Confirm after a market run. */
+  /* Sweater Weather Kit (renamed from Cold Snap Kit, Oct 30): low-price cold-weather starter, all local. No health claims. Est. cost ~$17 (garlic ~$6, cider ~$7, herbs ~$4) at $24, ~29%. Confirm after a market run. */
   {id:"coldsnap",name:"Sweater Weather Kit",price:24,wt:"Cold-weather kitchen staples · for one or two",desc:"Local garlic, fresh-pressed cider and a bunch of herbs for tea. Add local honey if you like.",pick:"New · Cold weather",
    makes:"A few warm mugs and a garlicky pot of something for one or two",
    has:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"],
    veg:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"]},
-  /* Breakfast Box + Grits & Greens Box (Oct 30, Sol): fall breakfast/savory boxes built on a local grain farm's stone-ground oats and heirloom grits. Grain costs are estimates from the farm's online "as low as $3-5" list; confirm stand prices and bag sizes Saturday. Est. costs ~$28 / ~$26 (~30% / ~32%). Recipe line rides in "What's in it". */
+  /* Breakfast Box + Grits & Greens Box (Oct 30): fall breakfast/savory boxes built on a local grain farm's stone-ground oats and heirloom grits. Grain costs are estimates from the farm's online "as low as $3-5" list; confirm stand prices and bag sizes Saturday. Est. costs ~$28 / ~$26 (~30% / ~32%). Recipe line rides in "What's in it". */
   {id:"breakfast",name:"Breakfast Box",price:40,wt:"About a week of breakfasts for two",desc:"Stone-ground local oats, farm eggs and orchard fruit.",pick:"New · Fall breakfast",
    makes:"About 10–12 breakfasts · ≈ $3.50 a plate",
    has:["2 lb rolled oats, stone-ground on a family grain farm (about 20 bowls)","A bag of oat pancake mix from the same farm","A dozen farm eggs","2 lb apples or pears (about 6)"],
@@ -1081,17 +1081,17 @@ const BOXES=[
    has:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has"],
    veg:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has","Already plant-based. Cook the grits with water or veg stock"],
    recipe:"Recipe card in the bag: fish and grits with garlicky greens. Add a Great Lakes fillet (Meat, fish & eggs) or Lake Haul"},
-  /* Thanksgiving Sides Box (Oct 31, Sol; Nov 2: open to any Saturday through Nov 21, latest = THANKS_DATE): sides for a table of 6-8. Starting price; est. cost ~$67 (~29%). Confirm prices on the Nov 7 run. */
+  /* Thanksgiving Sides Box (Oct 31; Nov 2: open to any Saturday through Nov 21, latest = THANKS_DATE): sides for a table of 6-8. Starting price; est. cost ~$67 (~29%). Confirm prices on the Nov 7 run. */
   {id:"thanks",name:"Thanksgiving Sides Box",price:95,until:"2026-11-22",wt:"~20 lb · sides for a table of 6–8",desc:"Everything for the sides, shopped fresh the Saturday you pick. Roots, squash and apples keep for weeks; pick 11/21 for the crispest greens and sprouts.",pick:"Thanksgiving · any Sat through 11/21",
    makes:"Sides for 6–8 with leftovers: mash, sweet potatoes, squash, sprouts, greens, stuffing veg and a pie",
    has:["3 lb potatoes for mash","3 lb sweet potatoes","A butternut squash","A pie pumpkin (or more squash)","1½ lb Brussels sprouts","Collards or kale, 2 bunches","3 lb apples for pie or crisp","Onions, shallots and garlic","Celery or celery root for stuffing","A bunch of sage, thyme and rosemary","Local cranberries, when a stand has them"],
    recipe:"Recipe card in the bag: brown-butter sage squash, and a cider apple crisp"},
-  /* Better Bites (Nov 3, Malik): snack-swap box for friends trying to eat less junk. Link-only: shown to ?s=bites... visitors or via ?box=bites from /bites/. No health claims. Est. cost ~$27 (apples ~$8, snacking roots ~$5, half-gallon cider ~$6, pickles or dried berries ~$8) at $35, ~23%: thin, confirm on a market run. */
+  /* Better Bites (Nov 3): snack-swap box for friends trying to eat less junk. Link-only: shown to ?s=bites... visitors or via ?box=bites from /bites/. No health claims. Est. cost ~$27 (apples ~$8, snacking roots ~$5, half-gallon cider ~$6, pickles or dried berries ~$8) at $35, ~23%: thin, confirm on a market run. */
   {id:"bites",name:"Better Bites",price:35,only:"bites",wt:"Grab-and-go snack swaps · about a week for one",desc:"Your crunchy, sweet and salty cravings, swapped for the market version. Nothing to cook.",pick:"New · Snack swaps",
    makes:"About a week of snacks for one, or a few days for two",
    has:["2 lb crisp apples (about 6): the sweet crunch","Snacking roots: carrots, radishes or turnips, whatever's crispest","Fresh-pressed cider: the soda-run swap","A jar of pickles or dilly beans, or a snack bag of dried blueberries (say which in Notes)","Tell me your go-to junk in Notes and I'll lean the box that way"],
    veg:["2 lb crisp apples (about 6): the sweet crunch","Snacking roots: carrots, radishes or turnips, whatever's crispest","Fresh-pressed cider: the soda-run swap","A jar of pickles or dilly beans, or a snack bag of dried blueberries (say which in Notes)","Tell me your go-to junk in Notes and I'll lean the box that way"]},
-  /* I Don't Cook Box (Oct 27, Sol): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
+  /* I Don't Cook Box (Oct 27): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
   {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
    makes:"Snacks and easy plates for about a week for one, or a few days for two",
    has:["A fresh loaf, bagels or challah","A local cheese","Salami or seasoned tofu (your pick in notes)","One ferment: kimchi, sauerkraut or pickles","Seasonal fruit: apples and pears","A jam, pesto or hot sauce to tie it together","Want hot food? Ask for a heat-and-eat swap (tamales or soup, microwave only)"],
@@ -1103,7 +1103,7 @@ const BREADBOXES=[
   {id:"bread2",name:"Bakery Bundle",price:42,wt:"2 loaves + 2 pastries",desc:"Enough for the week, with something for the freezer.",pick:"",makes:"About 24–28 slices, plus 2 treats",has:["2 sourdough loaves (about 12–14 slices each)","2 pastries"]}
 ];
 const ITEMS={
-  /* Diwali Kit (Nov 2, Sol): add-on for Sat Nov 7 only (Diwali is Sun Nov 8). Hidden after the Fri Nov 6 9 PM cutoff via "until"; date-locked via DIWALI_DATE. Est. cost ~$20. */
+  /* Diwali Kit (Nov 2): add-on for Sat Nov 7 only (Diwali is Sun Nov 8). Hidden after the Fri Nov 6 9 PM cutoff via "until"; date-locked via DIWALI_DATE. Est. cost ~$20. */
   special:[
     {id:"gameday-s",nm:"Game Day Kit · Feeds 6",ds:"Feeds about 6 · 6 apples, 2 lb carrots, fresh goat cheese and a jug of fresh-pressed cider · rinse, slice, done · save $5 vs. buying each · Saturdays through 11/21",p:39,until:"2026-11-20T21:00:00-06:00"},
     {id:"gameday",nm:"Game Day Kit · Feeds 12",ds:"Feeds about 12 · a dozen apples, 2 lb carrots, a wedge of cave-aged cheddar, a sourdough loaf and a jug of fresh-pressed cider · rinse, slice, done · save $13 vs. buying each · Saturdays through 11/21",p:75,until:"2026-11-20T21:00:00-06:00"},
@@ -1137,7 +1137,7 @@ const ITEMS={
     {id:"pastry",nm:"Pastry",ds:"Each · e.g. croissant, scone, danish, muffin, monkey bun",p:8},
   ],
   cheese:[
-    /* Meal kits (Oct 28, Sol). Costs are estimates (tortilla and salsa stand prices aren't published); confirm on the next Saturday run. */
+    /* Meal kits (Oct 28). Costs are estimates (tortilla and salsa stand prices aren't published); confirm on the next Saturday run. */
     {id:"quesokit",nm:"Quesadilla Kit",ds:"About 8 quesadillas (4 meals for two) · heirloom corn tortillas from a SW Michigan tortilleria, a farmstead melting cheese, sweet potatoes, onions and last peppers to fill, and a jar of fresh salsa · ≈ $6.90 a quesadilla",p:55},
     {id:"gcheesekit",nm:"Grilled Cheese Kit",ds:"About 6 sandwiches · a sourdough loaf, a wedge of cave-aged cheddar, and crisp apples or pears to slice inside · save about $4 vs. buying separately · add butter below for the pan",p:38},
     {id:"chevre",nm:"Fresh goat cheese",ds:"e.g. herbed chèvre, or feta with herbs in oil",p:14},
@@ -1151,7 +1151,7 @@ const ITEMS={
   pantry:[
     {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
     {id:"maple",nm:"Maple syrup",ds:"Pint",p:19},
-    /* Grains (Oct 30, Sol): local family grain farm, stone-ground. Est. costs ~$7 / ~$7 / ~$5-6; confirm Saturday. Shares a mill with wheat: not gluten-free. */
+    /* Grains (Oct 30): local family grain farm, stone-ground. Est. costs ~$7 / ~$7 / ~$5-6; confirm Saturday. Shares a mill with wheat: not gluten-free. */
     {id:"grits2",nm:"Heirloom grits, 2 lb",ds:"Stone-ground from a family grain farm · about 8 servings · try them with fish and greens",p:10},
     {id:"oats2",nm:"Rolled oats, 2 lb",ds:"Stone-ground from a family grain farm · about 20 bowls · milled alongside wheat, not gluten-free",p:10},
     {id:"mix",nm:"Pancake or cornbread mix",ds:"Bag · e.g. oat pancake, heirloom cornbread · just add egg and milk",p:8},
@@ -1168,7 +1168,7 @@ const ZELLE="leeks.sabrosa@gmail.com";
 const APPLE_CASH=""; /* Apple Cash dropped Nov 8 */
 const DELIVERY_FEE=8, FLAT_MILES=3, PER_MILE=1.5;
 function isDel(){return state.fulfill.startsWith("del-")}
-/* Opt-in: free early door drop-off for meet-up orders if it fits Sol's route that day. Not a promise; Sol texts to set it up. */
+/* Opt-in: free early door drop-off for meet-up orders if it fits our route that day. Not a promise; we text to set it up. */
 function earlyOK(){return !isDel()&&state.early&&state.date!==LATE_DAY}
 /* Delivery windows from each stop, Saturdays only (no Wednesday markets; Wednesday shops removed Nov 3).
    The sheet still logs "Delivery from <name>", same as the original site, so delivery-time data stays comparable. */
@@ -1176,17 +1176,17 @@ const DELIVERIES=[
   {id:"goose",name:"Goose Island",area:"Goose Island",delAfter:"1:00 PM",days:[6]},
   {id:"hyde",name:"Hyde Park",area:"Hyde Park",delAfter:"3:00 PM",days:[6]},
   {id:"rogers",name:"Rogers Park",area:"Rogers Park",delAfter:"5:00 PM",days:[6]},
-  /* Sosiego visitors (Oct 29, Sol): free delivery within 5 miles of Goose Island, Saturdays after ~10:30 AM; farther is a small per-mile add texted by Sol. */
+  /* Sosiego visitors (Oct 29): free delivery within 5 miles of Goose Island, Saturdays after ~10:30 AM; farther is a small per-mile add texted by us. */
   {id:"lunafree",name:"Goose Island",area:"Goose Island",delAfter:"10:30 AM",days:[6],luna:true,freeMiles:5}
 ];
 function delStop(){return DELIVERIES.find(x=>"del-"+x.id===state.fulfill)}
-/* Saturday stops (Nov 1, Malik): three meet-ups for everyone, in route order after the market. Early drop-off checkbox still offered. */
+/* Saturday stops (Nov 1): three meet-ups for everyone, in route order after the market. Early drop-off checkbox still offered. */
 const STOPS=[
   {id:"goose",name:"Goose Island",time:"12:00–1:00 PM",day:6,dayName:"Sat",delAfter:"12:00 PM"},
   {id:"hyde",name:"Hyde Park",time:"2:00–3:00 PM",day:6,dayName:"Sat",delAfter:"2:00 PM"},
   {id:"rogers",name:"Rogers Park",time:"4:00–5:00 PM",day:6,dayName:"Sat",delAfter:"4:00 PM"}
 ];
-/* Sat Oct 31 (Oct 30, Sol): nothing starts before 1 PM that day. Applies until midnight Oct 31, then the normal times return. */
+/* Sat Oct 31 (Oct 30): nothing starts before 1 PM that day. Applies until midnight Oct 31, then the normal times return. */
 const LATE_DAY="2026-10-31";
 if(chiNow()<new Date(2026,10,1)){const r=STOPS.find(x=>x.id==="rogers");if(r){r.time="1:00–2:00 PM";r.delAfter="1:00 PM"}const lf=DELIVERIES.find(x=>x.id==="lunafree");if(lf)lf.delAfter="1:00 PM"}
 function isLuna(){return /^luna/.test(SRC_TAG)}
@@ -1203,7 +1203,7 @@ if(/^luna/.test(SRC_TAG))state.fulfill="rogers";
 function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
 const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 function pickupDates(){
-  const out=[],now=chiNow(),satEnd=new Date(2026,10,21,23,59),WIN0=new Date(2026,11,5),WIN1=new Date(2027,2,20,23,59),WIN_OFF=["2026-12-26","2027-01-02"]; /* Winter (Nov 8, Malik): same 3 stops and times, Dec 5 to Mar 20, off Dec 26 and Jan 2; no pickup Nov 28. */
+  const out=[],now=chiNow(),satEnd=new Date(2026,10,21,23,59),WIN0=new Date(2026,11,5),WIN1=new Date(2027,2,20,23,59),WIN_OFF=["2026-12-26","2027-01-02"]; /* Winter (Nov 8): same 3 stops and times, Dec 5 to Mar 20, off Dec 26 and Jan 2; no pickup Nov 28. */
   for(let i=0;i<40&&out.length<10;i++){
     const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i);
     const day=d.getDay();
@@ -1216,14 +1216,14 @@ function pickupDates(){
   return out;
 }
 let DATES=pickupDates();
-/* Stale dates (Nov 7, Malik; stranger review): the Saturdays line and the Thanksgiving pick dates follow DATES, so a date drops off once its Friday 9 PM cutoff passes. */
+/* Stale dates (Nov 7; stranger review): the Saturdays line and the Thanksgiving pick dates follow DATES, so a date drops off once its Friday 9 PM cutoff passes. */
 (function(){const ds=DATES.map(d=>new Date(d.v+"T12:00:00"));if(!ds.length)return;
   const sl=document.getElementById("satList");if(sl){const g=[];for(const d of ds.slice(0,3)){const mo=d.toLocaleDateString("en-US",{month:"short"});const last=g[g.length-1];if(last&&last.mo===mo)last.d.push(d.getDate());else g.push({mo,d:[d.getDate()]})}sl.textContent=g.map(x=>x.mo+" "+x.d.join(", ")).join(" · ")}
   const fall=ds.filter(d=>d<=new Date(2026,10,21,23,59)),md=d=>(d.getMonth()+1)+"/"+d.getDate(),m=fall.map(md);if(!m.length)return;
   const td=document.getElementById("tgDates");if(td)td.textContent=m.length>1?m.slice(0,-1).join(", ")+" or "+m[m.length-1]:m[0];
   const tk=document.getElementById("tgK");if(tk)tk.textContent=m.length>1?"🦃 Thanksgiving · ready this Saturday, or any Sat through "+m[m.length-1]:"🦃 Thanksgiving · ready Sat "+m[0]+", the last outdoor Saturday";
 })();
-/* Ref arrivals (Nov 7, Malik; stranger review): ?s=ref-* on #shop lands on the Half Peck card, and the tab bar keeps Home / Boxes / How it works only (ConversionXL: every nav link on a one-job page is an exit). */
+/* Ref arrivals (Nov 7; stranger review): ?s=ref-* on #shop lands on the Half Peck card, and the tab bar keeps Home / Boxes / How it works only (ConversionXL: every nav link on a one-job page is an exit). */
 (function(){const raw=(new URLSearchParams(location.search).get("s")||"").toLowerCase();if(!/^ref-/.test(raw))return;
   document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(!(t==="Home"||t==="How it works"||t==="Boxes"||t==="Questions"))a.hidden=true});
   if(location.hash==="#shop"){let n=0;const go=()=>{const c=[...document.querySelectorAll(".bcard")].find(e=>/^Half Peck/.test(e.querySelector("h3")?.textContent||""));if(c&&c.getBoundingClientRect().height>0){c.scrollIntoView({block:"start"});scrollBy(0,-(document.querySelector(".topbar")?.offsetHeight||0)-8)}else if(n++<10)setTimeout(go,150)};setTimeout(go,250)}
@@ -1250,7 +1250,7 @@ function spotsLeft(v){return CAP==null?null:Math.max(0,CAP-(COUNTS[v]||0))}
 function loadCounts(){if(!ORDER_ENDPOINT)return;fetch(ORDER_ENDPOINT+"?q=counts").then(r=>r.json()).then(j=>{if(typeof j.cap!=="number")return;CAP=j.cap;COUNTS=j.counts||{};if(spotsLeft(state.date)===0){const o=datesFor().find(d=>spotsLeft(d.v)!==0);state.date=o?o.v:""}if(!state.sent)renderTicket()}).catch(()=>{})}
 function el(t,a={},...k){const e=document.createElement(t);for(const[x,y]of Object.entries(a)){if(x==="class")e.className=y;else if(x.startsWith("on"))e.addEventListener(x.slice(2),y);else e.setAttribute(x,y)}for(const c of k)e.append(c);return e}
 
-/* Diet matcher (Oct 31, Sol): customers pick how they eat, we rank the boxes that fit (using the vegan swap when it helps) or filter Build Your Own. The diet rides on the order as "[Diet: ...]" in Notes. Gluten-free is matched only by boxes made without wheat, barley or rye; nothing is certified. */
+/* Diet matcher (Oct 31): customers pick how they eat, we rank the boxes that fit (using the vegan swap when it helps) or filter Build Your Own. The diet rides on the order as "[Diet: ...]" in Notes. Gluten-free is matched only by boxes made without wheat, barley or rye; nothing is certified. */
 const DIETS=[{id:"vegan",t:"Vegan"},{id:"veg",t:"Vegetarian"},{id:"pesc",t:"Pescatarian"},{id:"nopork",t:"No pork"},{id:"protein",t:"High protein"},{id:"nocook",t:"I don't cook"}];
 const WHO=[{id:"1",t:"Just me"},{id:"2",t:"Two of us"},{id:"3",t:"Family (3+)"}];
 /* What's in each box: meat, fish, egg, dairy, gluten, pork. cook / nocook / protein and who it suits (1, 2, 3 = family). */
@@ -1271,7 +1271,7 @@ try{const j=JSON.parse(sessionStorage.getItem("pu-diet")||"null");if(j){state.di
 (function(){const q=new URLSearchParams(location.search).get("diet");if(q){state.diet=q.toLowerCase().split(/[ ,]+/).filter(x=>DIETS.some(d=>d.id===x))}})();
 function dietSave(){try{sessionStorage.setItem("pu-diet",JSON.stringify({d:state.diet,who:state.who}))}catch(e){}}
 function dietLabel(){const a=DIETS.filter(d=>state.diet.includes(d.id)).map(d=>d.t),w=WHO.find(x=>x.id===state.who);return a.join(", ")+(w?(a.length?" · ":"")+"for "+w.t.toLowerCase().replace("just ",""):"")}
-/* Diet labels (Nov 1, Malik): menu codes on every box and item. VG vegan, V vegetarian, plus Meat / Fish. No GF/DF claims (Malik, Nov 1). */
+/* Diet labels (Nov 1): menu codes on every box and item. VG vegan, V vegetarian, plus Meat / Fish. No GF/DF claims (Nov 1). */
 const DIET_EXTRA={bread1:["gluten","dairy","egg"],bread2:["gluten","dairy","egg"]};
 function dietTags(id){const b=DIET_BOX[id];const raw=b?Object.keys(b).filter(k=>b[k]===1):(DIET_ITEM[id]||DIET_EXTRA[id]||[]);return ["meat","fish","egg","dairy","gluten"].filter(k=>raw.includes(k))}
 function dietAnimal(id){return dietTags(id).some(k=>k!=="gluten")}
@@ -1333,7 +1333,7 @@ function renderDiet(){
   for(const x of WHO){const on=state.who===x.id;w.append(el("button",{type:"button",class:"dchip","aria-pressed":String(on),onclick:()=>{state.who=on?"":x.id;dietSave();renderDiet();renderTicket()}},x.t))}
   const lab=dietLabel();document.getElementById("dietSum").textContent=lab?"Matching for: "+lab:"Tell us how you eat. We'll point you to a box, or help you build one.";
   if(!state.diet.length&&!state.who)return;
-  /* Size tiers (Nov 2, Malik): sibling boxes show as one card with a size picker; every card gets "What's in it" and a build-your-own way out. */
+  /* Size tiers (Nov 2): sibling boxes show as one card with a size picker; every card gets "What's in it" and a build-your-own way out. */
   const res0=BOXES.filter(boxShown).map(b=>({b,f:dietFit(b)})).filter(x=>x.f).sort((x,y)=>y.f.score-x.f.score);
   const seenT=new Set(),res=[];for(const x of res0){const t=tierOf(x.b.id);if(t){if(seenT.has(t.key))continue;seenT.add(t.key)}res.push(x);if(res.length===3)break}
   o.append(el("h3",{},res.length?"Boxes that fit you":"No box fits all of that yet"));
@@ -1389,7 +1389,7 @@ function bCard(o){
   card.append(d,el("button",{type:"button",class:"badd","aria-pressed":String(!!o.on),onclick:o.toggle},o.on?"Added ✓ (tap to remove)":"Add "+o.name+" · $"+o.price));
   return card;
 }
-/* Asana Box (Oct 29, Sol): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
+/* Asana Box (Oct 29): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
   for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({diet:b.id,swap:vegAble(b),...(b.id==="forever"?{img:"/img/haul-vegan.jpg",imgAlt:"A real Vegan Box from this pilot: mushrooms, local tofu, squash, sweet potatoes, apples, greens and a pastry"}:{}),id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
@@ -1507,11 +1507,11 @@ async function sendOrder(id){
   catch(e){return false}
 }
 function count(){return (state.box?1:0)+(state.breadBox?1:0)+Object.values(state.qty).reduce((a,b)=>a+b,0)}
-/* Vegan toggle on every box (Oct 29, Sol). The Vegan Box and fruit-only boxes are already plant-based, so no toggle there. */
+/* Vegan toggle on every box (Oct 29). The Vegan Box and fruit-only boxes are already plant-based, so no toggle there. */
 const VEG_SKIP=["forever","fruitsm","fruit","thanks"];
 function vegAble(b){return !!b&&!VEG_SKIP.includes(b.id)}
 function vegOn(b){return !!state.vegan&&vegAble(b)&&state.box===b.id}
-/* $1 perk (Oct 29, Sol): spend over $200 (not counting the perk item) and one add-on up to $25 drops to $1. */
+/* $1 perk (Oct 29): spend over $200 (not counting the perk item) and one add-on up to $25 drops to $1. */
 const PERK_MIN=200,PERK_MAX_ITEM=25;
 function perkItem(){return state.perk?ALL.find(i=>i.id===state.perk)||null:null}
 function perkBase(){const it=perkItem();return subtotal()-(it&&state.qty[it.id]?it.p:0)}
@@ -1527,7 +1527,7 @@ function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>
 function payByLabel(){const d=state.date?new Date(state.date+"T12:00"):null;if(!d)return "9 PM the night before";const c=new Date(d);c.setDate(c.getDate()-1);return c.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+", 9 PM"}
 function ticketSummary(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox),d=DATES.find(x=>x.v===state.date),st=curStop();const items=[b&&b.name,bb&&bb.name].concat(ALL.filter(i=>state.qty[i.id]).map(i=>(state.qty[i.id]>1?state.qty[i.id]+"× ":"")+i.nm)).filter(Boolean);return items.slice(0,3).join(", ")+(items.length>3?" +"+(items.length-3)+" more":"")+" · "+(isDel()?"Delivered to your door, "+(d?d.label:state.date)+", after "+st.delAfter:st.name+", "+(d?d.label:state.date)+", "+st.time)}
 function founderRaw(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
-/* Seasoned Rate (Nov 7, Malik): 60+ on the honor system, 10% off the whole order (items + delivery, after the $1 perk). Stacks with the founder rate (Malik): taken after the founder 10%. */
+/* Seasoned Rate (Nov 7): 60+ on the honor system, 10% off the whole order (items + delivery, after the $1 perk). Stacks with the founder rate: taken after the founder 10%. */
 const SEASONED_PCT=10;
 function seasonedOff(){return state.seasoned&&count()?Math.round((subtotal()+fee()-perkOff()-founderRaw())*SEASONED_PCT/100):0}
 function founderOff(){return founderRaw()}
@@ -1832,7 +1832,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   if(location.hash==="#fruit"||location.hash==="#nocook"||location.hash==="#breakfast"||location.hash==="#grits"||location.hash==="#asana"||location.hash==="#asanapair"||location.hash==="#mystery")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
 })();
 /* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
-   Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so Sol can match it fast. */
+   Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so we can match it fast. */
 /* Card / Apple Pay via Square (Oct 29). The Order Receiver (?q=pay&o=) makes a Square checkout for this exact order, total taken from the sheet,
    so the customer types nothing. Hidden until CARD_ON=true; preview with ?card=1. Fallback = the any-amount Square link. */
 const CARD_ON=true, CARD_LINK="https://square.link/u/HHv7KJyK";
@@ -1851,7 +1851,7 @@ function payBlock(txt){
   const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);st.textContent=m;return true}catch(e){st.textContent="Couldn't copy here. Type it in: "+v;return false}};
   const tel=APPLE_CASH.replace(/\D/g,"");
   const apple=/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
-  /* Apple Cash (Oct 27): Messages opens to Sol with the order typed in; they send it, then + → Apple Cash → amount (Apple's own steps). */
+  /* Apple Cash (Oct 27): Messages opens to us with the order typed in; they send it, then + → Apple Cash → amount (Apple's own steps). */
   const mkAC=()=>el("a",{class:"pay-btn ac",href:"sms:+1"+tel+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash")},"Pay with Apple Cash",el("small",{},apple?"Opens Messages to "+APPLE_CASH+". Send the text, then tap + → Apple Cash → $"+amt+" → Send":"iPhone only · opens a text to "+APPLE_CASH));
   /* Zelle (Oct 27): no web link exists, so one tap copies the email and opens a 3-line cheat sheet with copy buttons. */
   const zrow=(lab,val,msg)=>el("div",{class:"zrow"},el("span",{},lab,el("b",{},val)),el("button",{type:"button",class:"zcopy","aria-label":"Copy "+lab.toLowerCase()+" "+val,onclick:()=>copy(val,msg)},"Copy"));
@@ -1867,15 +1867,15 @@ function payBlock(txt){
     el("p",{class:"pay-memo"},"Memo: ",el("b",{},memo)),
     ...(isDel()&&!(delStop()&&delStop().freeMiles)?[el("p",{class:"note",style:"margin:0 0 10px;color:var(--ink);font-weight:600"},"$"+amt+" covers delivery within 3 miles of "+delStop().area+". Farther out, we text the mileage add ($1.50 a mile) before we shop; you can pay that part by text.")]:[]),
     ...(cardOn()?[mkCD(no,amt)]:[]),
-    mkZL(),zsteps, /* Apple Cash dropped Nov 8 (Malik): number off the site */
+    mkZL(),zsteps, /* Apple Cash dropped Nov 8: number off the site */
     st,
     el("button",{type:"button",class:"ghost",onclick:async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
       try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:state.name.trim(),contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · Mobile: "+state.phone.trim()+(SRC_TAG?" · Source: "+SRC_TAG:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
       catch(x){b.disabled=false;b.textContent="I've paid"}}},"I've paid"));
   return box;
 }
-/* Hook (Oct 27, Sol: "get em in, get em ordering, get em hooked, get em out"): after ordering, one tap asks for this box every Saturday.
-   Posts a STANDING ORDER REQUEST to the Feedback tab (same format as the Standing Order form); Sol confirms by text. */
+/* Hook (Oct 27: "get em in, get em ordering, get em hooked, get em out"): after ordering, one tap asks for this box every Saturday.
+   Posts a STANDING ORDER REQUEST to the Feedback tab (same format as the Standing Order form); we confirm by text. */
 function hookDay(){return "Saturday"} /* Standing Orders are Saturdays: the market's last Wednesday is Oct 28 (GCM newsletter, Oct 23). */
 function hookBlock(txt){
   const b=BOXES.find(x=>x.id===state.box);if(!b)return el("span");
@@ -1889,7 +1889,7 @@ function hookBlock(txt){
 }
 /* Get 'em back (Oct 27): a device that ordered before sees "Reorder your last haul" on Home; one tap refills the cart, name and phone, then opens checkout. */
 const REORDER_ON=false; /* Off for now (Oct 27). Set true to bring back the welcome-back reorder card on Home. */
-/* Same as last time (Nov 1, Malik): the last order saved on this phone powers a "Same as last time" button on the splash
+/* Same as last time (Nov 1): the last order saved on this phone powers a "Same as last time" button on the splash
    (window.puLast), and its name, mobile, email and address prefill checkout. */
 (function(){
   let c=null;try{c=JSON.parse(localStorage.getItem("pu-cart")||"null")}catch(e){}
@@ -1911,8 +1911,8 @@ const REORDER_ON=false; /* Off for now (Oct 27). Set true to bring back the welc
   document.getElementById("wbWhat").textContent=(c.name?c.name.split(" ")[0]+", last time: ":"Last time: ")+bits.slice(0,5).join(", ")+(bits.length>5?" and more":"")+".";
   sec.hidden=false;document.getElementById("wbGo").addEventListener("click",go);
 })();
-/* What's next vote (Oct 27, Sol): after ordering, pick what we should launch next; thank-you (pastry or fun produce) goes in THIS order.
-   Posts "NEXT VOTE" to the Feedback tab; Sol adds the thank-you to the order by its number. */
+/* What's next vote (Oct 27): after ordering, pick what we should launch next; thank-you (pastry or fun produce) goes in THIS order.
+   Posts "NEXT VOTE" to the Feedback tab; we add the thank-you to the order by its number. */
 const NEXT_OPTS=[["standing","A weekly box (Standing Order)"],["office","Drops at my office"],["gift","Gift boxes for friends & family"],["winter","Boxes all winter from the indoor market"]];
 function nextVoteBlock(txt){
   const no=(txt.match(/#(\d+)/)||[])[1]||"";
@@ -1937,23 +1937,23 @@ function nextVoteBlock(txt){
   box.append(el("b",{},"Help pick what's next, get a treat"),el("span",{},"Coming soon: which would you use? Pick any. We'll tuck a thank-you into this order."),picks,el("span",{style:"font-weight:700"},"Your thank-you"),gifts,where,btn,st);
   return box;
 }
-/* Halloween Haul (Oct 26, Sol): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
-/* Diwali Kit (Nov 2, Sol): home card + shop bar until the Fri Nov 6 9 PM cutoff; Add puts one kit in the cart (date locks to Sat 11/7). */
+/* Halloween Haul (Oct 26): shown through Sat Oct 31 (Chicago). Adds Half Peck + cider + pastry; the pumpkin swap rides on Notes. */
+/* Diwali Kit (Nov 2): home card + shop bar until the Fri Nov 6 9 PM cutoff; Add puts one kit in the cart (date locks to Sat 11/7). */
 (function(){
   const it=ITEMS.special.find(i=>i.id==="diwali");if(!it||!itemLive(it))return;
   for(const id of ["diwaliSpot","dwShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
   const add=()=>{if(!state.qty.diwali)state.qty.diwali=1;if(window.puCart)puCart();renderItems();renderTicket();location.hash="#checkout"};
   document.querySelectorAll("[data-dw]").forEach(b=>b.addEventListener("click",add));
 })();
-/* Game Day Kit (Nov 7, Malik): three sizes (gameday-s / gameday / gameday-xl); home card + shop bar until the Nov 20 9 PM cutoff; Add puts that size in the cart. */
+/* Game Day Kit (Nov 7): three sizes (gameday-s / gameday / gameday-xl); home card + shop bar until the Nov 20 9 PM cutoff; Add puts that size in the cart. */
 (function(){
   const live=ITEMS.special.filter(i=>/^gameday/.test(i.id)&&itemLive(i));if(!live.length)return;
   for(const id of ["gamedaySpot","gdShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
   document.querySelectorAll("[data-gd]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.gd||"gameday";state.qty[id]=(state.qty[id]||0)+1;if(window.puCart)puCart();renderItems();renderTicket();
-    /* Add and stay (Nov 7, Malik): no jump to checkout; a note with a link instead. */
+    /* Add and stay (Nov 7): no jump to checkout; a note with a link instead. */
     let n=b.parentElement.querySelector(".gdnote");if(!n){n=el("a",{class:"gdnote",href:"#checkout"});b.parentElement.append(n)}n.textContent="Added · "+state.qty[id]+" in cart · View cart →"}));
 })();
-/* Thanksgiving (Oct 31, Sol): home card + shop bar until the Nov 20 9 PM cutoff passes; Add puts the box in the cart and limits dates to Saturdays through 11/21. */
+/* Thanksgiving (Oct 31): home card + shop bar until the Nov 20 9 PM cutoff passes; Add puts the box in the cart and limits dates to Saturdays through 11/21. */
 (function(){
   const end=new Date(2026,10,20,21,0);if(chiNow()>=end)return;
   for(const id of ["thanksgiving","tgShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
@@ -1963,7 +1963,7 @@ function nextVoteBlock(txt){
 const HW_END=new Date(2026,10,1,0,0);
 function hwOn(){return chiNow()<HW_END}
 function hwInCart(){return state.hw&&state.box==="halfpeck"&&state.qty.cider>0&&state.qty.pastry>0}
-/* Vegan Harvest Moon (Oct 29, Sol): Vegan Box + cider, pumpkin swap rides on Notes. */
+/* Vegan Harvest Moon (Oct 29): Vegan Box + cider, pumpkin swap rides on Notes. */
 function hwvInCart(){return state.hwv&&state.box==="forever"&&state.qty.cider>0}
 (function(){
   if(!hwOn())return;
@@ -1978,7 +1978,7 @@ function hwvInCart(){return state.hwv&&state.box==="forever"&&state.qty.cider>0}
   const addHwv=()=>{state.box="forever";state.mode="box";state.qty.cider=Math.max(1,state.qty.cider||0);state.hw=false;state.hwv=true;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
   document.querySelectorAll("[data-hwv]").forEach(b=>b.addEventListener("click",addHwv));
 })();
-/* Savasana (Oct 29, Sol): after a Luna/Sosiego order goes through, a calm resting moment. Payment reminder stays on it. */
+/* Savasana (Oct 29): after a Luna/Sosiego order goes through, a calm resting moment. Payment reminder stays on it. */
 function savasana(){
   if(document.getElementById("sava"))return;
   const d=el("div",{class:"sava",id:"sava",role:"dialog","aria-label":"Order received"},
@@ -1988,7 +1988,7 @@ function savasana(){
       el("button",{type:"button",class:"go",onclick:()=>{d.remove();const t=document.getElementById("ticket");if(t)t.scrollIntoView({block:"start"})}},"See my ticket and pay")));
   document.body.append(d);
 }
-/* Asana Box feature (Oct 29, Sol): Home card + Boxes bar; contents come from BOXES. */
+/* Asana Box feature (Oct 29): Home card + Boxes bar; contents come from BOXES. */
 (function(){
   const b=BOXES.find(x=>x.id==="asana");if(!b)return;
   const fill=(id,pre)=>{const ul=document.getElementById(id);if(!ul)return;b.has.filter(h=>h.startsWith(pre)).forEach(h=>{const t=h.slice(pre.length+2);ul.append(el("li",{},t.charAt(0).toUpperCase()+t.slice(1)))})};
@@ -2000,7 +2000,7 @@ function savasana(){
   const addP=()=>{state.box="asanapair";state.mode="box";if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();location.hash="#checkout"};
   document.querySelectorAll("[data-asanapair]").forEach(x=>x.addEventListener("click",addP));
 })();
-/* Homepage feature (Oct 30, Sol): new-box card, filled from BOXES. Change FEATURE_ID to feature another box. */
+/* Homepage feature (Oct 30): new-box card, filled from BOXES. Change FEATURE_ID to feature another box. */
 const FEATURE_ID="coldsnap";
 (function(){
   const b=BOXES.find(x=>x.id===FEATURE_ID);const ul=document.getElementById("featList");const sec=document.getElementById("feature");if(!b||!ul){if(sec)sec.hidden=true;return}
@@ -2017,10 +2017,10 @@ const FEATURE_ID="coldsnap";
   for(const h of b.has)ul.append(el("li",{},h));
   document.getElementById("spotAdd").addEventListener("click",()=>{state.box=b.id;state.mode="box";if(window.puCart)puCart();renderBoxes();renderTicket();location.hash="#shop"});
 })();
-/* Story splash (Oct 30, Sol): 5 beats, then the Harvest Stamp + live cutoff (and "Hey <name>" on ?s=p-name links).
+/* Story splash (Oct 30): 5 beats, then the Harvest Stamp + live cutoff (and "Hey <name>" on ?s=p-name links).
    Full story once a day per phone (pu-splash-day), logo-only after that. Skipped for ?me, #deep links (#start still plays it) and calm (Sosiego) visitors.
    Set SPLASH_ON=false to switch it off. */
-const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip to true (and DIET_SPLASH_ON to false) to bring the story back. */
+const SPLASH_ON=false; /* Oct 31: replaced by the diet splash below. Flip to true (and DIET_SPLASH_ON to false) to bring the story back. */
 (function(){
   if(!SPLASH_ON)return;
   let me=false;try{me=!!localStorage.getItem("pu-me")}catch(e){}
@@ -2029,7 +2029,7 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   let short=false;try{short=localStorage.getItem("pu-splash-day")===today;localStorage.setItem("pu-splash-day",today)}catch(e){}
   const tag=(typeof SRC_TAG==="string"?SRC_TAG:(new URLSearchParams(location.search).get("s")||"")).toLowerCase();
   const nm=(/^(?:svy-)?p-([a-z]{2,15})(?:-|$)/.exec(tag)||[])[1];
-  /* Oct 30, Sol: drop + referral visitors get a spooky nod on the logo frame through Sat Oct 31. */
+  /* Oct 30: drop + referral visitors get a spooky nod on the logo frame through Sat Oct 31. */
   const boo=/^(drop|referral)/.test(tag)&&today<="2026-10-31";
   const ct=(document.getElementById("closeTop")||{}).textContent||"";
   const cut=/^closes /i.test(ct)&&!/night before/i.test(ct)?"Next orders close "+ct.replace(/^closes /i,""):"Orders close 9 PM the night before";
@@ -2049,7 +2049,7 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
     +'<button type="button" class="pu-tourb" data-tour><span class="pl" aria-hidden="true"></span>Watch how it works · 45 sec</button><p class="pu-hint">Tap for next, hold to pause</p><span class="pu-skip"><button type="button" class="s1">Skip intro</button><span class="s2">Tap to start</span></span>';
   if(nm)d.querySelector(".pu-hi").textContent="Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you";
   d.querySelector(".pu-cut").textContent=cut;
-  /* Story controls (Oct 30, Sol): tap = next beat (on the logo frame, tap = into the site); press and hold = pause; Skip intro = straight in. */
+  /* Story controls (Oct 30): tap = next beat (on the logo frame, tap = into the site); press and hold = pause; Skip intro = straight in. */
   const BEAT=900,LAND=short?0:5*BEAT,still=matchMedia("(prefers-reduced-motion:reduce)").matches;
   const anims=()=>d.getAnimations?d.getAnimations({subtree:true}):[];
   const clock=()=>{const o=anims().find(a=>a.animationName==="pu-out");return o?+o.currentTime:Infinity};
@@ -2072,16 +2072,16 @@ const SPLASH_ON=false; /* Oct 31, Sol: replaced by the diet splash below. Flip t
   /* Home order: hero, Thanksgiving, best box, hauls, how it works, standing. */
   const tg=document.getElementById("thanksgiving"),hero=document.querySelector("main [data-view='home']:not([id])")||null,sp2=document.getElementById("spotlight"),ha=document.getElementById("hauls"),how=document.getElementById("how");
   if(tg&&sp2&&ha&&how){tg.after(sp2);sp2.after(ha);ha.after(how)}})();
-/* Less for new phones (Nov 3, Malik; choice-overload research, Chernev et al. 2015): a first-time visitor sees one seasonal card on Home (Nov 7, Malik: the Game Day Kit, the cheapest way in; Thanksgiving closes the same night). Returning phones (pu-cart or pu-last) see them all. The Boxes view still shows every seasonal bar. */
+/* Less for new phones (Nov 3; choice-overload research, Chernev et al. 2015): a first-time visitor sees one seasonal card on Home (Nov 7: the Game Day Kit, the cheapest way in; Thanksgiving closes the same night). Returning phones (pu-cart or pu-last) see them all. The Boxes view still shows every seasonal bar. */
 (function(){let back=false;try{back=!!(localStorage.getItem("pu-cart")||localStorage.getItem("pu-last"))}catch(e){}if(back)return;
   const shown=["gamedaySpot","thanksgiving","diwaliSpot"].map(id=>document.getElementById(id)).filter(e=>e&&!e.hidden);
   shown.slice(1).forEach(e=>{e.hidden=true})})();
 /* Diet splash (Oct 31): first screen asks "How do you eat?" and drops people straight into their matches.
-   Every visit (Nov 1, Malik); still skipped for ?me devices, #deep links (except #start) and calm visitors. */
+   Every visit (Nov 1); still skipped for ?me devices, #deep links (except #start) and calm visitors. */
 addEventListener("input",e=>{const x=e.target,m=x&&x.type==="checkbox"?x.closest("label"):x;if(m&&m.classList&&m.classList.contains("pu-bad")){m.classList.remove("pu-bad");m.removeAttribute("aria-invalid");document.getElementById("puFieldErr")?.remove();const er=document.getElementById("err");if(er)er.textContent=""}});
 addEventListener("change",e=>{const x=e.target,m=x&&x.type==="checkbox"?x.closest("label"):null;if(m&&m.classList.contains("pu-bad")){m.classList.remove("pu-bad");m.removeAttribute("aria-invalid");document.getElementById("puFieldErr")?.remove()}});
 const DIET_SPLASH_ON=true;
-/* Stop first (Nov 1, Malik): pick where you'll grab it on the welcome screen; remembered on this phone (pu-stop). */
+/* Stop first (Nov 1): pick where you'll grab it on the welcome screen; remembered on this phone (pu-stop). */
 function puSetStop(v){const ok=STOPS.some(x=>x.id===v&&forThem(x))||DELIVERIES.some(x=>"del-"+x.id===v&&forThem(x));if(!ok)return;state.stopPicked=true;state.fulfill=v;try{localStorage.setItem("pu-stop",v)}catch(e){}const ds=datesFor();if(!ds.some(d=>d.v===state.date))state.date=ds[0]?.v||"";renderTicket()}
 (function(){let v="";try{v=localStorage.getItem("pu-stop")||""}catch(e){}if(v){try{puSetStop(v)}catch(e){}}})();
 (function(){
@@ -2097,7 +2097,7 @@ function puSetStop(v){const ok=STOPS.some(x=>x.id===v&&forThem(x))||DELIVERIES.s
   const chips=el("div",{class:"ds-chips"});
   const go=el("button",{type:"button",class:"ds-go"});
   let omni=false;const label=()=>{go.textContent=omni?"Show me the boxes →":pick.size?"Show my boxes →":"Show me everything →"};
-  /* "I'm an omnivore" (Nov 1, Malik): one tap, clears the diet chips, goes straight to every box. */
+  /* "I'm an omnivore" (Nov 1): one tap, clears the diet chips, goes straight to every box. */
 const om=el("button",{type:"button",class:"ds-chip ds-omni","aria-pressed":"false"},"🍽 I'm an omnivore");
 const again=window.puLast?el("button",{type:"button",class:"ds-again"},"↻ Same as last time"+(window.puLast.first?", "+window.puLast.first:""),el("small",{},window.puLast.what)):null;
 if(again)again.addEventListener("click",()=>{close();window.puLast.go()});
@@ -2115,7 +2115,7 @@ om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",Strin
   go.addEventListener("click",()=>{if(omni){const dg=document.getElementById("diet");if(dg)dg.hidden=true;state.diet=[];state.dietAll=true;dietSave();renderItems();renderTicket();close();location.hash="#shop";return}if(pick.size){state.diet=[...pick];state.dietAll=false;dietSave();renderDiet();renderItems();renderTicket();close();location.hash="#diet"}else{close();location.hash="#shop"}});
   const tourB=el("button",{type:"button",class:"ds-tour","data-tour":""},el("span",{class:"pl","aria-hidden":"true"}),"Watch how it works · 45 sec");tourB.addEventListener("click",()=>close());
   const skip=el("button",{type:"button",class:"ds-skip"},"What is this?");skip.addEventListener("click",()=>{close();location.hash="#start"});
-  /* Order of operations (Nov 3, Malik): new phones see it first (photo loop = tour button), then where and when, then how you eat, then the boxes. Returning phones get the fastest path first: Same as last time, then the rest; no loop. */
+  /* Order of operations (Nov 3): new phones see it first (photo loop = tour button), then where and when, then how you eat, then the boxes. Returning phones get the fastest path first: Same as last time, then the rest; no loop. */
   const hi=nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[];
   const where=[el("p",{class:"ds-q2"},"Where will you grab it?"),stopRow];
   const eat=[el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),chips,go];
@@ -2132,7 +2132,7 @@ om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",Strin
   }
   document.body.append(d);setTimeout(()=>go.focus({preventScroll:true}),50);
 })();
-/* Now Showing (Nov 3, Malik): a 6-second "movie theater" open on every visit, in the 45-sec tour's look. Lights dim, five photo beats, the stamp + cutoff, lights up on the welcome screen.
+/* Now Showing (Nov 3): a 6-second "movie theater" open on every visit, in the 45-sec tour's look. Lights dim, five photo beats, the stamp + cutoff, lights up on the welcome screen.
    Silent (phones block sound before a tap); the Sound button opens the full 45-sec tour with music. Any tap skips to the welcome screen. Same skips as the welcome screen (?me, #deep links except #start, calm/Sosiego, ?diet/?box links); reduced motion skips it. Switch off with SHOW_ON=false. */
 const SHOW_ON=false; /* Nov 8 walkthrough: off. 6.4 s before the welcome screen; IG bio tags 0 carts. */
 (function(){
@@ -2195,7 +2195,7 @@ const SHOW_ON=false; /* Nov 8 walkthrough: off. 6.4 s before the welcome screen;
   if(fresh)send("visit");
   let carted=false;window.puCart=()=>{if(carted)return;carted=true;try{if(sessionStorage.getItem("pu-c"))return;sessionStorage.setItem("pu-c","1")}catch(e){}send("cart")};
 })();
-/* Haul photo thank-you: the photo is shrunk on the device, then sent to the sheet's Photos tab, a Drive folder, and Sol's email + text. */
+/* Haul photo thank-you: the photo is shrunk on the device, then sent to the sheet's Photos tab, a Drive folder, and the owner's email. */
 const PHOTO_ON=true; /* backend live: Apps Script v8 */
 const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sauce"]];
 (function(){
@@ -2248,7 +2248,7 @@ renderBoxes();renderItems();renderTicket();loadCounts();
 </script>
 
 <script>
-/* Share (Nov 7, Malik): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
+/* Share (Nov 7): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
 (function(){const b=document.querySelector("[data-share]");if(!b)return;
   const url=location.origin+"/how/?s=ref-shared";
   const msg="Thought you'd like this: a personal shopper for the Chicago farmers market. Order by Friday night, pick up Saturday or get it delivered. "+url;

@@ -1,4 +1,4 @@
-/* Posted Up: 45-second "how it works" tour (Nov 2, Malik).
+/* Posted Up: 45-second "how it works" tour (Nov 2).
    One shared file for every page. Any element with [data-tour] opens it; window.puTour() opens it from script.
    Music is an original loop synthesized live with Web Audio (no audio file, no license). It starts only after a tap,
    fades in quietly, and mute / pause / close stay on screen. Respects prefers-reduced-motion. */

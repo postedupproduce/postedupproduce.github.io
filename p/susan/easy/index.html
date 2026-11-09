@@ -218,7 +218,7 @@ main{padding-bottom:110px}
     </div>
     <label for="n" class="fbq">Anything to change? (optional)</label>
     <textarea id="n" placeholder="e.g. loved the mushrooms, more fruit, no squash"></textarea>
-    <a class="btn" id="send" href="mailto:info@postedupproduce.org">Text Malik my picks</a>
+    <a class="btn" id="send" href="mailto:info@postedupproduce.org">Email my picks</a>
     <p class="alt"><button type="button" class="link" id="post">Rather not text? Send it here instead</button></p>
     <p class="sent" id="ok" hidden>Got it, thank you. I'll read every word.</p>
     <p class="fine">Nothing gets ordered. Feedback with your name earns a bonus produce pick on your next order.</p>
@@ -227,7 +227,7 @@ main{padding-bottom:110px}
   <p class="fine">Rather just talk it through? Email <a href="mailto:info@postedupproduce.org" style="color:var(--ink);font-weight:700">info@postedupproduce.org</a> and we'll find 15 minutes.</p>
   <p class="alt"><a href="/p/susan/">Or order the Vegan Box again &rarr;</a></p>
 </main>
-<div class="sbar off" id="sbar" aria-hidden="true"><span>Your box<b id="tot2">$59</b></span><a class="btn" id="send2" href="mailto:info@postedupproduce.org" tabindex="-1">Text Malik my picks</a></div>
+<div class="sbar off" id="sbar" aria-hidden="true"><span>Your box<b id="tot2">$59</b></span><a class="btn" id="send2" href="mailto:info@postedupproduce.org" tabindex="-1">Email my picks</a></div>
 <script>
 (function(){
   var f=document.getElementById("f"),tot=document.getElementById("tot"),n=document.getElementById("n"),send=document.getElementById("send");
@@ -244,7 +244,7 @@ main{padding-bottom:110px}
     window.__fb=fb;
     var pa=["ate","liked"].map(function(k){var x=document.querySelector("input[name="+k+"]:checked");return x?x.value:""}).filter(Boolean),pnv="";
     var past=(pa.length||pnv)?"Oct 24 box: "+pa.join(", ")+(pnv?(pa.length?". ":"")+pnv:"")+". ":"";
-    var body="Hi Malik, Susan here. "+past+"Next time I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(fb?fb+". ":"")+(n.value.trim()?"Change: "+n.value.trim():"");
+    var body="Hi, Susan here. "+past+"Next time I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(fb?fb+". ":"")+(n.value.trim()?"Change: "+n.value.trim():"");
     window.__body=body.trim();
     var ios=/iPhone|iPad|Mac/i.test(navigator.userAgent);
     send.setAttribute("href","mailto:info@postedupproduce.org"+(ios?"&":"?")+"body="+encodeURIComponent(body.trim()));
@@ -275,7 +275,7 @@ main{padding-bottom:110px}
       .then(function(){ok.hidden=false;post.textContent="Sent";},function(){post.disabled=false;post.textContent="Didn't send. Try again, or text instead"});
   });
 })();
-/* Visit counting, same as the other /p/ pages: one per browser session, no names, skipped on Malik's devices (pu-me). */
+/* Visit counting, same as the other /p/ pages: one per browser session, no names, skipped on the owner's devices (pu-me). */
 (function(){
   var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
   try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}

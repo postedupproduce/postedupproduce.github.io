@@ -1,4 +1,4 @@
-"""Personal link maker (Oct 29, Sol): every person or group gets its own link, preview image and vibe.
+"""Personal link maker (Oct 29): every person or group gets its own link, preview image and vibe.
 Usage: python3 tools/make_link.py SLUG "Kicker" "Headline" "Line" TARGET [--vibe sosiego|market]
 Makes /p/SLUG/index.html (own og:title/og:image, then forwards to TARGET) and /p/SLUG/og.png.
 TARGET is a site path with its own ?for= / ?s= tags, e.g. /luna/next/?for=nathalys&s=luna-nathalys

@@ -1,4 +1,4 @@
-"""Personal hockey-family pages (Oct 31, Sol): /p/coach/ and /p/sue/.
+"""Personal hockey-family pages (Oct 31): /p/coach/ and /p/sue/.
 Each page: its own splash, the boxes picked for that person (all shown before the main site),
 then Build Your Own (/?mode=pick#shop) and the full site. Add buttons go to /?s=TAG&box=ID#checkout.
 Run from the repo root: python3 tools/make_fam.py   (keeps each /p/SLUG/og.png from make_link.py)"""

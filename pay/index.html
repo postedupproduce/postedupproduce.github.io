@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700;800&display=swap">
 <style>
-/* Pay link page (Oct 27, Sol). Text it as /pay/?o=ORDER&a=AMOUNT (optional &n=Name&s=tag).
+/* Pay link page (Oct 27). Text it as /pay/?o=ORDER&a=AMOUNT (optional &n=Name&s=tag).
    Opened from an order ticket or a Standing Order / payment-nudge text. Posts "PAYMENT SENT" to the Feedback tab when they tap I've paid. */
 :root{
   --bg:#efe6d4;--panel:#f8f2e6;--ink:#1f2a22;--muted:#4f564b;--board:#24392c;--board-ink:#f4ecd9;
@@ -99,7 +99,7 @@ input{font:inherit;font-size:18px;padding:12px;border:2px solid var(--line);bord
 <script>
 const ENDPOINT="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
 const ZELLE="leeks.sabrosa@gmail.com", APPLE_CASH=""; /* Apple Cash dropped Nov 8 */
-/* Card / Apple Pay via Square (Oct 29). Off for customers until Sol tests a real $1 payment; preview with /pay/?o=1&a=1&card=1. Set CARD_ON=true to go live. */
+/* Card / Apple Pay via Square (Oct 29). Off for customers until we test a real $1 payment; preview with /pay/?o=1&a=1&card=1. Set CARD_ON=true to go live. */
 const CARD_ON=true, CARD_LINK="https://square.link/u/HHv7KJyK";
 const q=new URLSearchParams(location.search);
 const clean=(v,re,n)=>(v||"").replace(re,"").slice(0,n);

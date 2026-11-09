@@ -360,7 +360,7 @@ document.querySelectorAll(".pcard").forEach(c=>{
   if(fresh)fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:s,device:dev,returning:ret,vid})}).catch(()=>{});
 })();
 
-/* Splash every visit (Sol, Oct 29). ?splash=breathe|sun forces a style, ?splash=off skips; ?me devices skip. Tap or Skip to close. */
+/* Splash every visit (Oct 29). ?splash=breathe|sun forces a style, ?splash=off skips; ?me devices skip. Tap or Skip to close. */
 (function(){
   const V={
     breathe:'<div class="sp-in"><div class="moonball"></div><div class="bw"><span class="a">inhale</span><span class="b">exhale</span></div><p class="t late" style="animation-delay:1.5s">Nourishment, picked for you.</p></div>',

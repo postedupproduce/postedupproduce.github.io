@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700;800&display=swap">
 <style>
-/* Story landing (Nov 5, Malik): the Instagram "Days, not weeks" Story's link sticker lands here (?s=ig-r2).
+/* Story landing (Nov 5): the Instagram "Days, not weeks" Story's link sticker lands here (?s=ig-r2).
    One screen that repeats the Story (headline, $24, the date), one main button into checkout with the kit in the cart,
    then all boxes, then an optional text sign-up. Sources: Beniwal "Landing the second click" (UX Collective, 2022),
    Decali "The new landing page is to have no landing page at all" (UX Collective, 2020), Fairbanks mobile sign-up (2019). */
@@ -110,7 +110,7 @@ h1{font:400 40px/1.02 var(--display);margin:2px 0 0}
   document.getElementById("sat").textContent=md(next.sat);
   document.getElementById("cut").textContent=md(next.cut)+", 9 PM";
 })();
-/* Visit counting, same as the order page: one per browser session, no names, skipped on Malik's devices (pu-me). */
+/* Visit counting, same as the order page: one per browser session, no names, skipped on the owner's devices (pu-me). */
 (function(){
   var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
   try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}

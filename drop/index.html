@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Figtree:wght@400;500;600;700;800&display=swap">
 <style>
-/* Private drop page (Oct 30, Sol). Password gate is a velvet rope, not security: the word is in this file. */
+/* Private drop page (Oct 30). Password gate is a velvet rope, not security: the word is in this file. */
 :root{
   --bg:#141019;--panel:#1f1826;--ink:#f1e8d6;--muted:#b9afc4;--line:#3a2f45;
   --pump:#F28C38;--wheat:#F3D58A;--bad:#ff8f7a;
@@ -146,8 +146,8 @@ small{color:var(--muted);font-size:14px}
   function chiNow(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}))}
   var raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").toLowerCase();
   var tag=(raw.indexOf("drop")===0?raw:("drop-1031"+(raw?"-"+raw:""))).slice(0,30);
-  var shop="/?s=referral"; /* Oct 30, Sol: everyone lands on the plain homepage link (splash plays, Mystery Bag unlocked for referral) */
-  /* Oct 30, Sol: one hop. Form, password or friend link all go straight to the order page: splash plays there, then it lands on the Mystery Bag (already in the cart). */
+  var shop="/?s=referral"; /* Oct 30: everyone lands on the plain homepage link (splash plays, Mystery Bag unlocked for referral) */
+  /* Oct 30: one hop. Form, password or friend link all go straight to the order page: splash plays there, then it lands on the Mystery Bag (already in the cart). */
   function go(){try{sessionStorage.setItem("pu-drop-1031","1")}catch(x){}location.replace(shop)}
   var join="/join/?s="+encodeURIComponent(tag);
   document.getElementById("goShop").href=shop;
@@ -159,7 +159,7 @@ small{color:var(--muted);font-size:14px}
   var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
   document.getElementById("askBtn").addEventListener("click",function(){show("ask");window.scrollTo(0,0)});
   if(/(^|&)k=1/.test(location.search.slice(1))&&!ok)show("ask");
-  /* Oct 30, Sol: ?in=1 is the friend-share link: skips the form and password, plays the splash, lands on "You're in". */
+  /* Oct 30: ?in=1 is the friend-share link: skips the form and password, plays the splash, lands on "You're in". */
   if(/(^|&)in=1/.test(location.search.slice(1)))return go();
   document.getElementById("askForm").addEventListener("submit",function(e){
     e.preventDefault();var m=document.getElementById("aMsg");

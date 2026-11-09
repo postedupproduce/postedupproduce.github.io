@@ -87,7 +87,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 </style>
 <style>/* Logo on every page (Oct 29) */.brand{display:inline-flex;align-items:center;gap:8px}.brand .mark{width:32px;height:32px;flex:none;border-radius:50%}</style>
 <script src="/tour.js?v=2" defer></script>
-<style>/* Personal welcome splash (Nov 2, Malik): shows once per visit for ?for= links. */
+<style>/* Personal welcome splash (Nov 2): shows once per visit for ?for= links. */
 #howSplash{position:fixed;inset:0;z-index:9000;background:var(--bg);color:var(--ink);display:grid;place-items:center;overflow:auto;padding:max(24px,env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
 #howSplash[hidden]{display:none}
 #howSplash .in{width:min(100%,440px);display:grid;justify-items:center;gap:12px;text-align:center}
@@ -98,7 +98,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 #howSplash .go2{min-height:48px;border:0;background:none;color:var(--ink);font:700 16px var(--body);text-decoration:underline;cursor:pointer}
 @keyframes hs-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}#howSplash .in{animation:hs-in .4s ease both}@media (prefers-reduced-motion:reduce){#howSplash .in{animation:none}}
 </style>
-<style>/* Motion on the stranger page (Nov 7, Malik): silent looping photo strip of how we work the market, plus a ticker. Nothing blocks, nothing to skip. */
+<style>/* Motion on the stranger page (Nov 7): silent looping photo strip of how we work the market, plus a ticker. Nothing blocks, nothing to skip. */
 .reel{position:relative;height:176px;border-radius:16px;overflow:hidden;background:#24392C;margin:0 0 14px}
 .reel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:reelIn 15s linear infinite;transform:scale(1.06)}
 .reel img:nth-child(2){animation-delay:3s}.reel img:nth-child(3){animation-delay:6s}.reel img:nth-child(4){animation-delay:9s}.reel img:nth-child(5){animation-delay:12s}
@@ -111,7 +111,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 @keyframes tick{to{transform:translateX(-100%)}}
 @media (prefers-reduced-motion:reduce){.reel img{animation:none;opacity:0}.reel img:first-child{opacity:1;transform:none}.tick span{animation:none;padding-left:12px}}
 </style>
-<style>/* Sticky one-button bar (Nov 7, Malik; ConversionXL / sticky add-to-cart evidence, nav eval Nov 1). Hides once the real button is on screen. */
+<style>/* Sticky one-button bar (Nov 7; ConversionXL / sticky add-to-cart evidence, nav eval Nov 1). Hides once the real button is on screen. */
 .stickbar{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px max(10px,env(safe-area-inset-bottom));background:rgba(242,235,221,.96);backdrop-filter:blur(6px);border-top:2px solid #24392C;transform:translateY(110%);transition:transform .25s ease}
 .stickbar.show{transform:none}
 .stickbar a{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:999px;background:#A9361F;color:#fff;font:800 17px var(--body);text-decoration:none}
@@ -125,7 +125,7 @@ body.hasbar{padding-bottom:132px}
 /* Ref arrivals (?s=ref-*): one-job page, fewer exits. */
 html.ref .tabs a:not([data-keep]){display:none}
 </style>
-<style>/* Welcome gate (Nov 7, Malik): one friendly screen before the page, one tap, once per phone. Not a splash that plays at you: nothing moves until they choose. */
+<style>/* Welcome gate (Nov 7): one friendly screen before the page, one tap, once per phone. Not a splash that plays at you: nothing moves until they choose. */
 #gate{position:fixed;inset:0;z-index:9000;background:#24392C;color:#F8F2E6;display:grid;place-items:center;padding:24px;text-align:center}
 #gate .in{display:grid;justify-items:center;gap:14px;max-width:360px}
 #gate img{width:140px;height:140px;border-radius:50%;box-shadow:0 10px 30px rgba(0,0,0,.35)}
@@ -137,7 +137,7 @@ html.ref .tabs a:not([data-keep]){display:none}
 html.gated{overflow:hidden}
 
 </style>
-<style>/* Breathing room + subtle motion (Nov 7, Malik). Spacing on an 8-pt rhythm (UX Planet / Prototypr 8pt grid; line-height 1.5 for body per WCAG, Uxcel); motion 150–300 ms ease-out, nothing over 400 ms (NN/g 100 ms–1 s thresholds; Material 200–300 ms on phones); all off under prefers-reduced-motion. */
+<style>/* Breathing room + subtle motion (Nov 7). Spacing on an 8-pt rhythm (UX Planet / Prototypr 8pt grid; line-height 1.5 for body per WCAG, Uxcel); motion 150–300 ms ease-out, nothing over 400 ms (NN/g 100 ms–1 s thresholds; Material 200–300 ms on phones); all off under prefers-reduced-motion. */
 .wrap{gap:32px;padding-bottom:48px}
 .sign{padding:28px 22px 26px;gap:16px}
 .sign p{line-height:1.55}.sign .why{border-left:4px solid var(--star);padding-left:12px}.sign .why b{color:var(--star)}.sign .small{font-size:15px;opacity:.85}
@@ -169,7 +169,7 @@ html.gated{overflow:hidden}
 @keyframes stampIn{from{opacity:0;transform:rotate(-6deg) scale(1.3)}to{opacity:1;transform:rotate(8deg) scale(1)}}
 @media (prefers-reduced-motion:reduce){.rv,.rv .stg>*{opacity:1;transform:none;transition:none}.stamp{animation:none}.go:active,button.ghost:active,.stickbar a:active,#gateGo:active,.tabs a:active,.stop:active,.boxes li:active{transform:none}}
 </style>
-<style>/* Share on every page (Nov 7, Malik). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}/* Nov 8 walkthrough preview: bigger tabs, call/text strip */
+<style>/* Share on every page (Nov 7). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}/* Nov 8 walkthrough preview: bigger tabs, call/text strip */
 .tabs a{font-size:15px!important;padding:14px 10px!important}
 .talk{background:var(--card,#fff);border:1.5px solid #E3D9C2;border-radius:16px;padding:16px 20px;display:grid;gap:10px}
 .talk p{margin:0;font:700 17px/1.3 var(--body)}
@@ -305,7 +305,7 @@ const clean=v=>(v||"").replace(/\+/g," ").replace(/[^A-Za-z\u00C0-\u017F' &-]/g,
   .split(" ").map(w=>w==="and"||w==="&"?w:w.charAt(0).toUpperCase()+w.slice(1)).join(" ");
 const forName=clean(P.get("for")),fromName=clean(P.get("from"));
 const hello=document.getElementById("hello");
-/* Partner logos (Nov 2, Sol): a ?s= tag ending in a partner key shows our logo beside theirs in the welcome card. Logo files live in /logos/partner-<key>.png (192px square). */
+/* Partner logos (Nov 2): a ?s= tag ending in a partner key shows our logo beside theirs in the welcome card. Logo files live in /logos/partner-<key>.png (192px square). */
 const PARTNERS={gge:{logo:"/logos/partner-gge.png?v=3",alt:"Partner logo"}};
 const pk=(P.get("with")||(raw.match(/-([a-z]+)$/)||[])[1]||"").toLowerCase(),pt=Object.prototype.hasOwnProperty.call(PARTNERS,pk)?PARTNERS[pk]:null;
 if(pt){const im=document.getElementById("partnerLogo");im.src=pt.logo;im.alt=forName?forName+" logo":pt.alt;im.onerror=()=>{document.getElementById("helloPair").hidden=true};document.getElementById("helloPair").hidden=false}
@@ -314,7 +314,7 @@ if(forName){
   document.getElementById("helloSub").textContent="Thanks for taking a look. Here's the one-minute version of how it works.";
   hello.hidden=false;document.title="Welcome, "+forName+" · Posted Up Produce";
 }else if(fromName){
-  /* Nov 7, Malik: the welcome gate already greets ref links by name; no second box on the page. */
+  /* Nov 7: the welcome gate already greets ref links by name; no second box on the page. */
   document.title="Posted Up Produce · "+fromName+" sent you";
 }
 /* Share button: builds a friend link that says who sent it, instead of forwarding their own personal link. */
@@ -373,7 +373,7 @@ if(forName){(function(){
 })();
 </script>
 <script>
-/* Welcome gate (Nov 7, Malik): friend links only (?s=ref-*), every visit; skipped for ?me devices. "<Name> sent you here." when the link carries &from=. */
+/* Welcome gate (Nov 7): friend links only (?s=ref-*), every visit; skipped for ?me devices. "<Name> sent you here." when the link carries &from=. */
 (function(){const g=document.getElementById("gate");if(!g)return;const q=new URLSearchParams(location.search);const tag=(q.get("s")||"").toLowerCase();let me=false;try{me=!!localStorage.getItem("pu-me")||q.has("me")}catch(e){}
   if(!/^ref-/.test(tag)||me){g.remove();return}
   const fr=(q.get("from")||"").replace(/[^a-z' -]/gi,"").trim().slice(0,24);
@@ -394,7 +394,7 @@ if(forName){(function(){
 })();
 </script>
 <script>
-/* Share (Nov 7, Malik): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
+/* Share (Nov 7): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
 (function(){const b=document.querySelector("[data-share]");if(!b)return;
   const url=location.origin+"/how/?s=ref-shared";
   const msg="Thought you'd like this: a personal shopper for the Chicago farmers market. Order by Friday night, pick up Saturday or get it delivered. "+url;
@@ -405,7 +405,7 @@ if(forName){(function(){
 })();
 </script>
 <script>
-/* Visit ping (Nov 8, Malik): /how/ is the stranger door, so it logs a Visit to the Visits tab like home does.
+/* Visit ping (Nov 8): /how/ is the stranger door, so it logs a Visit to the Visits tab like home does.
    Same rules as index.html: ?me / pu-me devices never count; one Visit per browser session (pu-v), so tapping
    through to home doesn't count twice. pu-src keeps the tag for the order note. */
 (function(){

@@ -95,7 +95,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 .chips li{font-size:14px;font-weight:600;background:var(--bg);border:1.5px solid var(--line);border-radius:999px;padding:5px 11px}
 .prev{display:inline-block;font:700 11px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;background:var(--star);color:#1f2a22;border-radius:999px;padding:5px 9px;justify-self:start}
 .note{margin:0;font-size:14px;color:var(--muted);font-style:italic}
-/* Winter palette (Oct 31, Sol): icy blue-gray, deep winter navy, evergreen. Overrides the shared fall tokens on this page only. */
+/* Winter palette (Oct 31): icy blue-gray, deep winter navy, evergreen. Overrides the shared fall tokens on this page only. */
 :root{--bg:#e9eff4;--panel:#f6f9fb;--ink:#1b2833;--muted:#4f5f6e;--board:#1f3a52;--board-ink:#eef4f8;--tomato:#2a5d86;--line:#c6d4df;--good:#2f6a55;--star:#a7dbf3;color-scheme:light}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#111a22;--panel:#18232d;--ink:#e6eef4;--muted:#a1b2c1;--board:#1c3550;--board-ink:#eef4f8;--tomato:#8cc3e8;--line:#2b3b4a;--good:#7cc3a5;--star:#a7dbf3;color-scheme:dark}
   :root:not([data-theme="light"]) :is(.cta,.beta){color:#0d1a24}}
@@ -103,7 +103,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 .mo b{color:var(--tomato)}
 .mo i{background:var(--panel)}
 </style>
-<style>/* Share on every page (Nov 7, Malik). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
+<style>/* Share on every page (Nov 7). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
 </head>
 <body>
 <div class="wrap">
@@ -179,7 +179,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 <canvas id="snow" aria-hidden="true"></canvas>
 <style>#snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}</style>
 <script>
-/* Falling snow + a few winter market things drifting down (Oct 31, Sol). Off with reduced motion; pauses when the tab is hidden. */
+/* Falling snow + a few winter market things drifting down (Oct 31). Off with reduced motion; pauses when the tab is hidden. */
 (function(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   const c=document.getElementById("snow"),x=c.getContext("2d");let W,H,dpr;
@@ -243,7 +243,7 @@ if(forName){
 }
 </script>
 <script>
-/* Share (Nov 7, Malik): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
+/* Share (Nov 7): every page. Forwards land on /how/ with the welcome gate ("A friend sent you here."), tagged ref-shared so Visits shows forwards. */
 (function(){const b=document.querySelector("[data-share]");if(!b)return;
   const url=location.origin+"/how/?s=ref-shared";
   const msg="Thought you'd like this: a personal shopper for the Chicago farmers market. Order by Friday night, pick up Saturday or get it delivered. "+url;
