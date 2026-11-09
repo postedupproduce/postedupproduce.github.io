@@ -72,6 +72,8 @@ textarea{font:16px/1.4 var(--body);border:2px solid var(--line);border-radius:12
 .th b{font-size:18px}
 .th s{color:var(--muted);font-weight:500;font-size:14px;margin-right:6px}
 .th em{font-style:normal;font-weight:800;font-size:18px}
+.tier .sv{margin:6px 0 0;font-size:16px;font-weight:700;color:var(--ink)}
+.ex .sv{display:block;font-size:15px;font-weight:600;color:var(--muted)}
 .tier p{margin:4px 0 0;font-size:16px;color:var(--muted)}
 .tier ul{margin:6px 0 0;padding-left:18px;font-size:16px}
 .tier .tag{display:inline-block;margin-top:6px;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--tomato)}
@@ -154,15 +156,18 @@ main{padding-bottom:110px}
       <label class="tier"><input type="radio" name="t" value="Easy Two · Breakfast &amp; snacks" data-p="47" data-was="54">
         <div class="th"><span class="tin"><img class="thumb" src="/img/apples.jpg" alt="Apples" width="64" height="64" loading="lazy"><b>Breakfast &amp; snacks</b></span><span><s>$54</s><em>$47</em></span></div>
         <p>No cooking at all. Toast, fruit, cheese.</p>
+        <p class="sv"><span aria-hidden="true">🍽 </span>About 7 breakfasts plus 6 fruit snacks, a few days for two · ≈ $3.60 a serving</p>
         <ul><li>Apples &amp; pears, about 6</li><li>Sourdough loaf (freezes well)</li><li>Local tofu like last time, or fresh goat cheese</li><li>A jar of jam or apple butter</li></ul></label>
       <label class="tier"><input type="radio" name="t" value="Easy Two · Plus easy lunches" data-p="59" data-was="69" checked>
         <div class="th"><span class="tin"><img class="thumb" src="/img/squash.jpg" alt="Delicata and other winter squash" width="64" height="64" loading="lazy"><b>Plus easy lunches</b></span><span><s>$69</s><em>$59</em></span></div>
         <p>Everything above, plus salads and one thing in the oven.</p>
+        <p class="sv"><span aria-hidden="true">🍽 </span>About 7 breakfasts, 6 snacks and 3–4 easy lunches for two · ≈ $3.50 a serving</p>
         <ul><li>Washed salad greens or microgreens</li><li>One delicata squash: slice, oil, salt, 25 min at 425</li></ul>
         <span class="tag">Closest to your Oct 24 box</span></label>
       <label class="tier"><input type="radio" name="t" value="Easy Two · The good stuff" data-p="92" data-was="108">
         <div class="th"><span class="tin"><img class="thumb" src="/img/pears.jpg" alt="Pears" width="64" height="64" loading="lazy"><b>The good stuff</b></span><span><s>$108</s><em>$92</em></span></div>
         <p>Everything above, plus a few treats for the week.</p>
+        <p class="sv"><span aria-hidden="true">🍽 </span>All of that, plus about 8 cheese snacks, 8 cups of cider and a pastry · ≈ $2.70 a serving</p>
         <ul><li>A wedge of cave-aged cheddar</li><li>A jug of fresh-pressed cider</li><li>A fresh pastry</li></ul></label>
     </div>
   </section>
@@ -183,15 +188,15 @@ main{padding-bottom:110px}
     <h2 id="exH">Ready-to-eat extras</h2>
     <p class="why">Same farms and makers. All optional.</p>
     <form id="f">
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Cave-aged cheddar" data-p="22" data-in="3"><span><b>Cave-aged cheddar</b></span></span><i>$22</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh goat cheese (extra)" data-p="14"><span><b>Another fresh cheese</b></span></span><i>$14</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Pastry" data-p="8" data-in="3"><span><b>A pastry</b></span></span><i>$8</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh-pressed cider" data-p="9" data-in="3"><span><b>Fresh-pressed cider</b></span></span><i>$9</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Jams &amp; pickles" data-p="13"><span><b>Jams &amp; pickles</b></span></span><i>$13</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Grass-fed butter" data-p="13"><span><b>Grass-fed butter</b></span></span><i>$13</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Local blueberries, dried or frozen" data-p="10"><span><b>Local blueberries</b></span></span><i>$10</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Maple syrup" data-p="19"><span><b>Maple syrup</b></span></span><i>$19</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Farm eggs" data-p="10"><span><b>Farm eggs</b></span></span><i>$10</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Cave-aged cheddar" data-p="22" data-in="3"><span><b>Cave-aged cheddar</b><small class="sv"><span aria-hidden="true">🍽 </span>About 8 snack servings · ≈ $2.75 each</small></span></span><i>$22</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh goat cheese (extra)" data-p="14"><span><b>Another fresh cheese</b><small class="sv"><span aria-hidden="true">🍽 </span>About 4–8 servings · ≈ $2–3.50 each</small></span></span><i>$14</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Pastry" data-p="8" data-in="3"><span><b>A pastry</b><small class="sv"><span aria-hidden="true">🍽 </span>1 serving</small></span></span><i>$8</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Fresh-pressed cider" data-p="9" data-in="3"><span><b>Fresh-pressed cider</b><small class="sv"><span aria-hidden="true">🍽 </span>About 8 cups · ≈ $1.15 a cup</small></span></span><i>$9</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Jams &amp; pickles" data-p="13"><span><b>Jams &amp; pickles</b><small class="sv"><span aria-hidden="true">🍽 </span>About 15–20 spoonfuls · ≈ 75¢ each</small></span></span><i>$13</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Grass-fed butter" data-p="13"><span><b>Grass-fed butter</b><small class="sv"><span aria-hidden="true">🍽 </span>About 32 tablespoons · ≈ 40¢ each</small></span></span><i>$13</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Local blueberries, dried or frozen" data-p="10"><span><b>Local blueberries</b><small class="sv"><span aria-hidden="true">🍽 </span>About 4–6 servings · ≈ $2 each</small></span></span><i>$10</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Maple syrup" data-p="19"><span><b>Maple syrup</b><small class="sv"><span aria-hidden="true">🍽 </span>About 16 servings of 2 tablespoons · ≈ $1.20 each</small></span></span><i>$19</i></label>
+      <label class="ex"><span class="l"><input type="checkbox" name="x" value="Farm eggs" data-p="10"><span><b>Farm eggs</b><small class="sv"><span aria-hidden="true">🍽 </span>12 eggs: about 6 plates of 2 · ≈ $1.65 a plate</small></span></span><i>$10</i></label>
     </form>
     <p class="total"><span>Your box: <span id="tot">$59</span></span><small>draft prices</small></p>
     <p class="credit">New: 60 or over? The Seasoned Rate takes 10% off the whole order, delivery included. Just tick the box at checkout.</p>

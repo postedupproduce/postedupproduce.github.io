@@ -62,6 +62,7 @@ h2{font-size:34px}
 .row:last-child{border-bottom:0}
 .row .n{font-weight:700;font-size:16px}
 .row .d{font-size:13px;color:var(--soft)}
+.row .sv{font-size:14px;font-weight:700;margin-top:2px;line-height:1.35}
 .qty{display:flex;align-items:center;gap:6px}
 .qty button{width:44px;height:44px;border-radius:12px;border:2px solid var(--rule);background:var(--bg);color:var(--ink);font:700 22px/1 var(--sans);cursor:pointer}
 .qty output{min-width:28px;text-align:center;font-weight:700}
@@ -121,7 +122,7 @@ h2{font-size:34px}
     <div class="bag" id="bag" aria-live="polite"></div>
     <p class="fine">Orders close Friday 9 PM for Saturday. Pickup or delivery, your call at checkout. Whatever's not at market that morning becomes a credit or a swap you OK.</p>
     <div class="boxalt">
-      <p><b>Rather I just pick?</b> The Better Bites box is $35: crisp apples, snacking roots, fresh-pressed cider, and a jar of pickles or a bag of dried berries. About a week of snacks for one.</p>
+      <p><b>Rather I just pick?</b> The Better Bites box is $35: crisp apples, snacking roots, fresh-pressed cider, and a jar of pickles or a bag of dried berries. About 12–14 snacks: a week for one, or a few days for two (≈ $2.60 a snack).</p>
       <a id="boxlink" href="/?s=bites&amp;box=bites#shop">Get the $35 box instead →</a>
     </div>
     <p class="alt">Want something else? <a id="all" href="/?s=bites&amp;mode=pick#shop">See everything at market this week</a>.</p>
@@ -148,13 +149,13 @@ document.getElementById("home").href="/?s="+TAG;
 document.getElementById("all").href="/?s="+TAG+"&mode=pick#shop";
 document.getElementById("boxlink").href="/?s="+TAG+"&box=bites#shop";
 
-/* [name, detail, price, vegan?] */
-const ITEMS={roots:["Root vegetables, 2 lb","Carrots, radishes, turnips: the snappy ones",8,1],preserves:["Jams & pickles","A jar: dilly beans or pickles (or jam)",13,1],
- apples:["Apples, 2 lb","About 6, crisp and sweet",13,1],dryfruit:["Local blueberries, dried or frozen","Snack bag dried, or a frozen pint",10,1],
- cider:["Fresh-pressed apple cider","Jug · great over ice or with sparkling water",9,1],gcheesekit:["Grilled Cheese Kit","About 6 sandwiches · sourdough, cheddar, butter",38,0],
- potatoes:["Potatoes & sweet potatoes, 2 lb","Oven fries in 30 minutes",10,1],hsmild:["Hot sauce: mild & green","Bottle · for the fries",10,1],
- cheddar:["Cave-aged cheddar","A wedge, slice it with apples",22,0],pears:["Pears & Asian pears, 2 lb","About 5, while they last",12,1],
- pastry:["Pastry","Each · croissant, scone, muffin",8,1],oats2:["Rolled oats, 2 lb","Stone-ground · about 20 bowls",10,1]};
+/* [name, detail, price, vegan?, servings] (servings match index.html item sv, Nov 9) */
+const ITEMS={roots:["Root vegetables, 2 lb","Carrots, radishes, turnips: the snappy ones",8,1,"About 4–6 sides · ≈ $1.60 a side"],preserves:["Jams & pickles","A jar: dilly beans or pickles (or jam)",13,1,"About 15–20 spoonfuls a jar · ≈ 75¢ a serving"],
+ apples:["Apples, 2 lb","About 6, crisp and sweet",13,1,"About 6 snacks · ≈ $2.20 an apple"],dryfruit:["Local blueberries, dried or frozen","Snack bag dried, or a frozen pint",10,1,"About 4–6 servings · ≈ $2 a serving"],
+ cider:["Fresh-pressed apple cider","Jug · great over ice or with sparkling water",9,1,"About 8 cups from a half-gallon jug · ≈ $1.15 a cup"],gcheesekit:["Grilled Cheese Kit","About 6 sandwiches · sourdough, cheddar, butter",38,0,"About 6 sandwiches: 3 lunches for two · ≈ $6.35 a sandwich"],
+ potatoes:["Potatoes & sweet potatoes, 2 lb","Oven fries in 30 minutes",10,1,"About 4–6 sides of oven fries · ≈ $2 a side"],hsmild:["Hot sauce: mild & green","Bottle · for the fries",10,1,"Seasons 20+ plates · under 50¢ a plate"],
+ cheddar:["Cave-aged cheddar","A wedge, slice it with apples",22,0,"About 8 snack servings of 1 oz · ≈ $2.75 a serving"],pears:["Pears & Asian pears, 2 lb","About 5, while they last",12,1,"About 5 snacks · ≈ $2.40 a pear"],
+ pastry:["Pastry","Each · croissant, scone, muffin",8,1,"1 serving · $8 each"],oats2:["Rolled oats, 2 lb","Stone-ground · about 20 bowls",10,1,"About 20 bowls · 50¢ a bowl"]};
 /* Cravings: items feed about one person for a week; scale items double for the house. vg = plant-based version. */
 const CRAVE=[
  {id:"chips",e:"🥨",n:"Chips & crunchy",inst:"snappy roots and a jar of pickles",items:{roots:1,preserves:1},scale:["roots"]},
@@ -185,8 +186,8 @@ function render(){
       el("span",{class:"mt"},el("b",{},el("span",{class:"em","aria-hidden":"true",text:c.e}),c.n),el("span",{class:"tick","aria-hidden":"true",text:on?"✓":"+"})),
       el("p",{class:"inst"},"Swap it for: ",el("span",{text:plant()&&c.vinst?c.vinst:c.inst})))}));
   const ids=Object.keys(st.qty).filter(k=>st.qty[k]>0);
-  document.getElementById("bag").replaceChildren(...(ids.length?ids.map(k=>{const[n,d,p]=ITEMS[k];return el("div",{class:"row"},
-      el("div",{},el("div",{class:"n",text:n}),el("div",{class:"d",text:d+" · $"+p})),
+  document.getElementById("bag").replaceChildren(...(ids.length?ids.map(k=>{const[n,d,p,,sv]=ITEMS[k];return el("div",{class:"row"},
+      el("div",{},el("div",{class:"n",text:n}),el("div",{class:"d",text:d+" · $"+p}),...(sv?[el("div",{class:"sv"},el("span",{"aria-hidden":"true",text:"🍽 "}),sv)]:[])),
       el("div",{class:"qty"},el("button",{type:"button","aria-label":"One less "+n,onclick:()=>{st.qty[k]--;render()}},"−"),
         el("output",{"aria-label":n+" quantity",text:String(st.qty[k])}),
         el("button",{type:"button","aria-label":"One more "+n,onclick:()=>{st.qty[k]++;render()}},"+")))})

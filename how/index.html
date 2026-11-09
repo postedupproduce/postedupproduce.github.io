@@ -56,6 +56,8 @@ a{color:inherit}
 .boxes b{font-size:16px}
 .boxes .p{font:400 20px/1 var(--display);color:var(--tomato)}
 .boxes span:not(.p){grid-column:1/-1;font-size:14px;color:var(--muted)}
+.boxes span.sv{color:var(--ink);font-weight:700}
+.boxes span.sv span{grid-column:auto;color:inherit}
 .tag{font:700 11px/1 var(--body);background:var(--good);color:#fff;border-radius:999px;padding:3px 6px;margin-left:6px;vertical-align:2px}
 .chain{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .chain li{border-left:4px solid var(--line);padding:4px 0 4px 12px;font-size:15px}
@@ -216,7 +218,7 @@ html.gated{overflow:hidden}
   </div>
   <div class="tick" aria-hidden="true"><span>Order by Fri 9 PM &nbsp;·&nbsp; Market day Saturday &nbsp;·&nbsp; Pick up free, or delivery from $8 &nbsp;·&nbsp; No subscription &nbsp;·&nbsp; Order by Fri 9 PM &nbsp;·&nbsp; Market day Saturday &nbsp;·&nbsp; Pick up free, or delivery from $8 &nbsp;·&nbsp; No subscription &nbsp;·&nbsp;</span></div>
   <style>.price1{display:grid;gap:10px;margin:16px 0 0}.pbtn{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center;background:var(--forest,#1f3a2b);color:#fff;text-decoration:none;border-radius:16px;padding:14px 18px;min-height:56px}.pbtn b{font-size:20px}.pbtn small{grid-column:1;font-size:16px;opacity:.92}.pbtn .arr{grid-row:1/3;grid-column:2;font-weight:700;font-size:16px}.askbtn{display:flex;align-items:center;justify-content:center;min-height:48px;border:2px solid currentColor;border-radius:14px;font-weight:700;font-size:16px;text-decoration:none;color:inherit}</style>
-  <div class="price1"><a class="pbtn" href="../#shop" data-keep><b>Half Peck $50</b><small>$45 at a meet-up · order by Fri 9 PM · Sat <span id="p1Sat">Nov 14</span></small><span class="arr" aria-hidden="true">See boxes →</span></a><a class="askbtn" href="../#talk" data-keep>Questions? Send us a message</a></div><script>(function(){try{var t=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30);if(t){document.querySelector(".pbtn").href="../?s="+t+"#shop";document.querySelector(".askbtn").href="../?s="+t+"#talk"}}catch(e){}})();(function(){try{var D=["2026-11-14","2026-11-21","2026-12-05","2026-12-12","2026-12-19","2027-01-09","2027-01-16","2027-01-23","2027-01-30","2027-02-06","2027-02-13","2027-02-20","2027-02-27","2027-03-06","2027-03-13","2027-03-20"];var n=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}));for(var i=0;i<D.length;i++){var s=new Date(D[i]+"T12:00:00"),c=new Date(s);c.setDate(s.getDate()-1);c.setHours(21,0,0,0);if(n<c){document.getElementById("p1Sat").textContent=s.toLocaleDateString("en-US",{month:"short",day:"numeric"});return}}document.querySelector(".price1 small").textContent="$45 at a meet-up · order by Fri 9 PM"}catch(e){}})();</script>
+  <div class="price1"><a class="pbtn" href="../#shop" data-keep><b>Half Peck $50</b><small>About 4–5 meals for two · $45 at a meet-up · order by Fri 9 PM · Sat <span id="p1Sat">Nov 14</span></small><span class="arr" aria-hidden="true">See boxes →</span></a><a class="askbtn" href="../#talk" data-keep>Questions? Send us a message</a></div><script>(function(){try{var t=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30);if(t){document.querySelector(".pbtn").href="../?s="+t+"#shop";document.querySelector(".askbtn").href="../?s="+t+"#talk"}}catch(e){}})();(function(){try{var D=["2026-11-14","2026-11-21","2026-12-05","2026-12-12","2026-12-19","2027-01-09","2027-01-16","2027-01-23","2027-01-30","2027-02-06","2027-02-13","2027-02-20","2027-02-27","2027-03-06","2027-03-13","2027-03-20"];var n=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}));for(var i=0;i<D.length;i++){var s=new Date(D[i]+"T12:00:00"),c=new Date(s);c.setDate(s.getDate()-1);c.setHours(21,0,0,0);if(n<c){document.getElementById("p1Sat").textContent=s.toLocaleDateString("en-US",{month:"short",day:"numeric"});return}}document.querySelector(".price1 small").textContent="$45 at a meet-up · order by Fri 9 PM"}catch(e){}})();</script>
   <p class="seasonbar" id="seasonBar" hidden><b>No pickup Sat Nov 28.</b> Outdoor Saturdays run through Nov 21; indoor winter Saturdays start Dec 5. You can order ahead for any of them.</p>
   <section class="sign">
     <div class="stamp">WITHIN<br>150 MI<br>OF THE LOOP</div>
@@ -249,11 +251,11 @@ html.gated{overflow:hidden}
   <section class="card" aria-labelledby="boxH">
     <h2 id="boxH">What you get</h2>
     <ul class="boxes">
-      <li><b>Half Peck <i class="tag">Most popular</i></b><span class="p">$50</span><span>~9–10 lb. A week of sides and a couple of mains for two.</span></li>
-      <li><b>Full Crate</b><span class="p">$72</span><span>~14–15 lb. A full week of cooking for a household.</span></li>
-      <li><b>The Vegan Box</b><span class="p">$68</span><span>~9 lb. Fully vegan and all local.</span></li>
-      <li><b>Meat Lovers Box</b><span class="p">$89</span><span>Steak night (10–12 oz), an everyday cut, 1 lb ground and 1 lb sausage. Save $10 vs. buying each.</span></li>
-      <li><b>Lake Haul</b><span class="p">$70</span><span>2 wild Great Lakes fish fillets plus smoked fish or pâté. Save $8 vs. buying each.</span></li>
+      <li><b>Half Peck <i class="tag">Most popular</i></b><span class="p">$50</span><span>~9–10 lb. A week of sides and a couple of mains for two.</span><span class="sv"><span aria-hidden="true">🍽 </span>About 4–5 meals' worth of veg for two · ≈ $5.50 a plate</span></li>
+      <li><b>Full Crate</b><span class="p">$72</span><span>~14–15 lb. A full week of cooking for a household.</span><span class="sv"><span aria-hidden="true">🍽 </span>About 7 meals' worth of veg for two · ≈ $5 a plate</span></li>
+      <li><b>The Vegan Box</b><span class="p">$68</span><span>~9 lb. Fully vegan and all local.</span><span class="sv"><span aria-hidden="true">🍽 </span>About 5 plant-based meals for two · ≈ $7 a plate</span></li>
+      <li><b>Meat Lovers Box</b><span class="p">$89</span><span>Steak night (10–12 oz), an everyday cut, 1 lb ground and 1 lb sausage. Save $10 vs. buying each.</span><span class="sv"><span aria-hidden="true">🍽 </span>About 14 portions: 7 meals for two · ≈ $6.40 a plate</span></li>
+      <li><b>Lake Haul</b><span class="p">$70</span><span>2 wild Great Lakes fish fillets plus smoked fish or pâté. Save $8 vs. buying each.</span><span class="sv"><span aria-hidden="true">🍽 </span>About 4 portions: 2 meals for two · ≈ $17.50 a plate</span></li>
     </ul>
     <p class="sub">Add bread, pastries, eggs, cheese and pantry goods, or pair a meat or fish box with any produce box. Boxes are built from whatever is peaking that week, and you can tell us what you love or never want.</p>
     <p class="sub"><b>Beta founder rate:</b> boxes picked up at a meet-up during the pilot are 10% off.</p>
@@ -264,9 +266,9 @@ html.gated{overflow:hidden}
     <h2 id="featH">🏀 Game Day Kit</h2>
     <p class="sub">Snack duty, done. Apples, carrots, cheese, bread and fresh-pressed cider, picked Saturday morning. The stuff kids actually eat. Rinse, slice, hand it to the bench.</p>
     <ul class="boxes feat-tiers">
-      <li><b>Feeds 6</b><span class="p">$39</span><span>6 apples, 2 lb carrots, goat cheese, a jug of cider · save $5</span></li>
-      <li><b>Feeds 12</b><span class="p">$75</span><span>A dozen apples, 2 lb carrots, cheddar, a sourdough loaf, a jug of cider · save $13</span></li>
-      <li><b>Feeds 24</b><span class="p">$139</span><span>Two dozen apples, 4 lb carrots, two cheeses, two loaves with pastries, two jugs of cider · save $25</span></li>
+      <li><b>Feeds 6</b><span class="p">$39</span><span>6 apples, 2 lb carrots, goat cheese, a jug of cider · save $5</span><span class="sv"><span aria-hidden="true">🍽 </span>Feeds about 6 · ≈ $6.50 a guest</span></li>
+      <li><b>Feeds 12</b><span class="p">$75</span><span>A dozen apples, 2 lb carrots, cheddar, a sourdough loaf, a jug of cider · save $13</span><span class="sv"><span aria-hidden="true">🍽 </span>Feeds about 12 · ≈ $6.25 a guest</span></li>
+      <li><b>Feeds 24</b><span class="p">$139</span><span>Two dozen apples, 4 lb carrots, two cheeses, two loaves with pastries, two jugs of cider · save $25</span><span class="sv"><span aria-hidden="true">🍽 </span>Feeds about 24 · ≈ $5.80 a guest</span></li>
     </ul>
     <div class="row2"><a class="go" id="featGo" href="../#inventory" style="flex:1 1 200px;text-align:center;text-decoration:none">Pick a size &rarr;</a></div>
     <p class="sub" style="font-size:13px">Whole season, tournament or banquet? <a href="/services/">Sourcing services &rarr;</a></p>

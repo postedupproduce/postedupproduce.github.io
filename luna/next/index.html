@@ -180,6 +180,7 @@ html{scroll-padding-top:120px}
 .sun{position:absolute;left:50%;bottom:-90px;width:140px;height:140px;margin-left:-70px;border-radius:50%;background:radial-gradient(circle,#FFE2A0,#E3B160);animation:rise 2.2s cubic-bezier(.2,.7,.2,1) both}
 @keyframes rise{to{bottom:-24px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+.menu .sv{display:block;font-size:15px;font-weight:700;margin-top:4px}
 </style>
 </head>
 <body>
@@ -205,7 +206,7 @@ html{scroll-padding-top:120px}
     <ul class="pcards">
       <li class="pcard" data-box="strength">
         <div class="pc-hd"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20l6.5-11 3.5 5.5 2.5-3.5L21 20z"/><path d="M8 11.5l1.5 1 1.5-1"/></svg><h3>Strength Box</h3><span class="price">$41</span></div>
-        <p class="meals">About 4 meals, less than a takeout bowl each</p>
+        <p class="meals"><span aria-hidden="true">🍽 </span>About 4 meals for one · ≈ $10 a plate, less than a takeout bowl</p>
         <p class="purpose">After Strength Flow, I want food that holds. Farm eggs and hearty greens rebuild you, and the mushrooms make a fast, filling plate.</p>
         <p class="pairs">Pairs with the Strength Flow class, taught Mondays and Wednesdays</p>
         <ul class="list std"><li>A dozen farm eggs</li><li>Hearty greens</li><li>Local mushrooms, about ½ lb</li><li>Microgreens</li></ul>
@@ -215,7 +216,7 @@ html{scroll-padding-top:120px}
       </li>
       <li class="pcard" data-box="grounding">
         <div class="pc-hd"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/><path d="M8 21h8"/></svg><h3>Grounding Box</h3><span class="price">$41</span></div>
-        <p class="meals">About 4 meals, less than a takeout bowl each</p>
+        <p class="meals"><span aria-hidden="true">🍽 </span>About 4 meals for one · ≈ $10 a plate, less than a takeout bowl</p>
         <p class="purpose">Midweek, I want food that slows me down. Roots and squash roast while you breathe, and the apples are crisp right now.</p>
         <p class="pairs">Pairs with the Midweek Grounding class, taught Wednesdays</p>
         <ul class="list std"><li>2 lb sweet potatoes</li><li>2 lb beets or carrots</li><li>A winter squash</li><li>Onions and garlic</li><li>2 lb apples</li></ul>
@@ -225,7 +226,7 @@ html{scroll-padding-top:120px}
       </li>
       <li class="pcard" data-box="rest">
         <div class="pc-hd"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><h3>Rest Box</h3><span class="price">$41</span></div>
-        <p class="meals">About 4 easy evenings, less than takeout each</p>
+        <p class="meals"><span aria-hidden="true">🍽 </span>About 4 easy evenings for one · ≈ $10 each, less than takeout</p>
         <p class="purpose">Friday is for not trying so hard. A good loaf, fresh cider and ripe pears mean dinner is already handled.</p>
         <p class="pairs">Pairs with the Weekly Reset class, taught Fridays</p>
         <ul class="list std"><li>A sourdough loaf</li><li>Fresh-pressed cider</li><li>Pears, about 4</li><li>Local blueberries</li></ul>
@@ -235,7 +236,7 @@ html{scroll-padding-top:120px}
       </li>
       <li class="pcard full" data-box="practice">
         <div class="pc-hd"><span class="trio"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/><path d="M8 21h8"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20l6.5-11 3.5 5.5 2.5-3.5L21 20z"/><path d="M8 11.5l1.5 1 1.5-1"/></svg><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></span><h3>The full practice</h3><span class="price">$108</span></div>
-        <p class="meals">About 12 meals, less than a takeout bowl each</p>
+        <p class="meals"><span aria-hidden="true">🍽 </span>About 12 meals for one, or 6 for two · ≈ $9 a plate</p>
         <p class="purpose">If you're in the studio all week, take all three. The whole week is covered, and you save $15.</p>
         <label class="vt"><input type="checkbox" class="vg"><span class="sw-ui" aria-hidden="true"></span><span>Make it vegan</span></label>
         <a class="add" href="../../?box=practice">Add all three for $108</a>
@@ -261,9 +262,9 @@ html{scroll-padding-top:120px}
     <h2 id="weeksH">For the heavy weeks</h2>
     <p class="note">When cooking feels like one more thing.</p>
     <ul class="menu">
-      <li><a class="go" data-box="nocook" data-hash="nocook" href="../../#nocook"><span class="row"><b>I Don't Cook Box</b><span class="price">$75</span></span><span class="what">A week of easy plates for one: fresh bread, local cheese, salami or seasoned tofu, a ferment, apples and pears, and a jam, pesto or hot sauce.</span></a><label class="vt mini"><input type="checkbox" class="vg"><span class="sw-ui" aria-hidden="true"></span><span>Make it vegan</span></label><p class="what vegwhat" hidden>Vegan: a vegan loaf, local tofu or a bean spread instead of cheese and salami, a ferment, apples and pears, and a jam, pesto or hot sauce.</p></li>
-      <li><a class="go" data-box="fruit" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a week</b><span class="price">$36</span></span><span class="what">About 10 crisp apples, 4 pears and a pint of local blueberries. Cider swap on request.</span></a><p class="vt mini" style="cursor:default;color:var(--sage)">Already plant-based</p></li>
-      <li><a class="go" data-box="fruitsm" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a few days</b><span class="price">$20</span></span><span class="what">About 5 apples, 2 pears and local blueberries.</span></a><p class="vt mini" style="cursor:default;color:var(--sage)">Already plant-based</p></li>
+      <li><a class="go" data-box="nocook" data-hash="nocook" href="../../#nocook"><span class="row"><b>I Don't Cook Box</b><span class="price">$75</span></span><span class="what">A week of easy plates for one: fresh bread, local cheese, salami or seasoned tofu, a ferment, apples and pears, and a jam, pesto or hot sauce.</span><span class="sv"><span aria-hidden="true">🍽 </span>About 10 easy plates: a week for one, or a few days for two · ≈ $7.50 a plate</span></a><label class="vt mini"><input type="checkbox" class="vg"><span class="sw-ui" aria-hidden="true"></span><span>Make it vegan</span></label><p class="what vegwhat" hidden>Vegan: a vegan loaf, local tofu or a bean spread instead of cheese and salami, a ferment, apples and pears, and a jam, pesto or hot sauce.</p></li>
+      <li><a class="go" data-box="fruit" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a week</b><span class="price">$36</span></span><span class="what">About 10 crisp apples, 4 pears and a pint of local blueberries. Cider swap on request.</span><span class="sv"><span aria-hidden="true">🍽 </span>A piece or two a day for a week, or a few days for two · ≈ $2.25 a piece</span></a><p class="vt mini" style="cursor:default;color:var(--sage)">Already plant-based</p></li>
+      <li><a class="go" data-box="fruitsm" data-hash="fruit" href="../../#fruit"><span class="row"><b>Fruit Box, a few days</b><span class="price">$20</span></span><span class="what">About 5 apples, 2 pears and local blueberries.</span><span class="sv"><span aria-hidden="true">🍽 </span>Fruit for a few days for one · ≈ $2.50 a piece</span></a><p class="vt mini" style="cursor:default;color:var(--sage)">Already plant-based</p></li>
     </ul>
   </section>
 

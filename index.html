@@ -214,6 +214,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
 .item .nm{font-weight:700}
 .item .ds{font-size:14px;color:var(--muted)}
+.item .isv{font-size:14px;font-weight:700;color:var(--ink);margin-top:3px;line-height:1.35}
 .iprice{display:block;margin-top:4px;font-weight:700;color:var(--ink)}
 .qty{display:flex;align-items:center;gap:4px}
 .qty button{width:44px;height:44px;font-size:20px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font-weight:700;line-height:1}
@@ -707,9 +708,9 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <h2 id="gdH">Game Day Kit · from $39</h2>
     <p class="meta">Snack duty, done. Apples, carrots, cheese, bread and fresh-pressed cider, picked at the market Saturday morning. The stuff kids actually eat: apple slices, carrot sticks, bread and cheese, a cup of cider. Rinse, slice, done. Pick the size for your bench. Whole season, tournament or banquet? <a href="/services/" style="color:inherit;font-weight:700">Sourcing services &rarr;</a></p>
     <div class="tiers">
-      <div class="tier"><b>Feeds 6 · $39</b><span>6 apples, 2 lb carrots, fresh goat cheese, a jug of cider · save $5</span><button type="button" class="go" data-gd="gameday-s">Add</button></div>
-      <div class="tier on"><b>Feeds 12 · $75</b><span>A dozen apples, 2 lb carrots, cave-aged cheddar, a sourdough loaf, a jug of cider · save $13</span><button type="button" class="go" data-gd="gameday">Add</button></div>
-      <div class="tier"><b>Feeds 24 · $139</b><span>Two dozen apples, 4 lb carrots, cheddar and goat cheese, two loaves with pastries, two jugs of cider · save $25</span><button type="button" class="go" data-gd="gameday-xl">Add</button></div>
+      <div class="tier"><b>Feeds 6 · $39</b><span>6 apples, 2 lb carrots, fresh goat cheese, a jug of cider · save $5 · <b class="tsv">≈ $6.50 a guest</b></span><button type="button" class="go" data-gd="gameday-s">Add</button></div>
+      <div class="tier on"><b>Feeds 12 · $75</b><span>A dozen apples, 2 lb carrots, cave-aged cheddar, a sourdough loaf, a jug of cider · save $13 · <b class="tsv">≈ $6.25 a guest</b></span><button type="button" class="go" data-gd="gameday">Add</button></div>
+      <div class="tier"><b>Feeds 24 · $139</b><span>Two dozen apples, 4 lb carrots, cheddar and goat cheese, two loaves with pastries, two jugs of cider · save $25 · <b class="tsv">≈ $5.80 a guest</b></span><button type="button" class="go" data-gd="gameday-xl">Add</button></div>
     </div>
   </section>
   <section class="post spot tg" data-view="home" id="thanksgiving" aria-labelledby="tgH" hidden>
@@ -717,6 +718,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <h2 id="tgH">Thanksgiving Sides Box · $95</h2>
     <p class="meta" style="color:var(--ink)">$85 at a pickup with the beta founder rate</p>
     <p class="meta">About 20 lb for a table of 6–8: potatoes for mash, sweet potatoes, squash, a pie pumpkin, Brussels sprouts, greens, apples for pie, stuffing veg and fresh herbs. Shopped fresh the Saturday you pick: <span id="tgDates">11/7, 11/14 or 11/21</span>. The roots, squash and apples keep for weeks; for the crispest greens and sprouts, pick 11/21.</p>
+    <p class="bmakes"><span aria-hidden="true">🍽 </span>Sides for 6–8 with leftovers · ≈ $13 a guest</p>
     <div class="row2"><button type="button" class="go" data-tg style="flex:1 1 200px">Add the Thanksgiving box</button><a href="#thanks">See what's in it &rarr;</a></div>
   </section>
 
@@ -725,6 +727,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <h2 id="asH">Before the mat, after the mat · $40</h2>
     <p class="meta" style="color:var(--ink)">$36 at a pickup with the beta founder rate</p>
     <p class="meta">Light bites to fuel your practice and a nourishing plate to come back to. For one, about a week of sessions.</p>
+    <p class="bmakes"><span aria-hidden="true">🍽 </span>Snacks before about 4 sessions and 3–4 post-practice plates · ≈ $5 a serving</p>
     <p class="half">Before</p><ul id="asBefore"></ul>
     <p class="half">After</p><ul id="asAfter"></ul>
     <div class="row2"><button type="button" class="go" data-asana style="flex:1 1 200px">Add the Asana Box</button></div>
@@ -789,7 +792,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
     <div class="hwbar dwb" id="dwShop" hidden><span><b>🪔 Diwali Kit · $30</b>Carrots, spinach, potatoes, onions &amp; garlic + recipe card · Sat 11/7 only</span><button type="button" class="go" data-dw>Add it</button></div>
     <div class="hwbar gdb" id="gdShop" hidden><span><b>🏀 Game Day Kit · $39 / $75 / $139</b>Apples, carrots, cheese, bread, cider · feeds 6, 12 or 24 · all sizes in Add-ons</span><button type="button" class="go" data-gd="gameday">Add · 12</button></div>
-    <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8 · ready this Saturday or any Sat through 11/21</span><button type="button" class="go" data-tg>Add it</button></div>
+    <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8, ≈ $13 a guest · ready this Saturday or any Sat through 11/21</span><button type="button" class="go" data-tg>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
@@ -1041,11 +1044,11 @@ const BOXES=[
    has:["Crisp apples, about 10 (a mix of sweet and tart)","Pears or Asian pears, about 4 (or more apples if pears are done)","A pint of frozen local blueberries, or a bag of dried","Fresh-pressed cider swap available on request"]},
   /* Asana Box (Oct 29): yoga before-and-after box, first sold via /luna. Starting price; est. cost ~$28 (~30%). Confirm after a market run. */
   {id:"asana",name:"Asana Box",price:40,hideList:true,wt:"Before and after your practice, for one",desc:"Light bites before the mat, a nourishing plate after.",pick:"New · Yoga",
-   makes:"Snacks before about 4 sessions and 3 or 4 easy post-practice plates for one",
+   makes:"Snacks before about 4 sessions and 3–4 post-practice plates for one · ≈ $5 a serving",
    has:["Before: crisp apples or pears, about 4","Before: local blueberries, a snack bag dried or frozen","After: microgreens or salad greens","After: a dozen farm eggs (or local tofu for vegan)","After: 2 lb sweet potatoes for a warm roasted plate"]},
   /* Asana Pair special (Oct 29): Asana Box + Fruit Box · a few days, $55 (save $5). Shown through Sat Nov 21 via "until". Est. cost ~$43. */
   {id:"asanapair",name:"Asana Pair",price:55,only:"luna",until:"2026-11-22",wt:"Asana Box + Fruit Box · a few days · save $5",desc:"Special through Nov 21.",pick:"Special · through Nov 21",
-   makes:"Before-and-after bites for about a week of practice, plus fruit for a few days, for one",
+   makes:"Before-and-after bites for about a week of practice, plus fruit for a few days, for one · ≈ $4.50 a serving",
    has:["Everything in the Asana Box: apples or pears, local blueberries, microgreens, a dozen eggs (or tofu), 2 lb sweet potatoes","Plus a Fruit Box · a few days: about 5 apples, 2 pears and local blueberries"]},
   /* Practice boxes (Oct 29): Grounding / Strength / Rest at $41, all three $108 (saves $15). Shown only to Sosiego-page visitors (?s=luna...) or when picked via ?box=. Vegan toggle via ?vegan=1 swaps to "veg". Est. costs ~$28 / $27.50 / $25 / $80.50. */
   {id:"grounding",name:"Grounding Box",price:41,only:"luna",wt:"Rooted, warming food for one",desc:"Roots and squash to roast and settle into.",pick:"Sosiego · Grounding",
@@ -1071,7 +1074,7 @@ const BOXES=[
    veg:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a vegan pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"]},
   /* Sweater Weather Kit (renamed from Cold Snap Kit, Oct 30): low-price cold-weather starter, all local. No health claims. Est. cost ~$17 (garlic ~$6, cider ~$7, herbs ~$4) at $24, ~29%. Confirm after a market run. */
   {id:"coldsnap",name:"Sweater Weather Kit",price:24,wt:"Cold-weather kitchen staples · for one or two",desc:"Local garlic, fresh-pressed cider and a bunch of herbs for tea. Add local honey if you like.",pick:"New · Cold weather",
-   makes:"A few warm mugs and a garlicky pot of something for one or two",
+   makes:"About 8 mugs of cider or herb tea and a garlicky pot of soup (about 4 bowls) for one or two · ≈ $2 a serving",
    has:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"],
    veg:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"]},
   /* Breakfast Box + Grits & Greens Box (Oct 30): fall breakfast/savory boxes built on a local grain farm's stone-ground oats and heirloom grits. Grain costs are estimates from the farm's online "as low as $3-5" list; confirm stand prices and bag sizes Saturday. Est. costs ~$28 / ~$26 (~30% / ~32%). Recipe line rides in "What's in it". */
@@ -1087,80 +1090,80 @@ const BOXES=[
    recipe:"Recipe card in the bag: fish and grits with garlicky greens. Add a Great Lakes fillet (Meat, fish & eggs) or Lake Haul"},
   /* Thanksgiving Sides Box (Oct 31; Nov 2: open to any Saturday through Nov 21, latest = THANKS_DATE): sides for a table of 6-8. Starting price; est. cost ~$67 (~29%). Confirm prices on the Nov 7 run. */
   {id:"thanks",name:"Thanksgiving Sides Box",price:95,until:"2026-11-22",wt:"~20 lb · sides for a table of 6–8",desc:"Everything for the sides, shopped fresh the Saturday you pick. Roots, squash and apples keep for weeks; pick 11/21 for the crispest greens and sprouts.",pick:"Thanksgiving · any Sat through 11/21",
-   makes:"Sides for 6–8 with leftovers: mash, sweet potatoes, squash, sprouts, greens, stuffing veg and a pie",
+   makes:"Sides for 6–8 with leftovers: mash, sweet potatoes, squash, sprouts, greens, stuffing veg and a crisp · ≈ $13 a guest",
    has:["3 lb potatoes for mash","3 lb sweet potatoes","A butternut squash","A pie pumpkin (or more squash)","1½ lb Brussels sprouts","Collards or kale, 2 bunches","3 lb apples for pie or crisp","Onions, shallots and garlic","Celery or celery root for stuffing","A bunch of sage, thyme and rosemary","Local cranberries, when a stand has them"],
    recipe:"Recipe card in the bag: brown-butter sage squash, and a cider apple crisp"},
   /* Better Bites (Nov 3): snack-swap box for friends trying to eat less junk. Link-only: shown to ?s=bites... visitors or via ?box=bites from /bites/. No health claims. Est. cost ~$27 (apples ~$8, snacking roots ~$5, half-gallon cider ~$6, pickles or dried berries ~$8) at $35, ~23%: thin, confirm on a market run. */
   {id:"bites",name:"Better Bites",price:35,only:"bites",wt:"Grab-and-go snack swaps · about a week for one",desc:"Your crunchy, sweet and salty cravings, swapped for the market version. Nothing to cook.",pick:"New · Snack swaps",
-   makes:"About a week of snacks for one, or a few days for two",
+   makes:"About 12–14 snacks: a week for one, or a few days for two · ≈ $2.60 a snack",
    has:["2 lb crisp apples (about 6): the sweet crunch","Snacking roots: carrots, radishes or turnips, whatever's crispest","Fresh-pressed cider: the soda-run swap","A jar of pickles or dilly beans, or a snack bag of dried blueberries (say which in Notes)","Tell me your go-to junk in Notes and I'll lean the box that way"],
    veg:["2 lb crisp apples (about 6): the sweet crunch","Snacking roots: carrots, radishes or turnips, whatever's crispest","Fresh-pressed cider: the soda-run swap","A jar of pickles or dilly beans, or a snack bag of dried blueberries (say which in Notes)","Tell me your go-to junk in Notes and I'll lean the box that way"]},
   /* I Don't Cook Box (Oct 27): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
   {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
-   makes:"Snacks and easy plates for about a week for one, or a few days for two",
+   makes:"About 10 easy plates: a week for one, or a few days for two · ≈ $7.50 a plate",
    has:["A fresh loaf, bagels or challah","A local cheese","Salami or seasoned tofu (your pick in notes)","One ferment: kimchi, sauerkraut or pickles","Seasonal fruit: apples and pears","A jam, pesto or hot sauce to tie it together","Want hot food? Ask for a heat-and-eat swap (tamales or soup, microwave only)"],
    veg:["A vegan loaf or bagels","Local tofu or a bean spread instead of cheese","Seasoned tofu instead of salami","One ferment: kimchi, sauerkraut or pickles","Seasonal fruit: apples and pears","A jam, pesto (dairy-free) or hot sauce"]}
 ];
 const PREFS=["Apples","Winter squash","Sweet potatoes","Kale & greens","Beets","Cabbage","Brussels sprouts","Onions & garlic","Peppers","Potatoes","Microgreens","Herbs"];
 const BREADBOXES=[
-  {id:"bread1",name:"Bread Bag",price:23,wt:"1 loaf + 1 pastry",desc:"The best sourdough of the week, plus a treat.",pick:"",makes:"About 12–14 slices, plus a treat",has:["1 sourdough boule (about 12–14 slices)","1 croissant or scone"]},
-  {id:"bread2",name:"Bakery Bundle",price:42,wt:"2 loaves + 2 pastries",desc:"Enough for the week, with something for the freezer.",pick:"",makes:"About 24–28 slices, plus 2 treats",has:["2 sourdough loaves (about 12–14 slices each)","2 pastries"]}
+  {id:"bread1",name:"Bread Bag",price:23,wt:"1 loaf + 1 pastry",desc:"The best sourdough of the week, plus a treat.",pick:"",makes:"About 12–14 slices (6–7 servings of toast) plus a treat · ≈ $2.90 a serving",has:["1 sourdough boule (about 12–14 slices)","1 croissant or scone"]},
+  {id:"bread2",name:"Bakery Bundle",price:42,wt:"2 loaves + 2 pastries",desc:"Enough for the week, with something for the freezer.",pick:"",makes:"About 24–28 slices (12–14 servings of toast) plus 2 treats · ≈ $2.60 a serving",has:["2 sourdough loaves (about 12–14 slices each)","2 pastries"]}
 ];
 const ITEMS={
   /* Diwali Kit (Nov 2): add-on for Sat Nov 7 only (Diwali is Sun Nov 8). Hidden after the Fri Nov 6 9 PM cutoff via "until"; date-locked via DIWALI_DATE. Est. cost ~$20. */
   special:[
-    {id:"gameday-s",nm:"Game Day Kit · Feeds 6",ds:"Feeds about 6 · 6 apples, 2 lb carrots, fresh goat cheese and a jug of fresh-pressed cider · rinse, slice, done · save $5 vs. buying each · Saturdays through 11/21",p:39,until:"2026-11-20T21:00:00-06:00"},
-    {id:"gameday",nm:"Game Day Kit · Feeds 12",ds:"Feeds about 12 · a dozen apples, 2 lb carrots, a wedge of cave-aged cheddar, a sourdough loaf and a jug of fresh-pressed cider · rinse, slice, done · save $13 vs. buying each · Saturdays through 11/21",p:75,until:"2026-11-20T21:00:00-06:00"},
-    {id:"gameday-xl",nm:"Game Day Kit · Feeds 24",ds:"Feeds about 24 · two dozen apples, 4 lb carrots, cave-aged cheddar and fresh goat cheese, two sourdough loaves with pastries and two jugs of cider · save $25 vs. buying each · Saturdays through 11/21",p:139,until:"2026-11-20T21:00:00-06:00"},
-    {id:"diwali",nm:"Diwali Kit",ds:"For gajar halwa and aloo palak · 2 lb carrots, a bunch of spinach, 2 lb potatoes, onions & garlic, plus a recipe card · Sat 11/7 only · save $4 vs. buying separately",p:30,until:"2026-11-06T21:00:00-06:00"}
+    {id:"gameday-s",nm:"Game Day Kit · Feeds 6",ds:"6 apples, 2 lb carrots, fresh goat cheese and a jug of fresh-pressed cider · rinse, slice, done · save $5 vs. buying each · Saturdays through 11/21",p:39,sv:"Feeds about 6 · ≈ $6.50 a guest",until:"2026-11-20T21:00:00-06:00"},
+    {id:"gameday",nm:"Game Day Kit · Feeds 12",ds:"A dozen apples, 2 lb carrots, a wedge of cave-aged cheddar, a sourdough loaf and a jug of fresh-pressed cider · rinse, slice, done · save $13 vs. buying each · Saturdays through 11/21",p:75,sv:"Feeds about 12 · ≈ $6.25 a guest",until:"2026-11-20T21:00:00-06:00"},
+    {id:"gameday-xl",nm:"Game Day Kit · Feeds 24",ds:"Two dozen apples, 4 lb carrots, cave-aged cheddar and fresh goat cheese, two sourdough loaves with pastries and two jugs of cider · save $25 vs. buying each · Saturdays through 11/21",p:139,sv:"Feeds about 24 · ≈ $5.80 a guest",until:"2026-11-20T21:00:00-06:00"},
+    {id:"diwali",nm:"Diwali Kit",ds:"For gajar halwa and aloo palak · 2 lb carrots, a bunch of spinach, 2 lb potatoes, onions & garlic, plus a recipe card · Sat 11/7 only · save $4 vs. buying separately",p:30,sv:"About 6 servings: a pan of gajar halwa and a pot of aloo palak · ≈ $5 a serving",until:"2026-11-06T21:00:00-06:00"}
   ],
   produce:[
-    {id:"apples",nm:"Apples, 2 lb",ds:"About 6 apples · e.g. Honeycrisp, Gala, EverCrisp, Pink Lady",p:13},
-    {id:"apples4",nm:"Apples, 4 lb",ds:"About 12 apples · a mix of sweet and tart",p:20},
-    {id:"pears",nm:"Pears & Asian pears, 2 lb",ds:"About 5 pears · end of season, while they last",p:12},
-    {id:"dryfruit",nm:"Local blueberries, frozen or dried",ds:"Pint frozen or a snack bag dried · fresh season is over",p:10},
-    {id:"squash",nm:"Winter squash",ds:"One squash, 2–4 sides · e.g. delicata, acorn, butternut, kabocha",p:7},
-    {id:"potatoes",nm:"Potatoes & sweet potatoes, 2 lb",ds:"About 4–6 potatoes · e.g. Japanese sweet, fingerlings, Yukon Gold",p:10},
-    {id:"roots",nm:"Root vegetables, 2 lb",ds:"About 6–8 roots · e.g. beets, carrots, turnips, parsnips, radishes",p:8},
-    {id:"greens",nm:"Hearty greens",ds:"One bunch, 2–3 sides · e.g. kale, collards, chard",p:8},
-    {id:"salad",nm:"Salad greens & microgreens",ds:"3–4 salads · e.g. spinach, arugula, pea shoots, sunflower shoots",p:8},
-    {id:"brassica",nm:"Cabbage family",ds:"3–4 sides · e.g. Brussels sprouts, cabbage, broccoli, cauliflower",p:8},
-    {id:"alliums",nm:"Onions & garlic",ds:"e.g. sweet or red onions, leeks, shallots, garlic",p:8},
-    {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. fennel, celery root, radishes, last peppers while they last",p:8}
+    {id:"apples",nm:"Apples, 2 lb",ds:"e.g. Honeycrisp, Gala, EverCrisp, Pink Lady",p:13,sv:"About 6 snacks, or one crisp for 6 · ≈ $2.20 an apple"},
+    {id:"apples4",nm:"Apples, 4 lb",ds:"A mix of sweet and tart",p:20,sv:"About 12 snacks, or two crisps · ≈ $1.65 an apple"},
+    {id:"pears",nm:"Pears & Asian pears, 2 lb",ds:"End of season, while they last",p:12,sv:"About 5 snacks · ≈ $2.40 a pear"},
+    {id:"dryfruit",nm:"Local blueberries, frozen or dried",ds:"Pint frozen or a snack bag dried · fresh season is over",p:10,sv:"About 4–6 servings on oatmeal or yogurt · ≈ $2 a serving"},
+    {id:"squash",nm:"Winter squash",ds:"One squash · e.g. delicata, acorn, butternut, kabocha",p:7,sv:"2–4 sides · ≈ $2.30 a side"},
+    {id:"potatoes",nm:"Potatoes & sweet potatoes, 2 lb",ds:"About 4–6 potatoes · e.g. Japanese sweet, fingerlings, Yukon Gold",p:10,sv:"About 4–6 sides · ≈ $2 a side"},
+    {id:"roots",nm:"Root vegetables, 2 lb",ds:"About 6–8 roots · e.g. beets, carrots, turnips, parsnips, radishes",p:8,sv:"About 4–6 sides · ≈ $1.60 a side"},
+    {id:"greens",nm:"Hearty greens",ds:"One bunch · e.g. kale, collards, chard",p:8,sv:"2–3 sides · ≈ $3 a side"},
+    {id:"salad",nm:"Salad greens & microgreens",ds:"e.g. spinach, arugula, pea shoots, sunflower shoots",p:8,sv:"3–4 salads · ≈ $2.30 a salad"},
+    {id:"brassica",nm:"Cabbage family",ds:"e.g. Brussels sprouts, cabbage, broccoli, cauliflower",p:8,sv:"3–4 sides · ≈ $2.30 a side"},
+    {id:"alliums",nm:"Onions & garlic",ds:"e.g. sweet or red onions, leeks, shallots, garlic",p:8,sv:"Flavors about a week of cooking (8–10 dishes) · under $1 a dish"},
+    {id:"peppers",nm:"Peppers & late-season picks",ds:"e.g. fennel, celery root, radishes, last peppers while they last",p:8,sv:"About 3–4 sides · ≈ $2.30 a side"}
   ],
   meat:[
-    {id:"meatbox",nm:"Meat Lovers Box",ds:"About 14 portions (7 meals for two) · steak night, an everyday cut, 1 lb ground, 1 lb sausage · ≈ $6.40 a plate",p:89},
-    {id:"lakehaul",nm:"Lake Haul",ds:"About 4 portions (2 meals for two) · 2 wild fish fillets plus smoked fish · ≈ $17.50 a plate",p:70},
-    {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10},
-    {id:"ground",nm:"Ground meat, 1 lb",ds:"About 4 burgers or 4 portions · e.g. grass-fed beef or pastured pork",p:17},
-    {id:"sausage",nm:"Sausage, about 1 lb",ds:"About 4–5 links · e.g. andouille, bratwurst, breakfast links",p:20},
-    {id:"fish",nm:"Great Lakes fish fillet",ds:"One fillet, 8–16 oz · 2–4 portions · e.g. walleye, whitefish, lake trout",p:30},
+    {id:"meatbox",nm:"Meat Lovers Box",ds:"Steak night, an everyday cut, 1 lb ground, 1 lb sausage",p:89,sv:"About 14 portions: 7 meals for two · ≈ $6.40 a plate"},
+    {id:"lakehaul",nm:"Lake Haul",ds:"2 wild fish fillets plus smoked fish",p:70,sv:"About 4 portions: 2 meals for two · ≈ $17.50 a plate"},
+    {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10,sv:"12 eggs: about 6 breakfasts of 2 eggs · ≈ $1.65 a plate"},
+    {id:"ground",nm:"Ground meat, 1 lb",ds:"e.g. grass-fed beef or pastured pork",p:17,sv:"About 4 portions (4 burgers) · ≈ $4.25 a portion"},
+    {id:"sausage",nm:"Sausage, about 1 lb",ds:"About 4–5 links · e.g. andouille, bratwurst, breakfast links",p:20,sv:"About 4–5 portions, a link each · ≈ $4.50 a portion"},
+    {id:"fish",nm:"Great Lakes fish fillet",ds:"One fillet, 8–16 oz · e.g. walleye, whitefish, lake trout",p:30,sv:"2–4 portions · ≈ $10 a portion"},
   ],
   bread:[
-    {id:"sour",nm:"Sourdough loaf",ds:"About 12–14 slices · e.g. miche, black rye, polenta, classic",p:14},
-    {id:"pastry",nm:"Pastry",ds:"Each · e.g. croissant, scone, danish, muffin, monkey bun",p:8},
+    {id:"sour",nm:"Sourdough loaf",ds:"e.g. miche, black rye, polenta, classic",p:14,sv:"About 12–14 slices: 6–7 servings of 2 slices · ≈ $2 a serving"},
+    {id:"pastry",nm:"Pastry",ds:"e.g. croissant, scone, danish, muffin, monkey bun",p:8,sv:"1 serving · $8 each"},
   ],
   cheese:[
     /* Meal kits (Oct 28). Costs are estimates (tortilla and salsa stand prices aren't published); confirm on the next Saturday run. */
-    {id:"quesokit",nm:"Quesadilla Kit",ds:"About 8 quesadillas (4 meals for two) · heirloom corn tortillas from a SW Michigan tortilleria, a farmstead melting cheese, sweet potatoes, onions and last peppers to fill, and a jar of fresh salsa · ≈ $6.90 a quesadilla",p:55},
-    {id:"gcheesekit",nm:"Grilled Cheese Kit",ds:"About 6 sandwiches · a sourdough loaf, a wedge of cave-aged cheddar, and crisp apples or pears to slice inside · save about $4 vs. buying separately · add butter below for the pan",p:38},
-    {id:"chevre",nm:"Fresh goat cheese",ds:"e.g. herbed chèvre, or feta with herbs in oil",p:14},
-    {id:"cheddar",nm:"Cave-aged cheddar",ds:"Wedge · from an Illinois dairy farm",p:22},
+    {id:"quesokit",nm:"Quesadilla Kit",ds:"Heirloom corn tortillas from a SW Michigan tortilleria, a farmstead melting cheese, sweet potatoes, onions and last peppers to fill, and a jar of fresh salsa",p:55,sv:"About 8 quesadillas: 4 meals for two · ≈ $6.90 a quesadilla"},
+    {id:"gcheesekit",nm:"Grilled Cheese Kit",ds:"A sourdough loaf, a wedge of cave-aged cheddar, and crisp apples or pears to slice inside · save about $4 vs. buying separately · add butter below for the pan",p:38,sv:"About 6 sandwiches: 3 lunches for two · ≈ $6.35 a sandwich"},
+    {id:"chevre",nm:"Fresh goat cheese",ds:"e.g. herbed chèvre, or feta with herbs in oil",p:14,sv:"About 4–8 servings of 1 oz on toast, salads or eggs · ≈ $2–3.50 a serving"},
+    {id:"cheddar",nm:"Cave-aged cheddar",ds:"Wedge · from an Illinois dairy farm",p:22,sv:"About 8 snack servings of 1 oz · ≈ $2.75 a serving"},
   ],
   specialty:[
-    {id:"hsmild",nm:"Hot sauce: mild & green",ds:"Bottle · bright, tangy heat, e.g. jalapeño lime or tomatillo",p:10},
-    {id:"hsfruit",nm:"Hot sauce: fruity & hot",ds:"Bottle · sweet-hot, e.g. mango habanero or Jamaican jerk",p:10},
-    {id:"hsxhot",nm:"Hot sauce: extra hot",ds:"Bottle · for heat seekers, ghost pepper and friends",p:10},
+    {id:"hsmild",nm:"Hot sauce: mild & green",ds:"Bottle · bright, tangy heat, e.g. jalapeño lime or tomatillo",p:10,sv:"Seasons 20+ plates · under 50¢ a plate"},
+    {id:"hsfruit",nm:"Hot sauce: fruity & hot",ds:"Bottle · sweet-hot, e.g. mango habanero or Jamaican jerk",p:10,sv:"Seasons 20+ plates · under 50¢ a plate"},
+    {id:"hsxhot",nm:"Hot sauce: extra hot",ds:"Bottle · for heat seekers, ghost pepper and friends",p:10,sv:"Seasons 30+ plates (a little goes far) · about 30¢ a plate"},
   ],
   pantry:[
-    {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9},
-    {id:"maple",nm:"Maple syrup",ds:"Pint",p:19},
+    {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9,sv:"About 8 cups from a half-gallon jug · ≈ $1.15 a cup"},
+    {id:"maple",nm:"Maple syrup",ds:"Pint",p:19,sv:"About 16 servings of 2 tablespoons · ≈ $1.20 a serving"},
     /* Grains (Oct 30): local family grain farm, stone-ground. Est. costs ~$7 / ~$7 / ~$5-6; confirm Saturday. Shares a mill with wheat: not gluten-free. */
-    {id:"grits2",nm:"Heirloom grits, 2 lb",ds:"Stone-ground from a family grain farm · about 8 servings · try them with fish and greens",p:10},
-    {id:"oats2",nm:"Rolled oats, 2 lb",ds:"Stone-ground from a family grain farm · about 20 bowls · milled alongside wheat, not gluten-free",p:10},
-    {id:"mix",nm:"Pancake or cornbread mix",ds:"Bag · e.g. oat pancake, heirloom cornbread · just add egg and milk",p:8},
-    {id:"butter",nm:"Grass-fed butter",ds:"1 lb (4 sticks)",p:13},
-    {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. cherry lavender or peach jalapeño jam, apple butter, dilly beans, giardiniera",p:13},
+    {id:"grits2",nm:"Heirloom grits, 2 lb",ds:"Stone-ground from a family grain farm · try them with fish and greens",p:10,sv:"About 8 servings · ≈ $1.25 a serving"},
+    {id:"oats2",nm:"Rolled oats, 2 lb",ds:"Stone-ground from a family grain farm · milled alongside wheat, not gluten-free",p:10,sv:"About 20 bowls · 50¢ a bowl"},
+    {id:"mix",nm:"Pancake or cornbread mix",ds:"Bag · e.g. oat pancake, heirloom cornbread · just add egg and milk",p:8,sv:"One batch: about 4 pancake breakfasts for two, or 8 cornbread squares · ≈ $1 a serving"},
+    {id:"butter",nm:"Grass-fed butter",ds:"1 lb (4 sticks)",p:13,sv:"1 lb = about 32 tablespoons: weeks of toast and pans · ≈ 40¢ a tablespoon"},
+    {id:"preserves",nm:"Jams & pickles",ds:"Jar · e.g. cherry lavender or peach jalapeño jam, apple butter, dilly beans, giardiniera",p:13,sv:"About 15–20 spoonfuls a jar · ≈ 75¢ a serving"},
   ]
 };
 const ALL=Object.values(ITEMS).flat();
@@ -1444,7 +1447,7 @@ function renderItems(){
       if(!state.dietAll&&!q&&itemBlocked(it.id)){hid++;continue}
       const set=n=>{if(n>q&&window.puCart)puCart();state.qty[it.id]=Math.max(0,Math.min(9,n));if(!state.qty[it.id])delete state.qty[it.id];renderItems();renderTicket()};
       w.append(el("div",{class:"item"},
-        el("div",{style:"min-width:0"},el("div",{class:"nm"},it.nm,dietMini(it.id)),el("div",{class:"ds"},it.ds,el("b",{class:"iprice"},"$"+it.p))),
+        el("div",{style:"min-width:0"},el("div",{class:"nm"},it.nm,dietMini(it.id)),el("div",{class:"ds"},it.ds,el("b",{class:"iprice"},"$"+it.p)),...(it.sv?[el("div",{class:"isv"},el("span",{"aria-hidden":"true"},"🍽 "),it.sv)]:[])),
         el("div",{class:"qty"},
           el("button",{type:"button","aria-label":"Remove one "+it.nm,onclick:()=>set(q-1)},"−"),
           el("output",{},String(q)),
@@ -1455,11 +1458,11 @@ function renderItems(){
 }
 
 /* Haul line (Oct 27): meals for two per box plus cost per plate, on the ticket and in the sheet notes. */
-const MEALS={halfpeck:[4,5],crate:[7,7],forever:[5,5],meatbox:[7,7],lakehaul:[2,2]};
+const MEALS={halfpeck:[4,5],crate:[7,7],forever:[5,5],meatbox:[7,7],lakehaul:[2,2],breakfast:[5,6],grits:[4,4],grounding:[2,2],strength:[2,2],rest:[2,2],practice:[6,6],nocook:[5,5],quesokit:[4,4],gcheesekit:[3,3]};
 function haulInfo(){
   const parts=[];let lo=0,hi=0,cost=0;const b=BOXES.find(x=>x.id===state.box);
   if(b&&MEALS[b.id]){const d=MEALS[b.id];lo+=d[0];hi+=d[1];cost+=b.price;parts.push((hwInCart()?"Halloween Haul":b.name)+" "+(d[0]===d[1]?d[0]:d[0]+"–"+d[1]))}
-  for(const id of ["meatbox","lakehaul"]){const q=state.qty[id];if(!q)continue;const d=MEALS[id],it=ITEMS.meat.find(x=>x.id===id);lo+=d[0]*q;hi+=d[1]*q;cost+=it.p*q;parts.push(it.nm+" "+d[0]*q)}
+  for(const id of ["meatbox","lakehaul","quesokit","gcheesekit"]){const q=state.qty[id];if(!q)continue;const d=MEALS[id],it=ALL.find(x=>x.id===id);lo+=d[0]*q;hi+=d[1]*q;cost+=it.p*q;parts.push(it.nm+" "+d[0]*q)}
   if(!hi)return null;
   const plate=cost/((lo+hi)/2*2);
   return {meals:lo===hi?String(lo):lo+"–"+hi,plate:"$"+plate.toFixed(2),parts:parts.join(" · ")};

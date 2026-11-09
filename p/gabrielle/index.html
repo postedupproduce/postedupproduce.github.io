@@ -63,6 +63,7 @@ h2{font-size:34px}
 .row:last-child{border-bottom:0}
 .row .n{font-weight:700;font-size:16px}
 .row .d{font-size:13px;color:var(--soft)}
+.sv{font-size:14px;font-weight:700;margin:4px 0 0;line-height:1.35}
 .qty{display:flex;align-items:center;gap:6px}
 .qty button{width:44px;height:44px;border-radius:12px;border:2px solid var(--rule);background:var(--bg);color:var(--ink);font:700 22px/1 var(--sans);cursor:pointer}
 .qty output{min-width:28px;text-align:center;font-weight:700}
@@ -123,16 +124,16 @@ h2{font-size:34px}
 
 <script>
 /* Items mirror index.html ITEMS (ids and prices as of Nov 2). If a price changes there, the main cart shows the real one at checkout. */
-const ITEMS={squash:["Winter squash","One squash, 2 to 4 sides",7],roots:["Root vegetables, 2 lb","Beets, carrots, turnips, parsnips",8],
- brassica:["Cabbage family","Brussels sprouts, cabbage or cauliflower",8],alliums:["Onions & garlic","Onions, leeks, shallots, garlic",8],
- greens:["Hearty greens","Kale, collards or chard",8],salad:["Salad greens","Spinach, arugula, shoots",8],potatoes:["Potatoes & sweet potatoes, 2 lb","About 4 to 6",10],
- apples:["Apples, 2 lb","About 6, sweet and tart",13],pears:["Pears & Asian pears, 2 lb","About 5, while they last",12],
- sour:["Sourdough loaf","12 to 14 slices",14],pastry:["Pastry","Croissant, scone or danish",8],
- chevre:["Fresh goat cheese","Herbed chèvre or feta in oil",14],cheddar:["Cave-aged cheddar","A wedge from an Illinois dairy farm",22],
- preserves:["Jams & pickles","A jar: jam, apple butter or giardiniera",13],eggs:["Farm eggs","One dozen",10],butter:["Grass-fed butter","1 lb",13],
- mix:["Pancake or cornbread mix","Just add egg and milk",8],maple:["Maple syrup","Pint",19],cider:["Fresh-pressed apple cider","Jug",9],
- fish:["Great Lakes fish fillet","8 to 16 oz, 2 to 4 portions",30],grits2:["Heirloom grits, 2 lb","About 8 servings",10],
- sausage:["Sausage, about 1 lb","4 to 5 links",20],quesokit:["Quesadilla Kit","About 8 quesadillas",55],hsfruit:["Hot sauce: fruity & hot","Bottle",10]};
+const ITEMS={squash:["Winter squash","One squash, 2 to 4 sides",7,"2–4 sides · ≈ $2.30 a side"],roots:["Root vegetables, 2 lb","Beets, carrots, turnips, parsnips",8,"About 4–6 sides · ≈ $1.60 a side"],
+ brassica:["Cabbage family","Brussels sprouts, cabbage or cauliflower",8,"3–4 sides · ≈ $2.30 a side"],alliums:["Onions & garlic","Onions, leeks, shallots, garlic",8,"Flavors 8–10 dishes · under $1 a dish"],
+ greens:["Hearty greens","Kale, collards or chard",8,"2–3 sides · ≈ $3 a side"],salad:["Salad greens","Spinach, arugula, shoots",8,"3–4 salads · ≈ $2.30 a salad"],potatoes:["Potatoes & sweet potatoes, 2 lb","About 4 to 6",10,"About 4–6 sides · ≈ $2 a side"],
+ apples:["Apples, 2 lb","About 6, sweet and tart",13,"About 6 snacks, or one crisp for 6 · ≈ $2.20 an apple"],pears:["Pears & Asian pears, 2 lb","About 5, while they last",12,"About 5 snacks · ≈ $2.40 a pear"],
+ sour:["Sourdough loaf","12 to 14 slices",14,"6–7 servings of 2 slices · ≈ $2 a serving"],pastry:["Pastry","Croissant, scone or danish",8,"1 serving · $8 each"],
+ chevre:["Fresh goat cheese","Herbed chèvre or feta in oil",14,"About 4–8 servings of 1 oz · ≈ $2–3.50 a serving"],cheddar:["Cave-aged cheddar","A wedge from an Illinois dairy farm",22,"About 8 snack servings of 1 oz · ≈ $2.75 a serving"],
+ preserves:["Jams & pickles","A jar: jam, apple butter or giardiniera",13,"About 15–20 spoonfuls · ≈ 75¢ a serving"],eggs:["Farm eggs","One dozen",10,"12 eggs: about 6 plates of 2 · ≈ $1.65 a plate"],butter:["Grass-fed butter","1 lb",13,"About 32 tablespoons · ≈ 40¢ a tablespoon"],
+ mix:["Pancake or cornbread mix","Just add egg and milk",8,"About 4 pancake breakfasts for two · ≈ $1 a serving"],maple:["Maple syrup","Pint",19,"About 16 servings of 2 tablespoons · ≈ $1.20 a serving"],cider:["Fresh-pressed apple cider","Jug",9,"About 8 cups · ≈ $1.15 a cup"],
+ fish:["Great Lakes fish fillet","8 to 16 oz, 2 to 4 portions",30,"2–4 portions · ≈ $10 a portion"],grits2:["Heirloom grits, 2 lb","About 8 servings",10,"About 8 servings · ≈ $1.25 a serving"],
+ sausage:["Sausage, about 1 lb","4 to 5 links",20,"About 4–5 portions · ≈ $4.50 a portion"],quesokit:["Quesadilla Kit","About 8 quesadillas",55,"About 8 quesadillas · ≈ $6.90 a quesadilla"],hsfruit:["Hot sauce: fruity & hot","Bottle",10,"Seasons 20+ plates · under 50¢ a plate"]};
 /* Menus: base amounts feed about 4; scale(id) items double at 6 or more people. */
 const MENUS=[
  {id:"roast",n:"Roast & pour",what:"One big sheet-pan night: squash, roots and Brussels roasted with garlic, sourdough to mop it all up.",pour:"a chillable red",
@@ -148,6 +149,8 @@ const MENUS=[
  {id:"queso",n:"Quesadilla night",what:"Heirloom corn tortillas, a melting cheese and fillings. Everyone builds their own at the stove.",pour:"a crisp rosé",
   items:{quesokit:1,hsfruit:1},scale:["quesokit"]}
 ];
+/* Feeds line (Nov 9): base menu feeds about 4, doubled items feed about 8; cost per plate from item prices. */
+function feedsLine(m){const f=st.guests>=6?2:1,ppl=4*f;let c=0;for(const[k,v]of Object.entries(m.items))c+=ITEMS[k][2]*v*(m.scale.includes(k)?f:1);return el("p",{class:"sv"},el("span",{"aria-hidden":"true",text:"🍽 "}),"Feeds about "+ppl+" · ≈ $"+(c/ppl).toFixed(2)+" a plate")}
 const GUESTS=[[2,"just us"],[4,"small"],[6,"full"],[8,"big"]];
 const st={guests:4,menus:new Set(),qty:{}};
 const el=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==="text")e.textContent=v;else if(x.startsWith("on"))e.addEventListener(x.slice(2),v);else e.setAttribute(x,v)}for(const c of k)if(c!=null)e.append(c);return e};
@@ -162,10 +165,10 @@ function render(){
   const ms=document.getElementById("menus");ms.replaceChildren(...MENUS.map(m=>{const on=st.menus.has(m.id);
     return el("button",{type:"button",class:"menu","aria-pressed":String(on),onclick:()=>{on?st.menus.delete(m.id):st.menus.add(m.id);rebuild()}},
       el("span",{class:"mt"},el("b",{text:m.n}),el("span",{class:"tick","aria-hidden":"true",text:on?"✓":"+"})),
-      el("p",{class:"what",text:m.what}),el("p",{class:"pour"},"Pours with: ",el("span",{text:m.pour})))}));
+      el("p",{class:"what",text:m.what}),el("p",{class:"pour"},"Pours with: ",el("span",{text:m.pour})),feedsLine(m))}));
   const bag=document.getElementById("bag");const ids=Object.keys(st.qty).filter(k=>st.qty[k]>0);
-  bag.replaceChildren(...(ids.length?ids.map(k=>{const[n,d,p]=ITEMS[k];return el("div",{class:"row"},
-      el("div",{},el("div",{class:"n",text:n}),el("div",{class:"d",text:d+" · $"+p})),
+  bag.replaceChildren(...(ids.length?ids.map(k=>{const[n,d,p,sv]=ITEMS[k];return el("div",{class:"row"},
+      el("div",{},el("div",{class:"n",text:n}),el("div",{class:"d",text:d+" · $"+p}),...(sv?[el("div",{class:"sv"},el("span",{"aria-hidden":"true",text:"🍽 "}),sv)]:[])),
       el("div",{class:"qty"},el("button",{type:"button","aria-label":"One less "+n,onclick:()=>{st.qty[k]--;render()}},"−"),
         el("output",{"aria-label":n+" quantity",text:String(st.qty[k])}),
         el("button",{type:"button","aria-label":"One more "+n,onclick:()=>{st.qty[k]++;render()}},"+")))})

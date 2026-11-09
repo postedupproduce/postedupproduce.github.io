@@ -49,6 +49,8 @@ h1{font:400 38px/1.02 var(--display);margin:2px 0 0}
 .closed-only{display:none}
 .closed .closed-only{display:flex}
 .price{font-weight:800;white-space:nowrap}
+.sv{display:block;font-size:14px;font-weight:600;color:var(--muted)}
+.svt{margin:6px 0 0;font-size:16px;font-weight:700}
 .card li{display:flex;justify-content:space-between;gap:10px}
 .card ul{list-style:none;padding:0}
 .total{display:flex;justify-content:space-between;font-weight:800;border-top:2px dashed var(--line);padding-top:8px;margin:0}
@@ -69,8 +71,9 @@ h1{font:400 38px/1.02 var(--display);margin:2px 0 0}
 
   <section class="card open-only" aria-labelledby="boxH">
     <h2 id="boxH">The Heavy Rotation box</h2>
-    <ul><li><span>Farm eggs, 2 dozen</span><span class="price">$20</span></li><li><span>Ground meat, 1 lb</span><span class="price">$17</span></li><li><span>Potatoes & sweet potatoes, 2 lb</span><span class="price">$10</span></li><li><span>Hearty greens</span><span class="price">$8</span></li><li><span>Rolled oats, 2 lb</span><span class="price">$10</span></li><li><span>Apples, 2 lb</span><span class="price">$13</span></li><li><span>Local blueberries, frozen or dried</span><span class="price">$10</span></li></ul>
+    <ul><li><span>Farm eggs, 2 dozen<small class="sv"><span aria-hidden="true">🍽 </span>24 eggs: about 12 plates of 2</small></span><span class="price">$20</span></li><li><span>Ground meat, 1 lb<small class="sv"><span aria-hidden="true">🍽 </span>About 4 portions</small></span><span class="price">$17</span></li><li><span>Potatoes & sweet potatoes, 2 lb<small class="sv"><span aria-hidden="true">🍽 </span>About 4–6 sides</small></span><span class="price">$10</span></li><li><span>Hearty greens<small class="sv"><span aria-hidden="true">🍽 </span>2–3 sides</small></span><span class="price">$8</span></li><li><span>Rolled oats, 2 lb<small class="sv"><span aria-hidden="true">🍽 </span>About 20 bowls</small></span><span class="price">$10</span></li><li><span>Apples, 2 lb<small class="sv"><span aria-hidden="true">🍽 </span>About 6 snacks</small></span><span class="price">$13</span></li><li><span>Local blueberries, frozen or dried<small class="sv"><span aria-hidden="true">🍽 </span>About 4–6 servings</small></span><span class="price">$10</span></li></ul>
     <p class="total"><span>Total</span><span>$88</span></p>
+    <p class="svt"><span aria-hidden="true">🍽 </span>About 30 servings: a week of breakfasts, 4 meat-and-potato plates and daily fruit for one · ≈ $2.90 a serving</p>
     <p class="row"><b>When</b><span id="sat">Saturday</span></p>
     <p class="row"><b>Where</b><span>Pickup in Goose Island, Hyde Park or Rogers Park, or delivered. You pick at checkout.</span></p>
     <button class="btn" id="go" type="button">Get the Heavy Rotation</button>
