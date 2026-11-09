@@ -107,18 +107,21 @@ h1 em{font-style:normal;color:var(--purp)}
         <label class="tier"><input type="radio" name="t" value="shakeout">
           <div class="th"><b>Shakeout</b><em>$42</em></div>
           <span class="dist">Easy week · eggs + greens</span>
-          <p class="sv">About 6 egg breakfasts and 10–12 veg sides or salads</p>
+          <p class="sv">≈ 10 meals for one · about $4.20 a meal</p>
+          <p>6 egg breakfasts (2 eggs each) and veg for about 4 big salads or bowls</p>
           <ul><li>A dozen farm eggs</li><li>Hearty greens: kale, collards or chard</li><li>Salad greens or microgreens</li><li>Cabbage family: Brussels sprouts, cabbage, broccoli</li><li>Onions &amp; garlic</li></ul></label>
         <label class="tier"><input type="radio" name="t" value="half" checked>
           <div class="th"><b>Half</b><em>$70</em></div>
           <span class="dist">13.1 · adds chicken</span>
-          <p class="sv">All of that, plus about 4 chicken plates</p>
+          <p class="sv">≈ 12 meals for one · about $5.80 a meal</p>
+          <p>6 egg breakfasts, 4 chicken plates (6 oz each) with greens, and 2 big salads</p>
           <ul><li>Everything in the Shakeout</li><li>Pasture-raised chicken, about 1.5 lb</li><li>Peppers &amp; late picks: fennel, celery root, radishes</li></ul>
           <span class="pick">Start here</span></label>
         <label class="tier"><input type="radio" name="t" value="full">
           <div class="th"><b>Full</b><em>$100</em></div>
           <span class="dist">26.2 · training week</span>
-          <p class="sv">About 8 chicken plates, 12 egg breakfasts and the veg to go with them</p>
+          <p class="sv">≈ 20 meals for one · about $5 a meal</p>
+          <p>12 egg breakfasts and 8 chicken plates (6 oz each), with greens and sides for every plate</p>
           <ul><li>Everything in the Half</li><li>A second pack of chicken (about 3 lb total)</li><li>A second dozen eggs</li></ul></label>
       </div>
     </section>
@@ -153,7 +156,7 @@ h1 em{font-style:normal;color:var(--purp)}
         <label class="ex"><span class="l"><input type="checkbox" value="chevre" data-p="14"><span><b>Fresh goat cheese</b><span>If dairy's in · on eggs or salads</span></span></span><i>$14</i></label>
         <label class="ex"><span class="l"><input type="checkbox" value="fish" data-p="30"><span><b>Great Lakes fish fillet</b><span>If fish is in too · walleye, whitefish or lake trout</span></span></span><i>$30</i></label>
       </form>
-      <p class="total"><span>Your box: <span id="tot">$70</span></span><small>menu prices</small></p>
+      <p class="total"><span>Your box: <span id="tot">$70</span></span><small id="ml">≈ 12 meals</small></p>
     </section>
 
     <section class="card" aria-labelledby="goH">
@@ -174,7 +177,7 @@ h1 em{font-style:normal;color:var(--purp)}
     shakeout:{eggs:1,greens:1,salad:1,brassica:1,alliums:1},
     half:{eggs:1,greens:1,salad:1,brassica:1,alliums:1,chicken:1,peppers:1},
     full:{eggs:2,greens:1,salad:1,brassica:1,alliums:1,chicken:2,peppers:1}};
-  var PRICE={shakeout:42,half:70,full:100};
+  var PRICE={shakeout:42,half:70,full:100},MEALS={shakeout:10,half:12,full:20};
   function isIn(){try{return localStorage.getItem(KEY)==="1"||sessionStorage.getItem(KEY)==="1"}catch(e){return false}}
   function open(first){document.getElementById("gate").hidden=true;document.getElementById("inside").hidden=false;document.getElementById("sbar").hidden=false;if(first)document.getElementById("h1").focus()}
   function tryWord(){
@@ -190,7 +193,7 @@ h1 em{font-style:normal;color:var(--purp)}
   var f=document.getElementById("f");
   function tier(){var t=document.querySelector("input[name=t]:checked");return t?t.value:"half"}
   function upd(){var s=PRICE[tier()];[].forEach.call(f.querySelectorAll("input:checked"),function(x){s+=+x.dataset.p});
-    document.getElementById("tot").textContent="$"+s;document.getElementById("tot2").textContent="$"+s}
+    document.getElementById("tot").textContent="$"+s;document.getElementById("ml").textContent="≈ "+MEALS[tier()]+" meals before add-ons";document.getElementById("tot2").textContent="$"+s}
   document.addEventListener("change",upd);upd();
   function go(){
     var q={},t=TIERS[tier()];for(var k in t)q[k]=t[k];
