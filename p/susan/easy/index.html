@@ -218,16 +218,16 @@ main{padding-bottom:110px}
     </div>
     <label for="n" class="fbq">Anything to change? (optional)</label>
     <textarea id="n" placeholder="e.g. loved the mushrooms, more fruit, no squash"></textarea>
-    <a class="btn" id="send" href="sms:+17738079223">Text Malik my picks</a>
+    <a class="btn" id="send" href="mailto:info@postedupproduce.org">Text Malik my picks</a>
     <p class="alt"><button type="button" class="link" id="post">Rather not text? Send it here instead</button></p>
     <p class="sent" id="ok" hidden>Got it, thank you. I'll read every word.</p>
     <p class="fine">Nothing gets ordered. Feedback with your name earns a bonus produce pick on your next order.</p>
   </section>
 
-  <p class="fine">Rather just talk it through? Call or text <a href="tel:+17738079223" style="color:var(--ink);font-weight:700">773-807-9223</a> and we'll find 15 minutes.</p>
+  <p class="fine">Rather just talk it through? Email <a href="mailto:info@postedupproduce.org" style="color:var(--ink);font-weight:700">info@postedupproduce.org</a> and we'll find 15 minutes.</p>
   <p class="alt"><a href="/p/susan/">Or order the Vegan Box again &rarr;</a></p>
 </main>
-<div class="sbar off" id="sbar" aria-hidden="true"><span>Your box<b id="tot2">$59</b></span><a class="btn" id="send2" href="sms:+17738079223" tabindex="-1">Text Malik my picks</a></div>
+<div class="sbar off" id="sbar" aria-hidden="true"><span>Your box<b id="tot2">$59</b></span><a class="btn" id="send2" href="mailto:info@postedupproduce.org" tabindex="-1">Text Malik my picks</a></div>
 <script>
 (function(){
   var f=document.getElementById("f"),tot=document.getElementById("tot"),n=document.getElementById("n"),send=document.getElementById("send");
@@ -247,7 +247,7 @@ main{padding-bottom:110px}
     var body="Hi Malik, Susan here. "+past+"Next time I'd pick "+(t?t.value.replace("&amp;","&"):"no size yet")+(ex.length?", plus "+ex.map(function(x){return x.value.replace("&amp;","&")}).join(", "):"")+" ($"+sum+"). "+(o?"How often: "+o+". ":"")+(fb?fb+". ":"")+(n.value.trim()?"Change: "+n.value.trim():"");
     window.__body=body.trim();
     var ios=/iPhone|iPad|Mac/i.test(navigator.userAgent);
-    send.setAttribute("href","sms:+17738079223"+(ios?"&":"?")+"body="+encodeURIComponent(body.trim()));
+    send.setAttribute("href","mailto:info@postedupproduce.org"+(ios?"&":"?")+"body="+encodeURIComponent(body.trim()));
     var t2=document.getElementById("tot2"),s2=document.getElementById("send2");if(t2){t2.textContent=tot.textContent;s2.setAttribute("href",send.getAttribute("href"))}
   }
   var picked=false,TN=document.querySelectorAll("input[name=t]");

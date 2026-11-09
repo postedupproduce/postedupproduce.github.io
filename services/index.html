@@ -182,7 +182,7 @@ select{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line
     <ol class="steps">
       <li><span><b>Tell us the event.</b> Date, headcount, budget and anything to avoid. Takes a minute below.</span></li>
       <li><span><b>Get a quote by text.</b> We suggest what's in season and price it out with you.</span></li>
-      <li><span><b>Pay up front.</b> Card, Apple Pay, Zelle or Apple Cash, by 9 PM the night before market day.</span></li>
+      <li><span><b>Pay up front.</b> Card, Apple Pay or Zelle, by 9 PM the night before market day.</span></li>
       <li><span><b>We shop and drop.</b> Picked at market that morning and brought to your door, venue or kitchen.</span></li>
     </ol>
     <p class="sub">We shop Saturday markets right now, so the more notice the better. A week out is ideal for bigger groups.</p>
@@ -226,7 +226,7 @@ select{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line
   </form>
 
   <button type="button" class="pu-share" data-share>Send this to a friend</button>
-<p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Rather just talk? Text 773-807-9223.</p>
+<p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Rather just talk? Email info@postedupproduce.org.</p>
 </div>
 <script>
 const ENDPOINT="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
@@ -247,10 +247,10 @@ f.addEventListener("submit",async e=>{
   try{
     await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
     const h=document.createElement("h2");h.textContent="Got it, "+name+".";
-    const p=document.createElement("p");p.className="sub";p.textContent="I'll text you from 773-807-9223 with what's in season and a quote. Nothing is shopped until you say yes and pay.";
+    const p=document.createElement("p");p.className="sub";p.textContent="We'll get back to you with what's in season and a quote. Nothing is shopped until you say yes and pay.";
     const a=document.createElement("a");a.className="cta";a.href="/?s="+(src==="direct"?"services":src);a.textContent="Meanwhile, see this week's boxes";
     f.classList.add("done");f.replaceChildren(h,p,a);h.setAttribute("tabindex","-1");h.focus();
-  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or email info@postedupproduce.org."}
 });
 </script>
 <script>

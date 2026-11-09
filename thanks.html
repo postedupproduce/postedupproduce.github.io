@@ -152,7 +152,6 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
     </div>
     <div class="payto">
       <div><span>Zelle</span><code id="zelle">leeks.sabrosa@gmail.com</code><button type="button" class="ghost sm" data-copy="zelle">Copy</button></div>
-      <div><span>Apple Cash</span><code id="apple">773-807-9223</code><button type="button" class="ghost sm" data-copy="apple">Copy</button></div>
     </div>
     <p class="sub" id="tipNote">Send <b>$5</b> with <b>TIP</b> in the memo. Thank you!</p>
     <p class="ok" id="tipMsg" aria-live="polite"></p>
@@ -189,7 +188,7 @@ f.addEventListener("submit",async e=>{
     const h=document.createElement("h2");h.textContent="Got it. Thank you!";
     const p=document.createElement("p");p.className="ok";p.textContent=body.contact?"Your bonus produce pick will be in your next order.":"Every note helps us shape the next season.";
     f.replaceChildren(h,p);
-  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or email info@postedupproduce.org."}
 });
 /* Tip */
 const chips=[...document.querySelectorAll(".chip")],tipNote=document.getElementById("tipNote"),tipMsg=document.getElementById("tipMsg");

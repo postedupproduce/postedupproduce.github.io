@@ -161,7 +161,7 @@ textarea{min-height:84px;resize:vertical}
 
   <form class="idea" id="idf" novalidate aria-labelledby="ih">
     <h2 id="ih" style="font-size:22px">Got a better idea?</h2>
-    <p class="sub">None of these quite right? Tell us what you'd change or describe your own. Have a sketch? Text a photo of it to 773-807-9223.</p>
+    <p class="sub">None of these quite right? Tell us what you'd change or describe your own. Have a sketch? Email a photo of it to info@postedupproduce.org.</p>
     <label class="f">Your idea<textarea id="idea" maxlength="600" placeholder="B, but with the Chicago star. Or: a crate on a stoop..."></textarea></label>
     <div class="two">
       <label class="f">First name<input type="text" id="inm" autocomplete="given-name"></label>
@@ -172,7 +172,7 @@ textarea{min-height:84px;resize:vertical}
     <button class="cta alt" type="submit" id="ibtn">Send my idea</button>
   </form>
 
-  <p class="foot">Posted Up Produce is a beta personal-shopping service at Chicago farmers markets, run by 123 Footprint, LLC. Logo artwork © 123 Footprint, LLC. Ideas you send may be used to shape the final logo. Questions? Text 773-807-9223.</p>
+  <p class="foot">Posted Up Produce is a beta personal-shopping service at Chicago farmers markets, run by 123 Footprint, LLC. Logo artwork © 123 Footprint, LLC. Ideas you send may be used to shape the final logo. Questions? Email info@postedupproduce.org.</p>
 </div>
 
 <script>
@@ -244,7 +244,7 @@ vf.addEventListener("submit",async e=>{
     await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name,contact:"",message,times:"",hp:vf.querySelector('input[name="website"]').value})});
     const v={logo,gift};try{localStorage.setItem("pu_logo_vote",JSON.stringify(v))}catch(x){}
     showThanks(v,true);
-  }catch(x){btn.disabled=false;btn.textContent="Cast my vote";err.textContent="That didn't go through. Try again, or text your pick to 773-807-9223."}
+  }catch(x){btn.disabled=false;btn.textContent="Cast my vote";err.textContent="That didn't go through. Try again, or email your pick to info@postedupproduce.org."}
 });
 
 $("#share").addEventListener("click",async()=>{
@@ -270,7 +270,7 @@ idf.addEventListener("submit",async e=>{
     const h=document.createElement("h2");h.textContent="Got it, thank you!";h.style.fontSize="22px";h.tabIndex=-1;
     const p=document.createElement("p");p.className="sub";p.textContent="Every idea gets a look before the final logo is set.";
     idf.replaceChildren(h,p);h.focus();
-  }catch(x){btn.disabled=false;btn.textContent="Send my idea";err.textContent="That didn't go through. Try again, or text it to 773-807-9223."}
+  }catch(x){btn.disabled=false;btn.textContent="Send my idea";err.textContent="That didn't go through. Try again, or email it to info@postedupproduce.org."}
 });
 </script>
 </body>

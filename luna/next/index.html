@@ -285,7 +285,7 @@ html{scroll-padding-top:120px}
   </figure>
 
   <p class="close">Picked with care, for the weeks you need it.</p>
-  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Email info@postedupproduce.org.</p>
   <p class="credits">Video: a Posted Up Produce pilot order.</p>
 </div>
 <script>
@@ -347,7 +347,7 @@ document.querySelectorAll(".pcard").forEach(c=>{
     btn.disabled=true;btn.textContent="Saving";
     try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:pro?name+" ("+pro+")":name,contact:"",message,times:"",hp:f.website.value})});
       f.querySelectorAll(".mad,button").forEach(x=>x.hidden=true);msg.textContent="Thank you, "+name+". I'll be in touch before the next market day."}
-    catch(x){btn.disabled=false;btn.textContent="Stay in touch";msg.className="msg err";msg.textContent="That didn't go through. Try again, or text 773-807-9223."}
+    catch(x){btn.disabled=false;btn.textContent="Stay in touch";msg.className="msg err";msg.textContent="That didn't go through. Try again, or email info@postedupproduce.org."}
   });
 })();
 

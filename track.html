@@ -75,7 +75,7 @@ ol.track li.todo b{color:color-mix(in srgb,var(--board-ink) 60%,transparent)}
     <button class="cta" type="submit">Check status</button>
   </form>
   <section class="result" id="res" hidden aria-live="polite"></section>
-  <p class="foot">Questions? Text 773-807-9223. <a href="./">Back to ordering</a></p>
+  <p class="foot">Questions? Email info@postedupproduce.org. <a href="./">Back to ordering</a></p>
 </div>
 <script>
 const ENDPOINT="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
@@ -97,22 +97,22 @@ f.addEventListener("submit",async e=>{
   const btn=f.querySelector(".cta");btn.disabled=true;btn.textContent="Checking…";
   try{
     const j=await (await fetch(ENDPOINT+"?q=status&o="+encodeURIComponent(o)+"&p="+encodeURIComponent(p))).json();
-    if(j.found===false){err.textContent="We couldn't find that order. Check the number on your ticket, or text 773-807-9223.";return}
-    if(!j.status){err.textContent="Order tracking is warming up. Text 773-807-9223 for your status.";return}
+    if(j.found===false){err.textContent="We couldn't find that order. Check the number on your ticket, or email info@postedupproduce.org.";return}
+    if(!j.status){err.textContent="Order tracking is warming up. Email info@postedupproduce.org for your status.";return}
     render(o,j);
-  }catch(x){err.textContent="Couldn't check right now. Try again, or text 773-807-9223."}
+  }catch(x){err.textContent="Couldn't check right now. Try again, or email info@postedupproduce.org."}
   finally{btn.disabled=false;btn.textContent="Check status"}
 });
 function render(o,j){
   res.replaceChildren();
   if(j.status==="Waitlist"){res.append(el("h2",null,"You're on the waitlist"),el("p","meta","Order #"+o+(j.pickup?" · "+j.pickup:"")+". Don't pay yet. We'll text you if a spot opens."));res.hidden=false;return}
-  if(j.status==="Canceled"){res.append(el("h2",null,"Order canceled"),el("p","meta","Order #"+o+". Text 773-807-9223 with any questions."));res.hidden=false;return}
+  if(j.status==="Canceled"){res.append(el("h2",null,"Order canceled"),el("p","meta","Order #"+o+". Email info@postedupproduce.org with any questions."));res.hidden=false;return}
   const at=IDX[j.status]??0;
   res.append(el("h2",null,STEPS[at][0]),el("p","meta","Order #"+o+(j.pickup?" · "+j.pickup:"")+(j.spot?" · "+j.spot:"")));
   const ol=el("ol","track");
   STEPS.forEach((s,i)=>{const li=el("li",i<at?"done":i===at?"now":"todo");const d=el("div");d.append(el("b",null,s[0]),el("span",null,s[1]));li.append(d);ol.append(li)});
   res.append(ol);
-  if(at===0)res.append(el("p","meta","Pay by Zelle (leeks.sabrosa@gmail.com) or Apple Cash (773-807-9223) by 9 PM the night before, with POSTED "+o+" in the memo. Your order isn't shopped until payment arrives."));
+  if(at===0)res.append(el("p","meta","Pay by card or Zelle (leeks.sabrosa@gmail.com) by 9 PM the night before, with POSTED "+o+" in the memo. Your order isn't shopped until payment arrives."));
   if(at===4){const a=el("a",null,"Leave feedback and get a bonus pick →");a.href="thanks.html";a.style.cssText="color:#ffb4a3;font-weight:700";res.append(a)}
   res.hidden=false;
 }

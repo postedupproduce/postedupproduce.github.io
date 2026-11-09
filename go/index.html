@@ -124,7 +124,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
     <button class="cta" type="submit">Keep me posted</button>
   </form>
 
-  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+  <p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Email info@postedupproduce.org.</p>
 </div>
 <script>
 /* Shop-or-play landing for texts. Carries the incoming ?s= tag onto every outbound link so Visits/Contacts attribution survives. */
@@ -157,7 +157,7 @@ kp.addEventListener("submit",async e=>{
     const h=document.createElement("h2");h.textContent="You're on the list, "+name+" 🙏";
     const p=document.createElement("p");p.className="sub";p.textContent="I'll only text you the way you picked. Want first dibs? Play the game above.";
     kp.replaceChildren(h,p);h.setAttribute("tabindex","-1");h.focus();
-  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or email info@postedupproduce.org."}
 });
 
 </script>

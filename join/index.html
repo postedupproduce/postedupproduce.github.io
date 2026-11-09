@@ -173,7 +173,7 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
   </form>
 
   <button type="button" class="pu-share" data-share>Send this to a friend</button>
-<p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Text 773-807-9223.</p>
+<p class="foot">Posted Up Produce is a beta run by 123 Footprint, LLC. Questions? Email info@postedupproduce.org.</p>
 </div>
 <script>
 const ENDPOINT="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
@@ -202,13 +202,13 @@ f.addEventListener("submit",async e=>{
     await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
     const h=document.createElement("h2");h.textContent="You're on the list, "+name+"!";
     const p1=document.createElement("p");p1.className="sub";p1.textContent="You'll only hear from us the way you picked. Nothing that doesn't fit your spot.";
-    const p2=document.createElement("p");p2.className="sub";p2.textContent="Orders close 9 PM the night before pickup. Pay by card, Apple Pay, Zelle or Apple Cash and your box is hand-picked at market that morning.";
+    const p2=document.createElement("p");p2.className="sub";p2.textContent="Orders close 9 PM the night before pickup. Pay by card, Apple Pay or Zelle and your box is hand-picked at market that morning.";
     const a=document.createElement("a");a.className="cta";a.href="../?s=survey";a.textContent="See what's in season this week";
     f.classList.add("done");f.replaceChildren(h,p1,a,p2);
     h.setAttribute("tabindex","-1");h.focus();
     f.after(marketCatch());
     document.body.classList.add("in");
-  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or text 773-807-9223."}
+  }catch(x){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or email info@postedupproduce.org."}
 });
 
 /* Market Catch: a 30-second bonus game on the thank-you screen. Drag, tap or use arrow keys to move the basket.

@@ -126,7 +126,7 @@ textarea{min-height:90px;resize:vertical}
         <li><b>Want something else?</b> Tap <i>Wild card</i> and pick a swap from the list.</li>
         <li><b>Tap Lock it in</b> to move to the next track. The crowd meter fills as you go, and Back lets you change your mind.</li>
         <li><b>Encore:</b> tell me what you'd love to see, add the extra if you want it, and pick your show date and venue (pickup day and meet-up spot).</li>
-        <li><b>Print the setlist</b>, tap <i>Copy my setlist</i>, and text it to <span class="num">773-807-9223</span>. I'll confirm and send payment details.</li>
+        <li><b>Print the setlist</b>, tap <i>Copy my setlist</i>, and email it to <span class="num">info@postedupproduce.org</span>. I'll confirm and send payment details.</li>
       </ol>
       <p class="hint">Your picks stay on your device until you text them. Want your own version? Tap <i>Make your own</i> at the top.</p>
     </details>
@@ -173,7 +173,7 @@ textarea{min-height:90px;resize:vertical}
 
 <script>
 const SITE="https://postedupproduce.org/vv/";
-const PHONE="773-807-9223",PHONE_D="7738079223";
+const PHONE="info@postedupproduce.org",PHONE_D="";
 const DEFAULT={v:1,box:"Very Balanced Box",for:"Vv",price:78,meet:70,
   intro:"A whole-food box from farms around Chicago, built like a setlist. Eggs, a clean protein, a ferment, sprouts, bitter greens, roots and orchard fruit. Nothing processed. Lock in each track, hit the encore, then send the setlist.",
   tracks:[
@@ -273,7 +273,7 @@ function encore(){
   add(h("span",{className:"eyebrow"},"Encore"),h("h2",{},"If you had to choose"),
     h("div",{className:"field"},h("label",{htmlFor:"wish"},"What would you love to see in your box?"),ta),addon,
     h("div",{className:"row2"},h("div",{className:"field"},h("label",{htmlFor:"day"},"Show date"),day),h("div",{className:"field"},h("label",{htmlFor:"spot"},"Venue"),spot)),
-    h("p",{style:"font-size:14px;opacity:.85"},"Order and pay by 9 PM the night before (Zelle or Apple Cash)."),
+    h("p",{style:"font-size:14px;opacity:.85"},"Order and pay by 9 PM the night before (card or Zelle)."),
     h("div",{className:"nav"},h("button",{type:"button",className:"btn",on:{click:()=>go(N()-1)}},"Back"),h("button",{type:"button",className:"btn go",on:{click:()=>go(N()+1)}},"Print the setlist")));
 }
 const ex=()=>S.extra&&C.extra.n?C.extra.p:0;
@@ -298,7 +298,7 @@ function finale(){
       h("button",{type:"button",className:"btn",on:{click:()=>go(N())}},"Back"),
       h("button",{type:"button",className:"btn go",on:{click:async()=>{try{await navigator.clipboard.writeText(text());status.textContent="Copied. Paste it into a text."}catch(e){status.textContent="Copy didn't work here. Long-press the setlist to copy it."}}}},"Copy my setlist")),
     status,
-    h("p",{style:"font-size:14px"},"Text it to ",h("span",{className:"num"},PHONE),". On a phone you can also try ",h("a",{href:"sms:"+PHONE_D+"?&body="+encodeURIComponent(text())},"opening a text"),"."),
+    h("p",{style:"font-size:14px"},"Email it to ",h("span",{className:"num"},PHONE),". On a phone you can also try ",h("a",{href:"mailto:info@postedupproduce.org?body="+encodeURIComponent(text())},"opening a text"),"."),
     h("a",{href:"https://postedupproduce.org/?s=p-vv",className:"btn go",style:"display:flex;align-items:center;justify-content:center;text-decoration:none"},"Order on the Posted Up site"),
     h("button",{type:"button",className:"btn",on:{click:()=>{S.locked={};go(0)}}},"Play again"));
 }
