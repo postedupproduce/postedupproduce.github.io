@@ -96,6 +96,7 @@ html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;
 #pu-dsplash .ds-tour{margin-top:4px;width:100%;min-height:50px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;font:700 16px var(--body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px}
 </style>
 <style>/* Share on every page (Nov 7). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
+<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}</style>
 </head>
 <body>
 
@@ -646,13 +647,9 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 <header class="top"><div class="top-in"><a class="brand" href="#start"><img class="mark" src="/logos/stamp-96.png" width="32" height="32" alt="">Posted Up<span class="brand-p">&nbsp;Produce</span> <span class="beta">Beta</span></a><span class="close" id="closeTop">Closes 9 PM night before</span></div>
 <nav class="tabs" aria-label="Site pages">
   <a href="#start" aria-current="page">Home</a>
+  <a href="/how/">How it works</a>
   <a href="#shop">Boxes</a>
-  <a href="#inventory">Add-ons</a>
-  <a href="#how">How it works</a>
-  <a href="/services/">Services</a>
   <a href="/faq/">Questions</a>
-<a href="#talk">Contact</a>
-  <a href="/play/">Play</a>
 </nav></header>
 
 <main class="feed" id="start">

@@ -181,6 +181,7 @@ html.gated{overflow:hidden}
 .seasonbar{margin:0 0 16px;padding:12px 16px;border-radius:14px;background:#F3D58A;color:#24392C;font:500 16px/1.4 var(--body,system-ui,sans-serif)}
 
 </style>
+<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}</style>
 </head>
 <body>
 <div id="gate" role="dialog" aria-labelledby="gateH" hidden>
@@ -200,12 +201,7 @@ html.gated{overflow:hidden}
       <a href="/">Home</a>
       <a href="/how/" aria-current="page">How it works</a>
       <a href="/#shop">Boxes</a>
-  <a href="/#inventory">Add-ons</a>
-      <a href="/services/">Services</a>
-      <a href="/join/">First pick</a>
       <a href="/faq/">Questions</a>
-      <a href="/#talk">Contact</a>
-      <a href="/play/">Play</a>
     </nav>
   </div>
 
@@ -433,5 +429,7 @@ if(forName){(function(){
 <script>/* Season gap banner (Nov 8 research: say it's a pause, give dates, keep ordering open). Shows until Sat Dec 5. */
 (function(){try{var n=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}));if(n>=new Date(2026,11,5))return;var b=document.getElementById("seasonBar");if(b)b.hidden=false}catch(e){}})();</script>
 <p class="pu-ip" style="max-width:680px;margin:18px auto;padding:0 20px;font:14px/1.5 system-ui,-apple-system,sans-serif;opacity:.72;text-align:center"><a href="/terms/" style="color:inherit;font-weight:700">Site terms and ownership</a></p>
+<p class="more-links" style="max-width:640px;margin:28px auto 96px;padding:0 16px;text-align:center;font-size:16px;line-height:2.4;color:inherit;opacity:.85">More: <a href="/#inventory" style="color:inherit;padding:10px 2px">Add-ons</a> · <a href="/services/" style="color:inherit;padding:10px 2px">Sourcing services</a> · <a href="/join/" style="color:inherit;padding:10px 2px">First pick</a> · <a href="/#talk" style="color:inherit;padding:10px 2px">Contact</a> · <a href="/play/" style="color:inherit;padding:10px 2px">Play</a></p>
+<script>(function(){try{var s=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30);if(!s)return;document.querySelectorAll(".more-links a").forEach(function(a){var u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",s);a.setAttribute("href",u.pathname+u.search+u.hash)})}catch(e){}})();</script>
 </body>
 </html>

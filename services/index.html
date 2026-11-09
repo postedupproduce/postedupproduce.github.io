@@ -123,6 +123,7 @@ select{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>/* Share on every page (Nov 7). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
+<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}</style>
 </head>
 <body>
 <div class="wrap">
@@ -132,11 +133,7 @@ select{font:inherit;font-size:16px;font-weight:400;border:1.5px solid var(--line
       <a href="/">Home</a>
       <a href="/how/">How it works</a>
       <a href="/#shop">Boxes</a>
-      <a href="/services/" aria-current="page">Services</a>
-      <a href="/join/">First pick</a>
       <a href="/faq/">Questions</a>
-<a href="/#talk">Contact</a>
-      <a href="/play/">Play</a>
     </nav>
   </div>
 
@@ -265,5 +262,7 @@ f.addEventListener("submit",async e=>{
 })();
 </script>
 <p class="pu-ip" style="max-width:680px;margin:18px auto;padding:0 20px;font:14px/1.5 system-ui,-apple-system,sans-serif;opacity:.72;text-align:center"><a href="/terms/" style="color:inherit;font-weight:700">Site terms and ownership</a></p>
+<p class="more-links" style="max-width:640px;margin:28px auto 96px;padding:0 16px;text-align:center;font-size:16px;line-height:2.4;color:inherit;opacity:.85">More: <a href="/#inventory" style="color:inherit;padding:10px 2px">Add-ons</a> · <a href="/services/" style="color:inherit;padding:10px 2px">Sourcing services</a> · <a href="/join/" style="color:inherit;padding:10px 2px">First pick</a> · <a href="/#talk" style="color:inherit;padding:10px 2px">Contact</a> · <a href="/play/" style="color:inherit;padding:10px 2px">Play</a></p>
+<script>(function(){try{var s=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30);if(!s)return;document.querySelectorAll(".more-links a").forEach(function(a){var u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",s);a.setAttribute("href",u.pathname+u.search+u.hash)})}catch(e){}})();</script>
 </body>
 </html>
