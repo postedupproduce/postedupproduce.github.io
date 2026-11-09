@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>For Joey · Posted Up Produce</title>
+<meta name="robots" content="noindex, nofollow, noai, noimageai">
+<meta name="description" content="Private. Password only.">
+<meta property="og:title" content="Joey, your box is built 🏁">
+<meta property="og:description" content="Clean, low carb, chicken and eggs. Three ways to run it. Password's in your bio.">
+<meta property="og:image" content="https://postedupproduce.org/p/joey/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://postedupproduce.org/p/joey/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2A1640">
+<link rel="icon" href="/logos/stamp-96.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* /p/joey/ (Nov 9): personal box page for Joey. Clean, low carb, chicken + eggs (his text, Nov 9). Runner: 3 marathons, 12 halves (IG bio).
+   Password gate is a velvet rope, not security: the words are in this file. Accepts 262 / 26.2 / threepeat / 🏁.
+   Unlock remembered on this phone (localStorage pu-joey). Checkout hands picks to the main cart via pu-draft, tag p-joey (shows the chicken item). */
+:root{--bg:#F3EEF7;--panel:#FFFFFF;--ink:#1D1426;--muted:#5A4E66;--line:#DCD1E6;--purp:#5B2A86;--deep:#2A1640;--gold:#F2C14E;
+  --disp:"Anton",Impact,"Arial Narrow",sans-serif;--body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.flag{height:28px;background:conic-gradient(var(--deep) 25%,#fff 0 50%,var(--deep) 0 75%,#fff 0) 0 0/28px 28px;border-bottom:4px solid var(--purp)}
+main{max-width:460px;margin:0 auto;padding:18px 20px 120px;display:flex;flex-direction:column;gap:14px}
+.eb{display:flex;justify-content:space-between;align-items:center;font-weight:800;letter-spacing:.14em;font-size:13px;text-transform:uppercase;min-height:32px}
+.eb span:last-child{border:2px solid currentColor;border-radius:999px;padding:1px 9px;letter-spacing:.08em}
+h1{font:400 clamp(44px,13vw,64px)/.95 var(--disp);margin:6px 0 0;text-transform:uppercase;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--purp)}
+.lede{margin:0;color:var(--muted)}
+.gate{display:grid;gap:10px;margin-top:6px}
+.gate label{font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.gate input{min-height:56px;font:700 20px var(--body);padding:0 14px;border:2px solid var(--ink);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+.btn{display:flex;align-items:center;justify-content:center;min-height:56px;width:100%;border:0;border-radius:999px;background:var(--purp);color:#fff;font:800 18px var(--body);cursor:pointer;text-decoration:none;padding:0 20px;text-align:center}
+.msg{margin:0;min-height:24px;font-size:16px;color:#8A1F3A}
+.note{background:var(--deep);color:#F3EEF7;border-radius:16px;padding:16px 18px;margin:0}
+.note b{color:var(--gold)}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card h2{font:400 26px/1.05 var(--disp);margin:0;text-transform:uppercase;letter-spacing:.02em}
+.why{margin:0;font-size:16px;color:var(--muted)}
+.tier{display:block;position:relative;border:2px solid var(--line);border-radius:16px;padding:14px;background:#fff;cursor:pointer}
+.tier:has(input:checked){border-color:var(--purp);box-shadow:0 0 0 2px var(--purp) inset;background:#FBF8FD}
+.tier input{position:absolute;opacity:0;pointer-events:none}
+.tier input:focus-visible~.th{outline:3px solid var(--gold);outline-offset:4px}
+.th{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.th b{font:400 28px/1 var(--disp);text-transform:uppercase;letter-spacing:.02em}
+.th em{font-style:normal;font-weight:800;font-size:22px}
+.dist{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--purp);margin-top:4px}
+.tier p{margin:6px 0 0;font-size:16px;color:var(--muted)}
+.tier ul{margin:8px 0 0;padding-left:20px;font-size:16px}
+.tier .sv{font-weight:700;color:var(--ink)}
+.tier .pick{display:inline-block;margin-top:8px;background:var(--gold);color:var(--deep);font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:3px 8px}
+.ex{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);cursor:pointer}
+.ex:first-of-type{border-top:0}
+.ex .l{display:flex;flex:1;gap:10px}
+.ex input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--purp);flex-shrink:0}
+.ex b{display:block;font-size:17px}
+.ex span span{display:block;font-size:15px;color:var(--muted)}
+.ex i{font-style:normal;font-weight:800;white-space:nowrap}
+.grp{margin:8px 0 0;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--purp)}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:0;font-weight:800;font-size:20px}
+.total small{font-weight:500;font-size:15px;color:var(--muted)}
+.fine{font-size:15px;color:var(--muted);text-align:center;margin:0}
+.rcard{background:#FFFDF6;border-radius:8px;padding:14px 16px 8px;box-shadow:0 2px 0 #E3D6BB,0 6px 14px rgba(42,22,64,.12);transform:rotate(-.5deg)}
+.rcard .rk{display:block;font-size:13px;font-weight:800;color:var(--purp);text-transform:uppercase;letter-spacing:.08em}
+.rcard h2{font:400 26px/1.05 var(--disp);margin:2px 0 6px;text-transform:uppercase}
+.rcard ol{margin:0;padding-left:22px;font-size:17px;line-height:1.6}
+.rcard p{margin:6px 0 0;font-size:15px;color:var(--muted)}
+.sbar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--deep);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px max(16px,env(safe-area-inset-left)) max(10px,env(safe-area-inset-bottom));box-shadow:0 -4px 14px rgba(0,0,0,.2)}
+.sbar span{font-size:15px;line-height:1.2}.sbar b{display:block;font-size:22px}
+.sbar .btn{width:auto;min-height:50px;background:var(--gold);color:var(--deep)}
+.sbar[hidden]{display:none}
+.ip{max-width:460px;margin:0 auto 90px;padding:0 20px;font-size:14px;opacity:.72;text-align:center}
+@media (prefers-reduced-motion:no-preference){.tier{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<div class="flag" aria-hidden="true"></div>
+<main>
+  <p class="eb"><span>Posted Up · For Joey</span><span>Private</span></p>
+
+  <section id="gate" aria-labelledby="gH">
+    <h1 id="gH">Joey, your box is <em>on the line.</em></h1>
+    <p class="lede" style="margin-top:10px">Built off what you told me. Password's in your bio.</p>
+    <div class="gate">
+      <label for="word">Password</label>
+      <input id="word" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go">
+      <button class="btn" id="enter" type="button">Let me in</button>
+      <p class="msg" id="gmsg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <div id="inside" hidden>
+    <h1 id="h1" tabindex="-1">From the land <em>to your fridge.</em></h1>
+    <p class="note" style="margin-top:12px">You said <b>clean, low carb, chicken and eggs</b>. So: greens, the cabbage family, alliums, pasture-raised chicken and farm eggs, all from Chicago's farmers market. Long-run carbs are add-ons for the big weeks. Pick a distance. <br>— M</p>
+
+    <section class="card" aria-labelledby="tH" style="margin-top:14px">
+      <h2 id="tH">Pick your distance</h2>
+      <div id="tiers" role="radiogroup" aria-labelledby="tH" style="display:flex;flex-direction:column;gap:10px">
+        <label class="tier"><input type="radio" name="t" value="shakeout">
+          <div class="th"><b>Shakeout</b><em>$42</em></div>
+          <span class="dist">Easy week · eggs + greens</span>
+          <p class="sv">About 6 egg breakfasts and 10–12 veg sides or salads</p>
+          <ul><li>A dozen farm eggs</li><li>Hearty greens: kale, collards or chard</li><li>Salad greens or microgreens</li><li>Cabbage family: Brussels sprouts, cabbage, broccoli</li><li>Onions &amp; garlic</li></ul></label>
+        <label class="tier"><input type="radio" name="t" value="half" checked>
+          <div class="th"><b>Half</b><em>$70</em></div>
+          <span class="dist">13.1 · adds chicken</span>
+          <p class="sv">All of that, plus about 4 chicken plates</p>
+          <ul><li>Everything in the Shakeout</li><li>Pasture-raised chicken, about 1.5 lb</li><li>Peppers &amp; late picks: fennel, celery root, radishes</li></ul>
+          <span class="pick">Start here</span></label>
+        <label class="tier"><input type="radio" name="t" value="full">
+          <div class="th"><b>Full</b><em>$100</em></div>
+          <span class="dist">26.2 · training week</span>
+          <p class="sv">About 8 chicken plates, 12 egg breakfasts and the veg to go with them</p>
+          <ul><li>Everything in the Half</li><li>A second pack of chicken (about 3 lb total)</li><li>A second dozen eggs</li></ul></label>
+      </div>
+    </section>
+
+    <section class="rcard" aria-labelledby="rcH">
+      <span class="rk">Sunday prep, 30 minutes</span>
+      <h2 id="rcH">Sheet-pan chicken + greens</h2>
+      <ol>
+        <li>Oven to 425.</li>
+        <li>Chicken, sliced onions and the Brussels or cabbage on one pan. Oil, salt, pepper, garlic.</li>
+        <li>Roast 25–30 min, until the chicken hits 165°F inside.</li>
+        <li>Pile on the greens, hot sauce if you got it.</li>
+      </ol>
+      <p>Hard-boil half the eggs the same night for grab-and-go.</p>
+    </section>
+
+    <section class="card" aria-labelledby="xH">
+      <h2 id="xH">Add-ons</h2>
+      <p class="why">Same farms and makers. All optional.</p>
+      <form id="f">
+        <p class="grp">Long-run weeks</p>
+        <label class="ex"><span class="l"><input type="checkbox" value="potatoes" data-p="10"><span><b>Sweet potatoes, 2 lb</b><span>The carbs, saved for the big days · about 4–6 sides</span></span></span><i>$10</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="oats2" data-p="10"><span><b>Rolled oats, 2 lb</b><span>Stone-ground, local grain farm · about 20 bowls · not gluten-free</span></span></span><i>$10</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="dryfruit" data-p="10"><span><b>Local blueberries</b><span>Frozen or dried · on the oats or eggs</span></span></span><i>$10</i></label>
+        <p class="grp">For the house</p>
+        <label class="ex"><span class="l"><input type="checkbox" value="apples" data-p="13"><span><b>Apples, 2 lb</b><span>About 6 · lunchbox and post-run snacks</span></span></span><i>$13</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="pears" data-p="12"><span><b>Pears &amp; Asian pears, 2 lb</b><span>About 5 · end of season, while they last</span></span></span><i>$12</i></label>
+        <p class="grp">Flavor</p>
+        <label class="ex"><span class="l"><input type="checkbox" value="hsfruit" data-p="10"><span><b>Hot sauce: fruity &amp; hot</b><span>For the chicken · seasons 20+ plates</span></span></span><i>$10</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="hsxhot" data-p="10"><span><b>Hot sauce: extra hot</b><span>A little goes far</span></span></span><i>$10</i></label>
+        <p class="grp">Only if it's back in</p>
+        <label class="ex"><span class="l"><input type="checkbox" value="chevre" data-p="14"><span><b>Fresh goat cheese</b><span>If dairy's in · on eggs or salads</span></span></span><i>$14</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="fish" data-p="30"><span><b>Great Lakes fish fillet</b><span>If fish is in too · walleye, whitefish or lake trout</span></span></span><i>$30</i></label>
+      </form>
+      <p class="total"><span>Your box: <span id="tot">$70</span></span><small>menu prices</small></p>
+    </section>
+
+    <section class="card" aria-labelledby="goH">
+      <h2 id="goH">Lock it in</h2>
+      <p class="why">This drops your picks in the order page. Pick a Saturday pickup or delivery there, then pay. Order by Friday 9 PM.</p>
+      <button class="btn" id="go" type="button">Send to my cart</button>
+      <p class="fine">Want something swapped? Say it in Notes at checkout.</p>
+    </section>
+  </div>
+</main>
+<div class="sbar" id="sbar" hidden><span>Your box<b id="tot2">$70</b></span><button class="btn" id="go2" type="button">Send to cart</button></div>
+<p class="ip">&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade; <a href="/terms/" style="font-weight:700">Site terms</a></p>
+<script>
+(function(){
+  var KEY="pu-joey",TAG="p-joey";
+  var WORDS=["262","threepeat","finishline"];
+  var TIERS={
+    shakeout:{eggs:1,greens:1,salad:1,brassica:1,alliums:1},
+    half:{eggs:1,greens:1,salad:1,brassica:1,alliums:1,chicken:1,peppers:1},
+    full:{eggs:2,greens:1,salad:1,brassica:1,alliums:1,chicken:2,peppers:1}};
+  var PRICE={shakeout:42,half:70,full:100};
+  function isIn(){try{return localStorage.getItem(KEY)==="1"||sessionStorage.getItem(KEY)==="1"}catch(e){return false}}
+  function open(first){document.getElementById("gate").hidden=true;document.getElementById("inside").hidden=false;document.getElementById("sbar").hidden=false;if(first)document.getElementById("h1").focus()}
+  function tryWord(){
+    var raw=document.getElementById("word").value||"",w=raw.toLowerCase().replace(/[^a-z0-9]/g,""),m=document.getElementById("gmsg");
+    if(!raw.trim()){m.textContent="Type the password first.";return}
+    if(WORDS.indexOf(w)>-1||raw.indexOf("\u{1F3C1}")>-1){try{localStorage.setItem(KEY,"1")}catch(e){}try{sessionStorage.setItem(KEY,"1")}catch(e){}open(true);window.scrollTo(0,0)}
+    else m.textContent="Not quite. Check the bio: the number on the medals.";
+  }
+  document.getElementById("enter").addEventListener("click",tryWord);
+  document.getElementById("word").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();tryWord()}});
+  if(isIn())open(false);
+
+  var f=document.getElementById("f");
+  function tier(){var t=document.querySelector("input[name=t]:checked");return t?t.value:"half"}
+  function upd(){var s=PRICE[tier()];[].forEach.call(f.querySelectorAll("input:checked"),function(x){s+=+x.dataset.p});
+    document.getElementById("tot").textContent="$"+s;document.getElementById("tot2").textContent="$"+s}
+  document.addEventListener("change",upd);upd();
+  function go(){
+    var q={},t=TIERS[tier()];for(var k in t)q[k]=t[k];
+    [].forEach.call(f.querySelectorAll("input:checked"),function(x){q[x.value]=(q[x.value]||0)+1});
+    try{localStorage.setItem("pu-draft",JSON.stringify({box:null,breadBox:null,qty:q,mode:"pick",at:Date.now()}));sessionStorage.setItem("pu-src",TAG)}catch(e){}
+    location.href="/?s="+TAG+"#checkout";
+  }
+  document.getElementById("go").addEventListener("click",go);document.getElementById("go2").addEventListener("click",go);
+})();
+/* Visit counting, same as the other /p/ pages: one per browser session, no names, skipped on the owner's devices (pu-me). */
+(function(){
+  var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
+  var vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  var dev=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?"Phone":"Computer";
+  var fresh=true;try{fresh=!sessionStorage.getItem("pu-v");sessionStorage.setItem("pu-v","1")}catch(e){}
+  if(fresh)fetch(EP,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:"p-joey",device:dev,returning:ret,vid:vid})}).catch(function(){});
+})();
+</script>
+</body>
+</html>

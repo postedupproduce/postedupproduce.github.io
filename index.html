@@ -1134,6 +1134,8 @@ const ITEMS={
     {id:"lakehaul",nm:"Lake Haul",ds:"2 wild fish fillets plus smoked fish",p:70,sv:"About 4 portions: 2 meals for two · ≈ $17.50 a plate"},
     {id:"eggs",nm:"Farm eggs",ds:"One dozen · free-range or pasture-raised",p:10,sv:"12 eggs: about 6 breakfasts of 2 eggs · ≈ $1.65 a plate"},
     {id:"ground",nm:"Ground meat, 1 lb",ds:"e.g. grass-fed beef or pastured pork",p:17,sv:"About 4 portions (4 burgers) · ≈ $4.25 a portion"},
+    /* Chicken (Nov 9): link-only for now (only:"p-joey"); draft price from pasture-raised direct prices ($7.50–12.50/lb thighs, ~$10.50–17/lb breasts). Confirm cost at the meat stand before it goes on the public menu. */
+    {id:"chicken",nm:"Pasture-raised chicken, about 1.5 lb",ds:"e.g. thighs, breasts or drumsticks, whatever the stand has",p:20,only:"p-joey",sv:"About 4 portions of 6 oz · ≈ $5 a portion"},
     {id:"sausage",nm:"Sausage, about 1 lb",ds:"About 4–5 links · e.g. andouille, bratwurst, breakfast links",p:20,sv:"About 4–5 portions, a link each · ≈ $4.50 a portion"},
     {id:"fish",nm:"Great Lakes fish fillet",ds:"One fillet, 8–16 oz · e.g. walleye, whitefish, lake trout",p:30,sv:"2–4 portions · ≈ $10 a portion"},
   ],
@@ -1271,7 +1273,7 @@ const DIET_BOX={
   asana:{egg:1,protein:1,who:[1]},asanapair:{egg:1,protein:1,who:[1]},
   grounding:{cook:1,who:[1]},strength:{egg:1,cook:1,protein:1,who:[1]},rest:{gluten:1,nocook:1,who:[1]},practice:{egg:1,gluten:1,protein:1,who:[1,2]},
   mystery:{gluten:1,dairy:1,egg:1,who:[1,2]},bites:{meat:1,nocook:1,who:[1]}};
-const DIET_ITEM={"gameday-s":["dairy"],gameday:["dairy","gluten"],"gameday-xl":["dairy","gluten","egg"],meatbox:["meat","pork"],ground:["meat","pork"],sausage:["meat","pork"],lakehaul:["fish"],fish:["fish"],eggs:["egg"],
+const DIET_ITEM={"gameday-s":["dairy"],gameday:["dairy","gluten"],"gameday-xl":["dairy","gluten","egg"],meatbox:["meat","pork"],ground:["meat","pork"],chicken:["meat"],sausage:["meat","pork"],lakehaul:["fish"],fish:["fish"],eggs:["egg"],
   sour:["gluten"],pastry:["gluten","dairy","egg"],quesokit:["dairy"],gcheesekit:["dairy","gluten"],chevre:["dairy"],cheddar:["dairy"],
   butter:["dairy"],oats2:["gluten"],grits2:["gluten"],mix:["gluten"]};
 const DIET_BLOCK={vegan:["meat","fish","egg","dairy"],veg:["meat","fish"],pesc:["meat"],nopork:["pork"],df:["dairy"],gf:["gluten"]};
@@ -1431,7 +1433,7 @@ function renderPrefs(){
     w.append(el("button",{class:"pref",type:"button","data-s":s,"aria-label":p+(s?": "+s:""),onclick:()=>{const n=s===""?"more":s==="more"?"skip":"";if(n)state.prefs[p]=n;else delete state.prefs[p];renderPrefs();renderTicket()}},(s==="more"?"+ ":"")+p));
   }
 }
-function itemLive(it){return !it.until||chiNow()<new Date(it.until)}
+function itemLive(it){if(it.only&&![].concat(it.only).some(o=>SRC_TAG.indexOf(o)===0))return false;return !it.until||chiNow()<new Date(it.until)}
 function renderItems(){
   const sb=document.getElementById("specialBin");if(sb)sb.hidden=!ITEMS.special.some(itemLive);
   for(const w of document.querySelectorAll(".items")){
