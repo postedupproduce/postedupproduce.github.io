@@ -82,15 +82,15 @@ async def main():
         # 3. money: Half Peck pickup $45, delivery $58, Game Day Kit not discounted
         hp = await p.evaluate_handle("()=>[...document.querySelectorAll('.bcard')].find(e=>/^Half Peck/.test(e.querySelector('h3')?.textContent||'')).querySelector('button')")
         await hp.as_element().click(); await p.wait_for_timeout(700)
-        await p.select_option("#fulfill", "goose")
+        await p.check('#fulfill input[value="goose"]')
         t1 = await p.evaluate("()=>(document.body.innerText.match(/Total\\n\\$[\\d.]+/)||[''])[0]")
         fails += not ok(t1 == "Total\n$45", "Half Peck pickup = $45 (founder)", t1.replace("\n", " "))
-        await p.select_option("#fulfill", "del-hyde"); await p.wait_for_timeout(400)
+        await p.check('#fulfill input[value="del-hyde"]'); await p.wait_for_timeout(400)
         t2 = await p.evaluate("()=>(document.body.innerText.match(/Total\\n\\$[\\d.]+/)||[''])[0]")
         fails += not ok(t2 == "Total\n$58", "Half Peck + Hyde Park delivery = $58 (no founder)", t2.replace("\n", " "))
         gd = await p.query_selector("#gdShop [data-gd]")
         if gd:
-            await p.select_option("#fulfill", "goose"); await gd.click(); await p.wait_for_timeout(500)
+            await p.check('#fulfill input[value="goose"]'); await gd.click(); await p.wait_for_timeout(500)
             t3 = await p.evaluate("()=>(document.body.innerText.match(/Total\\n\\$[\\d.]+/)||[''])[0]")
             fails += not ok(t3 == "Total\n$120", "Half Peck + Game Day Kit Feeds 12 = $120", t3.replace("\n", " "))
 
