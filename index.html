@@ -2279,7 +2279,7 @@ renderBoxes();renderItems();renderTicket();loadCounts();
   </div>
   <div class="pr-sheet">
     <h2 id="puRouteH">Where would you like to go?</h2>
-    <p class="pr-sub">Half Peck <b>$50</b> ($45 at a meet-up) · <b>Sat <span id="prSat">Nov 14</span></b> · order by Fri 9 PM</p>
+    <p class="pr-sub">From the stand to your hand.</p>
     <a class="pr-main" href="#shop" data-route="shop"><b>Show me the boxes</b><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8B04B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <div class="pr-two">
       <a class="pr-alt" href="/how/" data-route="how">How it works</a>
@@ -2297,7 +2297,7 @@ renderBoxes();renderItems();renderTicket();loadCounts();
 #pu-route .pr-top p{margin:0;max-width:340px;font-size:19px;line-height:1.45;font-weight:600}
 #pu-route .pr-sheet{background:#F8F2E6;color:#1f2a22;border-radius:28px 28px 0 0;padding:22px 24px calc(22px + env(safe-area-inset-bottom));display:grid;gap:12px;box-shadow:0 -8px 24px rgba(0,0,0,.22);max-width:560px;width:100%;box-sizing:border-box;margin:0 auto}
 #pu-route h2{margin:0;font:400 26px/1.15 var(--display,Georgia,serif);color:#24392C}
-#pu-route .pr-sub{margin:0;font-size:16px;line-height:1.45}
+#pu-route .pr-sub{margin:0;font:400 19px/1.3 var(--display,Georgia,serif);color:#4E6B54}
 #pu-route .pr-main{display:flex;align-items:center;justify-content:space-between;min-height:60px;padding:0 18px;border-radius:16px;background:#24392C;color:#F8F2E6;text-decoration:none;font-size:19px}
 #pu-route .pr-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 #pu-route .pr-alt{display:flex;align-items:center;justify-content:center;min-height:56px;border-radius:16px;border:2px solid #24392C;color:#24392C;text-decoration:none;font-weight:700;font-size:17px;text-align:center}
@@ -2317,8 +2317,7 @@ renderBoxes();renderItems();renderTicket();loadCounts();
   var D=["2026-11-14","2026-11-21","2026-12-05","2026-12-12","2026-12-19","2027-01-09","2027-01-16","2027-01-23","2027-01-30","2027-02-06","2027-02-13","2027-02-20","2027-02-27","2027-03-06","2027-03-13","2027-03-20"];
   var n=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"})),sat=null;
   for(var i=0;i<D.length;i++){var d=new Date(D[i]+"T12:00:00"),c=new Date(d);c.setDate(d.getDate()-1);c.setHours(21,0,0,0);if(n<c){sat=d;break}}
-  if(sat)document.getElementById("prSat").textContent=sat.toLocaleDateString("en-US",{month:"short",day:"numeric"});
-  else{var p=r.querySelector(".pr-sub");p.lastChild&&p.removeChild(p.lastChild);}
+  var ps=document.getElementById("prSat");if(ps&&sat)ps.textContent=sat.toLocaleDateString("en-US",{month:"short",day:"numeric"});
   var q=s?"?s="+encodeURIComponent(s):"";
   r.querySelector('[data-route="how"]').href="/how/"+q;
   var prevFocus=document.activeElement;
