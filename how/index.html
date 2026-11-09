@@ -169,7 +169,14 @@ html.gated{overflow:hidden}
 @keyframes stampIn{from{opacity:0;transform:rotate(-6deg) scale(1.3)}to{opacity:1;transform:rotate(8deg) scale(1)}}
 @media (prefers-reduced-motion:reduce){.rv,.rv .stg>*{opacity:1;transform:none;transition:none}.stamp{animation:none}.go:active,button.ghost:active,.stickbar a:active,#gateGo:active,.tabs a:active,.stop:active,.boxes li:active{transform:none}}
 </style>
-<style>/* Share on every page (Nov 7, Malik). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
+<style>/* Share on every page (Nov 7, Malik). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}/* Nov 8 walkthrough preview: bigger tabs, call/text strip */
+.tabs a{font-size:15px!important;padding:14px 10px!important}
+.talk{background:var(--card,#fff);border:1.5px solid #E3D9C2;border-radius:16px;padding:16px 20px;display:grid;gap:10px}
+.talk p{margin:0;font:700 17px/1.3 var(--body)}
+.talk2{display:flex;gap:10px}.talk2 a{flex:1;min-height:52px;display:grid;place-items:center;border-radius:999px;border:2px solid #24392C;color:#24392C;font:800 17px var(--body);text-decoration:none}
+.talk2 a:first-child{background:#24392C;color:#F8F2E6}
+#gate small{font-size:15px}
+</style>
 </head>
 <body>
 <div id="gate" role="dialog" aria-labelledby="gateH" hidden>
@@ -229,21 +236,10 @@ html.gated{overflow:hidden}
       <div class="stop"><b>Rogers Park</b>Sat 4–5 PM</div>
       <div class="stop" style="grid-column:1/-1"><b>Delivery</b>Same day, after 1, 3 or 5 PM · from $8</div>
     </div>
-    <p class="sub"><b>Order by Fri 9 PM.</b> Saturdays through Nov 21, the last box of the pilot.</p>
+    <p class="sub"><b>Order by Fri 9 PM.</b> Outdoor Saturdays through Nov 21. No pickup Nov 28. Winter Saturdays start Dec 5.</p>
   </section>
 
-<section class="card feat" aria-labelledby="featH">
-    <span class="kicker">Featured this week</span>
-    <h2 id="featH">🏀 Game Day Kit</h2>
-    <p class="sub">Snack duty, done. Apples, carrots, cheese, bread and fresh-pressed cider, picked Saturday morning. The stuff kids actually eat. Rinse, slice, hand it to the bench.</p>
-    <ul class="boxes feat-tiers">
-      <li><b>Feeds 6</b><span class="p">$39</span><span>6 apples, 2 lb carrots, goat cheese, a jug of cider · save $5</span></li>
-      <li><b>Feeds 12 <i class="tag">Most teams</i></b><span class="p">$75</span><span>A dozen apples, 2 lb carrots, cheddar, a sourdough loaf, a jug of cider · save $13</span></li>
-      <li><b>Feeds 24</b><span class="p">$139</span><span>Two dozen apples, 4 lb carrots, two cheeses, two loaves with pastries, two jugs of cider · save $25</span></li>
-    </ul>
-    <div class="row2"><a class="go" id="featGo" href="../#inventory" style="flex:1 1 200px;text-align:center;text-decoration:none">Pick a size &rarr;</a></div>
-    <p class="sub" style="font-size:13px">Whole season, tournament or banquet? <a href="/services/">Sourcing services &rarr;</a></p>
-  </section>
+
 
   <section class="card" aria-labelledby="boxH">
     <h2 id="boxH">What you get</h2>
@@ -256,6 +252,19 @@ html.gated{overflow:hidden}
     </ul>
     <p class="sub">Add bread, pastries, eggs, cheese and pantry goods, or pair a meat or fish box with any produce box. Boxes are built from whatever is peaking that week, and you can tell us what you love or never want.</p>
     <p class="sub"><b>Beta founder rate:</b> boxes picked up at a meet-up during the pilot are 10% off.</p>
+  </section>
+
+  <section class="card feat" aria-labelledby="featH">
+    <span class="kicker">Featured this week</span>
+    <h2 id="featH">🏀 Game Day Kit</h2>
+    <p class="sub">Snack duty, done. Apples, carrots, cheese, bread and fresh-pressed cider, picked Saturday morning. The stuff kids actually eat. Rinse, slice, hand it to the bench.</p>
+    <ul class="boxes feat-tiers">
+      <li><b>Feeds 6</b><span class="p">$39</span><span>6 apples, 2 lb carrots, goat cheese, a jug of cider · save $5</span></li>
+      <li><b>Feeds 12 <i class="tag">Most teams</i></b><span class="p">$75</span><span>A dozen apples, 2 lb carrots, cheddar, a sourdough loaf, a jug of cider · save $13</span></li>
+      <li><b>Feeds 24</b><span class="p">$139</span><span>Two dozen apples, 4 lb carrots, two cheeses, two loaves with pastries, two jugs of cider · save $25</span></li>
+    </ul>
+    <div class="row2"><a class="go" id="featGo" href="../#inventory" style="flex:1 1 200px;text-align:center;text-decoration:none">Pick a size &rarr;</a></div>
+    <p class="sub" style="font-size:13px">Whole season, tournament or banquet? <a href="/services/">Sourcing services &rarr;</a></p>
   </section>
 
 <section class="card" aria-labelledby="whyH">

@@ -68,7 +68,7 @@ h1{font:400 40px/1.02 var(--display);margin:2px 0 0}
       <h1>Days, not weeks.</h1>
     </div>
   </div>
-  <p class="sub">I shop the Chicago farmers market Saturday morning, fruit too, and bring it to your door or a pickup in Goose Island, Hyde Park or Rogers Park.</p>
+  <p class="sub">We shop the Chicago farmers market Saturday morning, fruit too, and bring it to your door or a pickup in Goose Island, Hyde Park or Rogers Park.</p>
 
   <div class="when open-only" aria-label="This week">
     <div><b>Market day</b><span id="sat">Saturday</span></div>
@@ -89,7 +89,7 @@ h1{font:400 40px/1.02 var(--display);margin:2px 0 0}
   </section>
 
   <p class="alt"><a id="joinGo" href="/join/">Not this week? Get a text when orders open &rarr;</a></p>
-  <p class="fine">Invite only for now. Pay ahead by 9 PM the night before.</p>
+  <p class="fine">Small beta, open to anyone in Chicago. Pay ahead by 9 PM the night before.</p>
 </main>
 <script>
 (function(){
@@ -101,7 +101,7 @@ h1{font:400 40px/1.02 var(--display);margin:2px 0 0}
   });
 
   /* Next market day and cutoff in Chicago time: Saturdays through Nov 21, 2026; cutoff 9 PM Friday. */
-  var DAYS=["2026-11-07","2026-11-14","2026-11-21"];
+  var DAYS=["2026-11-07","2026-11-14","2026-11-21","2026-12-05","2026-12-12","2026-12-19","2027-01-09","2027-01-16","2027-01-23","2027-01-30","2027-02-06","2027-02-13","2027-02-20","2027-02-27","2027-03-06","2027-03-13","2027-03-20"]; /* winter added Nov 8 */
   function chiNow(){var p=new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());var o={};p.forEach(function(x){o[x.type]=x.value});return new Date(o.year+"-"+o.month+"-"+o.day+"T"+(o.hour==="24"?"00":o.hour)+":"+o.minute+":00")}
   var now=chiNow(),next=null;
   for(var i=0;i<DAYS.length;i++){var sat=new Date(DAYS[i]+"T12:00:00"),cut=new Date(sat);cut.setDate(sat.getDate()-1);cut.setHours(21,0,0,0);if(now<cut){next={sat:sat,cut:cut};break}}
