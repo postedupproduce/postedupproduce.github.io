@@ -8,7 +8,7 @@
 <meta property="og:title" content="Pay for your Posted Up order">
 <meta property="og:description" content="Card, Apple Pay or Zelle. Your order is shopped once it's paid by 9 PM the night before.">
 <meta property="og:image" content="https://postedupproduce.org/og.png">
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, noai, noimageai">
 <meta name="theme-color" content="#24392c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,5 +140,6 @@ if(no&&amt)show(no,amt,name);
 else{$("ask").hidden=false;$("fo").value=no;$("fa").value=amt;
   $("ask").addEventListener("submit",e=>{e.preventDefault();const o=clean($("fo").value,/\D/g,8),a=clean($("fa").value,/[^\d.]/g,7);if(o&&a)show(o,a,"")})}
 </script>
+<p class="pu-ip" style="max-width:680px;margin:18px auto;padding:0 20px;font:14px/1.5 system-ui,-apple-system,sans-serif;opacity:.72;text-align:center"><a href="/terms/" style="color:inherit;font-weight:700">Site terms and ownership</a></p>
 </body>
 </html>

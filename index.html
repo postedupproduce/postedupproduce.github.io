@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noai, noimageai">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Pilot season: personal shopping from Chicago farmers markets. Produce, meat, bread and pantry goods from farms and makers within 150 miles of the Loop.">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,sans-serif}img{max-width:100%}[hidden]{display:none!important}
@@ -1014,7 +1015,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     </details>
     <details class="credits"><summary>Photo credits</summary><p>Apples: <a href="https://commons.wikimedia.org/wiki/File:Apples_in_basket_2018_G1.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pears: <a href="https://commons.wikimedia.org/wiki/File:Pears_in_basket_2022_G1.jpg" rel="noopener">George Chernilevsky</a>, CC BY-SA 4.0; Winter squash: <a href="https://commons.wikimedia.org/wiki/File:Cucurbita_moschata_Butternut_2012_G2.jpg" rel="noopener">George Chernilevsky</a>, Public domain; Pumpkins: <a href="https://commons.wikimedia.org/wiki/File:Pumpkins_galore_(8083328403).jpg" rel="noopener">Maya Maceka</a>, CC BY 2.0; Sweet potatoes: <a href="https://commons.wikimedia.org/wiki/File:Sweet_Potato.jpg" rel="noopener">Gaurav Dhwaj Khadka</a>, CC BY-SA 4.0; Brussels sprouts: <a href="https://commons.wikimedia.org/wiki/File:Roasted_Brussels_sprouts_-_December_2023_-_Sarah_Stierch_01.jpg" rel="noopener">Missvain</a>, CC BY 4.0; Beets: <a href="https://commons.wikimedia.org/wiki/File:Beta_vulgaris,_San_Francisco_farmers_market.jpg" rel="noopener">Frank Schulenburg</a>, CC0; Carrots: <a href="https://commons.wikimedia.org/wiki/File:Carrots_at_Ljubljana_Central_Market.JPG" rel="noopener">domdomegg</a>, CC BY 4.0.; Concord grapes: <a href="https://commons.wikimedia.org/wiki/File:Concord_grapes.jpg" rel="noopener">Joli Rumi</a>, CC BY-SA 4.0; Red potatoes: <a href="https://commons.wikimedia.org/wiki/File:Red_potatoes_-_Heart_of_the_City_Farmers%27_Market_-_San_Francisco.jpg" rel="noopener">Daderot</a>, CC0; Kale: <a href="https://commons.wikimedia.org/wiki/File:SNAP*_Benefit_Feeds_Housholds_in_Need_(20120414-DM-LSC-2819).jpg" rel="noopener">USDA</a>, Public domain; Cabbage: <a href="https://commons.wikimedia.org/wiki/File:Cabbage_in_a_stack.jpg" rel="noopener">Jeffery Martin</a>, CC0; Cauliflower, leeks and garlic: <a href="https://commons.wikimedia.org/wiki/File:Liat_Portal_for_Foodie_Disorder_-_Fresh_Garlic.jpg" rel="noopener">HaJunkiyada</a>, CC BY-SA 4.0; Radishes: <a href="https://commons.wikimedia.org/wiki/File:Radish_bunches.jpg" rel="noopener">Jeffery Martin</a>, CC0; Fennel: <a href="https://commons.wikimedia.org/wiki/File:Au_march%C3%A9_-_Fenouil.JPG" rel="noopener">Dinkum</a>, CC0; Peppers: <a href="https://commons.wikimedia.org/wiki/File:Bell_peppers_-_September_2023_-_Sarah_Stierch.jpg" rel="noopener">Missvain</a>, CC BY 4.0. Via Wikimedia Commons; cropped. Real market photos coming soon.</p></details>
     <div class="ip">
-      <p><b>&copy; 2026 123 Footprint, LLC. All rights reserved.</b> Posted Up Produce&trade;, The Post-Up&trade;, the logos, the box and ordering system, menu, written content and site design belong to 123 Footprint, LLC. Don't copy, adapt or resell them without written permission. Produce photos belong to their photographers and are used under their own licenses (see Photo credits).</p>
+      <p><b>&copy; 2026 123 Footprint, LLC. All rights reserved.</b> Posted Up Produce&trade;, The Post-Up&trade;, the logos, the box and ordering system, menu, written content and site design belong to 123 Footprint, LLC. Don't copy, adapt or resell them without written permission. <a href="/terms/">Site terms</a>. Produce photos belong to their photographers and are used under their own licenses (see Photo credits).</p>
       <p><b>Want to build something together?</b> We're open to collaborations with farms, makers, markets and community groups. Use "Pick a time to meet" on <a href="#talk">Home</a>.</p>
     </div>
     <button type="button" class="pu-share" data-share>Send this to a friend</button>
@@ -1042,15 +1043,15 @@ const BOXES=[
   {id:"fruit",name:"Fruit Box · a week",price:36,wt:"~6 lb · about 16 pieces",desc:"No cooking. A week of late-season orchard fruit, plus local blueberries.",pick:"New · No cooking",
    makes:"A piece or two a day for a week, or a few days for two · ≈ $2.25 a piece",
    has:["Crisp apples, about 10 (a mix of sweet and tart)","Pears or Asian pears, about 4 (or more apples if pears are done)","A pint of frozen local blueberries, or a bag of dried","Fresh-pressed cider swap available on request"]},
-  /* Asana Box (Oct 29): yoga before-and-after box, first sold via /luna. Starting price; est. cost ~$28 (~30%). Confirm after a market run. */
+  /* Asana Box (Oct 29): yoga before-and-after box, first sold via /luna. */
   {id:"asana",name:"Asana Box",price:40,hideList:true,wt:"Before and after your practice, for one",desc:"Light bites before the mat, a nourishing plate after.",pick:"New · Yoga",
    makes:"Snacks before about 4 sessions and 3–4 post-practice plates for one · ≈ $5 a serving",
    has:["Before: crisp apples or pears, about 4","Before: local blueberries, a snack bag dried or frozen","After: microgreens or salad greens","After: a dozen farm eggs (or local tofu for vegan)","After: 2 lb sweet potatoes for a warm roasted plate"]},
-  /* Asana Pair special (Oct 29): Asana Box + Fruit Box · a few days, $55 (save $5). Shown through Sat Nov 21 via "until". Est. cost ~$43. */
+  /* Asana Pair special (Oct 29): Asana Box + Fruit Box · a few days, $55 (save $5). Shown through Sat Nov 21 via "until". */
   {id:"asanapair",name:"Asana Pair",price:55,only:"luna",until:"2026-11-22",wt:"Asana Box + Fruit Box · a few days · save $5",desc:"Special through Nov 21.",pick:"Special · through Nov 21",
    makes:"Before-and-after bites for about a week of practice, plus fruit for a few days, for one · ≈ $4.50 a serving",
    has:["Everything in the Asana Box: apples or pears, local blueberries, microgreens, a dozen eggs (or tofu), 2 lb sweet potatoes","Plus a Fruit Box · a few days: about 5 apples, 2 pears and local blueberries"]},
-  /* Practice boxes (Oct 29): Grounding / Strength / Rest at $41, all three $108 (saves $15). Shown only to Sosiego-page visitors (?s=luna...) or when picked via ?box=. Vegan toggle via ?vegan=1 swaps to "veg". Est. costs ~$28 / $27.50 / $25 / $80.50. */
+  /* Practice boxes (Oct 29): Grounding / Strength / Rest at $41, all three $108 (saves $15). Shown only to Sosiego-page visitors (?s=luna...) or when picked via ?box=. Vegan toggle via ?vegan=1 swaps to "veg".50 / $25 / $80.50. */
   {id:"grounding",name:"Grounding Box",price:41,only:"luna",wt:"Rooted, warming food for one",desc:"Roots and squash to roast and settle into.",pick:"Sosiego · Grounding",
    makes:"About 4 meals for one · ≈ $10 a plate",
    has:["2 lb sweet potatoes","2 lb beets or carrots","A winter squash","Onions and garlic","2 lb apples"],
@@ -1067,17 +1068,17 @@ const BOXES=[
    makes:"About 12 meals for one, or 6 for two · ≈ $9 a plate",
    has:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: a dozen farm eggs, hearty greens, local mushrooms, microgreens","Rest: a sourdough loaf, fresh-pressed cider, pears, local blueberries"],
    veg:["Grounding: sweet potatoes, beets or carrots, winter squash, onions and garlic, apples","Strength: local tofu, hearty greens, local mushrooms, microgreens","Rest: a vegan loaf, fresh-pressed cider, pears, local blueberries"]},
-  /* Mystery Bag (Oct 30): first password drop, Sat Oct 31 only. Shown to ?s=drop... visitors (unlocked at /drop/) or via ?box=mystery. Est. cost ~$21 either way (~30%). */
+  /* Mystery Bag (Oct 30): first password drop, Sat Oct 31 only. Shown to ?s=drop... visitors (unlocked at /drop/) or via ?box=mystery. */
   {id:"mystery",name:"Mystery Bag",price:30,only:["drop","referral"],until:"2026-11-01",wt:"Trick or Treat · picked for you",desc:"Private drop. Say Trick or Treat in Notes, or leave it blank and I'll pick.",pick:"Private drop · Sat only",
    makes:"Trick: about 4 sides for two · Treat: a few days of sweet things for one",
    has:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a fresh pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"],
    veg:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a vegan pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"]},
-  /* Sweater Weather Kit (renamed from Cold Snap Kit, Oct 30): low-price cold-weather starter, all local. No health claims. Est. cost ~$17 (garlic ~$6, cider ~$7, herbs ~$4) at $24, ~29%. Confirm after a market run. */
+  /* Sweater Weather Kit (renamed from Cold Snap Kit, Oct 30): low-price cold-weather starter, all local. No health claims. */
   {id:"coldsnap",name:"Sweater Weather Kit",price:24,wt:"Cold-weather kitchen staples · for one or two",desc:"Local garlic, fresh-pressed cider and a bunch of herbs for tea. Add local honey if you like.",pick:"New · Cold weather",
    makes:"About 8 mugs of cider or herb tea and a garlicky pot of soup (about 4 bowls) for one or two · ≈ $2 a serving",
    has:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"],
    veg:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"]},
-  /* Breakfast Box + Grits & Greens Box (Oct 30): fall breakfast/savory boxes built on a local grain farm's stone-ground oats and heirloom grits. Grain costs are estimates from the farm's online "as low as $3-5" list; confirm stand prices and bag sizes Saturday. Est. costs ~$28 / ~$26 (~30% / ~32%). Recipe line rides in "What's in it". */
+  /* Breakfast Box + Grits & Greens Box (Oct 30): fall breakfast/savory boxes built on a local grain farm's stone-ground oats and heirloom grits. Recipe line rides in "What's in it". */
   {id:"breakfast",name:"Breakfast Box",price:40,wt:"About a week of breakfasts for two",desc:"Stone-ground local oats, farm eggs and orchard fruit.",pick:"New · Fall breakfast",
    makes:"About 10–12 breakfasts · ≈ $3.50 a plate",
    has:["2 lb rolled oats, stone-ground on a family grain farm (about 20 bowls)","A bag of oat pancake mix from the same farm","A dozen farm eggs","2 lb apples or pears (about 6)"],
@@ -1088,12 +1089,12 @@ const BOXES=[
    has:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has"],
    veg:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has","Already plant-based. Cook the grits with water or veg stock"],
    recipe:"Recipe card in the bag: fish and grits with garlicky greens. Add a Great Lakes fillet (Meat, fish & eggs) or Lake Haul"},
-  /* Thanksgiving Sides Box (Oct 31; Nov 2: open to any Saturday through Nov 21, latest = THANKS_DATE): sides for a table of 6-8. Starting price; est. cost ~$67 (~29%). Confirm prices on the Nov 7 run. */
+  /* Thanksgiving Sides Box (Oct 31; Nov 2: open to any Saturday through Nov 21, latest = THANKS_DATE): sides for a table of 6-8. */
   {id:"thanks",name:"Thanksgiving Sides Box",price:95,until:"2026-11-22",wt:"~20 lb · sides for a table of 6–8",desc:"Everything for the sides, shopped fresh the Saturday you pick. Roots, squash and apples keep for weeks; pick 11/21 for the crispest greens and sprouts.",pick:"Thanksgiving · any Sat through 11/21",
    makes:"Sides for 6–8 with leftovers: mash, sweet potatoes, squash, sprouts, greens, stuffing veg and a crisp · ≈ $13 a guest",
    has:["3 lb potatoes for mash","3 lb sweet potatoes","A butternut squash","A pie pumpkin (or more squash)","1½ lb Brussels sprouts","Collards or kale, 2 bunches","3 lb apples for pie or crisp","Onions, shallots and garlic","Celery or celery root for stuffing","A bunch of sage, thyme and rosemary","Local cranberries, when a stand has them"],
    recipe:"Recipe card in the bag: brown-butter sage squash, and a cider apple crisp"},
-  /* Better Bites (Nov 3): snack-swap box for friends trying to eat less junk. Link-only: shown to ?s=bites... visitors or via ?box=bites from /bites/. No health claims. Est. cost ~$27 (apples ~$8, snacking roots ~$5, half-gallon cider ~$6, pickles or dried berries ~$8) at $35, ~23%: thin, confirm on a market run. */
+  /* Better Bites (Nov 3): snack-swap box for friends trying to eat less junk. Link-only: shown to ?s=bites... visitors or via ?box=bites from /bites/. No health claims. */
   {id:"bites",name:"Better Bites",price:35,only:"bites",wt:"Grab-and-go snack swaps · about a week for one",desc:"Your crunchy, sweet and salty cravings, swapped for the market version. Nothing to cook.",pick:"New · Snack swaps",
    makes:"About 12–14 snacks: a week for one, or a few days for two · ≈ $2.60 a snack",
    has:["2 lb crisp apples (about 6): the sweet crunch","Snacking roots: carrots, radishes or turnips, whatever's crispest","Fresh-pressed cider: the soda-run swap","A jar of pickles or dilly beans, or a snack bag of dried blueberries (say which in Notes)","Tell me your go-to junk in Notes and I'll lean the box that way"],
@@ -1110,7 +1111,7 @@ const BREADBOXES=[
   {id:"bread2",name:"Bakery Bundle",price:42,wt:"2 loaves + 2 pastries",desc:"Enough for the week, with something for the freezer.",pick:"",makes:"About 24–28 slices (12–14 servings of toast) plus 2 treats · ≈ $2.60 a serving",has:["2 sourdough loaves (about 12–14 slices each)","2 pastries"]}
 ];
 const ITEMS={
-  /* Diwali Kit (Nov 2): add-on for Sat Nov 7 only (Diwali is Sun Nov 8). Hidden after the Fri Nov 6 9 PM cutoff via "until"; date-locked via DIWALI_DATE. Est. cost ~$20. */
+  /* Diwali Kit (Nov 2): add-on for Sat Nov 7 only (Diwali is Sun Nov 8). Hidden after the Fri Nov 6 9 PM cutoff via "until"; date-locked via DIWALI_DATE. */
   special:[
     {id:"gameday-s",nm:"Game Day Kit · Feeds 6",ds:"6 apples, 2 lb carrots, fresh goat cheese and a jug of fresh-pressed cider · rinse, slice, done · save $5 vs. buying each · Saturdays through 11/21",p:39,sv:"Feeds about 6 · ≈ $6.50 a guest",until:"2026-11-20T21:00:00-06:00"},
     {id:"gameday",nm:"Game Day Kit · Feeds 12",ds:"A dozen apples, 2 lb carrots, a wedge of cave-aged cheddar, a sourdough loaf and a jug of fresh-pressed cider · rinse, slice, done · save $13 vs. buying each · Saturdays through 11/21",p:75,sv:"Feeds about 12 · ≈ $6.25 a guest",until:"2026-11-20T21:00:00-06:00"},
@@ -1158,7 +1159,7 @@ const ITEMS={
   pantry:[
     {id:"cider",nm:"Fresh-pressed apple cider",ds:"Jug, while in season",p:9,sv:"About 8 cups from a half-gallon jug · ≈ $1.15 a cup"},
     {id:"maple",nm:"Maple syrup",ds:"Pint",p:19,sv:"About 16 servings of 2 tablespoons · ≈ $1.20 a serving"},
-    /* Grains (Oct 30): local family grain farm, stone-ground. Est. costs ~$7 / ~$7 / ~$5-6; confirm Saturday. Shares a mill with wheat: not gluten-free. */
+    /* Grains (Oct 30): local family grain farm, stone-ground. Shares a mill with wheat: not gluten-free. */
     {id:"grits2",nm:"Heirloom grits, 2 lb",ds:"Stone-ground from a family grain farm · try them with fish and greens",p:10,sv:"About 8 servings · ≈ $1.25 a serving"},
     {id:"oats2",nm:"Rolled oats, 2 lb",ds:"Stone-ground from a family grain farm · milled alongside wheat, not gluten-free",p:10,sv:"About 20 bowls · 50¢ a bowl"},
     {id:"mix",nm:"Pancake or cornbread mix",ds:"Bag · e.g. oat pancake, heirloom cornbread · just add egg and milk",p:8,sv:"One batch: about 4 pancake breakfasts for two, or 8 cornbread squares · ≈ $1 a serving"},
