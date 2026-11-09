@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try{if(localStorage.getItem("pu-d24")!=="1"&&sessionStorage.getItem("pu-d24")!=="1"){location.replace("/p/door24/"+location.search)}}catch(e){}</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pair the shelf · Door 24 × Posted Up Produce</title>
+<meta name="robots" content="noindex, nofollow, noai, noimageai">
+<meta name="description" content="A private pairing page for Door 24. Password only.">
+<meta property="og:title" content="Pair the shelf. Door 24 × Posted Up.">
+<meta property="og:description" content="Private. Password only. Ask the counter.">
+<meta property="og:image" content="https://postedupproduce.org/logos/harvest-stamp.png">
+<meta property="og:url" content="https://postedupproduce.org/p/door24/pair/">
+<meta name="theme-color" content="#5B2A3A">
+<link rel="icon" href="/logos/stamp-96.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* /p/door24/ (Nov 9): Door 24 shelf edition of /pair/. Wines = in-stock bottles from door24wine.com/products.json, Nov 9 3 PM. Password gate is a velvet rope, not security: the word is in this file.
+   Was: /pair/ (Nov 9): before / during / after pairing game. Same look as the cream "Pairs with whatever you're holding" flyer at the wine bar.
+   Picks write the main site's saved cart (localStorage pu-draft, mode pick) and open /?s=<tag>#checkout, like /p/gabrielle/. No index.html or Apps Script change. */
+:root{--bg:#F4F1EE;--paper:#FFFFFF;--ink:#1B1A17;--muted:#5F5458;--rule:#DED4D4;--wine:#5B2A3A;--gold:#C2452F;--good:#2F5D3A;--bad:#B23A2A;--on:#5B2A3A;--on-ink:#FFF8EE;
+  --disp:"DM Serif Display",Georgia,serif;--body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#1C1517;--paper:#271D20;--ink:#F4F1EE;--muted:#C4B6AC;--rule:#3E2F33;--wine:#E8A0B4;--gold:#C2452F;--good:#9CCB9F;--bad:#F09A8A;--on:#E8B96A;--on-ink:#1B1A17;color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--body);padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.wrap{max-width:600px;margin:0 auto;padding:6px 18px 30px}
+.topbar{position:sticky;top:0;z-index:4;background:var(--bg);padding-top:6px}
+.top{display:flex;align-items:center;min-height:52px}
+.brand{display:inline-flex;align-items:center;gap:8px;font:700 17px/1 var(--body);text-decoration:none;min-height:44px}
+.brand img{width:32px;height:32px}
+.beta{font:700 11px/1 var(--body);border:1px solid var(--rule);border-radius:999px;padding:4px 8px;color:var(--muted)}
+.tabs{display:flex;gap:2px;margin:0 -4px;padding-bottom:8px;overflow-x:auto}
+.tabs a{flex:none;font:700 15px/1 var(--body);color:var(--muted);text-decoration:none;padding:14px 9px;border-radius:999px;white-space:nowrap;min-height:44px}
+.hero{border:2px solid var(--ink);padding:24px 22px 22px;margin-top:8px;background:var(--paper)}
+.eb{font:600 13px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;margin:0}
+.eb.w{color:var(--wine)}
+h1{font:400 clamp(46px,13vw,68px)/.98 var(--disp);margin:10px 0 0;letter-spacing:-.01em;text-wrap:balance}
+h1 em{color:var(--wine)}
+.lede{margin:14px 0 0;font-size:17px}
+.hi{margin:0 0 6px;font:600 14px/1.3 var(--mono);color:var(--wine)}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0 0}
+.mode{min-height:56px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:700 16px/1.2 var(--body);cursor:pointer;border-radius:0}
+.mode[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sec{margin:30px 0 0}
+h2{font:400 34px/1 var(--disp);margin:6px 0 0}
+h2 em{color:var(--wine)}
+.sub{margin:6px 0 0;color:var(--muted);font-size:15px}
+.chips{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.chip{min-height:48px;min-width:58px;border:2px solid var(--rule);background:var(--paper);color:var(--ink);font:700 18px/1 var(--body);cursor:pointer;padding:0 12px;border-radius:999px}
+.chip small{font:500 12px/1 var(--body);color:var(--muted);margin-left:4px}
+.chip[aria-pressed="true"]{background:var(--on);border-color:var(--on);color:var(--on-ink)}
+.chip[aria-pressed="true"] small{color:inherit}
+.course{margin-top:22px;border:2px solid var(--ink);background:var(--paper)}
+.ch{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:14px 16px 10px;border-bottom:1.5px solid var(--ink)}
+.ch h3{margin:0;font:400 30px/1 var(--disp)}
+.ch span{font:600 12px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:right}
+.lab{font:600 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--wine);margin:14px 16px 8px}
+.glass{display:flex;gap:8px;overflow-x:auto;padding:0 16px 4px;scroll-snap-type:x mandatory}
+.wine{flex:none;scroll-snap-align:start;min-height:64px;min-width:112px;max-width:200px;border:2px solid var(--rule);background:var(--bg);color:var(--ink);text-align:left;padding:8px 12px;cursor:pointer;border-radius:12px;font:inherit}
+.wine b{display:block;font:700 15px/1.2 var(--body)}
+.wine small{display:block;font:13px/1.3 var(--body);color:var(--muted)}
+.wine[aria-pressed="true"]{background:var(--on);border-color:var(--on);color:var(--on-ink)}
+.wine[aria-pressed="true"] small{color:inherit;opacity:.85}
+.plates{display:grid;gap:8px;padding:0 16px}
+.plate{display:grid;grid-template-columns:1fr auto;gap:4px 10px;width:100%;text-align:left;border:2px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 14px;cursor:pointer;font:inherit}
+.plate b{font:700 17px/1.25 var(--body)}
+.plate .pr{font:600 15px/1.25 var(--mono);text-align:right}
+.plate .d{grid-column:1/-1;font-size:14px;line-height:1.4;color:var(--muted)}
+.plate[aria-pressed="true"]{border-color:var(--wine);box-shadow:0 0 0 2px var(--wine) inset}
+.match{margin:14px 16px 16px;padding:12px 14px;border-radius:12px;border:2px dashed var(--rule);min-height:64px}
+.match .v{font:400 24px/1.1 var(--disp)}
+.match.ok .v{color:var(--good)}.match.no .v{color:var(--bad)}
+.match ul{margin:6px 0 0;padding-left:18px;font-size:15px;line-height:1.4}
+.match .tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.mini{min-height:44px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font:600 14px/1.2 var(--body);padding:0 12px;border-radius:999px;cursor:pointer}
+.btl{margin:6px 0 0;font:600 13px/1.4 var(--mono);color:var(--wine)}
+.dots{font:600 14px/1 var(--mono);letter-spacing:.1em}
+.score{margin-top:24px;border:2px solid var(--ink);padding:18px 16px;background:#3A1C26;color:var(--bg)}
+.score .eb{color:#E8B4A4}
+.score .big{font:400 54px/1 var(--disp);margin:8px 0 0}
+.score p{margin:6px 0 0;font-size:15px}
+.score .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.score .mini{border-color:var(--bg);color:var(--bg)}
+.bag{margin-top:12px;background:var(--paper);border:2px solid var(--rule);border-radius:14px;padding:4px 14px}
+.it{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule)}
+.it:last-child{border-bottom:0}
+.it .n{font-weight:700;font-size:16px}.it .d{font-size:13px;color:var(--muted)}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:44px;height:44px;border-radius:12px;border:2px solid var(--rule);background:var(--bg);color:var(--ink);font:700 22px/1 var(--body);cursor:pointer}
+.qty output{min-width:26px;text-align:center;font-weight:700}
+.empty{padding:14px 2px;color:var(--muted);margin:0}
+.fine{font-size:14px;color:var(--muted);margin:12px 2px 0}
+/* blind round */
+.blind{margin-top:22px;border:2px solid var(--ink);background:var(--paper);padding:18px 16px}
+.blind .q{font:400 30px/1.05 var(--disp);margin:8px 0 0}
+.blind .pd{margin:6px 0 0;color:var(--muted);font-size:15px}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opt{min-height:60px;text-align:left;border:2px solid var(--rule);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 14px;cursor:pointer;font:inherit}
+.opt b{display:block;font-size:17px}.opt small{color:var(--muted);font-size:13px}
+.opt.best{border-color:var(--good);box-shadow:0 0 0 2px var(--good) inset}
+.opt.miss{border-color:var(--bad)}
+.opt .r{display:block;margin-top:4px;font-size:14px}
+.bar{display:flex;justify-content:space-between;align-items:center;font:600 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.go2{margin-top:14px;min-height:52px;width:100%;border:0;background:var(--ink);color:var(--bg);font:700 17px/1 var(--body);cursor:pointer}
+.dock{position:fixed;left:0;right:0;bottom:0;background:#3A1C26;color:#F4F1EE;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));z-index:5}
+.dock .in{max-width:600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dock .tot{font:400 32px/1 var(--disp);margin:0}
+.dock .tot small{display:block;font:500 13px/1.3 var(--body);color:#D6CABC}
+.go{border:0;border-radius:0;background:#B23A2A;color:#FFFFFF;font:700 17px/1 var(--body);min-height:52px;padding:0 18px;cursor:pointer}
+.go:disabled{opacity:.45;cursor:not-allowed}
+.more-links{max-width:640px;margin:28px auto 8px;padding:0 16px;text-align:center;font-size:16px;line-height:2.4;opacity:.85}
+.more-links a{padding:10px 2px}
+@media (prefers-reduced-motion:no-preference){.pop{animation:pop .3s ease}@keyframes pop{40%{transform:scale(1.04)}}}
+</style>
+</head>
+<body>
+<div aria-hidden="true" style="height:48px;background:url(&quot;data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2724%27%20height%3D%2724%27%20viewBox%3D%270%200%2024%2024%27%3E%3Crect%20width%3D%2724%27%20height%3D%2724%27%20fill%3D%27%235B2A3A%27/%3E%3Cpath%20d%3D%27M12.0%200L24%2012.0L12.0%2024L0%2012.0Z%27%20fill%3D%27%23B23A2A%27/%3E%3Cpath%20d%3D%27M12.0%204.08L19.919999999999998%2012.0L12.0%2019.919999999999998L4.08%2012.0Z%27%20fill%3D%27%23F4F1EE%27/%3E%3Cpath%20d%3D%27M12.0%207.199999999999999L16.799999999999997%2012.0L12.0%2016.799999999999997L7.199999999999999%2012.0Z%27%20fill%3D%27%235B2A3A%27/%3E%3Cpath%20d%3D%27M12.0%2010.08L13.919999999999998%2012.0L12.0%2013.919999999999998L10.08%2012.0Z%27%20fill%3D%27%23F4F1EE%27/%3E%3C/svg%3E&quot;) repeat;background-size:24px 24px;border-bottom:3px solid #3A1C26"></div>
+<div class="wrap">
+  <div class="topbar">
+    <header class="top"><a href="/p/door24/" data-keep style="font:600 14px/1 var(--mono);margin-right:12px;min-height:44px;display:inline-flex;align-items:center">← Door 24</a><a class="brand" href="/" data-keep><img src="/logos/stamp-96.png" alt="">Posted Up Produce <span class="beta">Beta</span></a></header>
+    <nav class="tabs" aria-label="Site pages">
+      <a href="/" data-keep>Home</a>
+      <a href="/how/" data-keep>How it works</a>
+      <a href="/#shop" data-keep>Boxes</a>
+      <a href="/faq/" data-keep>Questions</a>
+    </nav>
+  </div>
+
+  <div id="inside">
+  <section class="hero" aria-labelledby="h1">
+    <p class="hi" id="hi" hidden></p>
+    <p class="eb">Door 24 × Posted Up · Before · During · After</p>
+    <h1 id="h1">Pair the <em>shelf.</em></h1>
+    <p class="lede">Every pour here is a bottle on the Door 24 shelf this week. Pick one, pick a plate, see how they match. Mix and match three courses, grab the bottles at the shop, and we shop the farmers market for the food Saturday morning.</p>
+    <div class="modes" role="group" aria-label="Choose a mode">
+      <button type="button" class="mode" id="mBuild" aria-pressed="true">Build a flight</button>
+      <button type="button" class="mode" id="mBlind" aria-pressed="false">Pair it blind</button>
+    </div>
+  </section>
+
+  <div id="build">
+    <section class="sec" aria-labelledby="sG">
+      <p class="eb w">Step 1</p>
+      <h2 id="sG">How many at the <em>table?</em></h2>
+      <div class="chips" role="group" aria-label="People at the table" id="guests"></div>
+    </section>
+
+    <section class="sec" aria-labelledby="sC">
+      <p class="eb w">Step 2</p>
+      <h2 id="sC">Three courses, <em>your pours.</em></h2>
+      <p class="sub">For each course, tap a wine style and a plate. Skip any course you don't want.</p>
+      <div id="courses"></div>
+    </section>
+
+    <section class="score" aria-live="polite" id="score"></section>
+
+    <section class="sec" aria-labelledby="sB">
+      <p class="eb w">Step 3</p>
+      <h2 id="sB">Your <em>bag.</em></h2>
+      <p class="sub">What we'd shop for the plates you picked. Bump anything up or down.</p>
+      <div class="bag" id="bag" aria-live="polite"></div>
+      <p class="fine">We don't sell wine: the bottles are at Door 24, 2124 N Damen. Shelf picks and prices as of Nov 9; they sell out, so ask the counter for a swap in the same style. Pairing notes are rules of thumb from wine writers; your taste wins. Orders close Friday 9 PM for Saturday. Pickup or delivery, your call at checkout.</p>
+    </section>
+  </div>
+
+  <div id="blindWrap" hidden>
+    <section class="blind" aria-live="polite" id="blind"></section>
+    <p class="fine">How it works: we show a plate and three pours. Pick the one you think pairs best, then see why. Five rounds.</p>
+  </div>
+  </div>
+</div>
+
+<p class="more-links">More: <a href="/#inventory">Add-ons</a> · <a href="/services/">Sourcing services</a> · <a href="/join/">First pick</a> · <a href="/#talk">Contact</a> · <a href="/play/">Play</a></p>
+<p class="pu-ip" style="max-width:680px;margin:8px auto 18px;padding:0 20px;font:14px/1.5 system-ui,-apple-system,sans-serif;opacity:.72;text-align:center">&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade; and our logo, writing, menus and design are ours. <a href="/terms/" style="color:inherit;font-weight:700">Site terms</a></p>
+
+<div class="dock" id="dock" role="region" aria-label="Your total">
+  <div class="in">
+    <p class="tot" id="tot">$0<small>Pick a plate to start</small></p>
+    <button class="go" id="go" type="button" disabled>Send to my cart</button>
+  </div>
+</div>
+
+<script>
+/* Items mirror index.html ITEMS (ids, names, prices as of Nov 9). If a price changes there, the main cart shows the real one at checkout. */
+const ITEMS={cheddar:["Cave-aged cheddar","Wedge · Illinois dairy farm",22],preserves:["Jams & pickles","Jar · jam, apple butter or giardiniera",13],sour:["Sourdough loaf","12–14 slices",14],
+ chevre:["Fresh goat cheese","Herbed chèvre or feta in oil",14],salad:["Salad greens & microgreens","Spinach, arugula, shoots",8],pears:["Pears & Asian pears, 2 lb","About 5, while they last",12],
+ roots:["Root vegetables, 2 lb","Beets, carrots, turnips, radishes",8],peppers:["Peppers & late-season picks","Fennel, celery root, radishes",8],
+ squash:["Winter squash","One squash",7],brassica:["Cabbage family","Brussels sprouts, cabbage or cauliflower",8],alliums:["Onions & garlic","Onions, leeks, shallots, garlic",8],
+ fish:["Great Lakes fish fillet","8–16 oz · walleye, whitefish or lake trout",30],grits2:["Heirloom grits, 2 lb","Stone-ground",10],greens:["Hearty greens","Kale, collards or chard",8],
+ sausage:["Sausage, about 1 lb","4–5 links",20],potatoes:["Potatoes & sweet potatoes, 2 lb","About 4–6",10],apples:["Apples, 2 lb","About 6, sweet and tart",13],
+ quesokit:["Quesadilla Kit","Tortillas, melting cheese, fillings, salsa",55],hsfruit:["Hot sauce: fruity & hot","Bottle",10],
+ oats2:["Rolled oats, 2 lb","Stone-ground",10],butter:["Grass-fed butter","1 lb",13],maple:["Maple syrup","Pint",19],pastry:["Pastry","Croissant, scone or danish",8],cider:["Fresh-pressed apple cider","Jug (no alcohol)",9]};
+
+/* Wine styles: acid / sweet / tannin / body on a 0–3 scale, plus bubbles and earthy. No bottle or shop names. */
+const WINES=[
+ {id:"spark",n:"Dry bubbles",bt:[["Cantina di Carpi \u201cNotteBianca\u201d Brut",16.99],["T. Tissot Brut Bugey",32.99]],a:3,s:0,t:0,b:1,bub:1},
+ {id:"champ",n:"Champagne",bt:[["Emile Paris R\u00e9serve Personnelle Brut",42.99]],a:3,s:0,t:0,b:2,bub:1},
+ {id:"crisp",n:"Crisp white",bt:[["Les Deux Moulins Sauvignon Blanc",16.99],["La Marea Albari\u00f1o",31.99]],a:3,s:0,t:0,b:1},
+ {id:"offdry",n:"Off-dry Riesling",bt:[["Seehof Riesling Feinherb",22.99]],a:3,s:2,t:0,b:1},
+ {id:"round",n:"Round white",bt:[["Echeverria \u201cNo Es Pituko\u201d Chardonnay",17.99]],a:2,s:0,t:0,b:2},
+ {id:"skin",n:"Orange wine",bt:[["Ruth Lewandowski \u201cTatto\u201d",32.99]],a:2,s:0,t:1,b:2,earthy:1},
+ {id:"rose",n:"Ros\u00e9",bt:[["Ameztoi Rubentis Txakolina Ros\u00e9",27.99],["Clos Cibonne Tradition Ros\u00e9",47.99]],a:3,s:0,t:0,b:1},
+ {id:"light",n:"Light red, chill it",bt:[["Olivier Minot La Boutanche Gamay, 1 L",28.99],["\u00c9ric Texier \u201cChat Fou\u201d",24.99]],a:2,s:0,t:1,b:2,earthy:1},
+ {id:"savory",n:"Savory red",bt:[["Charles Gonnet Mondeuse",22.99],["Ercole Barbera",19.99]],a:2,s:0,t:2,b:2,earthy:1},
+ {id:"big",n:"Big red",bt:[["The Fableist Cabernet Sauvignon",24.99],["Blackboard Red",26.99]],a:2,s:0,t:3,b:3},
+ {id:"sweetbub",n:"Sweet bubbles",bt:[["Patrick Bottex \u201cLa Cueille\u201d Bugey-Cerdon",32.99]],a:2,s:2,t:0,b:1,bub:1}
+];
+const btl=w=>w.bt.map(([n,p])=>n+" $"+p.toFixed(2)).join(" \u00b7 ");
+/* Plates feed about 4; "scale" items double at 6+ people. Traits 0–3: fat, salt, sweet, acid, spice, weight, earthy; delicate = fish. */
+const COURSES=[
+ {id:"before",n:"Before",tag:"Graze while you pour",plates:[
+  {id:"board",n:"Salt & bubbles board",d:"Cave-aged cheddar, a jar of pickles or giardiniera, sourdough.",items:{cheddar:1,preserves:1,sour:1},scale:["cheddar"],fat:2,salt:3,sweet:0,acid:1,spice:0,w:2,
+   classic:{savory:"The shop\u2019s own note on this Mondeuse: made for hard cheese."}},
+  {id:"goat",n:"Goat cheese & pears",d:"Herbed chèvre, pears, salad greens.",items:{chevre:1,pears:1,salad:1},scale:["chevre","pears"],fat:1,salt:1,sweet:1,acid:2,spice:0,w:1,
+   classic:{crisp:"Goat cheese with a crisp, tart white is a classic match."}},
+  {id:"crunch",n:"Crunch & dip",d:"Radishes, carrots and fennel to dip in whipped goat cheese.",items:{roots:1,peppers:1,chevre:1},scale:["roots"],fat:1,salt:0,sweet:0,acid:1,spice:0,w:1,earthy:1}
+ ]},
+ {id:"during",n:"During",tag:"The main event",plates:[
+  {id:"roast",n:"Roast & pour",d:"Squash, roots and Brussels roasted with garlic, sourdough to mop it up.",items:{squash:1,roots:1,brassica:1,alliums:1,sour:1},scale:["squash","roots","brassica"],fat:1,salt:1,sweet:1,acid:0,spice:0,w:2,earthy:3,
+   classic:{savory:"The shop\u2019s own note on this Mondeuse: roasted vegetables.",light:"Earth and forest floor in the glass, roasted roots on the plate."}},
+  {id:"lake",n:"Lake fish & grits",d:"A Great Lakes fillet over heirloom grits with garlicky greens.",items:{fish:1,grits2:1,greens:1,alliums:1},scale:["fish","greens"],fat:1,salt:1,sweet:0,acid:0,spice:0,w:1,delicate:1,
+   classic:{crisp:"Light, unoaked whites suit delicate fish.",round:"A creamy white for creamy grits: same texture, same weight."}},
+  {id:"pan",n:"Sausage & harvest pan",d:"Sausage, potatoes, onions and apples in one pan.",items:{sausage:1,potatoes:1,apples:1,alliums:1},scale:["sausage","potatoes"],fat:3,salt:2,sweet:1,acid:0,spice:0,w:3,
+   classic:{savory:"The shop\u2019s own note on this Mondeuse: pork roast. Sausage counts."}},
+  {id:"queso",n:"Quesadilla night",d:"Corn tortillas, melting cheese, fillings, salsa and a sweet-hot sauce.",items:{quesokit:1,hsfruit:1},scale:["quesokit"],fat:2,salt:2,sweet:0,acid:1,spice:2,w:2}
+ ]},
+ {id:"after",n:"After",tag:"Something sweet or salty",plates:[
+  {id:"crisp",n:"Apple-maple crisp",d:"Apples, oat crumble, butter and maple. Bake it while the table clears.",items:{apples:1,oats2:1,butter:1,maple:1},scale:["apples"],fat:2,salt:0,sweet:2,acid:1,spice:0,w:2},
+  {id:"cheese",n:"Cheddar, pears & jam",d:"A wedge of cave-aged cheddar with pears and a jar of jam.",items:{cheddar:1,pears:1,preserves:1},scale:["pears"],fat:2,salt:2,sweet:2,acid:0,spice:0,w:2},
+  {id:"pastry",n:"Pastries & cider",d:"Four pastries and a jug of fresh-pressed cider (no alcohol) for the morning after.",items:{pastry:4,cider:1},scale:["pastry"],fat:2,salt:0,sweet:2,acid:1,spice:0,w:1}
+ ]}
+];
+
+/* Pairing rules (rules of thumb from Wine Folly, Karen MacNeil / Decanter, Washington Wine and others):
+   match weight · acid cuts fat · fat softens tannin · salt loves bubbles, acid or sweetness · wine sweeter than the dish ·
+   tannin and alcohol turn up spice, a little sweetness cools it · big tannin buries delicate fish · earthy meets earthy. */
+function pair(p,w){
+  let s=0;const why=[];const add=(n,t)=>{s+=n;why.push([n,t])};
+  const dw=Math.abs(p.w-w.b);
+  if(dw===0)add(1,"Same weight: neither one drowns the other.");
+  else if(dw>=2)add(-1,w.b>p.w?w.n+" is heavier than this plate and will drown it.":"This plate will drown a wine this light.");
+  if(p.sweet>=2){if(w.s>=p.sweet)add(2,"The wine is sweeter than the dish, so both stay bright.");else add(-2,"The dish is sweeter than the wine, which makes the wine taste sour and thin.");}
+  if(p.fat>=2){if(w.t>=2)add(2,"Fat softens the tannin.");else if(w.t===1)add(1,"A little tannin, a little fat: they meet in the middle.");if(w.a>=3)add(1,"Acid cuts through the richness.");if(w.bub)add(1,"Bubbles scrub the palate between bites.");}
+  if(p.salt>=2){if(w.s>=2)add(2,"Salty against sweet: a classic contrast.");else if(w.bub||w.a>=3)add(1,"Salt makes a crisp wine taste fruitier.");}
+  if(p.spice>=2){if(w.t>=2||w.b>=3)add(-2,"Tannin and alcohol turn up the heat.");else if(w.s>=1)add(2,"A touch of sweetness cools the heat.");}
+  if(p.acid>=2){if(w.a>=3)add(1,"Tangy food wants a wine at least as tart.");else if(w.a<2)add(-1,"The food's tang makes this wine feel flat.");}
+  if(w.s>=3&&p.sweet<=1)add(-2,"Dessert wine overwhelms a savory plate.");
+  if(p.delicate&&w.t>=2)add(-2,"Big tannin buries delicate fish.");
+  if(p.earthy>=2&&w.earthy)add(1,"Earthy wine meets an earthy roast.");
+  if(p.classic&&p.classic[w.id])add(1,p.classic[w.id]);
+  return {s,why};
+}
+function verdict(s){return s>=3?["Perfect match","ok",3]:s>=2?["Great pair","ok",2]:s>=1?["Works","",1]:s>=0?["Fine, not magic","",1]:["Clash. Try a swap.","no",0]}
+const W=id=>WINES.find(w=>w.id===id), P=(c,id)=>c.plates.find(p=>p.id===id);
+const rank=(p,w)=>pair(p,w).s+(p.classic&&p.classic[w.id]?.5:0);
+function bestWine(p){return WINES.map(w=>[w,rank(p,w)]).sort((a,b)=>b[1]-a[1])[0][0]}
+function bestPlate(c,w){return c.plates.map(p=>[p,pair(p,w).s]).sort((a,b)=>b[1]-a[1])[0][0]}
+
+const TAG=(()=>{try{return (new URLSearchParams(location.search).get("s")||"p-door24").replace(/[^a-z0-9-]/gi,"").slice(0,30)||"p-door24"}catch(e){return "p-door24"}})();
+const GUESTS=[[2,"us"],[4,""],[6,""],[8,"party"]];
+const st={guests:4,pick:{before:{w:null,p:null},during:{w:null,p:null},after:{w:null,p:null}},qty:{},edited:false,mode:"build"};
+const el=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(v==null)continue;if(x==="text")e.textContent=v;else if(x.startsWith("on"))e.addEventListener(x.slice(2),v);else e.setAttribute(x,v)}for(const c of k)if(c!=null)e.append(c);return e};
+const price=p=>{const f=st.guests>=6?2:1;let c=0;for(const[k,v]of Object.entries(p.items))c+=ITEMS[k][2]*v*(p.scale.includes(k)?f:1);return c};
+
+function rebuildBag(){const f=st.guests>=6?2:1,sum={};for(const c of COURSES){const pk=st.pick[c.id];if(!pk.p)continue;const p=P(c,pk.p);for(const[k,v]of Object.entries(p.items))sum[k]=(sum[k]||0)+v*(p.scale.includes(k)?f:1)}st.qty=sum}
+function renderGuests(){document.getElementById("guests").replaceChildren(...GUESTS.map(([n,l])=>el("button",{type:"button",class:"chip","aria-pressed":String(st.guests===n),onclick:()=>{st.guests=n;rebuildBag();render()}},String(n),l?el("small",{text:l}):null)))}
+function renderCourses(){
+  const box=document.getElementById("courses");
+  box.replaceChildren(...COURSES.map(c=>{const pk=st.pick[c.id];
+    const wines=el("div",{class:"glass",role:"group","aria-label":c.n+": what's in your glass"},...WINES.map(w=>el("button",{type:"button",class:"wine","aria-pressed":String(pk.w===w.id),onclick:()=>{pk.w=pk.w===w.id?null:w.id;render()}},el("b",{text:w.n}),el("small",{text:w.bt.map(x=>x[0]).join(" / ")}))));
+    const plates=el("div",{class:"plates",role:"group","aria-label":c.n+": plates"},...c.plates.map(p=>el("button",{type:"button",class:"plate","aria-pressed":String(pk.p===p.id),onclick:()=>{pk.p=pk.p===p.id?null:p.id;rebuildBag();render()}},el("b",{text:p.n}),el("span",{class:"pr",text:"$"+price(p)}),el("span",{class:"d",text:p.d}))));
+    let m;
+    if(pk.w&&pk.p){const p=P(c,pk.p),w=W(pk.w),r=pair(p,w),[v,cls,stars]=verdict(r.s);
+      const top=r.why.slice().sort((a,b)=>Math.abs(b[0])-Math.abs(a[0])).slice(0,2);
+      m=el("div",{class:"match pop "+cls},el("div",{class:"v"},v+" ",el("span",{class:"dots","aria-label":stars+" of 3",text:"●".repeat(stars)+"○".repeat(3-stars)})),
+        el("p",{class:"btl",text:"On the shelf: "+btl(w)}),top.length?el("ul",{},...top.map(([,t])=>el("li",{text:t}))):el("p",{style:"margin:6px 0 0;font-size:15px",text:"Nothing fights, nothing sings. Try a swap."}),
+        el("div",{class:"tools"},el("button",{type:"button",class:"mini",onclick:()=>{pk.w=bestWine(p).id;render()}},"Best pour for this plate"),el("button",{type:"button",class:"mini",onclick:()=>{pk.p=bestPlate(c,w).id;rebuildBag();render()}},"Best plate for this pour")));
+    }else if(pk.p){const p=P(c,pk.p);m=el("div",{class:"match"},el("p",{style:"margin:0;font-size:15px",text:"Now tap what's in your glass, or let us pick."}),el("div",{class:"tools"},el("button",{type:"button",class:"mini",onclick:()=>{pk.w=bestWine(p).id;render()}},"Pick the pour for me")));}
+    else if(pk.w){const w=W(pk.w);m=el("div",{class:"match"},el("p",{style:"margin:0;font-size:15px",text:"Now pick a plate, or let us pick."}),el("div",{class:"tools"},el("button",{type:"button",class:"mini",onclick:()=>{pk.p=bestPlate(c,w).id;rebuildBag();render()}},"Pick the plate for me")));}
+    else m=el("div",{class:"match"},el("p",{style:"margin:0;font-size:15px;color:var(--muted)",text:"Pick a pour and a plate to see the match."}));
+    return el("section",{class:"course","aria-label":c.n},el("div",{class:"ch"},el("h3",{text:c.n}),el("span",{text:c.tag})),
+      el("p",{class:"lab",text:"In your glass"}),wines,el("p",{class:"lab",text:"On the plate"}),plates,m)}));
+}
+function renderScore(){
+  let pts=0,done=0;for(const c of COURSES){const pk=st.pick[c.id];if(pk.w&&pk.p){done++;pts+=verdict(pair(P(c,pk.p),W(pk.w)).s)[2]}}
+  const s=document.getElementById("score");
+  const line=done===0?"Pair at least one course to get a score.":pts===done*3?"Every course is a perfect match. Somm energy.":pts>=done*2?"Strong flight. One swap could make it perfect.":"Some bold choices. Tap \"Best pour\" on any course to fix it.";
+  s.replaceChildren(el("p",{class:"eb",text:"Flight score"}),el("p",{class:"big",text:pts+" / "+(done*3||9)}),el("p",{text:line}),
+    el("div",{class:"row"},el("button",{type:"button",class:"mini",onclick:spin},"Spin the night"),el("button",{type:"button",class:"mini",onclick:somm},"Somm's flight")));
+}
+function spin(){const r=a=>a[Math.floor(Math.random()*a.length)];for(const c of COURSES){st.pick[c.id]={w:r(WINES).id,p:r(c.plates).id}}rebuildBag();render()}
+function somm(){for(const c of COURSES){let top=null;for(const p of c.plates)for(const w of WINES){const v=rank(p,w);if(!top||v>top.v)top={p,w,v}}st.pick[c.id]={w:top.w.id,p:top.p.id}}rebuildBag();render()}
+function renderBag(){
+  const bag=document.getElementById("bag");const ids=Object.keys(st.qty).filter(k=>st.qty[k]>0);
+  bag.replaceChildren(...(ids.length?ids.map(k=>{const[n,d,p]=ITEMS[k];return el("div",{class:"it"},el("div",{},el("div",{class:"n",text:n}),el("div",{class:"d",text:d+" · $"+p})),
+    el("div",{class:"qty"},el("button",{type:"button","aria-label":"One less "+n,onclick:()=>{st.qty[k]--;renderBag()}},"−"),el("output",{"aria-label":n+" quantity",text:String(st.qty[k])}),el("button",{type:"button","aria-label":"One more "+n,onclick:()=>{st.qty[k]++;renderBag()}},"+")))})
+    :[el("p",{class:"empty",text:"Pick a plate in any course and your bag fills in here."})]));
+  const tot=ids.reduce((a,k)=>a+ITEMS[k][2]*st.qty[k],0),n=ids.reduce((a,k)=>a+st.qty[k],0);
+  document.getElementById("tot").replaceChildren("$"+tot,el("small",{text:n?n+" item"+(n>1?"s":"")+" · "+st.guests+" at the table":"Pick a plate to start"}));
+  document.getElementById("go").disabled=!n;
+}
+function render(){renderGuests();renderCourses();renderScore();renderBag()}
+
+/* Blind round: a plate, three pours (the best one plus two others), five rounds. */
+const bl={round:0,score:0,q:null,picked:null};
+function newQ(){const all=COURSES.flatMap(c=>c.plates.map(p=>({c,p})));const {c,p}=all[Math.floor(Math.random()*all.length)];
+  const ranked=WINES.map(w=>({w,r:pair(p,w),k:rank(p,w)})).sort((a,b)=>b.k-a.k);const best=ranked[0];
+  let rest=ranked.filter(x=>x.r.s<best.r.s-1);if(rest.length<2)rest=ranked.filter(x=>x.r.s<best.r.s);const pick2=[];const pool=rest.slice();while(pick2.length<2&&pool.length){pick2.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0])}
+  const opts=[best,...pick2].sort(()=>Math.random()-.5);bl.q={c,p,opts,best:best.w.id};bl.picked=null}
+function renderBlind(){
+  const b=document.getElementById("blind");
+  if(bl.round>=5){const msg=bl.score>=5?"Perfect palate.":bl.score>=3?"Good nose. Keep pouring.":"Bold palate. Rules are made to be broken.";
+    b.replaceChildren(el("div",{class:"bar"},el("span",{text:"Final"}),el("span",{text:bl.score+" / 5"})),el("p",{class:"q",text:msg}),el("p",{class:"pd",text:"Now build a real night out of it: three courses, your pours, shopped Saturday."}),
+      el("button",{type:"button",class:"go2",onclick:()=>setMode("build")},"Build a flight"),el("button",{type:"button",class:"go2",style:"background:transparent;color:var(--ink);border:2px solid var(--ink)",onclick:()=>{bl.round=0;bl.score=0;newQ();renderBlind()}},"Play again"));return}
+  const {c,p,opts,best}=bl.q;
+  b.replaceChildren(el("div",{class:"bar"},el("span",{text:"Round "+(bl.round+1)+" of 5 · "+c.n}),el("span",{text:"Score "+bl.score})),
+    el("p",{class:"q",text:p.n}),el("p",{class:"pd",text:p.d}),el("p",{class:"lab",style:"margin:16px 0 0",text:"Which pour pairs best?"}),
+    el("div",{class:"opts"},...opts.map(o=>{const done=bl.picked!==null;const isBest=o.w.id===best;const cls="opt"+(done&&isBest?" best":"")+(done&&bl.picked===o.w.id&&!isBest?" miss":"");
+      const why=o.r.why.slice().sort((a,b)=>Math.abs(b[0])-Math.abs(a[0]))[0];
+      return el("button",{type:"button",class:cls,disabled:done?"":null,onclick:()=>{if(bl.picked!==null)return;bl.picked=o.w.id;if(isBest)bl.score++;renderBlind()}},
+        el("b",{text:o.w.n}),el("small",{text:o.w.bt.map(x=>x[0]).join(" / ")}),done?el("span",{class:"r",text:verdict(o.r.s)[0]+(why?": "+why[1]:"")}):null)})),
+    bl.picked!==null?el("button",{type:"button",class:"go2",onclick:()=>{bl.round++;if(bl.round<5)newQ();renderBlind()}},bl.round<4?"Next plate":"See my score"):null);
+}
+function setMode(m){st.mode=m;document.getElementById("mBuild").setAttribute("aria-pressed",String(m==="build"));document.getElementById("mBlind").setAttribute("aria-pressed",String(m==="blind"));
+  document.getElementById("build").hidden=m!=="build";document.getElementById("blindWrap").hidden=m!=="blind";
+  if(m==="blind"){if(!bl.q){newQ()}renderBlind()}window.scrollTo({top:0})}
+document.getElementById("mBuild").addEventListener("click",()=>setMode("build"));
+document.getElementById("mBlind").addEventListener("click",()=>setMode("blind"));
+document.getElementById("go").addEventListener("click",()=>{
+  const qty={};for(const[k,v]of Object.entries(st.qty))if(v>0)qty[k]=v;
+  try{localStorage.setItem("pu-draft",JSON.stringify({box:null,breadBox:null,qty,mode:"pick",at:Date.now()}));}catch(e){}
+  location.href="/?s="+TAG+"#checkout";
+});
+/* keep ?s= on site links; wine-bar welcome for door24 tags */
+try{if(TAG){document.querySelectorAll("[data-keep],.more-links a").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",TAG);a.setAttribute("href",u.pathname+u.search+u.hash)})}
+  if(/door24/.test(TAG)){const h=document.getElementById("hi");h.textContent="Hi from the wine bar.";h.hidden=false}}catch(e){}
+render();
+</script>
+</body>
+</html>
