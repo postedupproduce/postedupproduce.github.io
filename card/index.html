@@ -37,7 +37,7 @@ h1 span{color:var(--accent)}
 /* Nov 8 walkthrough preview */
 .beta{display:inline-block;font:700 12px/1 'Figtree',sans-serif;background:var(--accent);color:#fff;border-radius:999px;padding:4px 8px;vertical-align:2px}
 .talk2{display:flex;gap:10px;margin-top:20px}.talk2 a{flex:1;min-height:52px;display:grid;place-items:center;border-radius:999px;border:2px solid var(--ink);color:var(--ink);font:800 17px 'Figtree',sans-serif;text-decoration:none}.talk2 a:first-child{background:var(--ink);color:var(--bg)}
-.doors[hidden]{display:none}.also{margin:18px 0 0;font-size:16px;line-height:1.9;color:var(--muted)}.also a{color:var(--ink)}
+.doors[hidden]{display:none}.also{margin:18px 0 0;font-size:16px;line-height:1.9;color:var(--muted)}.also a{color:var(--ink);display:inline-block;padding:12px 2px;min-height:44px}.ask{display:flex;align-items:center;justify-content:center;min-height:52px;margin:14px 0 0;border:2px solid currentColor;border-radius:14px;font-weight:700;font-size:17px;text-decoration:none;color:inherit}
 footer{margin-top:20px;font-size:14px;color:var(--muted)}
 footer a{color:var(--ink)}
 </style>
@@ -54,6 +54,7 @@ footer a{color:var(--ink)}
 <ul class="doors">
 <li><a class="main" data-door="shop" href="/how/"><span class="star" aria-hidden="true">✶</span><span><b>Get your market run</b><small>Boxes from $45 at a meet-up. Next market day <span id="nextSat">this Saturday</span>; order by Friday 9 PM. Pick up or delivered.</small></span></a></li>
 </ul>
+<a class="ask" data-door="shop" href="/#talk">Questions? Send us a message</a>
 <p class="also">Also: <a data-door="sell" href="mailto:info@postedupproduce.org?subject=Selling%20to%20Posted%20Up">Sell to us</a> · <a data-door="host" href="mailto:info@postedupproduce.org?subject=Hosting%20a%20pickup%20spot">Host a pickup spot</a> · <a data-door="back" href="/pitchfork/">Back the work</a></p>
 <ul class="doors" hidden>
 <li><a data-door="sell" href="mailto:info@postedupproduce.org?subject=Selling%20to%20Posted%20Up"><span class="star" aria-hidden="true">✶</span><span><b>Sell to us</b><small>Farms and makers: tell us what you grow or make.</small></span></a></li>
