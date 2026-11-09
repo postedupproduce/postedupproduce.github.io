@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Posted Up Produce · Hello from the card</title>
+<meta name="description" content="Farmers-market shopping, picked for you. Get your market run, sell to us, host a pickup spot, or back the work.">
+<meta property="og:title" content="Posted Up Produce">
+<meta property="og:description" content="Farmers-market shopping, picked for you.">
+<meta property="og:image" content="https://postedupproduce.org/logos/harvest-stamp.png">
+<meta property="og:url" content="https://postedupproduce.org/card/">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBF4E4;--ink:#1F3B2D;--muted:#4A5A4E;--accent:#C8402B;--gold:#E8B23A;--card:#FFFFFF;--line:#E3D9C2}
+@media (prefers-color-scheme: dark){:root{--bg:#16231B;--ink:#F3EEDF;--muted:#B9C2B6;--accent:#F08A6E;--gold:#E8B23A;--card:#1F3B2D;--line:#2E4A3B}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Figtree',system-ui,sans-serif;line-height:1.45}
+main{max-width:520px;margin:0 auto;padding:32px 16px 48px}
+header{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+header img{width:84px;height:84px;flex-shrink:0}
+h1{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:40px;line-height:.92;margin:0;letter-spacing:.01em}
+h1 span{color:var(--accent)}
+.lede{margin:4px 0 0;color:var(--muted);font-size:16px}
+.doors{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.doors a{display:flex;align-items:center;gap:14px;min-height:64px;padding:16px 18px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;color:var(--ink);text-decoration:none}
+.doors a:hover,.doors a:focus-visible{border-color:var(--ink);outline:none}
+.doors .star{color:var(--accent);font-size:20px;font-weight:700;flex-shrink:0}
+.doors b{display:block;font-size:18px;font-weight:700}
+.doors small{display:block;color:var(--muted);font-size:14px}
+.doors .main{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.doors .main small{color:var(--bg);opacity:.85}
+.doors .main .star{color:var(--gold)}
+footer{margin-top:28px;font-size:14px;color:var(--muted)}
+footer a{color:var(--ink)}
+</style>
+</head>
+<body>
+<main>
+<header>
+<img src="/logos/harvest-stamp.png" alt="Posted Up Produce Harvest Stamp logo">
+<div>
+<h1>POSTED UP<br><span>PRODUCE</span></h1>
+<p class="lede">Farmers-market shopping, picked for you. Saturdays in Chicago.</p>
+</div>
+</header>
+<ul class="doors">
+<li><a class="main" data-door="shop" href="/how/"><span class="star" aria-hidden="true">✶</span><span><b>Get your market run</b><small>See how it works, then pick a box. Pickup or delivery.</small></span></a></li>
+<li><a data-door="sell" href="mailto:info@postedupproduce.org?subject=Selling%20to%20Posted%20Up"><span class="star" aria-hidden="true">✶</span><span><b>Sell to us</b><small>Farms and makers: tell us what you grow or make.</small></span></a></li>
+<li><a data-door="host" href="mailto:info@postedupproduce.org?subject=Hosting%20a%20pickup%20spot"><span class="star" aria-hidden="true">✶</span><span><b>Host a pickup spot</b><small>A lobby, studio or office where neighbors grab their bags.</small></span></a></li>
+<li><a data-door="back" href="/pitchfork/"><span class="star" aria-hidden="true">✶</span><span><b>Back the work</b><small>Funders and partners: where it stands and what's next.</small></span></a></li>
+</ul>
+<footer>Questions? <a href="mailto:info@postedupproduce.org">info@postedupproduce.org</a></footer>
+</main>
+<script>
+// Carry the card's ?s= tag (card-malik / card-chris) onto the site links so the Visits tab shows which card was scanned.
+(function(){
+  try{
+    var s=new URLSearchParams(location.search).get('s')||'card';
+    document.querySelectorAll('a[data-door="shop"],a[data-door="back"]').forEach(function(a){
+      var u=new URL(a.getAttribute('href'),location.href);u.searchParams.set('s',s);a.href=u.pathname+u.search+u.hash;
+    });
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
+      if(a.href.indexOf('subject=')>-1){a.href=a.href+'%20('+encodeURIComponent(s)+')';}
+    });
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

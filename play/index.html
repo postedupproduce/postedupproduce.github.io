@@ -7,7 +7,7 @@
 <meta name="description" content="Market Catch: a 30-second farmers-market game from Posted Up Produce. Catch produce, dodge the bugs, beat your friends.">
 <meta property="og:title" content="Market Catch · Posted Up Produce">
 <meta property="og:description" content="30 seconds. Catch produce, grab the golden pumpkin, dodge the bugs. Think you can beat my score?">
-<meta property="og:image" content="https://postedupproduce.github.io/og.png">
+<meta property="og:image" content="https://postedupproduce.org/og.png">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#24392c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -106,7 +106,7 @@ button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
 <script>
 /* Market Catch, the shareable edition. Same game as the /join thank-you screen.
    No data leaves the device: best score in localStorage (pu_catch_best), and the only network thing is the share sheet if you tap share. */
-const SHARE_URL="https://postedupproduce.github.io/play/?s=play-share";
+const SHARE_URL="https://postedupproduce.org/play/?s=play-share";
 const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
 const src=raw||"play";
 /* Carry the incoming ?s= tag onto every site tab so Visits/Contacts attribution survives. */

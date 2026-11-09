@@ -116,7 +116,7 @@ textarea{min-height:90px;resize:vertical}
     <div class="note">
       <p>Vv, been watching you put the city onto real food, so I built you a box from what I'm already buying at the market. Ten tracks, all local, nothing processed. Play it, swap whatever you want, and if it feels right let's talk about making it a drop for your people.</p>
       <p class="sig">— Posted Up</p>
-      <a class="sitebtn" href="https://postedupproduce.github.io/?s=p-vv">See the full Posted Up site →</a>
+      <a class="sitebtn" href="https://postedupproduce.org/?s=p-vv">See the full Posted Up site →</a>
     </div>
     <div class="rules" id="rules"></div>
     <details class="howto" open>
@@ -172,7 +172,7 @@ textarea{min-height:90px;resize:vertical}
 </main>
 
 <script>
-const SITE="https://postedupproduce.github.io/vv/";
+const SITE="https://postedupproduce.org/vv/";
 const PHONE="773-807-9223",PHONE_D="7738079223";
 const DEFAULT={v:1,box:"Very Balanced Box",for:"Vv",price:78,meet:70,
   intro:"A whole-food box from farms around Chicago, built like a setlist. Eggs, a clean protein, a ferment, sprouts, bitter greens, roots and orchard fruit. Nothing processed. Lock in each track, hit the encore, then send the setlist.",
@@ -299,7 +299,7 @@ function finale(){
       h("button",{type:"button",className:"btn go",on:{click:async()=>{try{await navigator.clipboard.writeText(text());status.textContent="Copied. Paste it into a text."}catch(e){status.textContent="Copy didn't work here. Long-press the setlist to copy it."}}}},"Copy my setlist")),
     status,
     h("p",{style:"font-size:14px"},"Text it to ",h("span",{className:"num"},PHONE),". On a phone you can also try ",h("a",{href:"sms:"+PHONE_D+"?&body="+encodeURIComponent(text())},"opening a text"),"."),
-    h("a",{href:"https://postedupproduce.github.io/?s=p-vv",className:"btn go",style:"display:flex;align-items:center;justify-content:center;text-decoration:none"},"Order on the Posted Up site"),
+    h("a",{href:"https://postedupproduce.org/?s=p-vv",className:"btn go",style:"display:flex;align-items:center;justify-content:center;text-decoration:none"},"Order on the Posted Up site"),
     h("button",{type:"button",className:"btn",on:{click:()=>{S.locked={};go(0)}}},"Play again"));
 }
 function render(){

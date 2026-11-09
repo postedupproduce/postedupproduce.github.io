@@ -52,9 +52,9 @@
 <meta property="og:title" content="Posted Up Produce: market haul, picked for you">
 <meta property="og:description" content="Chicago farmers-market personal shopping. Order by 9 PM, we hand-pick the best of the week, pick up Saturdays in Goose Island, Hyde Park or Rogers Park, or get it delivered same day.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://postedupproduce.github.io/">
-<link rel="canonical" href="https://postedupproduce.github.io/">
-<meta property="og:image" content="https://postedupproduce.github.io/og-sat.png"><!-- Nov 1: site-color preview, Saturdays/Hyde Park. Halloween one: /og-fall2.jpg. Old one: /og.png -->
+<meta property="og:url" content="https://postedupproduce.org/">
+<link rel="canonical" href="https://postedupproduce.org/">
+<meta property="og:image" content="https://postedupproduce.org/og-sat.png"><!-- Nov 1: site-color preview, Saturdays/Hyde Park. Halloween one: /og-fall2.jpg. Old one: /og.png -->
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#24392c">
@@ -1484,7 +1484,7 @@ function orderText(id){
   L.push("","TOTAL: $"+total());
   L.push("","I agree to the Posted Up Produce Order Terms (October 2026), including the refund and cancellation policy.");
   if(!isWait())L.push("I understand my order isn't shopped until payment arrives (card, Apple Pay, Zelle or Apple Cash by 9 PM the night before).");
-  if(!isWait()&&ZELLE)L.push("","Pay here: https://postedupproduce.github.io/pay/?o="+id+"&a="+total());
+  if(!isWait()&&ZELLE)L.push("","Pay here: https://postedupproduce.org/pay/?o="+id+"&a="+total());
   return L.join("\n");
 }
 function orderPayload(id){
