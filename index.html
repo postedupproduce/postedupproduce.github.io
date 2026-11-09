@@ -2272,9 +2272,9 @@ renderBoxes();renderItems();renderTicket();loadCounts();
 (function(){try{var n=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}));if(n>=new Date(2026,11,5))return;var b=document.getElementById("seasonBar");if(b)b.hidden=false}catch(e){}})();</script>
 <!-- Start splash (Nov 9; layout = Option 2 "one screen" from the logo splash canvas): logo + one line over the blurred site, choices in a bottom sheet. One consent screen for new phones on Home. Asks where they want to go; shows the price and date so nothing is hidden behind it. Once per phone (pu-route). Not shown to returning phones (they get the welcome), ref links (the /how/ gate already asked), #deep links, ?box/?me/?diet, calm visitors or pu-me devices. -->
 <div id="pu-route" role="dialog" aria-modal="true" aria-labelledby="puRouteH" hidden>
-  <span class="pr-beta">Beta</span>
   <div class="pr-top">
     <img src="/logos/harvest-stamp.png" width="176" height="176" alt="Posted Up Produce: picked for you">
+    <span class="pr-beta">Beta</span>
     <p>We shop Chicago's farmers market Saturday morning and hand you the haul that afternoon.</p>
   </div>
   <div class="pr-sheet">
@@ -2289,11 +2289,11 @@ renderBoxes();renderItems();renderTicket();loadCounts();
   </div>
 </div>
 <style>
-#pu-route{position:fixed;inset:0;z-index:9500;background:rgba(36,57,44,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#F8F2E6;display:flex;flex-direction:column;overflow:auto;font-family:var(--body,system-ui)}
+#pu-route{position:fixed;inset:0;z-index:9500;background:rgba(36,57,44,.93);-webkit-backdrop-filter:blur(22px) saturate(.7);backdrop-filter:blur(22px) saturate(.7);color:#F8F2E6;display:flex;flex-direction:column;overflow:auto;font-family:var(--body,system-ui)}
 #pu-route[hidden]{display:none}
-#pu-route .pr-beta{position:absolute;top:calc(16px + env(safe-area-inset-top));right:16px;font:700 13px/1 var(--body,system-ui);background:#B3261E;color:#fff;border-radius:999px;padding:6px 10px}
-#pu-route .pr-top{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:calc(40px + env(safe-area-inset-top)) 32px 24px;text-align:center}
-#pu-route .pr-top img{width:176px;height:176px;display:block}
+#pu-route .pr-beta{font:700 13px/1 var(--body,system-ui);background:#B3261E;color:#fff;border-radius:999px;padding:6px 10px;margin-top:-6px}
+#pu-route .pr-top{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:calc(40px + env(safe-area-inset-top)) 32px 24px;text-align:center}
+#pu-route .pr-top img{width:176px;height:176px;display:block;filter:drop-shadow(0 0 1.5px #F8F2E6) drop-shadow(0 0 1.5px #F8F2E6) drop-shadow(0 0 1px #F8F2E6) drop-shadow(0 6px 18px rgba(0,0,0,.35))}
 #pu-route .pr-top p{margin:0;max-width:340px;font-size:19px;line-height:1.45;font-weight:600}
 #pu-route .pr-sheet{background:#F8F2E6;color:#1f2a22;border-radius:28px 28px 0 0;padding:22px 24px calc(22px + env(safe-area-inset-bottom));display:grid;gap:12px;box-shadow:0 -8px 24px rgba(0,0,0,.22);max-width:560px;width:100%;box-sizing:border-box;margin:0 auto}
 #pu-route h2{margin:0;font:400 26px/1.15 var(--display,Georgia,serif);color:#24392C}
@@ -2304,6 +2304,8 @@ renderBoxes();renderItems();renderTicket();loadCounts();
 #pu-route .pr-skip{justify-self:center;background:none;border:0;color:#24392C;text-decoration:underline;text-underline-offset:3px;font:600 17px var(--body,system-ui);min-height:48px;padding:8px 16px}
 #pu-route a:focus-visible,#pu-route button:focus-visible{outline:3px solid #E8B04B;outline-offset:3px}
 @media (prefers-color-scheme:dark){#pu-route .pr-sheet{background:#F8F2E6;color:#1f2a22}}
+/* Wide screens (Nov 9 fix): logo + line and the choices sit together as one centered card, no sheet running off the bottom. */
+@media (min-width:700px) and (min-height:620px){#pu-route{justify-content:center;padding:32px 0}#pu-route .pr-top{flex:0 0 auto;padding:0 32px 24px}#pu-route .pr-sheet{flex:0 0 auto;border-radius:24px;max-width:520px;padding:24px 28px;box-shadow:0 12px 40px rgba(0,0,0,.35)}}
 </style>
 <script>
 (function(){try{
