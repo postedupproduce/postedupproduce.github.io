@@ -2278,12 +2278,11 @@ renderBoxes();renderItems();renderTicket();loadCounts();
 <div id="pu-route" role="dialog" aria-modal="true" aria-labelledby="puRouteH" hidden>
   <div class="pr-top">
     <img src="/logos/harvest-stamp.png" width="176" height="176" alt="Posted Up Produce: picked for you">
-    <span class="pr-beta">Beta</span>
-    <p>We shop Chicago's farmers market Saturday morning and hand you the haul that afternoon.</p>
+    <p class="pr-tag">From the stand <span style="white-space:nowrap">to your hand.</span></p>
+    <p>We shop Chicago's farmers markets and hand you the haul the same day. <span class="pr-beta">Beta</span></p>
   </div>
   <div class="pr-sheet">
     <h2 id="puRouteH">Where would you like to go?</h2>
-    <p class="pr-sub">From the stand to your hand.</p>
     <a class="pr-main" href="#shop" data-route="shop"><b>Show me the boxes</b><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8B04B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <div class="pr-two">
       <a class="pr-alt" href="/how/" data-route="how">How it works</a>
@@ -2295,7 +2294,8 @@ renderBoxes();renderItems();renderTicket();loadCounts();
 <style>
 #pu-route{position:fixed;inset:0;z-index:9500;background:rgba(36,57,44,.93);-webkit-backdrop-filter:blur(22px) saturate(.7);backdrop-filter:blur(22px) saturate(.7);color:#F8F2E6;display:flex;flex-direction:column;overflow:auto;font-family:var(--body,system-ui)}
 #pu-route[hidden]{display:none}
-#pu-route .pr-beta{font:700 13px/1 var(--body,system-ui);background:#B3261E;color:#fff;border-radius:999px;padding:6px 10px;margin-top:-6px}
+#pu-route .pr-beta{display:inline-block;font:700 13px/1 var(--body,system-ui);background:#B3261E;color:#fff;border-radius:999px;padding:5px 9px;vertical-align:2px;margin-left:4px}
+#pu-route .pr-top .pr-tag{margin:0;font:400 30px/1.12 var(--display,Georgia,serif);color:#F8F2E6;font-weight:400;max-width:none}
 #pu-route .pr-top{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:calc(40px + env(safe-area-inset-top)) 32px 24px;text-align:center}
 #pu-route .pr-top img{width:176px;height:176px;display:block;filter:drop-shadow(0 0 1.5px #F8F2E6) drop-shadow(0 0 1.5px #F8F2E6) drop-shadow(0 0 1px #F8F2E6) drop-shadow(0 6px 18px rgba(0,0,0,.35))}
 #pu-route .pr-top p{margin:0;max-width:340px;font-size:19px;line-height:1.45;font-weight:600}
