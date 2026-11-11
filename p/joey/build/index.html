@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Webstore playbook · For Joey</title>
+<meta name="robots" content="noindex, nofollow, noai, noimageai">
+<meta property="og:title" content="Your webstore playbook 🏁">
+<meta property="og:description" content="Fill in the blanks once. Copy each prompt. Build it, ship it.">
+<meta property="og:image" content="https://postedupproduce.org/p/joey/build/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2A1640">
+<link rel="icon" href="/logos/stamp-96.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* /p/joey/build/ (Nov 10): fill-in-the-blank webstore prompts for Joey. Same password as /p/joey/ (shares pu-joey unlock).
+   Blanks are saved on his phone only (localStorage pu-joey-build). Nothing is sent anywhere. */
+:root{--bg:#F3EEF7;--panel:#FFFFFF;--ink:#1D1426;--muted:#5A4E66;--line:#DCD1E6;--purp:#5B2A86;--deep:#2A1640;--gold:#F2C14E;--soft:#F7F2FB;
+  --disp:"Anton",Impact,"Arial Narrow",sans-serif;--body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.flag{height:28px;background:conic-gradient(var(--deep) 25%,#fff 0 50%,var(--deep) 0 75%,#fff 0) 0 0/28px 28px;border-bottom:4px solid var(--purp)}
+main{max-width:560px;margin:0 auto;padding:18px 20px 60px;display:flex;flex-direction:column;gap:14px}
+.eb{display:flex;justify-content:space-between;align-items:center;font-weight:800;letter-spacing:.14em;font-size:13px;text-transform:uppercase;min-height:32px;margin:0}
+.eb a{border:2px solid currentColor;border-radius:999px;padding:1px 10px;letter-spacing:.08em;text-decoration:none}
+h1{font:400 clamp(44px,13vw,64px)/.95 var(--disp);margin:6px 0 0;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--purp)}
+.lede{margin:0;color:var(--muted)}
+.gate{display:grid;gap:10px;margin-top:6px}
+.gate label,.f label{font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+input,textarea{font:600 17px var(--body);padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);width:100%}
+input:focus,textarea:focus{border-color:var(--purp);outline:none;box-shadow:0 0 0 3px rgba(91,42,134,.18)}
+.gate input{min-height:56px;font-size:20px;border-color:var(--ink)}
+.btn{display:flex;align-items:center;justify-content:center;min-height:52px;border:0;border-radius:999px;background:var(--purp);color:#fff;font:800 17px var(--body);cursor:pointer;padding:0 20px;text-decoration:none}
+.btn.gold{background:var(--gold);color:var(--deep)}
+.msg{margin:0;min-height:24px;font-size:16px;color:#8A1F3A}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.card h2{font:400 26px/1.05 var(--disp);margin:0;text-transform:uppercase}
+.card h2 span{color:var(--purp)}
+.why{margin:0;font-size:16px;color:var(--muted)}
+.f{display:flex;flex-direction:column;gap:6px}
+.f small{font-size:14px;color:var(--muted)}
+.how{background:var(--deep);color:#F3EEF7;border-radius:16px;padding:14px 18px;margin:0}
+.how ol{margin:6px 0 0;padding-left:22px}
+.how b{color:var(--gold)}
+pre{font:14px/1.55 var(--mono);white-space:pre-wrap;word-wrap:break-word;background:var(--soft);border-left:4px solid var(--purp);border-radius:8px;padding:12px 14px;margin:0}
+pre mark{background:#FFE8A3;color:var(--ink);border-radius:3px;padding:0 2px}
+.copy{align-self:flex-start;min-height:46px;font-size:16px}
+.copied{background:#1F7A4D!important}
+.habits{background:var(--deep);color:#F3EEF7;border-radius:16px;padding:16px 18px}
+.habits h2{font:400 24px var(--disp);text-transform:uppercase;margin:0;color:var(--gold)}
+.habits ul{margin:8px 0 0;padding-left:20px}
+.sig{font-weight:800;margin:4px 0 0}
+.ip{max-width:560px;margin:0 auto 40px;padding:0 20px;font-size:14px;opacity:.72;text-align:center}
+.tiny{font-size:14px;color:var(--muted);margin:0}
+.tiny button{background:none;border:0;color:var(--purp);font:700 14px var(--body);text-decoration:underline;cursor:pointer;padding:0;min-height:32px}
+</style>
+</head>
+<body>
+<div class="flag" aria-hidden="true"></div>
+<main>
+  <p class="eb"><span>Posted Up · For Joey</span><a href="/p/joey/">Your box</a></p>
+
+  <section id="gate" aria-labelledby="gH">
+    <h1 id="gH">Your webstore <em>playbook.</em></h1>
+    <p class="lede" style="margin-top:10px">Same password as your box page.</p>
+    <div class="gate">
+      <label for="word">Password</label>
+      <input id="word" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go">
+      <button class="btn" id="enter" type="button">Let me in</button>
+      <p class="msg" id="gmsg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <div id="inside" hidden style="display:flex;flex-direction:column;gap:14px">
+    <h1 id="h1" tabindex="-1">Build it, <em>ship it.</em></h1>
+    <div class="how"><b>How this works</b>
+      <ol><li>Fill in the blanks once. They drop into every prompt.</li>
+      <li>Open Claude (or whatever you build with) and paste prompt 01.</li>
+      <li>Answer its questions, then go down the list. One prompt at a time.</li></ol></div>
+
+    <section class="card" aria-labelledby="bH">
+      <h2 id="bH">Your blanks</h2>
+      <div class="f"><label for="brand">Brand name</label><input id="brand" data-k="brand" placeholder="e.g. 1lemontree"></div>
+      <div class="f"><label for="sell">What you're selling</label><input id="sell" data-k="sell" placeholder="e.g. tees, hoodies, vinyl, prints"></div>
+      <div class="f"><label for="vibe">Look and feel</label><input id="vibe" data-k="vibe" placeholder="e.g. clean, purple and white, finish-line energy"><small>Colors, mood, a brand or site you like the feel of.</small></div>
+      <div class="f"><label for="get">How people get it</label><input id="get" data-k="get" placeholder="e.g. shipping in the US, local pickup in Chicago"></div>
+      <div class="f"><label for="where">Where buyers find you</label><input id="where" data-k="where" placeholder="e.g. Instagram bio link, shows, QR on merch table"></div>
+      <div class="f"><label for="domain">Your domain</label><input id="domain" data-k="domain" placeholder="e.g. yourbrand.com" autocapitalize="none"><small>Don't have one yet? Leave it blank.</small></div>
+      <p class="tiny">Saved on this phone only. Nothing gets sent anywhere. <button type="button" id="clear">Clear my blanks</button></p>
+    </section>
+
+    <div id="prompts" style="display:flex;flex-direction:column;gap:14px"></div>
+
+    <button class="btn gold" id="all" type="button">Copy all five</button>
+
+    <section class="habits" aria-labelledby="hbH">
+      <h2 id="hbH">Two habits</h2>
+      <ul>
+        <li><b>End every session with:</b> "Write me a short handoff note: what's live, what changed, what's still open, and the exact prompt to pick up where we left off." Save it. That's how you start a new chat without starting over.</li>
+        <li><b>One change at a time.</b> Edit, check it on your phone, then the next one. Change five things at once and you won't know which one broke.</li>
+      </ul>
+      <p style="margin:10px 0 0">One file on GitHub Pages keeps it free and easy to edit. If you need inventory tracking or shipping labels later, that's when Shopify starts to make sense.</p>
+      <p class="sig">🏁 — M &amp; C, Posted Up</p>
+    </section>
+  </div>
+</main>
+<p class="ip">&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade;</p>
+<script>
+(function(){
+  var KEY="pu-joey",SAVE="pu-joey-build",WORDS=["262","threepeat","finishline"];
+  var PH={brand:"[brand name]",sell:"[what you're selling]",vibe:"[look and feel]",get:"[shipping, pickup or both]",where:"[where buyers find you]",domain:"[yourdomain.com]"};
+  var P=[
+    {t:"Plan it",w:"Questions first, so nothing gets built on guesses.",
+     x:"I want a simple webstore for {brand} that sells {sell}. The look and feel: {vibe}. People get their order by {get}. Most buyers will find it through {where}.\nBefore you build anything, ask me up to 8 questions you need answered: products, sizes, prices, shipping vs. pickup, how I want to get paid, the look and feel, and who's buying. Then give me a one-page plan: pages, what each one does, how checkout works, and what I need to set up myself (accounts, photos, domain). Keep it as simple as it can be. No monthly fees if there's a free way that works."},
+    {t:"Build the store",w:"One file, phone first, easy to edit.",
+     x:"Build the {brand} store from the plan as ONE self-contained HTML file (HTML, CSS and JavaScript in one file, no frameworks, no build step). Phone first: design for a 390px screen, then make sure it works on desktop. Look and feel: {vibe}.\n- Product grid with photo, name, price, sizes and a sold-out state\n- A cart that remembers picks if the page reloads\n- Big tap targets (44px+), text 16px or bigger, readable in light and dark mode\n- Placeholder images I can swap later; tell me exactly which file names to use\n- Put every product in one list at the top of the script so I can edit prices and stock without touching anything else\nShow me a preview I can open on my phone. Don't publish anything yet."},
+    {t:"Payments",w:"The careful part. You hold the keys, always test mode first.",
+     x:"Add checkout to the {brand} store. Compare 2–3 ways to take card and Apple Pay with no server (for example Stripe Payment Links, Square checkout links, or Shopify Starter): fees, how fast I get paid out, and setup steps. Orders go out by {get}. Recommend one and say why.\nRules: I create the accounts and paste in my own links and keys. Never ask for my passwords. Test with test mode only, never a real charge. After a purchase, show a clear \"you're in\" screen with what they bought and what happens next."},
+    {t:"Go live",w:"Free hosting, your own domain, nothing broken.",
+     x:"Walk me through putting the {brand} store on GitHub Pages for free, step by step, like I've never used GitHub. I'll do the sign-ins myself. Then help me connect my domain {domain} without breaking any email that's already on it. List every DNS record before you tell me to change anything. After it's live, open the real URL, check every link and button on a phone-size screen, and tell me what's broken."},
+    {t:"Review it like a stranger",w:"Fresh eyes before you push traffic to it.",
+     x:"Pretend you've never heard of {brand}. You found the store through {where} and opened it on your phone. Go through the store as that person and tell me, ranked: what's confusing, what's slow, where you'd give up before buying, and what to cut. Back it with real UX research (cite sources). Don't fix anything yet. Just give me the list and I'll pick what to change."}
+  ];
+  var V={};try{V=JSON.parse(localStorage.getItem(SAVE)||"{}")||{}}catch(e){}
+  function val(k){var v=(V[k]||"").trim();if(k==="domain"&&!v)return "(I don't have a domain yet, so help me pick and buy one first)";return v}
+  function text(i){return P[i].x.replace(/\{(\w+)\}/g,function(_,k){return val(k)||PH[k]})}
+  function esc(s){return s.replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+  function html(i){return esc(P[i].x).replace(/\{(\w+)\}/g,function(_,k){var v=val(k);return v?"<mark>"+esc(v)+"</mark>":"<mark>"+esc(PH[k])+"</mark>"})}
+  var box=document.getElementById("prompts");
+  P.forEach(function(p,i){
+    var s=document.createElement("section");s.className="card";s.setAttribute("aria-labelledby","p"+i);
+    s.innerHTML='<h2 id="p'+i+'"><span>0'+(i+1)+'</span> '+p.t+'</h2><p class="why">'+p.w+'</p><pre id="t'+i+'"></pre><button class="btn copy" type="button" data-i="'+i+'">Copy prompt 0'+(i+1)+'</button>';
+    box.appendChild(s)});
+  function render(){P.forEach(function(_,i){document.getElementById("t"+i).innerHTML=html(i)})}
+  function copy(t,b,lab){
+    function ok(){b.textContent="Copied ✓";b.classList.add("copied");setTimeout(function(){b.textContent=lab;b.classList.remove("copied")},1600)}
+    if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(ok,fb);else fb();
+    function fb(){var a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy");ok()}catch(e){b.textContent="Press and hold the text to copy"}document.body.removeChild(a)}
+  }
+  box.addEventListener("click",function(e){var b=e.target.closest(".copy");if(!b)return;copy(text(+b.dataset.i),b,"Copy prompt 0"+(+b.dataset.i+1))});
+  document.getElementById("all").addEventListener("click",function(){copy(P.map(function(p,i){return "0"+(i+1)+" "+p.t.toUpperCase()+"\n"+text(i)}).join("\n\n"),this,"Copy all five")});
+  [].forEach.call(document.querySelectorAll("[data-k]"),function(el){el.value=V[el.dataset.k]||"";el.addEventListener("input",function(){V[el.dataset.k]=el.value;try{localStorage.setItem(SAVE,JSON.stringify(V))}catch(e){}render()})});
+  document.getElementById("clear").addEventListener("click",function(){V={};try{localStorage.removeItem(SAVE)}catch(e){}[].forEach.call(document.querySelectorAll("[data-k]"),function(el){el.value=""});render()});
+  render();
+  function isIn(){try{return localStorage.getItem(KEY)==="1"||sessionStorage.getItem(KEY)==="1"}catch(e){return false}}
+  function open(first){document.getElementById("gate").hidden=true;var a=document.getElementById("inside");a.hidden=false;a.style.display="flex";if(first)document.getElementById("h1").focus()}
+  document.getElementById("inside").style.display="none";
+  function tryWord(){var raw=document.getElementById("word").value||"",w=raw.toLowerCase().replace(/[^a-z0-9]/g,""),m=document.getElementById("gmsg");
+    if(!raw.trim()){m.textContent="Type the password first.";return}
+    if(WORDS.indexOf(w)>-1||raw.indexOf("\u{1F3C1}")>-1){try{localStorage.setItem(KEY,"1")}catch(e){}try{sessionStorage.setItem(KEY,"1")}catch(e){}open(true);window.scrollTo(0,0)}
+    else m.textContent="Not quite. Same one as your box page: the number on the medals."}
+  document.getElementById("enter").addEventListener("click",tryWord);
+  document.getElementById("word").addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();tryWord()}});
+  if(isIn())open(false);
+})();
+(function(){
+  var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
+  var vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  var dev=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?"Phone":"Computer";
+  var fresh=true;try{fresh=!sessionStorage.getItem("pu-vb");sessionStorage.setItem("pu-vb","1")}catch(e){}
+  if(fresh)fetch(EP,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:"p-joey-build",device:dev,returning:ret,vid:vid})}).catch(function(){});
+})();
+</script>
+</body>
+</html>
