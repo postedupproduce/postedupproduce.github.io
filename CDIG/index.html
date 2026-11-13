@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Posted Up · Instagram rollout</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+/* Private rollout page (Nov 12, 2026). The content is NOT in this file:
+   after the password, it is fetched from the "Posted Up Backend · Instagram" Apps Script,
+   which returns it only for the right password. Nothing here writes anywhere. */
+#cd-gate{position:fixed;inset:0;background:#24392C;display:flex;align-items:center;justify-content:center;z-index:9;font:16px -apple-system,Segoe UI,Helvetica,Arial,sans-serif}
+#cd-gate form{background:#F7F1E4;color:#24392C;border-radius:14px;padding:22px;width:min(360px,90vw)}
+#cd-gate h1{font-size:20px;margin:0 0 6px}#cd-gate p{margin:0 0 12px;font-size:14px;color:#6b7a6e}
+#cd-gate input{width:100%;box-sizing:border-box;font:inherit;font-size:18px;padding:10px;border:2px solid #24392C;border-radius:8px;margin:0 0 10px}
+#cd-gate button{width:100%;font:inherit;font-weight:700;padding:12px;border:0;border-radius:8px;background:#24392C;color:#fff;min-height:48px}
+#cd-gate .err{color:#B3261E;font-size:14px;min-height:18px;margin-top:8px}
+.cd-tabs{position:sticky;top:0;z-index:5;background:#F7F1E4;border-bottom:1px solid #e3dccb;display:flex;gap:4px;overflow-x:auto;padding:8px 10px;font:700 15px -apple-system,Segoe UI,Helvetica,Arial,sans-serif}
+.cd-tabs button{flex:none;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #e3dccb;background:#fff;color:#24392C;font:inherit;cursor:pointer}
+.cd-tabs button[aria-selected=true]{background:#24392C;color:#fff;border-color:#24392C}
+.cd-panel[hidden]{display:none!important}
+.cd-built{max-width:900px;margin:0 auto;padding:14px;font:15px/1.5 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#24392C}
+.cd-built .card a.btn{display:inline-block;margin-top:8px;padding:12px 18px;border-radius:999px;background:#24392C;color:#fff;font-weight:700;text-decoration:none}
+.cd-built ul{padding-left:18px;margin:6px 0}.cd-built li{margin:6px 0}
+.cd-tag{display:inline-block;font-size:11px;font-weight:800;border-radius:6px;padding:2px 7px;margin-right:6px;vertical-align:1px}
+.cd-ok{background:#dcefd9;color:#2f6b3a}.cd-wait{background:#fde3dc;color:#c4452f}
+#cd-numbers table{display:block;overflow-x:auto}
+.cd-built img.icon{width:72px;height:72px;border-radius:50%;vertical-align:middle;margin-right:10px}
+</style>
+</head>
+<body>
+<div id="cd-gate">
+  <form id="cd-f" autocomplete="on">
+    <h1>Posted Up · Instagram</h1>
+    <p>Private page. Enter the password.</p>
+    <input id="cd-pw" type="password" autocomplete="current-password" placeholder="Password" required>
+    <button id="cd-go" type="submit">Open</button>
+    <div class="err" id="cd-e" role="alert"></div>
+  </form>
+</div>
+<div id="cd-app" hidden></div>
+
+<template id="cd-built-tpl">
+<div class="cd-built">
+  <div class="card"><h2>What's built, as of Thu Nov 12</h2>
+    <p>Finished pieces for the rollout. Captions, posting and scheduling stay drafts until both of us OK them.</p></div>
+  <div class="card"><h2><span class="cd-tag cd-ok">BUILT</span>The animated Reels (6)</h2>
+    <p>The Nov 11 set, each 8–10 s, 9:16, silent loops: What's on your table? · Posted up this Saturday · <b>Pairs with everything</b> (posts Thu 11/19) · It's live (first cut) · Two Saturdays left · Pick one. Tap a phone to replay.</p>
+    <a class="btn" href="https://claude.ai/artifact/EQZhFj72g5NreFNogqCKGc" target="_blank" rel="noopener">Open the 6 Reels ↗</a></div>
+  <div class="card"><h2><span class="cd-tag cd-ok">BUILT</span>Profile picture</h2>
+    <p><img class="icon" src="/logos/harvest-stamp.png" alt="">The sun-and-box icon on gold (the real logo), going up before the flip.</p></div>
+  <div class="card"><h2><span class="cd-tag cd-wait">COMING</span>Files not on this page yet</h2>
+    <ul>
+      <li><b>Reel 1 "It's live" v2</b> (12 s MP4, the flip-day post): the redone version with the pick → checkout → "Woohoo! See your produce Saturday." ending. Storyboard is under Posts → post 1.</li>
+      <li><b>26 no-shoot backup images</b> (haul, How it works, boxes, Thanksgiving, gap, kit, December, Stories): file names are on each post under Posts.</li>
+    </ul>
+    <p>They were made in other chats and aren't in the project yet; they'll show here once they're added.</p></div>
+</div>
+</template>
+
+<script>
+(function(){
+  var API = "https://script.google.com/macros/s/AKfycbwDEooxvIgr6S8kGchJsiCThTCoxxerep1IO0HB0wPwpTypy7-4ikToqhwairpQrhK7Bg/exec";
+  var TABS = [["numbers","Numbers"],["posts","Posts"],["calendar","Calendar"],["built","Built content"]];
+  var f = document.getElementById("cd-f"), pw = document.getElementById("cd-pw"), go = document.getElementById("cd-go"), er = document.getElementById("cd-e");
+  function ss(k,v){ try{ if(v===undefined) return sessionStorage.getItem(k); if(v===null) sessionStorage.removeItem(k); else sessionStorage.setItem(k,v);}catch(e){ return null; } }
+
+  function open(p, quiet){
+    go.disabled = true; go.textContent = "Opening…"; er.textContent = "";
+    fetch(API + "?k=" + encodeURIComponent(p) + "&f=html", {credentials:"omit"})
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        if (t.indexOf('id="pu"') < 0) { /* the Apps Script answers wrong passwords with an empty reply */ ss("cd-k", null); if(!quiet) er.textContent = "Not it. Try again."; go.disabled=false; go.textContent="Open"; return; }
+        ss("cd-k", p); build(t);
+      })
+      .catch(function(){ ss("cd-k", null); er.textContent = quiet ? "" : "Couldn't reach the page. Check your connection and try again."; go.disabled=false; go.textContent="Open"; });
+  }
+
+  function build(t){
+    var doc = new DOMParser().parseFromString(t, "text/html");
+    var app = document.getElementById("cd-app");
+    doc.head.querySelectorAll("style").forEach(function(s){ var n=document.createElement("style"); n.textContent=s.textContent; document.head.appendChild(n); });
+    var hdr = doc.querySelector("body > header"), main = doc.querySelector("body > main");
+    var pu = main.querySelector("#pu"), cal = main.querySelector("#cal");
+    var styles = [].slice.call(main.querySelectorAll(":scope > style"));
+    var p = {numbers:document.createElement("main"), posts:document.createElement("main"), calendar:document.createElement("main"), built:document.createElement("main")};
+    // Numbers: everything in main that isn't the posts, the calendar, or the old "Jump to" bar
+    [].slice.call(main.children).forEach(function(c){
+      if (c===pu || c===cal || c.tagName==="STYLE" || c.tagName==="SCRIPT") return;
+      if (/Jump to:/.test(c.textContent) && c.querySelector('a[href="#pu"]')) return;
+      p.numbers.appendChild(c);
+    });
+    var puScripts = [];
+    // the posts' script sits right after #pu inside main
+    [].slice.call(main.querySelectorAll(":scope > script")).forEach(function(s){ puScripts.push(s.textContent); });
+    [].slice.call(pu.querySelectorAll("script")).forEach(function(s){ puScripts.push(s.textContent); s.remove(); });
+    p.posts.appendChild(pu);
+    styles.forEach(function(s){ var n=document.createElement("style"); n.textContent=s.textContent; document.head.appendChild(n); });
+    p.calendar.appendChild(cal);
+    p.built.appendChild(document.getElementById("cd-built-tpl").content.cloneNode(true));
+    app.innerHTML = "";
+    if (hdr) app.appendChild(hdr);
+    var nav = document.createElement("nav"); nav.className="cd-tabs"; nav.setAttribute("role","tablist");
+    TABS.forEach(function(x){
+      var b=document.createElement("button"); b.type="button"; b.textContent=x[1]; b.setAttribute("role","tab"); b.dataset.t=x[0];
+      b.addEventListener("click", function(){ show(x[0], true); }); nav.appendChild(b);
+      p[x[0]].className="cd-panel"; p[x[0]].id="cd-"+x[0]; p[x[0]].setAttribute("role","tabpanel");
+    });
+    app.appendChild(nav);
+    TABS.forEach(function(x){ app.appendChild(p[x[0]]); });
+    puScripts.forEach(function(code){ var s=document.createElement("script"); s.textContent=code; document.body.appendChild(s); });
+    document.getElementById("cd-gate").remove();
+    app.hidden = false;
+    var h = (location.hash||"").slice(1);
+    show(TABS.some(function(x){return x[0]===h;}) ? h : "numbers", false);
+  }
+
+  function show(t, push){
+    document.querySelectorAll(".cd-tabs button").forEach(function(b){ b.setAttribute("aria-selected", b.dataset.t===t ? "true":"false"); });
+    document.querySelectorAll(".cd-panel").forEach(function(pn){ pn.hidden = pn.id !== "cd-"+t; });
+    if (push) { try{ history.replaceState(null, "", "#"+t); }catch(e){} window.scrollTo(0,0); }
+  }
+  window.addEventListener("hashchange", function(){ var h=location.hash.slice(1); if (document.getElementById("cd-"+h)) show(h,false); });
+
+  f.addEventListener("submit", function(ev){ ev.preventDefault(); open(pw.value, false); });
+  var saved = ss("cd-k"); if (saved) open(saved, true);
+})();
+</script>
+</body>
+</html>
