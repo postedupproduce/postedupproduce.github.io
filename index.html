@@ -1071,7 +1071,7 @@ const BOXES=[
    has:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a fresh pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"],
    veg:["Trick (savory): a winter squash, a bunch of kale, garlic, 2 lb sweet potatoes","Treat (sweet): a vegan pastry, fresh-pressed cider, 2 lb crisp apples","Write Trick or Treat in Notes. Blank means I pick"]},
   /* Sweater Weather Kit (renamed from Cold Snap Kit, Oct 30): low-price cold-weather starter, all local. No health claims. */
-  {id:"coldsnap",name:"Sweater Weather Kit",price:24,wt:"Cold-weather kitchen staples · for one or two",desc:"Local garlic, fresh-pressed cider and a bunch of herbs for tea. Add local honey if you like.",pick:"New · Cold weather",
+  {id:"coldsnap",stack:true,name:"Sweater Weather Kit",price:24,wt:"Cold-weather kitchen staples · for one or two",desc:"Local garlic, fresh-pressed cider and a bunch of herbs for tea. Add local honey if you like.",pick:"New · Cold weather",
    makes:"About 8 mugs of cider or herb tea and a garlicky pot of soup (about 4 bowls) for one or two · ≈ $2 a serving",
    has:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"],
    veg:["Local garlic, a good handful of heads","Fresh-pressed cider","A bunch of herbs for tea: sage, thyme or mint, whatever the stand has","Ginger, when a stand has it"]},
@@ -1198,7 +1198,7 @@ const LATE_DAY="2026-10-31";
 if(chiNow()<new Date(2026,10,1)){const r=STOPS.find(x=>x.id==="rogers");if(r){r.time="1:00–2:00 PM";r.delAfter="1:00 PM"}const lf=DELIVERIES.find(x=>x.id==="lunafree");if(lf)lf.delAfter="1:00 PM"}
 function isLuna(){return /^luna/.test(SRC_TAG)}
 function forThem(x){return isLuna()?!x.notLuna&&(x.luna||!DELIVERIES.includes(x)):!x.luna}
-const state={fulfill:"goose",address:"",mode:"box",box:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false,seasoned:false,favColor:""};
+const state={fulfill:"goose",address:"",mode:"box",box:null,kit:null,breadBox:null,prefs:{},qty:{},name:"",phone:"",date:"",notes:"",sub:"credit",agree:false,payAck:false,email:"",sent:null,logo:"",reward:"",why:"",early:false,seasoned:false,favColor:""};
 try{state.seasoned=localStorage.getItem("pu-seasoned")==="1"}catch(e){}
 const PICK_ONLY=["produce","bread"];
 /* Order attribution (Oct 26): the link tag (?s=p-name etc.) rides along on the order's Notes as "[via tag]", kept for the browser session. */
@@ -1326,14 +1326,14 @@ function renderDietHome(){
   if(!state.diet.length)return;
   const top=BOXES.filter(boxShown).map(b=>({b,f:dietFit(b)})).filter(x=>x.f).sort((x,y)=>y.f.score-x.f.score)[0];
   if(!top){o.append(el("p",{class:"dwhy"},"No box fits all of that yet. Build your own from what fits."));return}
-  const {b,f}=top,on=state.box===b.id;
+  const {b,f}=top,on=boxOn(b);
   o.append(el("div",{class:"dpick"+(on?" on":"")},
     el("span",{class:"k"},"Your best match"),
     el("div",{class:"dpick-top"},el("span",{},b.name),el("span",{},"$"+b.price)),dietChips(b.id,vegAble(b)),
     el("p",{class:"dwhy"},b.makes||b.wt),
     ...(f.why.length?[el("p",{class:"dwhy"},el("b",{},"✓ "),f.why.join(" · "))]:[]),
     el("button",{type:"button",class:"badd","aria-pressed":String(on),onclick:()=>{
-      if(on){state.box=null}else{state.box=b.id;state.mode="box";if(f.swap||(state.diet.includes("vegan")&&vegAble(b))){state.vegan=true;try{sessionStorage.setItem("pu-vegan","1")}catch(e){}}if(window.puCart)puCart()}
+      if(on){boxSet(b,false)}else{boxSet(b,true);state.mode="box";if(f.swap||(state.diet.includes("vegan")&&vegAble(b))){state.vegan=true;try{sessionStorage.setItem("pu-vegan","1")}catch(e){}}if(window.puCart)puCart()}
       renderBoxes();renderItems();renderTicket()}},on?"Added ✓ (tap to remove)":"Add "+b.name+" · $"+b.price)));
 }
 function renderDiet(){
@@ -1353,7 +1353,7 @@ function renderDiet(){
     const t=tierOf(r.b.id),sz=t?t.ids.map(id=>BOXES.find(x=>x.id===id)).filter(x=>x&&boxShown(x)):[];
     const pickId=t?(sz.find(x=>x.id===state.box)||sz.find(x=>x.id===DIET_TIER[t.key])||r.b).id:r.b.id;
     const b=BOXES.find(x=>x.id===pickId)||r.b,f=dietFit(b)||r.f;
-    const on=state.box===b.id;
+    const on=boxOn(b);
     const inUl=el("ul",{});for(const h of (b.has||[]))inUl.append(el("li",{},h));
     o.append(el("div",{class:"dpick"+(on?" on":"")},
       el("div",{class:"dpick-top"},el("span",{},t?t.name:b.name),el("span",{},"$"+b.price)),dietChips(b.id,vegAble(b)),
@@ -1362,7 +1362,7 @@ function renderDiet(){
       ...(f.why.length?[el("p",{class:"dwhy"},el("b",{},"✓ "),f.why.join(" · "))]:[]),
       ...((b.has||[]).length?[el("details",{class:"bin-in dinside"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),inUl)]:[]),
       el("button",{type:"button",class:"badd","aria-pressed":String(on),onclick:()=>{
-        if(on){state.box=null}else{state.box=b.id;state.mode="box";if(f.swap||(state.diet.includes("vegan")&&vegAble(b))){state.vegan=true;try{sessionStorage.setItem("pu-vegan","1")}catch(e){}}if(window.puCart)puCart()}
+        if(on){boxSet(b,false)}else{boxSet(b,true);state.mode="box";if(f.swap||(state.diet.includes("vegan")&&vegAble(b))){state.vegan=true;try{sessionStorage.setItem("pu-vegan","1")}catch(e){}}if(window.puCart)puCart()}
         renderBoxes();renderItems();renderTicket()}},on?"Added ✓ (tap to remove)":"Add "+b.name+" · $"+b.price),
       el("button",{type:"button",class:"dbyo",onclick:()=>{if(on){state.box=null}setMode("pick");renderDiet();const s=document.getElementById("sec-produce");if(s)s.scrollIntoView({behavior:"smooth",block:"start"})}},"Rather choose each item? Build your own →")));
   }
@@ -1374,6 +1374,7 @@ const TIERS=[{key:"fruit",name:"Fruit Box",ids:["fruitsm","fruit"]},{key:"produc
 const DIET_TIER={};
 function tierOf(id){return TIERS.find(t=>t.ids.includes(id))||null}
 function renderBoxes(){
+  normKit();
   const isBox=state.mode==="box";
   document.getElementById("boxes").hidden=!isBox;
   document.getElementById("breadboxes").hidden=!isBox;
@@ -1403,8 +1404,8 @@ function bCard(o){
 /* Asana Box (Oct 29): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({diet:b.id,swap:vegAble(b),...(b.id==="forever"?{img:"/img/haul-vegan.jpg",imgAlt:"A real Vegan Box from this pilot: mushrooms, local tofu, squash, sweet potatoes, apples, greens and a pastry"}:{}),id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:state.box===b.id,
-    toggle:()=>{state.box=state.box===b.id?null:b.id;if(state.box){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
+  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({diet:b.id,swap:vegAble(b),...(b.id==="forever"?{img:"/img/haul-vegan.jpg",imgAlt:"A real Vegan Box from this pilot: mushrooms, local tofu, squash, sweet potatoes, apples, greens and a pastry"}:{}),id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:boxOn(b),
+    toggle:()=>{boxSet(b,!boxOn(b));if(boxOn(b)){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
     box.append(bCard({diet:id,name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,makes:PROTEIN_INFO[id].makes,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
@@ -1479,6 +1480,7 @@ function orderText(id){
   if(dietLabel())L.push("Diet: "+dietLabel());
   if(haulLine())L.push("Your haul: "+haulLine());
   if(b)L.push(b.name+" produce box ("+b.wt+") — $"+b.price);
+  if(kitB())L.push(kitB().name+" — $"+kitB().price);
   if(bb)L.push(bb.name+" ("+bb.wt+") — $"+bb.price);
   const more=Object.keys(state.prefs).filter(k=>state.prefs[k]==="more"),skip=Object.keys(state.prefs).filter(k=>state.prefs[k]==="skip");
   if(more.length)L.push("  More of: "+more.join(", "));
@@ -1503,6 +1505,7 @@ function orderText(id){
 function orderPayload(id){
   const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox),items={};
   if(b)items["Produce Box: "+b.name]=1;
+  if(kitB())items["Produce Box: "+kitB().name]=1;
   if(bb)items[bb.name]=1;
   for(const i of ALL)if(state.qty[i.id])items[i.nm]=state.qty[i.id];
   const st=isDel()?delStop():STOPS.find(x=>x.id===state.fulfill);
@@ -1517,7 +1520,7 @@ async function sendOrder(id){
   try{await fetch(ORDER_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(orderPayload(id))});return true}
   catch(e){return false}
 }
-function count(){return (state.box?1:0)+(state.breadBox?1:0)+Object.values(state.qty).reduce((a,b)=>a+b,0)}
+function count(){return (state.box?1:0)+(state.kit?1:0)+(state.breadBox?1:0)+Object.values(state.qty).reduce((a,b)=>a+b,0)}
 /* Vegan toggle on every box (Oct 29). The Vegan Box and fruit-only boxes are already plant-based, so no toggle there. */
 const VEG_SKIP=["forever","fruitsm","fruit","thanks"];
 function vegAble(b){return !!b&&!VEG_SKIP.includes(b.id)}
@@ -1528,15 +1531,20 @@ function perkItem(){return state.perk?ALL.find(i=>i.id===state.perk)||null:null}
 function perkBase(){const it=perkItem();return subtotal()-(it&&state.qty[it.id]?it.p:0)}
 function perkOK(){return perkBase()>PERK_MIN}
 function perkOff(){const it=perkItem();return it&&state.qty[it.id]&&perkOK()?it.p-1:0}
-function subtotal(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(bb?bb.price:0)+ALL.reduce((s,i)=>s+(state.qty[i.id]||0)*i.p,0)}
+function subtotal(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);return (b?b.price:0)+(kitB()?kitB().price:0)+(bb?bb.price:0)+ALL.reduce((s,i)=>s+(state.qty[i.id]||0)*i.p,0)}
 function fee(){return isDel()&&count()&&!(delStop()&&delStop().freeMiles)?DELIVERY_FEE:0}
 const FOUNDER_PCT=10;
 /* Protein boxes (Meat Lovers Box, Lake Haul) live in the Meat tab as items but count as boxes for the founder rate. */
 const PROTEIN_BOXES=["meatbox","lakehaul"];
-function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);let s=(b?b.price:0)+(bb?bb.price:0);for(const id of PROTEIN_BOXES){const it=ITEMS.meat.find(x=>x.id===id);if(it&&state.qty[id])s+=it.p*state.qty[id]}return s}
+/* Stackable kits (Nov 13): a box with stack:true (Sweater Weather Kit) rides in state.kit, so it adds on top of any box instead of replacing it. */
+function kitB(){return BOXES.find(x=>x.id===state.kit)}
+function boxOn(b){return !!b&&(b.stack?state.kit===b.id:state.box===b.id)}
+function boxSet(b,on){if(!b)return;if(b.stack)state.kit=on?b.id:null;else state.box=on?b.id:null}
+function normKit(){const x=BOXES.find(y=>y.id===state.box);if(x&&x.stack){state.kit=x.id;state.box=null}}
+function boxSum(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox);let s=(b?b.price:0)+(kitB()?kitB().price:0)+(bb?bb.price:0);for(const id of PROTEIN_BOXES){const it=ITEMS.meat.find(x=>x.id===id);if(it&&state.qty[id])s+=it.p*state.qty[id]}return s}
 /* Beta founder rate: 10% off boxes on meet-up orders, rounded to whole dollars. */
 function payByLabel(){const d=state.date?new Date(state.date+"T12:00"):null;if(!d)return "9 PM the night before";const c=new Date(d);c.setDate(c.getDate()-1);return c.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})+", 9 PM"}
-function ticketSummary(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox),d=DATES.find(x=>x.v===state.date),st=curStop();const items=[b&&b.name,bb&&bb.name].concat(ALL.filter(i=>state.qty[i.id]).map(i=>(state.qty[i.id]>1?state.qty[i.id]+"× ":"")+i.nm)).filter(Boolean);return items.slice(0,3).join(", ")+(items.length>3?" +"+(items.length-3)+" more":"")+" · "+(isDel()?"Delivered to your door, "+(d?d.label:state.date)+", after "+st.delAfter:st.name+", "+(d?d.label:state.date)+", "+st.time)}
+function ticketSummary(){const b=BOXES.find(x=>x.id===state.box),bb=BREADBOXES.find(x=>x.id===state.breadBox),d=DATES.find(x=>x.v===state.date),st=curStop();const items=[b&&b.name,kitB()&&kitB().name,bb&&bb.name].concat(ALL.filter(i=>state.qty[i.id]).map(i=>(state.qty[i.id]>1?state.qty[i.id]+"× ":"")+i.nm)).filter(Boolean);return items.slice(0,3).join(", ")+(items.length>3?" +"+(items.length-3)+" more":"")+" · "+(isDel()?"Delivered to your door, "+(d?d.label:state.date)+", after "+st.delAfter:st.name+", "+(d?d.label:state.date)+", "+st.time)}
 function founderRaw(){return !isDel()&&boxSum()?Math.round(boxSum()*FOUNDER_PCT/100):0}
 /* Seasoned Rate (Nov 7): 60+ on the honor system, 10% off the whole order (items + delivery, after the $1 perk). No stacking (Nov 8 v2): it tops the order up to 10% off in total. */
 const SEASONED_PCT=10;
@@ -1549,12 +1557,13 @@ function datesFor(){const st=curStop();const ds=st?(st.days||[st.day]):null;cons
 function setMode(m){
   if(m===state.mode)return;
   state.mode=m;
-  if(m==="pick"){state.box=null;state.breadBox=null}
+  if(m==="pick"){state.box=null;state.kit=null;state.breadBox=null}
   else for(const c of PICK_ONLY)for(const i of ITEMS[c])delete state.qty[i.id];
   renderBoxes();renderItems();renderTicket();
 }
 
 function renderTicket(){
+  normKit();
   if((state.box==="thanks"||state.qty.diwali)&&!datesFor().some(d=>d.v===state.date)){const ds=datesFor();if(ds.length)state.date=ds[0].v}
   if(state.reward==="5off"&&subtotal()<VOTE_MIN)state.reward="pastry";
   const t=document.getElementById("ticketBody");t.textContent="";
@@ -1592,6 +1601,7 @@ function renderTicket(){
   if(hwInCart())lines.append(el("p",{class:"note"},"🎃 Halloween Haul: your Half Peck gets a pie pumpkin, plus cider and a pastry."));
   if(hwvInCart())lines.append(el("p",{class:"note"},"🎃 Vegan Harvest Moon: your Vegan Box gets a pie pumpkin, plus cider."));
   if(b)lines.append(el("div",{class:"line"},el("span",{},/box$/i.test(b.name)?b.name:b.name+" box"),el("span",{},"$"+b.price)));
+  if(kitB())lines.append(el("div",{class:"line"},el("span",{},kitB().name),el("span",{},"$"+kitB().price)));
   const bb=BREADBOXES.find(x=>x.id===state.breadBox);
   if(bb)lines.append(el("div",{class:"line"},el("span",{},bb.name),el("span",{},"$"+bb.price)));
   for(const i of ALL.filter(i=>state.qty[i.id]))lines.append(el("div",{class:"line"},el("span",{},state.qty[i.id]+" × "+i.nm),el("span",{},"$"+state.qty[i.id]*i.p)));
@@ -1706,7 +1716,7 @@ function renderTicket(){
       if(last&&last.sig===sig&&Date.now()-last.at<3600000&&!state.forceNew){state.sent=last.txt;state.wait=last.wait;state.sendStatus="sent";state.dupe=true;renderTicket();document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});return}}catch(e){}
     state.forceNew=false;state.dupe=false;
     const id=(Date.now()%100000).toString().padStart(5,"0");
-    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-cart",JSON.stringify({box:state.box,breadBox:state.breadBox,qty:state.qty,mode:state.mode,fulfill:state.fulfill,name:state.name,phone:state.phone,email:state.email,address:state.address,notes:state.notes,hw:state.hw||false,hwv:state.hwv||false,at:Date.now()}))}catch(e){}try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
+    state.wait=isWait();state.sent=orderText(id);try{localStorage.setItem("pu-cart",JSON.stringify({box:state.box,kit:state.kit,breadBox:state.breadBox,qty:state.qty,mode:state.mode,fulfill:state.fulfill,name:state.name,phone:state.phone,email:state.email,address:state.address,notes:state.notes,hw:state.hw||false,hwv:state.hwv||false,at:Date.now()}))}catch(e){}try{localStorage.setItem("pu-last",JSON.stringify({txt:state.sent,date:state.date,wait:state.wait,at:Date.now(),sig:state.phone.replace(/\D/g,"")+"|"+state.date+"|"+JSON.stringify(orderPayload("x").items)}))}catch(e){}state.sendStatus=ORDER_ENDPOINT?"sending":"manual";renderTicket();
     sendOrder(id).then(ok=>{state.sendStatus=ok?"sent":"manual";renderTicket();if(ok&&!state.wait&&/^luna/.test(SRC_TAG))savasana()});document.getElementById("ticket").scrollIntoView({behavior:"smooth",block:"start"});
   });
   t.append(f);
@@ -1896,13 +1906,14 @@ const REORDER_ON=false; /* Off for now (Oct 27). Set true to bring back the welc
 (function(){
   let c=null;try{c=JSON.parse(localStorage.getItem("pu-cart")||"null")}catch(e){}
   if(c){for(const k of ["name","phone","email","address"])if(!state[k]&&c[k])state[k]=c[k]}
-  if(!c||(!c.box&&!c.breadBox&&!Object.keys(c.qty||{}).length))return;
+  if(!c||(!c.box&&!c.kit&&!c.breadBox&&!Object.keys(c.qty||{}).length))return;
   const b=BOXES.find(x=>x.id===c.box),bb=BREADBOXES.find(x=>x.id===c.breadBox);
-  const bits=[b&&b.name,bb&&bb.name,...ALL.filter(i=>c.qty&&c.qty[i.id]).map(i=>c.qty[i.id]>1?c.qty[i.id]+" × "+i.nm:i.nm)].filter(Boolean);
+  const kb=BOXES.find(x=>x.id===c.kit);
+  const bits=[b&&b.name,kb&&kb.name,bb&&bb.name,...ALL.filter(i=>c.qty&&c.qty[i.id]).map(i=>c.qty[i.id]>1?c.qty[i.id]+" × "+i.nm:i.nm)].filter(Boolean);
   if(!bits.length)return;
   const fl=String(c.fulfill||""),where=fl.startsWith("del-")?"delivered":((STOPS.find(x=>x.id===fl)||{}).name||"");
   const go=()=>{
-    state.box=b?b.id:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(c.qty&&c.qty[i.id])state.qty[i.id]=c.qty[i.id];
+    state.box=b?b.id:null;state.kit=kb?kb.id:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(c.qty&&c.qty[i.id])state.qty[i.id]=c.qty[i.id];
     state.mode=c.mode||"box";state.hw=!!c.hw&&typeof hwOn==="function"&&hwOn();state.hwv=!!c.hwv&&typeof hwOn==="function"&&hwOn();state.name=c.name||"";state.phone=c.phone||"";state.email=c.email||"";state.address=c.address||"";state.notes=c.notes||"";
     const okStop=STOPS.some(x=>x.id===c.fulfill)||DELIVERIES.some(x=>"del-"+x.id===c.fulfill);state.fulfill=okStop?c.fulfill:state.fulfill;if(okStop)state.stopPicked=true;
     if(!datesFor().length)state.fulfill=String(c.fulfill||"").startsWith("del-")?"del-hyde":"hyde";
@@ -2010,14 +2021,14 @@ const FEATURE_ID="coldsnap";
   document.getElementById("featMeta").textContent=b.desc;
   for(const h of b.has)ul.append(el("li",{},h));
   document.getElementById("featAdd").textContent="Add the "+b.name;
-  document.getElementById("featAdd").addEventListener("click",()=>{state.box=b.id;state.mode="box";if(window.puCart)puCart();renderBoxes();renderTicket();location.hash="#shop"});
+  document.getElementById("featAdd").addEventListener("click",()=>{boxSet(b,true);state.mode="box";if(window.puCart)puCart();renderBoxes();renderTicket();location.hash="#shop"});
 })();
 /* Box spotlight: fills from BOXES so contents and price stay in sync with Pick your haul. */
 (function(){
   const b=BOXES.find(x=>x.id==="halfpeck");const ul=document.getElementById("spotList");if(!b||!ul)return;
   document.getElementById("spotH").textContent=b.name+" · $"+b.price;
   for(const h of b.has)ul.append(el("li",{},h));
-  document.getElementById("spotAdd").addEventListener("click",()=>{state.box=b.id;state.mode="box";if(window.puCart)puCart();renderBoxes();renderTicket();location.hash="#shop"});
+  document.getElementById("spotAdd").addEventListener("click",()=>{boxSet(b,true);state.mode="box";if(window.puCart)puCart();renderBoxes();renderTicket();location.hash="#shop"});
 })();
 /* Story splash (Oct 30): 5 beats, then the Harvest Stamp + live cutoff (and "Hey <name>" on ?s=p-name links).
    Full story once a day per phone (pu-splash-day), logo-only after that. Skipped for ?me, #deep links (#start still plays it) and calm (Sosiego) visitors.
@@ -2231,7 +2242,7 @@ const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sau
   /* ?note= (Nov 3): /bites/ passes the cravings someone tapped into order Notes. */
   const nt=(q.get("note")||"").replace(/[<>]/g,"").slice(0,160);if(nt&&!state.notes)state.notes=nt;
   try{if(q.get("vegan")==="1")sessionStorage.setItem("pu-vegan","1");else if(q.has("vegan"))sessionStorage.removeItem("pu-vegan");state.vegan=sessionStorage.getItem("pu-vegan")==="1"}catch(e){state.vegan=q.get("vegan")==="1"}
-  if(id&&BOXES.some(b=>b.id===id)){state.box=id;state.mode="box";if(window.puCart)puCart()}
+  if(id&&BOXES.some(b=>b.id===id)){boxSet(BOXES.find(b=>b.id===id),true);state.mode="box";if(window.puCart)puCart()}
   /* ?mode=pick (Oct 31): personal pages send "Build your own" straight into Build Your Own. */
   else if(q.get("mode")==="pick")setMode("pick");
   /* ?add=meatbox|lakehaul (Oct 31): protein boxes are Meat-tab items, so personal pages add them this way. */
@@ -2243,10 +2254,10 @@ const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sau
   let d=null;try{d=JSON.parse(localStorage.getItem("pu-draft")||"null")}catch(e){}
   if(d&&Date.now()-(d.at||0)<6048e5&&!count()){
     const b=BOXES.find(x=>x.id===d.box&&boxShown(x)),bb=BREADBOXES.find(x=>x.id===d.breadBox);
-    state.box=b?b.id:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(d.qty&&d.qty[i.id]>0)state.qty[i.id]=d.qty[i.id];
+    state.box=b?b.id:null;state.kit=BOXES.some(x=>x.id===d.kit&&boxShown(x))?d.kit:null;state.breadBox=bb?bb.id:null;state.qty={};for(const i of ALL)if(d.qty&&d.qty[i.id]>0)state.qty[i.id]=d.qty[i.id];
     if(d.mode==="pick"||d.mode==="box")state.mode=d.mode;
   }
-  const rt=renderTicket;renderTicket=function(){rt.apply(this,arguments);try{if(state.sent||!count())localStorage.removeItem("pu-draft");else localStorage.setItem("pu-draft",JSON.stringify({box:state.box,breadBox:state.breadBox,qty:state.qty,mode:state.mode,at:Date.now()}))}catch(e){}};
+  const rt=renderTicket;renderTicket=function(){rt.apply(this,arguments);try{if(state.sent||!count())localStorage.removeItem("pu-draft");else localStorage.setItem("pu-draft",JSON.stringify({box:state.box,kit:state.kit,breadBox:state.breadBox,qty:state.qty,mode:state.mode,at:Date.now()}))}catch(e){}};
 })();
 renderBoxes();renderItems();renderTicket();loadCounts();
 </script>
