@@ -112,7 +112,7 @@ function render(o,j){
   const ol=el("ol","track");
   STEPS.forEach((s,i)=>{const li=el("li",i<at?"done":i===at?"now":"todo");const d=el("div");d.append(el("b",null,s[0]),el("span",null,s[1]));li.append(d);ol.append(li)});
   res.append(ol);
-  if(at===0)res.append(el("p","meta","Pay by card or Zelle (leeks.sabrosa@gmail.com) by 9 PM the night before, with POSTED "+o+" in the memo. Your order isn't shopped until payment arrives."));
+  if(at===0)res.append(el("p","meta","Pay by card or Apple Pay at postedupproduce.org/pay by 9 PM the night before, with POSTED "+o+" in the memo. Your order isn't shopped until payment arrives."));
   if(at===4){const a=el("a",null,"Leave feedback and get a bonus pick →");a.href="thanks.html";a.style.cssText="color:#ffb4a3;font-weight:700";res.append(a)}
   res.hidden=false;
 }

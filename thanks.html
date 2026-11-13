@@ -150,10 +150,7 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
       <button type="button" class="chip" data-tip="10" aria-pressed="false">$10</button>
       <button type="button" class="chip" data-tip="" aria-pressed="false">Other</button>
     </div>
-    <div class="payto">
-      <div><span>Zelle</span><code id="zelle">leeks.sabrosa@gmail.com</code><button type="button" class="ghost sm" data-copy="zelle">Copy</button></div>
-    </div>
-    <p class="sub" id="tipNote">Send <b>$5</b> with <b>TIP</b> in the memo. Thank you!</p>
+    <p class="sub" id="tipNote">Hand <b>$5</b> cash to your shopper at pickup or delivery. Thank you!</p>
     <p class="ok" id="tipMsg" aria-live="polite"></p>
   </section>
 
@@ -193,7 +190,7 @@ f.addEventListener("submit",async e=>{
 /* Tip */
 const chips=[...document.querySelectorAll(".chip")],tipNote=document.getElementById("tipNote"),tipMsg=document.getElementById("tipMsg");
 chips.forEach(c=>c.addEventListener("click",()=>{chips.forEach(x=>x.setAttribute("aria-pressed",String(x===c)));
-  tipNote.innerHTML=c.dataset.tip?"Send <b>$"+c.dataset.tip+"</b> with <b>TIP</b> in the memo. Thank you!":"Send any amount with <b>TIP</b> in the memo. Thank you!"}));
+  tipNote.innerHTML=c.dataset.tip?"Hand <b>$"+c.dataset.tip+"</b> cash to your shopper at pickup or delivery. Thank you!":"Hand any amount in cash to your shopper at pickup or delivery. Thank you!"}));
 document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",async()=>{const el=document.getElementById(b.dataset.copy);
   try{await navigator.clipboard.writeText(el.textContent);tipMsg.textContent="Copied "+el.textContent+"."}catch(e){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);tipMsg.textContent="Selected. Use your phone's copy."}}));
 /* Share */

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Pay for your order · Posted Up Produce</title>
-<meta name="description" content="Pay for your Posted Up Produce order by card, Apple Pay or Zelle.">
+<meta name="description" content="Pay for your Posted Up Produce order by card or Apple Pay.">
 <meta property="og:title" content="Pay for your Posted Up order">
-<meta property="og:description" content="Card, Apple Pay or Zelle. Your order is shopped once it's paid by 9 PM the night before.">
+<meta property="og:description" content="Card or Apple Pay. Your order is shopped once it's paid by 9 PM the night before.">
 <meta property="og:image" content="https://postedupproduce.org/og.png">
 <meta name="robots" content="noindex, noai, noimageai">
 <meta name="theme-color" content="#24392c">
@@ -80,14 +80,6 @@ input{font:inherit;font-size:18px;padding:12px;border:2px solid var(--line);bord
     <div class="amt"><span id="who">Your total</span><b id="amt"></b></div>
     <p class="memo">Memo: <b id="memo"></b></p>
     <a class="btn ac" id="ac" href="#" hidden>Pay with Apple Cash<small id="acs">Opens Messages</small></a>
-    <button class="btn zl" id="zl" type="button" aria-expanded="false" aria-controls="zs">Pay with Zelle<small>Copies leeks.sabrosa@gmail.com and shows the steps</small></button>
-    <div class="zsteps" id="zs" hidden>
-      <p class="zt">Open your bank app → Zelle → Send. Then use these:</p>
-      <div class="zrow"><span>Send to <b>leeks.sabrosa@gmail.com</b></span><button type="button" class="zcopy" data-copy="email" aria-label="Copy the Zelle email">Copy</button></div>
-      <div class="zrow"><span>Amount <b id="zamt"></b></span><button type="button" class="zcopy" data-copy="amt" aria-label="Copy the amount">Copy</button></div>
-      <div class="zrow"><span>Memo <b id="zmemo"></b></span><button type="button" class="zcopy" data-copy="memo" aria-label="Copy the memo">Copy</button></div>
-      <p class="zt" style="font-weight:500">Zelle is inside most bank apps (Chase, Bank of America, Wells Fargo, Capital One and more). No bank app? Pay by card, or email info@postedupproduce.org.</p>
-    </div>
     <a class="btn cd" id="cd" href="#" target="_blank" rel="noopener" hidden>Pay by card or Apple Pay<small id="cds">Opens our secure card page</small></a>
     <p class="st" id="st" aria-live="polite"></p>
     <button class="ghost" id="paid" type="button">I've paid</button>
@@ -99,7 +91,7 @@ input{font:inherit;font-size:18px;padding:12px;border:2px solid var(--line);bord
 </main>
 <script>
 const ENDPOINT="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
-const ZELLE="leeks.sabrosa@gmail.com", APPLE_CASH=""; /* Apple Cash dropped Nov 8 */
+const APPLE_CASH=""; /* Apple Cash dropped Nov 8; Zelle dropped Nov 12 */
 /* Card / Apple Pay via Square (Oct 29). Off for customers until we test a real $1 payment; preview with /pay/?o=1&a=1&card=1. Set CARD_ON=true to go live. */
 const CARD_ON=true, CARD_LINK="https://square.link/u/HHv7KJyK";
 const q=new URLSearchParams(location.search);
@@ -108,15 +100,12 @@ const src=clean(q.get("s"),/[^a-z0-9-]/gi,30).toLowerCase();
 const $=id=>document.getElementById(id);
 function show(no,amt,name){
   const memo="POSTED #"+no;
-  /* Apple Cash first on Apple devices; Zelle first elsewhere (Oct 27). */
-  if(!/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)){$("ac").before($("zl"));$("zl").after($("zs"));$("acs").dataset.other="1"}
   $("ask").hidden=true;$("pay").hidden=false;
   $("amt").textContent="$"+amt;$("memo").textContent=memo;
   if(name){$("hi").textContent="Thanks, "+name+"! Last step: pay";$("who").textContent="Order #"+no}
   else $("who").textContent="Order #"+no;
   $("ac").href="sms:+1"+APPLE_CASH+"?&body="+encodeURIComponent(memo+" · $"+amt+" via Apple Cash");
   $("acs").textContent="";
-  $("zamt").textContent="$"+amt;$("zmemo").textContent=memo;
   if(CARD_ON||q.get("card")==="1"){
     $("memo").parentNode.after($("cd"));$("cd").hidden=false;$("cd").removeAttribute("target");$("cds").textContent="Your total and order number are filled in for you";
     /* Asks the Order Receiver for a Square checkout made for this exact order (total comes from the sheet). Falls back to the plain link. */
@@ -128,9 +117,6 @@ function show(no,amt,name){
       catch(x){a.dataset.busy="";$("cds").textContent="Opening our card page. Enter $"+amt+" and order number "+no+".";location.href=CARD_LINK}};
   }
   const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);$("st").textContent=m}catch(e){$("st").textContent="Couldn't copy here. Type it in: "+v}};
-  const vals={email:[ZELLE,"Copied "+ZELLE+". Paste it as the recipient."],amt:[amt,"Copied "+amt+". Paste it as the amount."],memo:[memo,"Copied the memo."]};
-  document.querySelectorAll(".zcopy").forEach(b=>b.onclick=()=>copy(...vals[b.dataset.copy]));
-  $("zl").onclick=()=>{$("zs").hidden=false;$("zl").setAttribute("aria-expanded","true");copy(ZELLE,"Copied "+ZELLE+". Open your bank app → Zelle → paste it as the recipient.")};
   $("paid").onclick=async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
     try{await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:name||"",contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · from pay link"+(src?" · Source: "+src:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
     catch(x){b.disabled=false;b.textContent="I've paid"}};
