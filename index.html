@@ -455,6 +455,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 #pu-dsplash .ds-q{margin:6px 0 0;font:400 clamp(30px,9vw,40px)/1.05 var(--display)}
 #pu-dsplash .ds-sub{margin:0 0 4px;font-size:16px;color:#3d4a40}
 #pu-dsplash .ds-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+#pu-dsplash .ds-easy[hidden]{display:none}#pu-dsplash .ds-easy{display:grid;gap:6px;margin-top:4px}
 #pu-dsplash .ds-chip{min-height:46px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;padding:9px 16px;font:700 16px var(--body);cursor:pointer}
 #pu-dsplash .ds-chip[aria-pressed="true"]{background:#2f6b3f;border-color:#2f6b3f;color:#fff}
 #pu-dsplash .ds-omni{flex-basis:100%;max-width:320px}
@@ -606,7 +607,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 .bprice{font:800 19px var(--body);white-space:nowrap}
 .bwhat{margin:0;font-size:15px;color:var(--ink)}
 .btag{margin:0;font-size:14px;font-weight:700;color:var(--good)}
-#thanks,#bites,#fruit,#nocook,#breakfast,#grits,#asana,#asanapair,#grounding,#strength,#rest,#practice{scroll-margin-top:calc(var(--toph,120px) + 76px)}
+#easy,#thanks,#bites,#fruit,#nocook,#breakfast,#grits,#asana,#asanapair,#grounding,#strength,#rest,#practice{scroll-margin-top:calc(var(--toph,120px) + 76px)}
 .bmakes{margin:2px 0 0;font-size:16px;font-weight:800;line-height:1.35;color:var(--ink);background:var(--chip);border-radius:10px;padding:8px 10px}
 .bin-in{border-top:1px dashed var(--line);padding-top:2px}
 .bin-in summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;font-weight:700;font-size:16px;cursor:pointer}
@@ -1096,6 +1097,18 @@ const BOXES=[
    makes:"About 12–14 snacks: a week for one, or a few days for two · ≈ $2.60 a snack",
    has:["2 lb crisp apples (about 6): the sweet crunch","Snacking roots: carrots, radishes or turnips, whatever's crispest","Fresh-pressed cider: the soda-run swap","A jar of pickles or dilly beans, or a snack bag of dried blueberries (say which in Notes)","Tell me your go-to junk in Notes and I'll lean the box that way"],
    veg:["2 lb crisp apples (about 6): the sweet crunch","Snacking roots: carrots, radishes or turnips, whatever's crispest","Fresh-pressed cider: the soda-run swap","A jar of pickles or dilly beans, or a snack bag of dried blueberries (say which in Notes)","Tell me your go-to junk in Notes and I'll lean the box that way"]},
+  /* The Easy Two (Nov 13): small-household tier for empty nesters who don't cook much (first built for one customer at /p/susan/easy/). One card in the Boxes list with a size picker (TIERS list:true). Draft prices, about 13–15% under buying each item; confirm margins after a market run. */
+  {id:"easy1",name:"The Easy Two · Breakfast & snacks",price:47,wt:"No cooking · a few days for two",desc:"No cooking at all. Toast, fruit, cheese.",pick:"New · Small households",
+   makes:"About 7 breakfasts plus 6 fruit snacks, a few days for two · ≈ $3.60 a serving",
+   has:["Apples & pears, about 6","Sourdough loaf (freezes well)","Fresh goat cheese, or local tofu","A jar of jam or apple butter"]},
+  {id:"easy2",name:"The Easy Two · Plus easy lunches",price:59,wt:"One thing in the oven · about a week for two",desc:"Breakfast & snacks, plus salads and one thing in the oven.",pick:"New · Small households",
+   makes:"About 7 breakfasts, 6 snacks and 3–4 easy lunches for two · ≈ $3.50 a serving",
+   has:["Apples & pears, about 6","Sourdough loaf (freezes well)","Fresh goat cheese, or local tofu","A jar of jam or apple butter","Washed salad greens or microgreens","One delicata squash"],
+   recipe:"The only cooking: slice the delicata, oil, salt, 25 min at 425"},
+  {id:"easy3",name:"The Easy Two · The good stuff",price:92,wt:"A few treats for the week · for two",desc:"Plus easy lunches, with cheese, cider and a pastry.",pick:"New · Small households",
+   makes:"All of Plus easy lunches, plus about 8 cheese snacks, 8 cups of cider and a pastry · ≈ $2.70 a serving",
+   has:["Apples & pears, about 6","Sourdough loaf (freezes well)","Fresh goat cheese, or local tofu","A jar of jam or apple butter","Washed salad greens or microgreens","One delicata squash","A wedge of cave-aged cheddar","A jug of fresh-pressed cider","A fresh pastry"],
+   recipe:"The only cooking: slice the delicata, oil, salt, 25 min at 425"},
   /* I Don't Cook Box (Oct 27): ready-to-eat market items, no stove needed. Starting price guess; confirm after a market run. */
   {id:"nocook",name:"I Don't Cook Box",price:75,wt:"About a week of no-cook eating for one",desc:"Nothing to cook. Ready-to-eat market finds: bread, cheese, something savory, a ferment, fruit and a spread.",pick:"New · No cooking",
    makes:"About 10 easy plates: a week for one, or a few days for two · ≈ $7.50 a plate",
@@ -1272,7 +1285,8 @@ const DIET_BOX={
   nocook:{dairy:1,meat:1,pork:1,gluten:1,nocook:1,who:[1,2]},
   asana:{egg:1,protein:1,who:[1]},asanapair:{egg:1,protein:1,who:[1]},
   grounding:{cook:1,who:[1]},strength:{egg:1,cook:1,protein:1,who:[1]},rest:{gluten:1,nocook:1,who:[1]},practice:{egg:1,gluten:1,protein:1,who:[1,2]},
-  mystery:{gluten:1,dairy:1,egg:1,who:[1,2]},bites:{meat:1,nocook:1,who:[1]}};
+  mystery:{gluten:1,dairy:1,egg:1,who:[1,2]},bites:{meat:1,nocook:1,who:[1]},
+  easy1:{dairy:1,gluten:1,nocook:1,who:[1,2]},easy2:{dairy:1,gluten:1,cook:1,who:[1,2]},easy3:{dairy:1,gluten:1,cook:1,who:[2]}};
 const DIET_ITEM={"gameday-s":["dairy"],gameday:["dairy","gluten"],"gameday-xl":["dairy","gluten","egg"],meatbox:["meat","pork"],ground:["meat","pork"],chicken:["meat"],sausage:["meat","pork"],lakehaul:["fish"],fish:["fish"],eggs:["egg"],
   sour:["gluten"],pastry:["gluten","dairy","egg"],quesokit:["dairy"],gcheesekit:["dairy","gluten"],chevre:["dairy"],cheddar:["dairy"],
   butter:["dairy"],oats2:["gluten"],grits2:["gluten"],mix:["gluten"]};
@@ -1370,7 +1384,7 @@ function renderDiet(){
   if(ad.length){o.append(el("h3",{},"Add protein"));for(const it of ad){const q=state.qty[it.id]||0;o.append(el("div",{class:"dadd"},el("span",{},it.nm+" · $"+it.p),el("button",{type:"button","aria-pressed":String(!!q),onclick:()=>{if(q)delete state.qty[it.id];else{state.qty[it.id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}},q?"Added ✓":"Add")))}}
   if(state.diet.some(d=>DIET_BLOCK[d]))o.append(el("button",{type:"button",class:"dbuild",onclick:()=>{state.dietAll=false;setMode("pick");renderDiet();const s=document.getElementById("sec-produce");if(s)s.scrollIntoView({block:"start"})}},state.mode==="pick"?"Building your own: showing only what fits ✓":"Build my own box instead →"));
 }
-const TIERS=[{key:"fruit",name:"Fruit Box",ids:["fruitsm","fruit"]},{key:"produce",name:"Produce box",ids:["halfpeck","crate"]}];
+const TIERS=[{key:"fruit",name:"Fruit Box",ids:["fruitsm","fruit"]},{key:"produce",name:"Produce box",ids:["halfpeck","crate"]},{key:"easy",name:"The Easy Two",ids:["easy1","easy2","easy3"],list:true,def:"easy2"}];
 const DIET_TIER={};
 function tierOf(id){return TIERS.find(t=>t.ids.includes(id))||null}
 function renderBoxes(){
@@ -1404,8 +1418,17 @@ function bCard(o){
 /* Asana Box (Oct 29): removed from the Boxes tab (hideList); still addable from the home feature and Asana Pair, and shows in the list only once it is in the cart. */
 function boxList(){
   const w=document.getElementById("boxes");w.textContent="";
-  for(const b of BOXES){if(!boxShown(b))continue;w.append(bCard({diet:b.id,swap:vegAble(b),...(b.id==="forever"?{img:"/img/haul-vegan.jpg",imgAlt:"A real Vegan Box from this pilot: mushrooms, local tofu, squash, sweet potatoes, apples, greens and a pastry"}:{}),id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:boxOn(b),
-    toggle:()=>{boxSet(b,!boxOn(b));if(boxOn(b)){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}}));}
+  const seenL=new Set();
+  for(const b0 of BOXES){if(!boxShown(b0))continue;
+    /* Listed tiers (Nov 13, The Easy Two): one card per tier with a size picker; the card shows the size in the cart, else the last size tapped, else the tier default. */
+    const lt=tierOf(b0.id);let b=b0,sz=[];
+    if(lt&&lt.list){if(seenL.has(lt.key))continue;seenL.add(lt.key);sz=lt.ids.map(id=>BOXES.find(x=>x.id===id)).filter(x=>x&&boxShown(x));b=sz.find(boxOn)||sz.find(x=>x.id===DIET_TIER[lt.key])||sz.find(x=>x.id===lt.def)||b0}
+    const card=bCard({diet:b.id,swap:vegAble(b),...(b.id==="forever"?{img:"/img/haul-vegan.jpg",imgAlt:"A real Vegan Box from this pilot: mushrooms, local tofu, squash, sweet potatoes, apples, greens and a pastry"}:{}),id:b.id==="fruitsm"?"fruit":b.id==="nocook"?"nocook":b.id==="asana"?"asana":b.id==="asanapair"?"asanapair":b.id==="mystery"?"mystery":b.id==="breakfast"?"breakfast":b.id==="grits"?"grits":b.id==="thanks"?"thanks":["grounding","strength","rest","practice"].includes(b.id)?b.id:"",name:b.name,price:b.price,what:b.wt+(b.makes&&b.id!=="forever"?"":" · "+b.desc),makes:b.makes,tag:b.pick+(vegOn(b)?" · Vegan":""),has:vegOn(b)?(b.veg||b.has.concat(["Vegan: anything with egg, dairy, honey or meat is swapped for a local plant-based pick"])):b.has,veg:vegAble(b)?b:null,recipe:b.recipe,on:boxOn(b),
+    toggle:()=>{boxSet(b,!boxOn(b));if(boxOn(b)){state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}});
+    if(sz.length>1){card.id=lt.key;card.querySelector("h3").textContent=lt.name;
+      const pk=el("div",{class:"dsize",role:"radiogroup","aria-label":"Size"},...sz.map(x=>el("button",{type:"button",role:"radio","aria-checked":String(x.id===b.id),onclick:()=>{DIET_TIER[lt.key]=x.id;if(sz.some(boxOn)){sz.forEach(y=>boxSet(y,false));boxSet(x,true);if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}},el("b",{},x.name.replace(lt.name,"").replace(/^\s*·\s*/,"")),el("span",{},"$"+x.price+" · "+x.wt))));
+      pk.style.margin="10px 0 4px";card.querySelector(".bwhat").after(pk)}
+    w.append(card);}
   for(const [wid,id] of [["meatList","meatbox"],["fishList","lakehaul"]]){
     const it=ITEMS.meat.find(x=>x.id===id),box=document.getElementById(wid);if(!it||!box)continue;box.textContent="";
     box.append(bCard({diet:id,name:it.nm,price:it.p,what:PROTEIN_INFO[id].what,makes:PROTEIN_INFO[id].makes,tag:PROTEIN_INFO[id].tag,has:PROTEIN_HAS[id],on:!!state.qty[id],
@@ -1835,7 +1858,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   const go=(first)=>{
     const h=decodeURIComponent(location.hash.slice(1));
     let v="home",el=h?document.getElementById(h):null;
-    if(h==="shop"||h==="boxes"||h==="fruit"||h==="nocook"||h==="breakfast"||h==="grits"||h==="asana"||h==="asanapair"||h==="mystery")v="shop";
+    if(h==="shop"||h==="boxes"||h==="fruit"||h==="easy"||h==="nocook"||h==="breakfast"||h==="grits"||h==="asana"||h==="asanapair"||h==="mystery")v="shop";
     else if(h==="inventory")v="inventory";
     else if(h==="checkout"||h==="ticket")v=cur&&cur!=="home"?cur:"shop";
     else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
@@ -1849,7 +1872,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   };
   go(true);addEventListener("hashchange",()=>go(false));
   /* #fruit (Oct 27): the Fruit Box cards render after this runs, so scroll to them once they exist. */
-  if(location.hash==="#fruit"||location.hash==="#nocook"||location.hash==="#breakfast"||location.hash==="#grits"||location.hash==="#asana"||location.hash==="#asanapair"||location.hash==="#mystery")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
+  if(location.hash==="#fruit"||location.hash==="#easy"||location.hash==="#nocook"||location.hash==="#breakfast"||location.hash==="#grits"||location.hash==="#asana"||location.hash==="#asanapair"||location.hash==="#mystery")setTimeout(()=>{const e=document.getElementById(location.hash.slice(1));if(e)e.scrollIntoView({block:"start"})},250);
 })();
 /* One-tap payment (Oct 26): Apple Cash opens Messages with the order # and amount typed in (iPhone offers Apple Pay on the amount);
    Zelle copies the email + memo for the bank app. "I've paid" posts a PAYMENT SENT note to the Feedback tab so we can match it fast. */
@@ -2111,7 +2134,11 @@ function puSetStop(v){const ok=STOPS.some(x=>x.id===v&&forThem(x))||DELIVERIES.s
   const d=el("div",{id:"pu-dsplash",role:"dialog","aria-modal":"true","aria-labelledby":"dsQ"});
   const chips=el("div",{class:"ds-chips"});
   const go=el("button",{type:"button",class:"ds-go"});
-  let omni=false;const label=()=>{go.textContent=omni?"Show me the boxes →":pick.size?"Show my boxes →":"Show me everything →"};
+  /* The Easy Two in the welcome (Nov 13): tapping "I don't cook" shows the three size names; a tap adds that size and jumps to its card. */
+  const eT=TIERS.find(t=>t.key==="easy"),eSz=eT?eT.ids.map(id=>BOXES.find(x=>x.id===id)).filter(x=>x&&boxShown(x)):[];
+  const easyRow=el("div",{class:"ds-easy",hidden:""},el("p",{class:"ds-q2"},"Try The Easy Two, sized for small households:"),el("div",{class:"ds-chips"},...eSz.map(x=>{const b=el("button",{type:"button",class:"ds-chip ds-stop"},x.name.replace(eT.name,"").replace(/^\s*·\s*/,""),el("small",{},"$"+x.price));
+    b.addEventListener("click",()=>{eSz.forEach(y=>boxSet(y,false));boxSet(x,true);DIET_TIER.easy=x.id;state.mode="box";if(window.puCart)puCart();renderBoxes();renderItems();renderTicket();close();location.hash="#easy"});return b})));
+  let omni=false;const label=()=>{easyRow.hidden=!pick.has("nocook")||!eSz.length;go.textContent=omni?"Show me the boxes →":pick.size?"Show my boxes →":"Show me everything →"};
   /* "I'm an omnivore" (Nov 1): one tap, clears the diet chips, goes straight to every box. */
 const om=el("button",{type:"button",class:"ds-chip ds-omni","aria-pressed":"false"},"🍽 I'm an omnivore");
 const again=window.puLast?el("button",{type:"button",class:"ds-again"},"↻ Same as last time"+(window.puLast.first?", "+window.puLast.first:""),el("small",{},window.puLast.what)):null;
@@ -2133,7 +2160,7 @@ om.addEventListener("click",()=>{omni=!omni;om.setAttribute("aria-pressed",Strin
   /* Order of operations (Nov 3): new phones see it first (photo loop = tour button), then where and when, then how you eat, then the boxes. Returning phones get the fastest path first: Same as last time, then the rest; no loop. */
   const hi=nm?[el("p",{class:"ds-hi"},"Hey "+nm.charAt(0).toUpperCase()+nm.slice(1)+", this one's for you")]:[];
   const where=[el("p",{class:"ds-q2"},"Where will you grab it?"),stopRow];
-  const eat=[el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),chips,go];
+  const eat=[el("h2",{id:"dsQ",class:"ds-q"},"How do you eat?"),chips,easyRow,go];
   if(again){again.classList.add("top");
     d.append(el("div",{class:"ds-in"},...hi,el("img",{class:"ds-logo",src:"/logos/harvest-stamp.png",alt:"Posted Up: picked for you",width:"560",height:"560",style:"width:min(26vw,96px)"}),again,el("p",{class:"ds-cut"},cut),...where,...eat,tourB,skip));
   }else{
