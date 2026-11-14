@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>For Ratih · Posted Up Produce</title>
+<meta name="robots" content="noindex, nofollow, noai, noimageai">
+<meta name="description" content="Everything for the Ratih Eats feature: your readers' link, copy you can paste, and a spot to tell us what to change.">
+<meta property="og:title" content="ratih, here's your feature kit 🧡">
+<meta property="og:description" content="Your readers' link, a blurb you can paste, and a spot to pick the recipe and send us notes.">
+<meta property="og:image" content="https://postedupproduce.org/ratih/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://postedupproduce.org/ratih/partner/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFAF4">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+/* /ratih/partner/ (Nov 14, 2026): partner page for Ratih (Ratih Eats newsletter), sent to her by text. Not linked anywhere, noindex.
+   Instructions, her readers' links with copy buttons, two paste-ready blurbs (recipe name fills in from her pick), and a form:
+   recipe, send date, feedback, contact. Form POSTs type "feedback" (never change the type) to the Order Receiver,
+   message starts "RATIH PARTNER", so it lands in the Feedback tab. Same look as /ratih/. */
+:root{--bg:#FFFAF4;--panel:#FFFFFF;--ink:#2B211B;--muted:#6B5B50;--line:#F0E2D3;--pop:#FF6C1F;--rust:#B8440A;--soft:#FFF0E4;
+  --body:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 var(--body)}
+a{color:var(--rust)}
+:focus-visible{outline:3px solid var(--rust);outline-offset:3px}
+main{max-width:480px;margin:0 auto;padding:16px 20px 60px;display:flex;flex-direction:column;gap:14px}
+.eb{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.04em;min-height:32px;margin:0}
+.eb .beta{border:1.5px solid currentColor;border-radius:999px;padding:0 8px;margin-left:4px;font-size:12px}
+.eb .for{color:var(--rust)}
+h1{font-weight:800;font-size:clamp(32px,9.5vw,42px);line-height:1.04;letter-spacing:-.02em;margin:8px 0 0}
+.lede{margin:0;color:var(--muted)}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1.5px solid var(--line);border-radius:999px;background:var(--panel);text-decoration:none;color:var(--ink);font-weight:700;font-size:15px}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-margin-top:12px}
+.k{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--rust);margin:0}
+.card h2{font-weight:800;font-size:25px;line-height:1.1;letter-spacing:-.015em;margin:0}
+.why{margin:0;font-size:16px;color:var(--muted)}
+.steps{margin:0;padding-left:22px;font-size:16px}.steps li{margin:6px 0}
+.facts{margin:0;padding:0;list-style:none;font-size:16px}
+.facts li{padding:8px 0;border-top:1px solid var(--line)}.facts li:first-child{border-top:0}
+.facts b{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lk{display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--bg);border-radius:12px}
+.lk b{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lk code{font:600 16px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border:0;border-radius:999px;background:var(--pop);color:#1E1410;font:800 16px var(--body);cursor:pointer;text-decoration:none;padding:0 18px;text-align:center}
+.btn.ghost{background:transparent;border:1.5px solid var(--ink);color:var(--ink)}
+.btn.wide{width:100%;min-height:56px;font-size:18px}
+.blurb{white-space:pre-wrap;margin:0;padding:14px;background:var(--bg);border-radius:12px;font-size:16px;line-height:1.55}
+.ok{font-size:14px;font-weight:700;color:var(--rust);min-height:20px;margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+legend,.lab{font-weight:800;font-size:16px;margin-bottom:4px;padding:0}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;font-size:16px}
+.opt:has(input:checked){border-color:var(--rust);background:var(--soft)}
+.opt input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--rust);flex-shrink:0}
+.opt span span{display:block;font-size:14px;color:var(--muted)}
+input[type=text],select,textarea{width:100%;font:16px var(--body);color:var(--ink);background:#fff;border:1.5px solid #D9C5B2;border-radius:12px;padding:12px}
+textarea{min-height:120px;resize:vertical}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.err{color:#B3261E;font-size:15px;margin:0;min-height:20px}
+.done{background:var(--soft);border-radius:14px;padding:16px;margin:0}
+.ip{max-width:480px;margin:0 auto 40px;padding:0 20px;font-size:14px;opacity:.72;text-align:center}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#1C1612;--panel:#26201B;--ink:#F6EDE4;--muted:#C9B8A8;--line:#3A3029;--rust:#FF9A5C;--soft:#33261D}
+  input[type=text],select,textarea{background:#1C1612;border-color:#4A3D33}.opt input{accent-color:var(--pop)}
+}
+</style>
+</head>
+<body>
+<main>
+  <p class="eb"><span>Posted Up Produce<span class="beta">Beta</span></span><span class="for">for Ratih</span></p>
+
+  <section aria-labelledby="h1">
+    <h1 id="h1">ratih, thank you for having us 🧡</h1>
+    <p class="lede" style="margin-top:10px">Everything for the feature is on this page: what to do, the link for your readers, copy you can paste, and a spot to tell us what to change.</p>
+  </section>
+
+  <ul class="jump" aria-label="On this page">
+    <li><a href="#how">What to do</a></li>
+    <li><a href="#links">Links</a></li>
+    <li><a href="#copy">Copy</a></li>
+    <li><a href="#notes">Your notes</a></li>
+  </ul>
+
+  <section class="card" id="how" aria-labelledby="howH">
+    <p class="k">step by step</p>
+    <h2 id="howH">what to do</h2>
+    <ol class="steps">
+      <li><b>Pick the recipe and the send date</b> in the form at the bottom. We'll turn that recipe into the kit on your readers' page within a day.</li>
+      <li><b>Look over your readers' page</b> and tell us anything you'd change: words, the offer, the look.</li>
+      <li><b>Put the link in your post.</b> Use the newsletter link below. If you share it on Instagram too, use the Instagram link so we can tell you which one brought people in.</li>
+      <li><b>That's it.</b> After it goes out, we'll send you how many readers visited and ordered.</li>
+    </ol>
+  </section>
+
+  <section class="card" aria-labelledby="whatH">
+    <p class="k">so you can answer questions</p>
+    <h2 id="whatH">what your readers get</h2>
+    <ul class="facts">
+      <li><b>The kit</b><span id="fKit">Everything from the farmers market for your recipe, in one tap. They can add protein, greens or bread.</span></li>
+      <li><b>A thank-you</b>A free pastry or small-batch hot sauce on their first order through your page.</li>
+      <li><b>Or we pick</b>A box of what's best that Saturday, or they build their own, item by item.</li>
+      <li><b>When</b>Order by Friday 9 PM. We shop Saturday morning.</li>
+      <li><b>Where</b>Pickup in Goose Island (12–1), Hyde Park (2–3) or Rogers Park (4–5) on Saturday, or delivery ($8 within 3 miles of a stop).</li>
+      <li><b>Paying</b>Up front, by card or Apple Pay.</li>
+      <li><b>If something's off</b>Credit or refund, their choice.</li>
+    </ul>
+  </section>
+
+  <section class="card" id="links" aria-labelledby="lH">
+    <p class="k">copy and paste</p>
+    <h2 id="lH">your links</h2>
+    <div class="lk"><b>For the newsletter</b><code id="l1">postedupproduce.org/ratih</code>
+      <div class="row"><button class="btn" type="button" data-copy="l1">Copy link</button><a class="btn ghost" href="/ratih/?s=ratih-preview" target="_blank" rel="noopener">See your readers' page</a></div></div>
+    <div class="lk"><b>For Instagram (story or bio)</b><code id="l2">postedupproduce.org/ratih/?s=ratih-ig</code>
+      <div class="row"><button class="btn" type="button" data-copy="l2">Copy link</button></div></div>
+    <p class="ok" id="lOk" role="status" aria-live="polite"></p>
+  </section>
+
+  <section class="card" id="copy" aria-labelledby="cH">
+    <p class="k">use as much or as little as you like</p>
+    <h2 id="cH">copy you can paste</h2>
+    <p class="why">Edit freely. The recipe name changes when you pick one below.</p>
+    <p class="lab">Short (a line or two)</p>
+    <p class="blurb" id="b1"></p>
+    <div class="row"><button class="btn" type="button" data-copy="b1">Copy short</button></div>
+    <p class="lab" style="margin-top:8px">Guest section</p>
+    <p class="blurb" id="b2"></p>
+    <div class="row"><button class="btn" type="button" data-copy="b2">Copy guest section</button></div>
+    <p class="ok" id="cOk" role="status" aria-live="polite"></p>
+    <p class="why">Want a photo of the kit or a farmers market haul? Say so in the notes and we'll send a few.</p>
+  </section>
+
+  <section class="card" id="notes" aria-labelledby="nH">
+    <p class="k">this comes straight to us</p>
+    <h2 id="nH">your notes</h2>
+    <form id="f" novalidate>
+      <fieldset id="recipes">
+        <legend>Which recipe should the kit shop for?</legend>
+        <label class="opt"><input type="radio" name="recipe" value="hasselback honeynut squash" checked><span>Hasselback honeynut squash<span>Oct 18 · on the page now</span></span></label>
+        <label class="opt"><input type="radio" name="recipe" value="marinated beets with goat cheese"><span>Marinated beets with goat cheese<span>Oct 25</span></span></label>
+        <label class="opt"><input type="radio" name="recipe" value="delicata squash with hot honey whipped feta"><span>Delicata with hot honey whipped feta<span>Oct 11</span></span></label>
+        <label class="opt"><input type="radio" name="recipe" value="cacio e pepe cabbage"><span>Cacio e pepe cabbage<span>Sep 27</span></span></label>
+        <label class="opt"><input type="radio" name="recipe" value="other"><span>A different one, or one I'm writing for this issue</span></label>
+        <input type="text" id="rOther" name="rOther" placeholder="Which one? A link works too" aria-label="Which recipe" hidden>
+      </fieldset>
+      <div>
+        <label class="lab" for="date">When does it go out?</label>
+        <select id="date" name="date">
+          <option value="">Pick a date</option>
+          <option>Sun, Nov 15</option>
+          <option>Thu, Nov 19</option>
+          <option>Sun, Nov 22</option>
+          <option>Sun, Nov 29</option>
+          <option>Not sure yet</option>
+          <option value="other">Another date</option>
+        </select>
+        <input type="text" id="dOther" name="dOther" placeholder="Which date?" aria-label="Which date" hidden style="margin-top:8px">
+      </div>
+      <div>
+        <label class="lab" for="msg">Anything you'd change, or want us to know?</label>
+        <textarea id="msg" name="msg" placeholder="Words, the offer, the look, a photo you want, questions…"></textarea>
+      </div>
+      <div>
+        <label class="lab" for="contact">Best way to reach you <span style="font-weight:500;color:var(--muted)">(optional)</span></label>
+        <input type="text" id="contact" name="contact" autocomplete="email" placeholder="Text, email or IG">
+      </div>
+      <label class="hp" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+      <p class="err" id="err" role="alert"></p>
+      <button class="btn wide" id="send" type="submit">Send to Posted Up</button>
+    </form>
+  </section>
+</main>
+<p class="ip">&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade; <a href="/terms/" style="font-weight:700;color:inherit">Site terms</a></p>
+<script>
+(function(){
+  var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
+  function $(id){return document.getElementById(id)}
+  var f=$("f");
+  function recipe(){var r=f.querySelector("input[name=recipe]:checked").value;if(r==="other")return ($("rOther").value.trim()||"one of my recipes");return r}
+  function blurbs(){
+    var r=recipe();
+    $("b1").textContent="Posted Up Produce shops Chicago's farmers market for you: order by Friday 9 PM, they hand-pick it Saturday morning, and you get it by pickup or delivery. They turned my "+r+" into a one-tap kit, and your first order comes with a free pastry or hot sauce. postedupproduce.org/ratih";
+    $("b2").textContent="hi ratih eats readers! we're Posted Up Produce, a small Chicago team (in beta) that shops the farmers market for you.\n\nYou pick what you want, from one recipe's worth of groceries to a full week of produce. Saturday morning we hand-pick it from farms and makers within a close radius, then hand it off at a pickup in Goose Island, Hyde Park or Rogers Park, or bring it to your door.\n\nWhy we do it: farmers get about 18¢ of the grocery food dollar (USDA, 2024). When we shop their stand, they get their full stand price.\n\nRatih cooks with the season, so we turned her "+r+" into a kit: everything from the farmers market for it, ready Saturday. Your first order through our page comes with a free pastry or small-batch hot sauce, on us.\n\nOrder by Friday 9 PM: postedupproduce.org/ratih\n\nM & C, Posted Up Produce";
+    $("fKit").textContent="Everything from the farmers market for your "+r+", in one tap. They can add protein, greens or bread.";
+  }
+  f.addEventListener("change",function(e){
+    if(e.target.name==="recipe"){$("rOther").hidden=e.target.value!=="other";if(!$("rOther").hidden)$("rOther").focus()}
+    if(e.target.id==="date"){$("dOther").hidden=e.target.value!=="other";if(!$("dOther").hidden)$("dOther").focus()}
+    blurbs();
+  });
+  $("rOther").addEventListener("input",blurbs);
+  blurbs();
+
+  function copy(id,okId){
+    var t=$(id).textContent,ok=$(okId);
+    function done(){ok.textContent="Copied.";setTimeout(function(){ok.textContent=""},2500)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fallback)}else fallback();
+    function fallback(){var ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.position="absolute";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");done()}catch(e){ok.textContent="Press and hold the text to copy it."}ta.remove()}
+  }
+  [].forEach.call(document.querySelectorAll("[data-copy]"),function(b){b.addEventListener("click",function(){var id=b.dataset.copy;copy(id,/^l/.test(id)?"lOk":"cOk")})});
+
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var err=$("err"),btn=$("send");err.textContent="";
+    var r=f.querySelector("input[name=recipe]:checked").value,rTxt=r==="other"?$("rOther").value.trim():r;
+    var d=$("date").value,dTxt=d==="other"?$("dOther").value.trim():d;
+    var m=$("msg").value.trim(),c=$("contact").value.trim();
+    if(r==="other"&&!rTxt){err.textContent="Tell us which recipe, or pick one above.";$("rOther").focus();return}
+    if(d==="other"&&!dTxt){err.textContent="Add the date, or pick “Not sure yet”.";$("dOther").focus();return}
+    if(!d&&!m){err.textContent="Pick a date or leave a note, so there's something to send.";$("date").focus();return}
+    var message="RATIH PARTNER · Recipe: "+rTxt+" · Send date: "+(dTxt||"not given")+" · Notes: "+(m||"none");
+    var body={type:"feedback",name:"Ratih (Ratih Eats)",contact:c,message:message,times:"",hp:f.querySelector('input[name="website"]').value,source:"ratih-partner"};
+    btn.disabled=true;btn.textContent="Sending…";
+    fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)})
+      .then(function(){var p=document.createElement("p");p.className="done";p.setAttribute("tabindex","-1");p.textContent="Got it, thank you! We'll update your readers' page and text you when it's ready. You can send more notes anytime from this page.";f.replaceWith(p);p.focus()})
+      .catch(function(){btn.disabled=false;btn.textContent="Try again";err.textContent="That didn't go through. Try again, or email info@postedupproduce.org."});
+  });
+})();
+/* Visit counting: one per browser session, no names, skipped on the owner's devices (pu-me). */
+(function(){
+  var EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
+  try{if(/[?&]me(=|&|$)/.test(location.search))localStorage.setItem("pu-me","1");if(localStorage.getItem("pu-me"))return}catch(e){}
+  var vid="",ret=false;try{vid=localStorage.getItem("pu-vid")||"";ret=!!vid;if(!vid){vid=Math.random().toString(36).slice(2,10);localStorage.setItem("pu-vid",vid)}}catch(e){}
+  var dev=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?"Phone":"Computer";
+  var fresh=true;try{fresh=!sessionStorage.getItem("pu-vp");sessionStorage.setItem("pu-vp","1")}catch(e){}
+  if(fresh)fetch(EP,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"visit",source:"ratih-partner",device:dev,returning:ret,vid:vid})}).catch(function(){});
+})();
+</script>
+</body>
+</html>
