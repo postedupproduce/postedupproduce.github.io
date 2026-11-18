@@ -23,6 +23,14 @@ body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 var(--body
 .brand{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--ink);text-decoration:none;font-weight:700}
 .beta{font:700 11px/1 var(--body);background:var(--green);color:#fff;border-radius:999px;padding:4px 7px}
 .foot{font-size:13px;color:var(--muted);margin-top:18px}
+.estbox{background:var(--panel);border:2px solid var(--green);border-radius:12px;padding:12px 14px;margin-bottom:6px;display:grid;gap:6px}
+.estbox .r{display:flex;justify-content:space-between;gap:10px;font-size:15px}
+.estbox .r b{font-size:17px}
+.estbox small{color:var(--muted);font-size:12px;line-height:1.35}
+.card select{width:100%;font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:10px;min-height:44px;background:#fff}
+.subs{border:0;padding:0;margin:12px 0 4px}.subs legend{font-weight:600;font-size:14px;margin-bottom:4px}
+.card .subs label{display:flex;gap:10px;align-items:flex-start;font-weight:400;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0}
+.card .subs input{width:22px;height:22px;min-height:0;padding:0;margin-top:2px;accent-color:var(--green);flex:none}
 .err{color:#B3261E;font-size:14px;font-weight:600;min-height:18px;margin-top:6px}
 .hp{position:absolute;left:-9999px}
 .wrap{max-width:720px;margin:0 auto;padding:18px 16px 140px}
@@ -95,7 +103,8 @@ ol.how li{margin-bottom:8px}
 
 <div class="facts">
   <div><b>Many farms, one drop</b>We combine the stands so you get one order, one invoice.</div>
-  <div><b>Priced before you pay</b>Farmers market price plus a flat sourcing fee. Nothing is bought until you OK the quote.</div>
+  <div><b>Priced before you pay</b>A running estimate as you build. Your exact quote comes Friday, and nothing is bought until you OK it.</div>
+  <div><b>Substitute or credit</b>If something isn't in, you choose: we swap it for equal or better, or credit it to your next drop.</div>
   <div><b>Hand-picked guarantee</b>Not happy with an item? Credit or refund, your call.</div>
 </div>
 
@@ -122,7 +131,7 @@ ol.how li{margin-bottom:8px}
 <ol class="how">
   <li><b>Build your list here</b> and send it by Thursday night.</li>
   <li><b>Friday</b> we confirm what's at the farmers market and send one quote.</li>
-  <li><b>Pay by 9 PM Friday</b> with card or Apple Pay.</li>
+  <li><b>Pay up front by 9 PM Friday</b> with card or Apple Pay. We front the first $100 of the shopping, so you prepay the rest and settle up to $100 when we drop.</li>
   <li><b>Saturday</b> we shop at opening and drop it at your door. Pickup or delivery; delivery is $8 within 3 miles of our Goose Island stop, and we confirm yours.</li>
 </ol>
 <p class="lede" style="margin-top:10px">Saturday drops: Nov 21, then indoor winter Saturdays from Dec 5. No drop Nov 28.</p>
@@ -139,6 +148,13 @@ ol.how li{margin-bottom:8px}
 <div class="sheet" id="sheet" hidden>
   <div class="card" role="dialog" aria-modal="true" aria-labelledby="sh">
     <h2 id="sh">Your Chloe list</h2>
+    <div class="estbox" id="estbox"></div>
+    <label for="plates">Plates a week this should cover (lunch + dinner)</label><input id="plates" type="number" inputmode="numeric" min="0" placeholder="e.g. 400">
+    <label for="often">How often</label><select id="often"><option>One trial drop</option><option>Every Saturday</option><option>Every other Saturday</option></select>
+    <fieldset class="subs"><legend>If something isn't at the farmers market</legend>
+      <label><input type="radio" name="sub" value="Substitute" checked> <span><b>Substitute it</b><br>Same use, equal or better value. We text before we swap.</span></label>
+      <label><input type="radio" name="sub" value="Credit"> <span><b>Credit it</b><br>Comes off your next drop.</span></label>
+    </fieldset>
     <pre id="out"></pre>
     <label for="who">Your name</label><input id="who" autocomplete="name" placeholder="Who should we quote?">
     <label for="reach">Mobile or email</label><input id="reach" autocomplete="email" placeholder="Where we send the quote">
@@ -207,6 +223,13 @@ const P=[
  {id:"salad",nm:"Salad Line",ds:"Lettuce, beets, apples, Brussels, eggs, cheeses, mint. Covers Caesar, Cobb, Golden Beet, Shaved Brussels, Sweet Potato and tabouli.",q:{lett:12,beet:10,appl:10,brus:5,swp:5,eggs:5,goat:2,blue:1,ched:2,mint:3,cidr:1}},
  {id:"full",nm:"The Full Chloe Box",ds:"Everything we can pull for your menu, at starting amounts. Trim from here.",q:null}
 ];
+/* Est. cost per unit (Menu & Costs tab, Nov 17; ASK items estimated) and markup by group, matching the retail menu's price/cost. */
+const M={pr:1.6,mu:1.45,mt:1.33,ch:1.45,br:1.35,pa:1.27},DEL=8,FRONT=100;
+const C={fing:[3,"pr"],swp:[3,"pr"],carr:[2.5,"pr"],brus:[5,"pr"],beet:[2.5,"pr"],sqsh:[1.6,"pr"],rad:[3,"pr"],rono:[2.5,"pr"],yono:[2.5,"pr"],shal:[5,"pr"],leek:[2.5,"pr"],garl:[1.25,"pr"],scal:[2,"pr"],ging:[4,"pr"],cabb:[5,"pr"],lett:[5,"pr"],spin:[5,"pr"],mint:[2.5,"pr"],rose:[2.5,"pr"],micr:[5,"pr"],mush:[10,"mu"],appl:[3,"pr"],pear:[3.75,"pr"],eggs:[7.5,"mt"],ched:[20,"ch"],goat:[20,"ch"],feta:[18,"ch"],blue:[22,"ch"],butt:[10,"pa"],gbeef:[13,"mt"],pork:[9,"mt"],bacn:[12,"mt"],chix:[8,"mt"],skrt:[22,"mt"],turk:[14,"mt"],duck:[8,"mt"],bagt:[5,"br"],sour:[10.5,"br"],cidr:[7,"pa"],hony:[17,"pa"]};
+const unitP=id=>Math.round(C[id][0]*M[C[id][1]]*100)/100;
+const f5=x=>Math.floor(x/5)*5,c5=x=>Math.ceil(x/5)*5,usd=x=>"$"+Math.round(x).toLocaleString();
+function est(){let t=0;for(const k in qty)if(qty[k])t+=qty[k]*unitP(k);if(!t)return null;t+=DEL;const lo=f5(t*.9),hi=c5(t*1.15);return{lo,hi,upLo:Math.max(0,lo-FRONT),upHi:Math.max(0,hi-FRONT),dropHi:Math.min(FRONT,hi)}}
+function plates(){const n=parseInt(($("#plates")||{}).value,10);return n>0?n:0}
 const qty={};let preset=null;
 const EP="https://script.google.com/macros/s/AKfycby0nYPxOuRsZ8wH_JyVVZU5TTkIhhopX4wNvm7paZhqg4fpmlYm4zsMj11yKGvInZTD/exec";
 let TAG="chloenovember";try{const s=new URLSearchParams(location.search).get("s");if(s&&/^[\w-]{1,40}$/.test(s))TAG=s}catch(e){}
@@ -218,21 +241,25 @@ function render(){
   const L=$("#list");L.innerHTML="";
   S.forEach(([k,t])=>{const d=document.createElement("div");d.className="sec";d.innerHTML="<h3>"+t+"</h3>";
     I.filter(i=>i[1]===k).forEach(i=>{const n=qty[i[0]]||0;const r=document.createElement("div");r.className="item"+(n?" on":"");
-      r.innerHTML='<div><div class="nm">'+i[2]+'<em class="'+i[6]+'">'+i[6]+'</em></div><div class="feeds">For: '+i[5]+'</div></div><div class="step"><button aria-label="Less '+i[2]+'">−</button><output>'+(n?u(n,i[3]):"–")+'<small>'+i[3]+'</small></output><button aria-label="More '+i[2]+'">+</button></div>';
+      r.innerHTML='<div><div class="nm">'+i[2]+'<em class="'+i[6]+'">'+i[6]+'</em></div><div class="feeds">For: '+i[5]+'</div></div><div class="step"><button aria-label="Less '+i[2]+'">−</button><output>'+(n?u(n,i[3]):"–")+'<small>'+(n?"≈ "+usd(n*unitP(i[0])):"$"+unitP(i[0]).toFixed(2)+"/"+i[3])+'</small></output><button aria-label="More '+i[2]+'">+</button></div>';
       const [m,p]=r.querySelectorAll("button");m.onclick=()=>bump(i,-1);p.onclick=()=>bump(i,1);d.append(r)});
     L.append(d)});
-  const c=Object.values(qty).filter(Boolean).length;$("#dcount").textContent=c+" item"+(c===1?"":"s");
-  $("#dsub").textContent=c?"Quote before you pay":"Pick a box or add lines";
+  const c=Object.values(qty).filter(Boolean).length,e=est();$("#dcount").textContent=e?"≈ "+usd(e.lo)+"–"+usd(e.hi):"0 items";
+  $("#dsub").textContent=e?c+" item"+(c===1?"":"s")+" · up front ≈ "+usd(e.upLo)+"–"+usd(e.upHi):"Pick a box or add lines";
 }
 function bump(i,dir){const s=i[4];let n=(qty[i[0]]||0)+dir*s;if(n<0)n=0;qty[i[0]]=n;preset=null;render()}
 function load(p){for(const k in qty)delete qty[k];if(p.q)Object.assign(qty,p.q);else I.forEach(i=>qty[i[0]]=i[4]);preset=p.id;render();$("#list").scrollIntoView({behavior:"smooth"})}
 function text(){const lines=["CHLOE KITCHEN BOX · quote request","1 S Wacker Dr · Saturday drop",""];
   S.forEach(([k,t])=>{const rows=I.filter(i=>i[1]===k&&qty[i[0]]);if(!rows.length)return;lines.push(t.replace(/&amp;/g,"&").toUpperCase());rows.forEach(i=>lines.push("  "+u(qty[i[0]],i[3])+"  "+i[2]))});
-  const w=$("#who").value.trim(),d=$("#when").value.trim(),n=$("#note").value.trim();
+  const w=$("#who").value.trim(),d=$("#when").value.trim(),n=$("#note").value.trim(),e=est(),pl=plates();
+  lines.push("");if(e){lines.push("Estimate: "+usd(e.lo)+"–"+usd(e.hi)+" incl. $"+DEL+" delivery");lines.push("Up front by 9 PM Fri: "+usd(e.upLo)+"–"+usd(e.upHi)+" · at the drop: up to "+usd(e.dropHi))}
+  if(pl)lines.push("Plates a week: "+pl+(e?" · ≈ $"+(e.lo/pl).toFixed(2)+"–$"+(e.hi/pl).toFixed(2)+" a plate":""));
+  lines.push("How often: "+$("#often").value);lines.push("If something's not in: "+(($("input[name=sub]:checked")||{}).value||""));
   lines.push("");if(w)lines.push("Name: "+w);const rc=$("#reach").value.trim();if(rc)lines.push("Reach: "+rc);if(d)lines.push("First Saturday: "+d);if(n)lines.push("Notes: "+n);lines.push("Source: "+TAG);return lines.join("\n")}
-function refresh(){$("#err").textContent="";const t=text();$("#out").textContent=t;$("#mailto").href="mailto:info@postedupproduce.org?subject="+encodeURIComponent("Chloe Kitchen Box quote")+"&body="+encodeURIComponent(t)}
+function estHTML(){const e=est(),pl=plates();if(!e)return"";return '<div class="r"><span>Estimate</span><b>'+usd(e.lo)+'–'+usd(e.hi)+'</b></div><div class="r"><span>Up front by 9 PM Friday</span><b>'+usd(e.upLo)+'–'+usd(e.upHi)+'</b></div><div class="r"><span>At the drop</span><b>up to '+usd(e.dropHi)+'</b></div>'+(pl?'<div class="r"><span>Per plate ('+pl+'/wk)</span><b>$'+(e.lo/pl).toFixed(2)+'–$'+(e.hi/pl).toFixed(2)+'</b></div>':'')+'<small>Includes $'+DEL+' delivery. We front the first $'+FRONT+' of the shopping, so you prepay the rest and settle up to $'+FRONT+' when we drop. Your exact quote comes Friday from what\'s at the farmers market.</small>'}
+function refresh(){$("#err").textContent="";const t=text();$("#out").textContent=t;$("#estbox").innerHTML=estHTML();$("#mailto").href="mailto:info@postedupproduce.org?subject="+encodeURIComponent("Chloe Kitchen Box quote")+"&body="+encodeURIComponent(t)}
 $("#send").onclick=()=>{if(!Object.values(qty).some(Boolean)){load(P[0])}refresh();$("#sheet").hidden=false};
-["#who","#reach","#when","#note"].forEach(s=>$(s).addEventListener("input",refresh));
+["#who","#reach","#when","#note","#plates","#often"].forEach(s=>$(s).addEventListener("input",refresh));document.querySelectorAll("input[name=sub]").forEach(x=>x.addEventListener("change",refresh));
 $("#close").onclick=()=>{$("#sheet").hidden=true};
 $("#sheet").addEventListener("click",e=>{if(e.target.id==="sheet")$("#sheet").hidden=true});
 $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(text());$("#toast").textContent="Copied. Paste it into an email to info@postedupproduce.org."}catch(e){$("#toast").textContent="Copy didn't work here. Press and hold the list above to copy it."}};
@@ -242,7 +269,8 @@ $("#submit").onclick=async()=>{
   if(reach.replace(/\D/g,"").length<10&&!/.+@.+\..+/.test(reach))return void(err.textContent="Add a 10-digit mobile or an email.");
   const items=[];S.forEach(([k])=>I.filter(i=>i[1]===k&&qty[i[0]]).forEach(i=>items.push(u(qty[i[0]],i[3])+" "+i[2])));
   const v=s=>$(s).value.trim();
-  const message=["CHLOE KITCHEN BOX","Reach: "+reach,v("#when")&&"First Sat: "+v("#when"),v("#note")&&"Notes: "+v("#note"),"Items ("+items.length+"): "+items.join("; "),"Source: "+TAG].filter(Boolean).join(" · ");
+  const e=est(),pl=plates();
+  const message=["CHLOE KITCHEN BOX","Reach: "+reach,e&&"Est: "+usd(e.lo)+"–"+usd(e.hi)+" (up front "+usd(e.upLo)+"–"+usd(e.upHi)+")",pl&&"Plates/wk: "+pl,"How often: "+$("#often").value,"If out: "+(($("input[name=sub]:checked")||{}).value||""),v("#when")&&"First Sat: "+v("#when"),v("#note")&&"Notes: "+v("#note"),"Items ("+items.length+"): "+items.join("; "),"Source: "+TAG].filter(Boolean).join(" · ");
   const b=$("#submit");b.disabled=true;b.textContent="Sending…";
   try{
     await fetch(EP,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name,contact:"",message,times:"",hp:$("#website").value})});
