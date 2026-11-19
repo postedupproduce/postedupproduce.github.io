@@ -519,6 +519,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(.spot.dw .k,.spot.dw .row2 a,#specialBin h3){color:#F2A0C8}}
 :root[data-theme="dark"] :is(.spot.tg .go,.hwbar.tgb .go){color:#fff}
 :root[data-theme="dark"] .spot.tg .k{color:#E0A96D}
+:where(main a:not([class]),footer a:not([class])){color:inherit}
 /* Thanksgiving week (Nov 19): countdown pill, keeps strip, no-cook board, falling leaves on the hero. */
 .tgclock{margin:6px 0 2px;display:inline-block;font-weight:700;font-size:14px;line-height:1.2;background:#7A4A1E;color:#fff;border-radius:999px;padding:6px 12px}
 .tgkeep{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
@@ -817,7 +818,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <h1 id="shopH" class="vh1">What are you craving?</h1>
     <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
     <div class="hwbar dwb" id="dwShop" hidden><span><b>🪔 Diwali Kit · $30</b>Carrots, spinach, potatoes, onions &amp; garlic + recipe card · Sat 11/7 only</span><button type="button" class="go" data-dw>Add it</button></div>
-    <div class="hwbar gdb" id="gdShop" hidden><span><b>🍎 No-cook sides board · $39 / $75 / $139</b>Apples, carrots, cheese, bread, cider · feeds 6, 12 or 24 · no oven · shows as Game Day Kit</span><button type="button" class="go" data-gd="gameday">Add · 12</button></div>
+    <div class="hwbar gdb" id="gdShop" hidden><span><b>🍎 No-cook sides board · $39 / $75 / $139</b>Apples, carrots, cheese, bread, cider · feeds 6, 12 or 24 · no oven · shows as Game Day Kit</span><button type="button" class="go" data-gd="gameday">Add · feeds 12</button></div>
     <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8, ≈ $13 a guest · Sat 11/21, the last one before Thanksgiving</span><button type="button" class="go" data-tg>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
@@ -1021,7 +1022,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
           <li><b>What you get.</b> You get the box or item groups you ordered, chosen by us at market that day. Examples on the menu are typical, not promised. Weights are approximate.</li>
           <li><b>Items we can't get.</b> If something you paid for isn't available, its full price becomes a credit on your next order. Credits are used once, on your next order. Want cash back instead? Just ask and we refund it within 2 days, the same way you paid. Any credit not used by the end of the season (March 20, 2027) is refunded automatically. If you opted in to swaps, we may substitute an item of equal or greater value instead, at no extra charge. We tell you what changed before or at handoff.</li>
           <li><b>Cancellations.</b> Cancel by 9 PM the night before pickup for a full refund. After that, we've committed to shop for you, so we can't refund a cancellation.</li>
-          <li><b>Pickup days.</b> Pickups are on the day we shop: Saturdays at Goose Island (12–1 PM), Hyde Park (2–3 PM) or Rogers Park (4–5 PM) through November 21, the last outdoor Saturday. No pickup November 28. Winter Saturdays start December 5. Delivery is same-day, $8 within 3 miles of a meet-up stop; farther out we quote by text before you pay. Other days or times may be arranged by text. Missed pickups: text us and we'll meet you at a later stop the same day or hold your order until the last one; another day costs the delivery fee.</li>
+          <li><b>Pickup days.</b> Pickups are on the day we shop: Saturdays at Goose Island (12–1 PM), Hyde Park (2–3 PM) or Rogers Park (4–5 PM) through November 21, the last outdoor Saturday. No pickup November 28. Winter Saturdays start December 5. Delivery is same-day, $8 within 3 miles of a meet-up stop; farther out we quote by text before you pay. Other days or times may be arranged by text. Missed pickups: reply to our order text and we'll meet you at a later stop the same day or hold your order until the last one; another day costs the delivery fee.</li>
           <li><b>Beta founder rate.</b> Boxes (produce, bread, Meat Lovers Box and Lake Haul) picked up at a meet-up during the pilot are 10% off; delivery orders and add-ons aren't included. Customers who complete at least one paid meet-up order during the pilot become Founding Members and keep 10% off boxes through the 2027 season, if Posted Up continues operating. It can't be combined with other box promotions we offer later, and it doesn't stack with free Standing Order delivery: meet up and save 10%, or take free delivery, each week.</li>
           <li><b>Seasoned Rate.</b> Customers 60 and older get 10% off their whole order, delivery included, on the honor system: just check the box at checkout. It stacks with the beta founder rate, taken after the founder 10%.
           <li><b>Free early drop-off.</b> On pickup orders you can opt in to a free early drop-off at your door. It's never guaranteed: we text you first when our route allows it. If we don't text, pick up at your meet-up window as usual. Questions: email info@postedupproduce.org.</li>
@@ -1115,7 +1116,7 @@ const BOXES=[
    veg:["2 lb heirloom stone-ground grits from a family grain farm (about 8 servings)","Hearty greens, a bunch: collards or kale","Local mushrooms, about ½ lb","Onions and garlic","Last peppers or a leek, whatever the stand has","Already plant-based. Cook the grits with water or veg stock"],
    recipe:"Recipe card in the bag: fish and grits with garlicky greens. Add a Great Lakes fillet (Meat, fish & eggs) or Lake Haul"},
   /* Thanksgiving Sides Box (Oct 31; Nov 2: open to any Saturday through Nov 21, latest = THANKS_DATE): sides for a table of 6-8. */
-  {id:"thanks",name:"Thanksgiving Sides Box",price:95,until:"2026-11-22",wt:"~20 lb · sides for a table of 6–8",desc:"Everything for the sides, shopped fresh the Saturday you pick. Roots, squash and apples keep for weeks; pick 11/21 for the crispest greens and sprouts.",pick:"Thanksgiving · any Sat through 11/21",
+  {id:"thanks",name:"Thanksgiving Sides Box",price:95,until:"2026-11-20T21:00:00",wt:"~20 lb · sides for a table of 6–8",desc:"Everything for the sides, shopped fresh Sat 11/21, five days before the big meal. Roots, squash and apples keep for weeks; cook the greens first.",pick:"Thanksgiving · Sat 11/21 only",
    makes:"Sides for 6–8 with leftovers: mash, sweet potatoes, squash, sprouts, greens, stuffing veg and a crisp · ≈ $13 a guest",
    has:["3 lb potatoes for mash","3 lb sweet potatoes","A butternut squash","A pie pumpkin (or more squash)","1½ lb Brussels sprouts","Collards or kale, 2 bunches","3 lb apples for pie or crisp","Onions, shallots and garlic","Celery or celery root for stuffing","A bunch of sage, thyme and rosemary","Local cranberries, when a stand has them"],
    recipe:"Recipe card in the bag: brown-butter sage squash, and a cider apple crisp"},
@@ -1334,7 +1335,9 @@ function dietCodes(id){const t=dietTags(id),h=k=>t.includes(k),c=[];
 function dietChips(id,swap){const w=el("p",{class:"dchipsline"});for(const [k,lab,title] of dietCodes(id))w.append(el("span",{class:"dic"+(k==="VG"?" veg":""),title},lab));if(dietAnimal(id)&&swap)w.append(el("span",{class:"dic veg",title:"We can swap it to vegan"},"🌱 Vegan option"));return w}
 function dietMini(id){const c=dietCodes(id),lab=c.map(x=>x[2]).join(", ");return el("span",{class:"dmini",title:lab,"aria-label":lab},c.map(x=>x[0]).join(" "))}
 function itemBlocked(id){const tags=DIET_ITEM[id]||[];return state.diet.some(d=>(DIET_BLOCK[d]||[]).some(t=>tags.includes(t)))}
-function boxShown(b){if(b.until&&chiNow()>=new Date(b.until+"T00:00:00-06:00"))return false;if(b.only&&!([].concat(b.only).some(o=>SRC_TAG.indexOf(o)===0)||state.box===b.id))return false;if(b.hideList&&state.box!==b.id)return false;return true}
+/* Nov 19: until may carry a time ("2026-11-20T21:00:00", read as Chicago wall time like chiNow()). */
+function boxLive(b){return !b.until||chiNow()<new Date(b.until.length>10?b.until:b.until+"T00:00:00-06:00")}
+function boxShown(b){if(!boxLive(b))return false;if(b.only&&!([].concat(b.only).some(o=>SRC_TAG.indexOf(o)===0)||state.box===b.id))return false;if(b.hideList&&state.box!==b.id)return false;return true}
 /* Returns null if the box can't fit, else {score, swap (needs the vegan swap), why[]} */
 function dietFit(b){
   const a=DIET_BOX[b.id];if(!a)return null;const D=state.diet,why=[];let swap=false,score=0;
@@ -1688,7 +1691,7 @@ function renderTicket(){
   const openDel=DELIVERIES.filter(x=>forThem(x)&&DATES.some(d=>x.days.includes(new Date(d.v+"T12:00").getDay())));
   for(const x of openDel)fs.append(opt("del-"+x.id,(x.freeMiles?"Free delivery to my door · Sat after "+x.delAfter+" · within "+x.freeMiles+" mi of "+x.area:"Delivery to my door · after "+x.delAfter+" · near "+x.area+" (from $"+DELIVERY_FEE+")")));
 
-  where.append(el("p",{class:"stoplbl"},"Meet-up spot or delivery"),fs,el("div",{class:"cutoff"},isDel()?(delStop().freeMiles?"Free within "+delStop().freeMiles+" miles of "+delStop().area+". Farther out, I text you a small per-mile add before your order is final.":"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of "+delStop().area+", then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window."):"We text the exact meet-up spot after you order."));
+  where.append(el("p",{class:"stoplbl"},"Meet-up spot or delivery"),fs,el("div",{class:"cutoff"},isDel()?(delStop().freeMiles?"Free within "+delStop().freeMiles+" miles of "+delStop().area+". Farther out, we text you a small per-mile add before your order is final.":"$"+DELIVERY_FEE+" flat within "+FLAT_MILES+" miles of "+delStop().area+", then $"+PER_MILE.toFixed(2)+" per extra mile. We text your exact fee and a delivery window."):"We text the exact meet-up spot after you order."));
   if(isDel()){
     const a=el("input",{id:"address",type:"text",placeholder:"Street, unit, zip",autocomplete:"street-address"});a.value=state.address;a.addEventListener("input",()=>state.address=a.value);
     where.append(el("label",{for:"address"},"Delivery address",a));
@@ -2297,7 +2300,7 @@ const PHOTO_REWARDS=[["Pastry","Fresh pastry"],["Hot sauce","Small-batch hot sau
   /* ?note= (Nov 3): /bites/ passes the cravings someone tapped into order Notes. */
   const nt=(q.get("note")||"").replace(/[<>]/g,"").slice(0,160);if(nt&&!state.notes)state.notes=nt;
   try{if(q.get("vegan")==="1")sessionStorage.setItem("pu-vegan","1");else if(q.has("vegan"))sessionStorage.removeItem("pu-vegan");state.vegan=sessionStorage.getItem("pu-vegan")==="1"}catch(e){state.vegan=q.get("vegan")==="1"}
-  if(id&&BOXES.some(b=>b.id===id)){boxSet(BOXES.find(b=>b.id===id),true);state.mode="box";if(window.puCart)puCart()}
+  if(id&&BOXES.some(b=>b.id===id&&boxLive(b))){boxSet(BOXES.find(b=>b.id===id),true);state.mode="box";if(window.puCart)puCart()}
   /* ?mode=pick (Oct 31): personal pages send "Build your own" straight into Build Your Own. */
   else if(q.get("mode")==="pick")setMode("pick");
   /* ?add=meatbox|lakehaul (Oct 31): protein boxes are Meat-tab items, so personal pages add them this way.
