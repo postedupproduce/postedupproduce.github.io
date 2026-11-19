@@ -519,6 +519,21 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(.spot.dw .k,.spot.dw .row2 a,#specialBin h3){color:#F2A0C8}}
 :root[data-theme="dark"] :is(.spot.tg .go,.hwbar.tgb .go){color:#fff}
 :root[data-theme="dark"] .spot.tg .k{color:#E0A96D}
+/* Thanksgiving week (Nov 19): countdown pill, keeps strip, no-cook board, falling leaves on the hero. */
+.tgclock{margin:6px 0 2px;display:inline-block;font-weight:700;font-size:14px;line-height:1.2;background:#7A4A1E;color:#fff;border-radius:999px;padding:6px 12px}
+.tgkeep{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
+.tgkeep b{grid-column:1/-1;font-size:15px}
+.tgkeep span{background:var(--chip);border:1px solid var(--line);border-radius:10px;padding:8px;font-size:13px;line-height:1.3}
+.tgkeep i{display:block;font-style:normal;font-weight:800;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#8A5A2B;margin-bottom:2px}
+.tgnc{margin-top:18px;border-top:2px dashed #E2A21A;padding-top:14px}
+.tgnc h3{margin:0 0 4px}
+.pu-share.tgshare{margin:16px 0 0;border-color:#7A4A1E}
+:root[data-theme="dark"] .tgkeep i{color:#E0A96D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tgkeep i{color:#E0A96D}}
+.sign.leafy>*:not(.leaf){position:relative;z-index:1}
+.sign .leaf{position:absolute;top:-8%;z-index:0;pointer-events:none;opacity:.6;line-height:1;animation:pu-leaf 12s linear infinite}
+@keyframes pu-leaf{0%{top:-8%;transform:translateX(0) rotate(0)}25%{transform:translateX(14px) rotate(80deg)}50%{transform:translateX(-10px) rotate(170deg)}75%{transform:translateX(12px) rotate(260deg)}100%{top:104%;transform:translateX(-6px) rotate(350deg)}}
+@media (prefers-reduced-motion: reduce){.sign .leaf{display:none}}
 .hwbar.asb{border-color:var(--good)}.hwbar.asb .go{background:var(--good);color:#fff}
 /* Box spotlight on Home */
 .spot{display:grid;gap:10px}
@@ -714,11 +729,23 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   </section>
   <section class="post spot tg" data-view="home" id="thanksgiving" aria-labelledby="tgH" hidden>
     <span class="k" id="tgK">🦃 Thanksgiving · ready this Saturday, or any Sat through 11/21</span>
+    <p class="tgclock" id="tgClock" hidden></p>
     <h2 id="tgH">Thanksgiving Sides Box · $95</h2>
     <p class="meta" style="color:var(--ink)">$85 at a pickup with the beta founder rate</p>
-    <p class="meta">About 20 lb for a table of 6–8: potatoes for mash, sweet potatoes, squash, a pie pumpkin, Brussels sprouts, greens, apples for pie, stuffing veg and fresh herbs. Shopped fresh the Saturday you pick: <span id="tgDates">11/7, 11/14 or 11/21</span>. The roots, squash and apples keep for weeks; for the crispest greens and sprouts, pick 11/21.</p>
+    <p class="meta">About 20 lb for a table of 6–8: potatoes for mash, sweet potatoes, squash, a pie pumpkin, Brussels sprouts, greens, apples for pie, stuffing veg and fresh herbs. Shopped fresh at the farmers market Sat 11/21, five days before the big meal.</p>
     <p class="bmakes"><span aria-hidden="true">🍽 </span>Sides for 6–8 with leftovers · ≈ $13 a guest</p>
     <div class="row2"><button type="button" class="go" data-tg style="flex:1 1 200px">Add the Thanksgiving box</button><a href="#thanks">See what's in it &rarr;</a></div>
+    <div class="tgkeep"><b>Pick up Saturday, cook Thursday. It keeps.</b><span><i>Counter</i>Squash, potatoes, onions</span><span><i>Fridge</i>Apples, herbs, sprouts</span><span><i>Cook first</i>Greens, by Wednesday</span></div>
+    <div class="gd tgnc" id="tgNoCook" hidden>
+      <h3 id="ncH">Not cooking? No-cook sides board · from $39</h3>
+      <p class="meta">For the Friendsgiving grazing table, the side you promised to bring, or the year you don't touch the oven. Apples, carrots, cheese, bread and fresh-pressed cider from the farmers market. Rinse, slice, set it out. (It's our Game Day Kit, so that's the name in your cart.)</p>
+      <div class="tiers">
+        <div class="tier"><b>Feeds 6 · $39</b><span>6 apples, 2 lb carrots, fresh goat cheese, a jug of cider · <b class="tsv">≈ $6.50 a guest</b></span><button type="button" class="go" data-gd="gameday-s">Add</button></div>
+        <div class="tier on"><b>Feeds 12 · $75</b><span>A dozen apples, 2 lb carrots, cave-aged cheddar, a sourdough loaf, a jug of cider · <b class="tsv">≈ $6.25 a guest</b></span><button type="button" class="go" data-gd="gameday">Add</button></div>
+        <div class="tier"><b>Feeds 24 · $139</b><span>Two dozen apples, 4 lb carrots, cheddar and goat cheese, two loaves with pastries, two jugs of cider · <b class="tsv">≈ $5.80 a guest</b></span><button type="button" class="go" data-gd="gameday-xl">Add</button></div>
+      </div>
+    </div>
+    <button type="button" class="pu-share tgshare" id="tgShare">Send this to whoever's hosting</button>
   </section>
 
   <section class="post spot asana" data-view="home" id="asanaFeature" aria-labelledby="asH">
@@ -790,8 +817,8 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <h1 id="shopH" class="vh1">What are you craving?</h1>
     <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
     <div class="hwbar dwb" id="dwShop" hidden><span><b>🪔 Diwali Kit · $30</b>Carrots, spinach, potatoes, onions &amp; garlic + recipe card · Sat 11/7 only</span><button type="button" class="go" data-dw>Add it</button></div>
-    <div class="hwbar gdb" id="gdShop" hidden><span><b>🏀 Game Day Kit · $39 / $75 / $139</b>Apples, carrots, cheese, bread, cider · feeds 6, 12 or 24 · all sizes in Add-ons</span><button type="button" class="go" data-gd="gameday">Add · 12</button></div>
-    <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8, ≈ $13 a guest · ready this Saturday or any Sat through 11/21</span><button type="button" class="go" data-tg>Add it</button></div>
+    <div class="hwbar gdb" id="gdShop" hidden><span><b>🍎 No-cook sides board · $39 / $75 / $139</b>Apples, carrots, cheese, bread, cider · feeds 6, 12 or 24 · no oven · shows as Game Day Kit</span><button type="button" class="go" data-gd="gameday">Add · 12</button></div>
+    <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8, ≈ $13 a guest · Sat 11/21, the last one before Thanksgiving</span><button type="button" class="go" data-tg>Add it</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
@@ -1984,7 +2011,8 @@ function nextVoteBlock(txt){
 /* Game Day Kit (Nov 7): three sizes (gameday-s / gameday / gameday-xl); home card + shop bar until the Nov 20 9 PM cutoff; Add puts that size in the cart. */
 (function(){
   const live=ITEMS.special.filter(i=>/^gameday/.test(i.id)&&itemLive(i));if(!live.length)return;
-  for(const id of ["gamedaySpot","gdShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
+  /* Nov 19: Thanksgiving week shows the kit as the no-cook sides board inside #thanksgiving; the standalone home card stays hidden. */
+  for(const id of ["tgNoCook","gdShop"]){const e=document.getElementById(id);if(e)e.hidden=false}
   document.querySelectorAll("[data-gd]").forEach(b=>b.addEventListener("click",()=>{const id=b.dataset.gd||"gameday";state.qty[id]=(state.qty[id]||0)+1;if(window.puCart)puCart();renderItems();renderTicket();
     /* Add and stay (Nov 7): no jump to checkout; a note with a link instead. */
     let n=b.parentElement.querySelector(".gdnote");if(!n){n=el("a",{class:"gdnote",href:"#checkout"});b.parentElement.append(n)}n.textContent="Added · "+state.qty[id]+" in cart · View cart →"}));
@@ -2301,6 +2329,27 @@ renderBoxes();renderItems();renderTicket();loadCounts();
     if(navigator.share){try{await navigator.share({title:"Posted Up Produce",text:msg});return}catch(e){if(e&&e.name==="AbortError")return}}
     try{await navigator.clipboard.writeText(msg);b.textContent="Copied. Paste it in a text!"}catch(e){location.href="sms:?&body="+encodeURIComponent(msg)}
   });
+})();
+</script>
+<script>/* Thanksgiving week (Nov 19): countdown on the sides card, "send to whoever's hosting" share (tag host-share), falling leaves on the home hero through Thu 11/26. */
+(function(){
+  const now=()=>new Date(new Date().toLocaleString("en-US",{timeZone:"America/Chicago"}));
+  const end=new Date(2026,10,20,21,0),c=document.getElementById("tgClock");
+  const tick=()=>{if(!c)return;const ms=end-now();if(ms<=0){c.hidden=true;return}
+    const m=Math.floor(ms/6e4),d=Math.floor(m/1440),h=Math.floor(m%1440/60),mm=m%60,today=now().getDate()===20;
+    c.textContent="⏳ Orders close in "+(d?d+"d "+h+"h":h?h+"h "+mm+"m":mm+"m")+" · "+(today?"tonight at 9 PM":"Fri 9 PM");c.hidden=false};
+  tick();setInterval(tick,30000);
+  const b=document.getElementById("tgShare");
+  if(b)b.addEventListener("click",async()=>{
+    const url=location.origin+"/?box=thanks&s=host-share";
+    const msg="Hosting this year? Thanksgiving sides for 6–8 from the Chicago farmers market, $95 (about $13 a guest), or a no-cook board from $39. Shopped Sat 11/21, pickup or delivery. Order by Fri 9 PM: "+url;
+    if(navigator.share){try{await navigator.share({title:"Thanksgiving sides · Posted Up Produce",text:msg});return}catch(e){if(e&&e.name==="AbortError")return}}
+    try{await navigator.clipboard.writeText(msg);b.textContent="Copied. Paste it in the group chat!"}catch(e){location.href="sms:?&body="+encodeURIComponent(msg)}});
+  try{if(document.documentElement.classList.contains("calm")||now()>=new Date(2026,10,27)||matchMedia("(prefers-reduced-motion: reduce)").matches)return}catch(e){return}
+  const s=document.querySelector(".sign");if(!s)return;s.classList.add("leafy");
+  ["🍂","🍁","🍂","🍁","🍂","🍁","🍂"].forEach((g,i)=>{const e=document.createElement("span");e.className="leaf";e.setAttribute("aria-hidden","true");e.textContent=g;
+    e.style.left=(4+i*13+Math.random()*5).toFixed(1)+"%";e.style.fontSize=(15+Math.floor(Math.random()*10))+"px";
+    e.style.animationDuration=(11+Math.random()*7).toFixed(1)+"s";e.style.animationDelay=(-Math.random()*16).toFixed(1)+"s";s.prepend(e)});
 })();
 </script>
 <script>/* Season gap banner (Nov 8 research: say it's a pause, give dates, keep ordering open). Shows until Sat Dec 5. */
