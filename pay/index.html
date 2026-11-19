@@ -82,7 +82,7 @@ input{font:inherit;font-size:18px;padding:12px;border:2px solid var(--line);bord
     <a class="btn ac" id="ac" href="#" hidden>Pay with Apple Cash<small id="acs">Opens Messages</small></a>
     <a class="btn cd" id="cd" href="#" target="_blank" rel="noopener" hidden>Pay by card or Apple Pay<small id="cds">Opens our secure card page</small></a>
     <p class="st" id="st" aria-live="polite"></p>
-    <button class="ghost" id="paid" type="button">I've paid</button>
+    <p class="note" style="font-weight:700">Once you pay, you're done. We see it within minutes and confirm.</p>
     <p class="note">Card checkout runs through Square. Full refund if you cancel by 9 PM the night before. Item not right or not at market? Credit or refund, your choice.</p>
     <p class="note">Pay by 9 PM the night before your pickup or delivery. Your order is shopped once it's paid. Questions? Email info@postedupproduce.org.</p>
   </section>
@@ -117,9 +117,6 @@ function show(no,amt,name){
       catch(x){a.dataset.busy="";$("cds").textContent="Opening our card page. Enter $"+amt+" and order number "+no+".";location.href=CARD_LINK}};
   }
   const copy=async(v,m)=>{try{await navigator.clipboard.writeText(v);$("st").textContent=m}catch(e){$("st").textContent="Couldn't copy here. Type it in: "+v}};
-  $("paid").onclick=async e=>{const b=e.currentTarget;b.disabled=true;b.textContent="Sending…";
-    try{await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"feedback",name:name||"",contact:"",message:"PAYMENT SENT · Order #"+no+" · $"+amt+" · from pay link"+(src?" · Source: "+src:""),times:"",hp:""})});b.textContent="Thanks! We'll text to confirm."}
-    catch(x){b.disabled=false;b.textContent="I've paid"}};
 }
 const no=clean(q.get("o"),/\D/g,8), amt=clean(q.get("a"),/[^\d.]/g,7), name=clean(q.get("n"),/[^A-Za-z .'-]/g,30).trim();
 if(no&&amt)show(no,amt,name);
