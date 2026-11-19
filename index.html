@@ -529,6 +529,19 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 .morebx[open]{padding-bottom:12px}
 .dsize .dstart{display:block;font-style:normal;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--good);margin-top:1px}
 .actq{display:block;text-align:center;color:var(--board-ink);font-weight:700;font-size:16px;padding:10px 6px;min-height:44px;text-decoration:underline;text-underline-offset:3px}
+/* Nov 19: box colors by kind; Add is a filled button; "See what's in it" reads as a button. */
+.bcard{--kc:var(--ink);--kt:#fff}
+.bcard[data-kind]:not([data-kind=""]){border-top:7px solid var(--kc)}
+.bcard[data-kind]:not([data-kind=""]) .bprice{color:var(--kc)}
+.bcard .badd:not([aria-pressed="true"]){background:var(--kc);border-color:var(--kc);color:var(--kt);min-height:54px;font-size:18px;font-weight:800;box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.bcard .badd:active{transform:translateY(1px);box-shadow:none}
+#market .dsize{grid-template-columns:repeat(3,1fr);gap:6px}#market .dsize button{padding:8px 8px;font-size:13px}
+.bcard .bin-in{border-top:0;padding-top:0;margin:8px 0 10px}
+.bcard .bin-in summary{border:2px solid var(--line);border-radius:10px;padding:0 14px;min-height:48px;background:var(--chip)}
+.bcard .bin-in[open] summary{margin-bottom:8px}
+.bcard[data-kind="season"]{--kc:#7A4A1E}.bcard[data-kind="produce"]{--kc:#2F6B3F}.bcard[data-kind="vegan"]{--kc:#6B3FA0}.bcard[data-kind="fruit"]{--kc:#C4571B}.bcard[data-kind="morning"]{--kc:#8F6500}.bcard[data-kind="nocook"]{--kc:#1F6F78}
+:root[data-theme="dark"] .bcard{--kt:#10160f}:root[data-theme="dark"] .bcard[data-kind="season"]{--kc:#E0A96D}:root[data-theme="dark"] .bcard[data-kind="produce"]{--kc:#8FCB9B}:root[data-theme="dark"] .bcard[data-kind="vegan"]{--kc:#C3A4EE}:root[data-theme="dark"] .bcard[data-kind="fruit"]{--kc:#F2A06B}:root[data-theme="dark"] .bcard[data-kind="morning"]{--kc:#E8C766}:root[data-theme="dark"] .bcard[data-kind="nocook"]{--kc:#7CCAD2}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bcard{--kt:#10160f}:root:not([data-theme="light"]) .bcard[data-kind="season"]{--kc:#E0A96D}:root:not([data-theme="light"]) .bcard[data-kind="produce"]{--kc:#8FCB9B}:root:not([data-theme="light"]) .bcard[data-kind="vegan"]{--kc:#C3A4EE}:root:not([data-theme="light"]) .bcard[data-kind="fruit"]{--kc:#F2A06B}:root:not([data-theme="light"]) .bcard[data-kind="morning"]{--kc:#E8C766}:root:not([data-theme="light"]) .bcard[data-kind="nocook"]{--kc:#7CCAD2}}
 .tix.extras{margin-top:12px}.tix.extras .hook{margin-top:10px}
 /* Thanksgiving week (Nov 19): countdown pill, keeps strip, no-cook board, falling leaves on the hero. */
 .tgclock{margin:6px 0 2px;display:inline-block;font-weight:700;font-size:14px;line-height:1.2;background:#7A4A1E;color:#fff;border-radius:999px;padding:6px 12px}
@@ -1062,6 +1075,10 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 
 <script>
 const BOXES=[
+  /* Quarter Peck (Nov 19): small Market Box size so the picker has three. Contents and cost are a first estimate; confirm at market. */
+  {id:"quarter",name:"Quarter Peck",price:32,wt:"~5–6 lb",desc:"A few nights of sides for one or two.",pick:"New · Small size",
+   makes:"Makes about 2–3 meals' worth of veg for two · ≈ $6.40 a plate",
+   has:["1 lb orchard apples (about 3 apples)","1 lb sweet potatoes (about 2 medium)","1 bunch kale (2–3 sides)","Onions (about 2)","1 delicata squash (2 sides), or 1 lb roots"]},
   {id:"halfpeck",name:"Half Peck",price:50,wt:"~9–10 lb",desc:"A week of sides and a couple of mains for two.",pick:"Most popular",
    makes:"Makes about 4–5 meals' worth of veg for two · ≈ $5.50 a plate",
    has:["2 lb orchard apples (about 6 apples)","2 lb sweet potatoes (about 4 medium)","2 lb beets (about 6–8 beets)","Onions (about 3)","1 bunch kale (2–3 sides)","1 delicata squash (2 sides)"]},
@@ -1316,7 +1333,7 @@ const DIETS=[{id:"vegan",t:"Vegan"},{id:"veg",t:"Vegetarian"},{id:"pesc",t:"Pesc
 const WHO=[{id:"1",t:"Just me"},{id:"2",t:"Two of us"},{id:"3",t:"Family (3+)"}];
 /* What's in each box: meat, fish, egg, dairy, gluten, pork. cook / nocook / protein and who it suits (1, 2, 3 = family). */
 const DIET_BOX={
-  halfpeck:{cook:1,who:[1,2]},crate:{cook:1,who:[2,3]},forever:{cook:1,protein:1,who:[1,2]},
+  quarter:{cook:1,who:[1]},halfpeck:{cook:1,who:[1,2]},crate:{cook:1,who:[2,3]},forever:{cook:1,protein:1,who:[1,2]},
   thanks:{cook:1,who:[3]},fruitsm:{nocook:1,who:[1]},fruit:{nocook:1,who:[1,2]},coldsnap:{cook:1,who:[1,2]},
   breakfast:{egg:1,gluten:1,cook:1,protein:1,who:[2,3]},grits:{gluten:1,cook:1,who:[2,3]},
   nocook:{dairy:1,meat:1,pork:1,gluten:1,nocook:1,who:[1,2]},
@@ -1413,7 +1430,7 @@ function renderDiet(){
       ...(sz.length>1?[el("div",{class:"dsize",role:"radiogroup","aria-label":"Size"},...sz.map(x=>el("button",{type:"button",role:"radio","aria-checked":String(x.id===b.id),onclick:()=>{DIET_TIER[t.key]=x.id;if(state.box&&t.ids.includes(state.box)){state.box=x.id;if(window.puCart)puCart();renderBoxes();renderItems();renderTicket()}else renderDiet()}},el("b",{},x.name.replace(t.name,"").replace(/^\s*·\s*/,"")||x.name),el("span",{}," $"+x.price+" · "+x.wt))))]:[]),
       el("p",{class:"dwhy"},b.makes||b.wt),
       ...(f.why.length?[el("p",{class:"dwhy"},el("b",{},"✓ "),f.why.join(" · "))]:[]),
-      ...((b.has||[]).length?[el("details",{class:"bin-in dinside"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),inUl)]:[]),
+      ...((b.has||[]).length?[el("details",{class:"bin-in dinside"},el("summary",{},"See what's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),inUl)]:[]),
       el("button",{type:"button",class:"badd","aria-pressed":String(on),onclick:()=>{
         if(on){boxSet(b,false)}else{boxSet(b,true);state.mode="box";if(f.swap||(state.diet.includes("vegan")&&vegAble(b))){state.vegan=true;try{sessionStorage.setItem("pu-vegan","1")}catch(e){}}if(window.puCart)puCart()}
         renderBoxes();renderItems();renderTicket()}},on?"Added ✓ (tap to remove)":"Add "+b.name+" · $"+b.price),
@@ -1423,7 +1440,7 @@ function renderDiet(){
   if(ad.length){o.append(el("h3",{},"Add protein"));for(const it of ad){const q=state.qty[it.id]||0;o.append(el("div",{class:"dadd"},el("span",{},it.nm+" · $"+it.p),el("button",{type:"button","aria-pressed":String(!!q),onclick:()=>{if(q)delete state.qty[it.id];else{state.qty[it.id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}},q?"Added ✓":"Add")))}}
   if(state.diet.some(d=>DIET_BLOCK[d]))o.append(el("button",{type:"button",class:"dbuild",onclick:()=>{state.dietAll=false;setMode("pick");renderDiet();const s=document.getElementById("sec-produce");if(s)s.scrollIntoView({block:"start"})}},state.mode==="pick"?"Building your own: showing only what fits ✓":"Build my own box instead →"));
 }
-const TIERS=[{key:"fruit",name:"Fruit Box",ids:["fruitsm","fruit"],list:true,def:"fruitsm"},{key:"market",name:"Market Box",ids:["halfpeck","crate"],list:true,def:"halfpeck"},{key:"easy",name:"The Easy Two",ids:["easy1","easy2","easy3"],list:true,def:"easy2"}];
+const TIERS=[{key:"fruit",name:"Fruit Box",ids:["fruitsm","fruit"],list:true,def:"fruitsm"},{key:"market",name:"Market Box",ids:["quarter","halfpeck","crate"],list:true,def:"halfpeck"},{key:"easy",name:"The Easy Two",ids:["easy1","easy2","easy3"],list:true,def:"easy2"}];
 const DIET_TIER={};
 function tierOf(id){return TIERS.find(t=>t.ids.includes(id))||null}
 function renderBoxes(){
@@ -1442,6 +1459,8 @@ const PROTEIN_HAS={meatbox:["Steak night, 10–12 oz: a meal for two (e.g. sirlo
 const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",tag:"Saves $10 vs. buying each",makes:"Makes about 14 portions: 7 meals for two · ≈ $6.40 a plate"},lakehaul:{what:"Wild Great Lakes fish, frozen packs",tag:"Saves $8 vs. buying each",makes:"Makes about 4 portions: 2 meals for two, plus a smoked-fish snack · ≈ $17.50 a plate"}};
 const OPEN_IN=new Set();
 /* Short list (Nov 19; choice-overload research: Chernev et al. 2015, Scheibehenne et al. 2010, Baymard): the seasonal box + three standing boxes show; the rest fold under "More boxes". Partner-only boxes always show. */
+/* Box colors by kind (Nov 19): seasonal brown, produce green, vegan plum, fruit orange, breakfast gold, no-cook teal. */
+const BOX_KIND={thanks:"season",market:"produce",coldsnap:"produce",forever:"vegan",fruit:"fruit",breakfast:"morning",grits:"morning",easy:"nocook",nocook:"nocook"};
 const FEAT_BOXES=["thanks","market","forever","fruit"];let MORE_BX=false;
 function bCard(o){
   const card=el("div",{class:"bcard"+(o.on?" on":""),...(o.id?{id:o.id}:{})});
@@ -1450,7 +1469,7 @@ function bCard(o){
   if(o.makes)card.append(el("p",{class:"bmakes"},el("span",{"aria-hidden":"true"},"🍽 "),o.makes));
   if(o.tag)card.append(el("p",{class:"btag"},o.tag));
   const ul=el("ul",{});for(const h of o.has)ul.append(el("li",{},h));
-  const d=el("details",{class:"bin-in"},el("summary",{},"What's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,...(o.recipe?[el("p",{class:"brecipe"},el("span",{"aria-hidden":"true"},"📝 "),o.recipe)]:[]),el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
+  const d=el("details",{class:"bin-in"},el("summary",{},"See what's in it",el("span",{class:"chev","aria-hidden":"true"},"⌄")),ul,...(o.recipe?[el("p",{class:"brecipe"},el("span",{"aria-hidden":"true"},"📝 "),o.recipe)]:[]),el("p",{class:"bnote"},"Picked fresh at market; items vary week to week. Swaps stay equal or better."));
   if(OPEN_IN.has(o.name))d.open=true;d.addEventListener("toggle",()=>{d.open?OPEN_IN.add(o.name):OPEN_IN.delete(o.name)});
   if(o.veg&&dietAnimal(o.diet)){const b=o.veg,cb=el("input",{type:"checkbox"});cb.checked=vegOn(b);cb.addEventListener("change",()=>{state.vegan=cb.checked;try{cb.checked?sessionStorage.setItem("pu-vegan","1"):sessionStorage.removeItem("pu-vegan")}catch(e){}if(cb.checked&&state.box!==b.id){state.box=b.id;state.mode="box";if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()});card.append(el("label",{class:"bveg"},cb,el("span",{},"Make it vegan",el("small",{}," plant-based swaps, all local"))))}
   card.append(d,el("button",{type:"button",class:"badd","aria-pressed":String(!!o.on),onclick:o.toggle},o.on?"Added ✓ (tap to remove)":"Add "+o.name+" · $"+o.price));
@@ -1469,7 +1488,7 @@ function boxList(){
     if(sz.length>1){card.id=lt.key;card.querySelector("h3").textContent=lt.name;
       const pk=el("div",{class:"dsize",role:"radiogroup","aria-label":"Size"},...sz.map(x=>el("button",{type:"button",role:"radio","aria-checked":String(x.id===b.id),onclick:()=>{DIET_TIER[lt.key]=x.id;if(sz.some(boxOn)){sz.forEach(y=>boxSet(y,false));boxSet(x,true);if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}},el("b",{},x.name.replace(lt.name,"").replace(/^\s*·\s*/,"").replace(/^./,c=>c.toUpperCase()),...(x.id===lt.def?[el("i",{class:"dstart"},"Start here")]:[])),el("span",{},"$"+x.price+" · "+x.wt))));
       pk.style.margin="10px 0 4px";card.querySelector(".bwhat").after(pk)}
-    cards.push({k:lt&&lt.list?lt.key:b.id,card,only:!!b0.only});}
+    const kk=lt&&lt.list?lt.key:b.id;card.dataset.kind=BOX_KIND[kk]||"";cards.push({k:kk,card,only:!!b0.only});}
   const isF=x=>x.only||FEAT_BOXES.includes(x.k),top=cards.filter(isF).sort((a,b)=>(b.only-a.only)||(FEAT_BOXES.indexOf(a.k)-FEAT_BOXES.indexOf(b.k))),rest=cards.filter(x=>!isF(x));
   for(const x of top)w.append(x.card);
   if(rest.length){
@@ -1531,7 +1550,7 @@ function renderItems(){
 }
 
 /* Haul line (Oct 27): meals for two per box plus cost per plate, on the ticket and in the sheet notes. */
-const MEALS={halfpeck:[4,5],crate:[7,7],forever:[5,5],meatbox:[7,7],lakehaul:[2,2],breakfast:[5,6],grits:[4,4],grounding:[2,2],strength:[2,2],rest:[2,2],practice:[6,6],nocook:[5,5],quesokit:[4,4],gcheesekit:[3,3]};
+const MEALS={quarter:[2,3],halfpeck:[4,5],crate:[7,7],forever:[5,5],meatbox:[7,7],lakehaul:[2,2],breakfast:[5,6],grits:[4,4],grounding:[2,2],strength:[2,2],rest:[2,2],practice:[6,6],nocook:[5,5],quesokit:[4,4],gcheesekit:[3,3]};
 function haulInfo(){
   const parts=[];let lo=0,hi=0,cost=0;const b=BOXES.find(x=>x.id===state.box);
   if(b&&MEALS[b.id]){const d=MEALS[b.id];lo+=d[0];hi+=d[1];cost+=b.price;parts.push((hwInCart()?"Halloween Haul":b.name)+" "+(d[0]===d[1]?d[0]:d[0]+"–"+d[1]))}
