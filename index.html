@@ -536,6 +536,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
 .bcard .badd:not([aria-pressed="true"]){background:var(--kc);border-color:var(--kc);color:var(--kt);min-height:54px;font-size:18px;font-weight:800;box-shadow:0 2px 0 rgba(0,0,0,.18)}
 .bcard .badd:active{transform:translateY(1px);box-shadow:none}
 #market .dsize{grid-template-columns:repeat(3,1fr);gap:6px}#market .dsize button{padding:8px 8px;font-size:13px}
+#board .dsize{grid-template-columns:repeat(3,1fr);gap:6px}#board .dsize button{padding:8px 8px;font-size:13px}
 .bcard .bin-in{border-top:0;padding-top:0;margin:8px 0 10px}
 .bcard .bin-in summary{border:2px solid var(--line);border-radius:10px;padding:0 14px;min-height:48px;background:var(--chip)}
 .bcard .bin-in[open] summary{margin-bottom:8px}
@@ -840,8 +841,8 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
     <h1 id="shopH" class="vh1">What are you craving?</h1>
     <div class="hwbar asb" id="asShop"><span><b>🧘 Special: Asana Pair · $55</b>Asana Box + a few days of fruit, save $5 · through Nov 21</span><button type="button" class="go" data-asanapair>Add it</button></div>
     <div class="hwbar dwb" id="dwShop" hidden><span><b>🪔 Diwali Kit · $30</b>Carrots, spinach, potatoes, onions &amp; garlic + recipe card · Sat 11/7 only</span><button type="button" class="go" data-dw>Add it</button></div>
-    <div class="hwbar gdb" id="gdShop" hidden><span><b>🍎 No-cook sides board · $39 / $75 / $139</b>Apples, carrots, cheese, bread, cider · feeds 6, 12 or 24 · no oven · shows as Game Day Kit</span><button type="button" class="go" data-gd="gameday">Add · feeds 12</button></div>
     <div class="hwbar tgb" id="tgShop" hidden><span><b>🦃 Thanksgiving Sides Box · $95</b>Sides for 6–8, ≈ $13 a guest · Sat 11/21, the last one before Thanksgiving</span><button type="button" class="go" data-tg>Add it</button></div>
+    <div class="hwbar gdb" id="gdShop" hidden><span><b>🍎 No-cook sides board · $39 / $75 / $139</b>Apples, carrots, cheese, bread, cider · feeds 6, 12 or 24 · no oven · shows as Game Day Kit</span><button type="button" class="go" data-gd="gameday">Add · feeds 12</button></div>
     <div class="hwbar" id="hwShop" hidden><span><b>🎃 Halloween Haul · $67</b>Half Peck with a pie pumpkin + cider + a pastry · Sat 10/31</span><button type="button" class="go" data-hw>Add it</button></div>
     <div class="hwbar" id="hwvShop" hidden><span><b>🎃 Vegan Harvest Moon · $77</b>Vegan Box with a pie pumpkin + cider · Sat 10/31</span><button type="button" class="go" data-hwv>Add it</button></div>
     <div class="seg" role="radiogroup" aria-label="How do you want to shop?">
@@ -1460,8 +1461,9 @@ const PROTEIN_INFO={meatbox:{what:"Grass-fed and pasture-raised, frozen packs",t
 const OPEN_IN=new Set();
 /* Short list (Nov 19; choice-overload research: Chernev et al. 2015, Scheibehenne et al. 2010, Baymard): the seasonal box + three standing boxes show; the rest fold under "More boxes". Partner-only boxes always show. */
 /* Box colors by kind (Nov 19): seasonal brown, produce green, vegan plum, fruit orange, breakfast gold, no-cook teal. */
-const BOX_KIND={thanks:"season",market:"produce",coldsnap:"produce",forever:"vegan",fruit:"fruit",breakfast:"morning",grits:"morning",easy:"nocook",nocook:"nocook"};
-const FEAT_BOXES=["thanks","market","forever","fruit"];let MORE_BX=false;
+const BOX_KIND={thanks:"season",market:"produce",coldsnap:"produce",forever:"vegan",fruit:"fruit",breakfast:"morning",grits:"morning",easy:"nocook",nocook:"nocook",board:"nocook"};
+/* Nov 19 PM: Thanksgiving week features both sides options on top: the Sides Box first, the no-cook sides board (Game Day Kit sizes, an add-on, so it can ride with any box) second. The board card leaves with the kit at the Nov 20 9 PM cutoff. */
+const FEAT_BOXES=["thanks","board","market","forever","fruit"];let MORE_BX=false,GD_SZ="gameday";
 function bCard(o){
   const card=el("div",{class:"bcard"+(o.on?" on":""),...(o.id?{id:o.id}:{})});
   card.append(el("div",{class:"bcard-top"},el("h3",{},o.name),el("span",{class:"bprice"},"$"+o.price)),...(o.diet?[dietChips(o.diet,o.swap)]:[]),el("p",{class:"bwhat"},o.what));
@@ -1489,6 +1491,13 @@ function boxList(){
       const pk=el("div",{class:"dsize",role:"radiogroup","aria-label":"Size"},...sz.map(x=>el("button",{type:"button",role:"radio","aria-checked":String(x.id===b.id),onclick:()=>{DIET_TIER[lt.key]=x.id;if(sz.some(boxOn)){sz.forEach(y=>boxSet(y,false));boxSet(x,true);if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}},el("b",{},x.name.replace(lt.name,"").replace(/^\s*·\s*/,"").replace(/^./,c=>c.toUpperCase()),...(x.id===lt.def?[el("i",{class:"dstart"},"Start here")]:[])),el("span",{},"$"+x.price+" · "+x.wt))));
       pk.style.margin="10px 0 4px";card.querySelector(".bwhat").after(pk)}
     const kk=lt&&lt.list?lt.key:b.id;card.dataset.kind=BOX_KIND[kk]||"";cards.push({k:kk,card,only:!!b0.only});}
+  {const gz=ITEMS.special.filter(i=>/^gameday/.test(i.id)&&itemLive(i));
+    if(gz.length){const onI=gz.find(i=>state.qty[i.id]),cur=onI||gz.find(i=>i.id===GD_SZ)||gz[0];
+      const card=bCard({id:"board",name:"No-cook sides board",price:cur.p,what:"Bring-a-side, Friendsgiving or no oven · rinse, slice, set it out",makes:cur.sv,tag:"Thanksgiving week · Saturdays through 11/21 · shows as Game Day Kit in your cart",
+        has:[cur.ds.split(" · ")[0],"Rinse, slice, set it out: no stove, no oven","Rides along with any box, or on its own"],on:!!onI,
+        toggle:()=>{if(onI)gz.forEach(i=>delete state.qty[i.id]);else{state.qty[cur.id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}});
+      const pk=el("div",{class:"dsize",role:"radiogroup","aria-label":"Size"},...gz.map(x=>el("button",{type:"button",role:"radio","aria-checked":String(x.id===cur.id),onclick:()=>{GD_SZ=x.id;if(onI){gz.forEach(i=>delete state.qty[i.id]);state.qty[x.id]=1;if(window.puCart)puCart()}renderBoxes();renderItems();renderTicket()}},el("b",{},x.nm.replace("Game Day Kit · ",""),...(x.id==="gameday"?[el("i",{class:"dstart"},"Start here")]:[])),el("span",{},"$"+x.p))));
+      pk.style.margin="10px 0 4px";card.querySelector(".bwhat").after(pk);card.dataset.kind="nocook";cards.push({k:"board",card,only:false})}}
   const isF=x=>x.only||FEAT_BOXES.includes(x.k),top=cards.filter(isF).sort((a,b)=>(b.only-a.only)||(FEAT_BOXES.indexOf(a.k)-FEAT_BOXES.indexOf(b.k))),rest=cards.filter(x=>!isF(x));
   for(const x of top)w.append(x.card);
   if(rest.length){
@@ -1920,7 +1929,7 @@ document.querySelectorAll(".arw").forEach(b=>b.addEventListener("click",()=>{con
   const go=(first)=>{
     const h=decodeURIComponent(location.hash.slice(1));
     let v="home",el=h?document.getElementById(h):null;
-    if(h==="shop"||h==="boxes"||h==="fruit"||h==="easy"||h==="nocook"||h==="breakfast"||h==="grits"||h==="asana"||h==="asanapair"||h==="mystery"||h==="thanks"||h==="market")v="shop";
+    if(h==="shop"||h==="boxes"||h==="fruit"||h==="easy"||h==="nocook"||h==="breakfast"||h==="grits"||h==="asana"||h==="asanapair"||h==="mystery"||h==="thanks"||h==="market"||h==="board")v="shop";
     else if(h==="inventory")v="inventory";
     else if(h==="checkout"||h==="ticket")v=cur&&cur!=="home"?cur:"shop";
     else if(el){const s=el.closest("[data-view]");if(s)v=s.dataset.view.split(" ")[0]}
