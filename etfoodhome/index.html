@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>For our Expecting Together class · Posted Up Produce</title>
 <meta name="robots" content="noindex, nofollow, noai, noimageai">
-<meta name="description" content="We shop Chicago's farmers market for you. Fruit for class, food for the last stretch and the first weeks home, and boxes to gift a new family.">
+<meta name="description" content="We shop Chicago's farmers market for you. The fruit from class, food for the last stretch and the first weeks home, and boxes to gift a new family.">
 <meta property="og:title" content="hi, class 🌱">
 <meta property="og:description" content="The fruit from the first weeks of class, plus food for the last stretch and the first weeks home. Shopped at Chicago's farmers market. Pickup or delivery.">
 <meta property="og:image" content="https://postedupproduce.org/etfoodhome/og.png">
@@ -15,8 +15,10 @@
 <meta name="theme-color" content="#F7F3EC">
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>/* The tour's end button reads ?s= from the address: give it this page's tag. */(function(){try{var q=new URLSearchParams(location.search);if(!q.get("s")){q.set("s","etfood");history.replaceState(null,"",location.pathname+"?"+q.toString()+location.hash)}}catch(e){}})();</script>
+<script src="/tour.js?v=2" defer></script>
 <style>
-/* /etfoodhome/ (Nov 21, 2026): page for our Expecting Together class (5-week cohort, shared in its group chat). Open link, noindex,
+/* /etfoodhome/ (Nov 21, 2026): page for our Expecting Together class (5-week cohort that ended Nov 21; shared in its group chat, which continues). Open link, noindex,
    tag "etfood" (an incoming ?s=etfood-... is kept; gift links log as etfood-gift). Built on the /ratih/ pattern. Nov 21 (later): trimmed to one short screen, four boxes + a one-tap gift + main-site link,
    so landing to paid is about 6 taps for a first-timer. No health or pregnancy-safety claims.
    Box links hand off to the main cart with ?box= and ?note= (the thank-you pick and any gift line ride in Notes).
@@ -82,6 +84,21 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
 .sp .dots{position:absolute;top:calc(22px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:center;gap:6px}
 .sp .dots i{width:28px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
 .sp .dots i.on{background:var(--sage)}
+/* Stay a minute (Nov 21): optional, below the boxes. The 45-sec tour (/tour.js) and Nesting Catch, a baby edition of Market Catch
+   (same mechanics as /play/: 30 s, +1 fruit, +5 bottle, -3 alarm). Best score in localStorage pu_nest_best; nothing is sent. */
+.stay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stay button{min-height:64px;border:1.5px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);font:700 16px var(--body);cursor:pointer;padding:8px 10px;line-height:1.2}
+.stay button small{display:block;font-weight:500;font-size:13px;color:var(--muted)}
+.gm{position:fixed;inset:0;z-index:40;background:var(--bg);display:flex;flex-direction:column;gap:10px;padding:max(14px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));max-width:460px;margin:0 auto}
+.gm[hidden]{display:none}
+.gm .hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.gm h2{font-weight:800;font-size:24px;margin:0}
+.gm .x{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font:700 20px var(--body);cursor:pointer}
+.gm .rules{margin:0;font-size:15px;color:var(--muted)}
+.gm .hud{display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+.gm canvas{width:100%;flex:1;min-height:0;max-height:62vh;aspect-ratio:3/4;align-self:center;background:linear-gradient(var(--panel),var(--leaf));border:1.5px solid var(--line);border-radius:14px;touch-action:none;display:block}
+.gm .row{display:flex;gap:8px}.gm .row>*{flex:1}
+.gm .msg{margin:0;font-weight:700;color:var(--sage);min-height:1.5em;text-align:center}
 @media (prefers-color-scheme:dark){
   .sbar{background:#0B0D0A}
   :root{--bg:#171A15;--panel:#20251E;--ink:#EEF1E8;--muted:#BCC4B2;--line:#343B30;--sage:#9DCBA8;--soft:#33261F;--leaf:#243127}
@@ -92,7 +109,7 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
 <body>
 <div class="sp" id="sp" role="dialog" aria-label="Welcome" hidden>
   <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
-  <div class="b"><h2>hi, class 🌱</h2><p>A note from M &amp; C</p></div>
+  <div class="b"><h2>congrats, class 🎉</h2><p>You made it through. A note from M &amp; C</p></div>
   <div class="b"><p class="fr" aria-hidden="true">🍎🍐🫐</p><h2>remember the fruit from weeks 1 and 2?</h2></div>
   <div class="b"><h2>it came from the farmers market.</h2><p>Now we can bring it to you.</p></div>
   <span class="skip">Tap to skip</span>
@@ -102,7 +119,7 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
 
   <section aria-labelledby="h1">
     <p class="k" style="margin-top:6px">for our Expecting Together class</p>
-    <h1 id="h1">hi, class 🌱</h1>
+    <h1 id="h1">congrats, class 🌱</h1>
     <p class="lede">The fruit from the first two weeks of class came from us. We shop Chicago's farmers market Saturday morning, then you pick it up or we bring it to your door.</p>
   </section>
 
@@ -121,8 +138,24 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
     <a class="rlink" id="byo" href="/?s=etfood#shop">See everything on the main site &rarr;</a>
   </section>
 
+  <section aria-labelledby="stH">
+    <p class="k" id="stH" style="margin:4px 0 8px">staying a minute?</p>
+    <div class="stay">
+      <button type="button" data-tour>▶ Watch the video<small>how it works · 45 sec</small></button>
+      <button type="button" id="gOpen">🍼 Nesting Catch<small>a 30-sec game</small></button>
+    </div>
+  </section>
+
   <p class="fine">Pickup in Goose Island, Hyde Park or Rogers Park, or delivery. Pay by card or Apple Pay. Not happy with something? Credit or refund. Expecting? Write "expecting" in Notes and any cheese or cider we pick will be pasteurized.<br>M &amp; C</p>
 </main>
+<div class="gm" id="gm" role="dialog" aria-modal="true" aria-labelledby="gmH" hidden>
+  <div class="hd"><h2 id="gmH">Nesting Catch 🍼</h2><button class="x" type="button" id="gX" aria-label="Close the game">✕</button></div>
+  <p class="rules">Drag to move the basket. Fruit +1, the bottle +5, dodge the 3 AM alarms ⏰ −3.</p>
+  <div class="hud"><span id="gS">Score 0</span><span id="gT">0:30</span><span id="gB"></span></div>
+  <canvas id="gC" width="360" height="480" aria-label="Nesting Catch game"></canvas>
+  <p class="msg" id="gMsg" aria-live="polite"></p>
+  <div class="row"><button class="btn" type="button" id="gGo">Play</button><a class="btn" id="gShop" href="/?s=etfood#shop" hidden style="background:var(--ink);color:var(--bg)">Shop the boxes</a></div>
+</div>
 <div class="sbar"><span>Next up<b id="sbarD">Saturday</b></span><a class="btn" id="sbarGo" href="/?s=etfood#shop">Shop all boxes</a></div>
 <p class="ip">&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade; <a href="/terms/" style="font-weight:700;color:inherit">Site terms</a></p>
 <script>
@@ -154,7 +187,7 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
   var gt=TAG==="etfood"?"etfood-gift":TAG;
   $("giftGo").href=url(gt,"&box=fruit&note="+encodeURIComponent(NOTE+" · GIFT for (name, address, number): "))+"#checkout";
   $("giftGo").addEventListener("click",function(){try{localStorage.removeItem("pu-draft")}catch(e){}});
-  $("byo").href=url(TAG,"")+"#shop";$("sbarGo").href=url(TAG,"")+"#shop";$("home").href=url(TAG,"");
+  $("byo").href=url(TAG,"")+"#shop";$("gShop").href=url(TAG,"")+"#shop";$("sbarGo").href=url(TAG,"")+"#shop";$("home").href=url(TAG,"");
 })();
 /* Splash */
 (function(){
@@ -173,6 +206,46 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
   addEventListener("keydown",function(e){if(e.key==="Escape"||e.key==="Enter"||e.key===" ")close()});
   if(rm){i=bs.length-2;}
   step();
+})();
+/* Nesting Catch: Market Catch (/play/) with a baby theme. */
+(function(){
+  var gm=document.getElementById("gm"),c=document.getElementById("gC"),x=c.getContext("2d"),go=document.getElementById("gGo"),
+      sc=document.getElementById("gS"),tm=document.getElementById("gT"),bs=document.getElementById("gB"),msg=document.getElementById("gMsg"),shop=document.getElementById("gShop");
+  var W=360,H=480,GOOD=["🍎","🍐","🫐","🥕","🍠","🥬","🍇"],BW=74,BH=40,best=0,items,bx,score,left,run=false,last,spawnT,keys={};
+  try{best=+localStorage.getItem("pu_nest_best")||0}catch(e){}
+  function showBest(){bs.textContent=best?"Best "+best:""}showBest();
+  function ink(){return getComputedStyle(document.body).color}
+  function fit(){var r=Math.min(window.devicePixelRatio||1,2);c.width=W*r;c.height=H*r;x.setTransform(r,0,0,r,0,0)}
+  function idle(){x.clearRect(0,0,W,H);x.textAlign="center";x.textBaseline="middle";x.font="64px system-ui";x.fillText("🧺",W/2,H/2-20);x.font="600 18px system-ui";x.fillStyle=ink();x.fillText("Tap here to start",W/2,H/2+40)}
+  function start(){items=[];bx=W/2;score=0;left=30;spawnT=0;run=true;last=performance.now();go.disabled=true;go.textContent="Playing…";msg.textContent="";shop.hidden=true;requestAnimationFrame(loop)}
+  function spawn(){var r=Math.random(),k=r<.07?"gold":r<.25?"bad":"good";
+    items.push({k:k,e:k==="gold"?"🍼":k==="bad"?"⏰":GOOD[Math.random()*GOOD.length|0],x:20+Math.random()*(W-40),y:-20,v:(110+Math.random()*70)*(1+(30-left)/30)})}
+  function loop(t){if(!run)return;var dt=Math.min((t-last)/1000,.05);last=t;left-=dt;
+    if(keys.ArrowLeft)bx-=360*dt;if(keys.ArrowRight)bx+=360*dt;bx=Math.max(BW/2,Math.min(W-BW/2,bx));
+    spawnT-=dt;if(spawnT<=0){spawn();spawnT=Math.max(.28,.75-(30-left)*.015)}
+    var by=H-BH/2-8;
+    items.forEach(function(i){i.y+=i.v*dt;
+      if(!i.hit&&i.y>by-BH/2-6&&i.y<by+BH/2&&Math.abs(i.x-bx)<BW/2+6){i.hit=true;score+=i.k==="gold"?5:i.k==="bad"?-3:1;if(score<0)score=0;
+        if(navigator.vibrate&&i.k==="bad")try{navigator.vibrate(40)}catch(e){}}});
+    items=items.filter(function(i){return !i.hit&&i.y<H+30});
+    x.clearRect(0,0,W,H);x.textAlign="center";x.textBaseline="middle";x.font="34px system-ui";
+    items.forEach(function(i){x.fillText(i.e,i.x,i.y)});
+    x.font="50px system-ui";x.fillText("🧺",bx,by);
+    sc.textContent="Score "+score;tm.textContent="0:"+String(Math.max(0,Math.ceil(left))).padStart(2,"0");
+    if(left<=0)return end();requestAnimationFrame(loop)}
+  function end(){run=false;go.disabled=false;go.textContent="Play again";shop.hidden=false;
+    var nb=score>best;if(nb){best=score;try{localStorage.setItem("pu_nest_best",best)}catch(e){}}showBest();
+    msg.textContent=score>=40?"Fully nested: "+score+"!":score>=20?"Snack drawer stocked: "+score+"!":"You caught "+score+". We'll do the real shopping.";
+    x.clearRect(0,0,W,H);x.font="56px system-ui";x.fillText(score>=20?"🏆":"🧺",W/2,H/2-30);x.font="700 22px system-ui";x.fillStyle=ink();x.fillText((nb?"New best! ":"")+score+" caught",W/2,H/2+30)}
+  function moveTo(cx){var r=c.getBoundingClientRect();bx=(cx-r.left)/r.width*W}
+  function open(){gm.hidden=false;document.body.style.overflow="hidden";fit();if(!run)idle();go.focus()}
+  function close(){run=false;gm.hidden=true;document.body.style.overflow="";go.disabled=false;go.textContent="Play";document.getElementById("gOpen").focus()}
+  document.getElementById("gOpen").addEventListener("click",open);document.getElementById("gX").addEventListener("click",close);
+  c.addEventListener("pointerdown",function(e){if(run){moveTo(e.clientX);try{c.setPointerCapture(e.pointerId)}catch(_){}}else if(!go.disabled)start()});
+  c.addEventListener("pointermove",function(e){if(run)moveTo(e.clientX)});
+  addEventListener("keydown",function(e){if(gm.hidden)return;if(e.key==="Escape")close();if(run&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){keys[e.key]=true;e.preventDefault()}});
+  addEventListener("keyup",function(e){keys[e.key]=false});
+  go.addEventListener("click",start);
 })();
 /* Visit counting, same as the other partner pages: one per browser session, no names, skipped on the owner's devices (pu-me). */
 (function(){
