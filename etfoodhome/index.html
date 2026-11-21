@@ -17,8 +17,8 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
 /* /etfoodhome/ (Nov 21, 2026): page for our Expecting Together class (5-week cohort, shared in its group chat). Open link, noindex,
-   tag "etfood" (an incoming ?s=etfood-... is kept; gift links log as etfood-gift). Built on the /ratih/ pattern. Three angles: class snacks (the fruit he brings), boxes for the
-   last stretch and first weeks home, and gifting a box to a new family. No health or pregnancy-safety claims.
+   tag "etfood" (an incoming ?s=etfood-... is kept; gift links log as etfood-gift). Built on the /ratih/ pattern. Nov 21 (later): trimmed to one short screen, four boxes + a one-tap gift + main-site link,
+   so landing to paid is about 6 taps for a first-timer. No health or pregnancy-safety claims.
    Box links hand off to the main cart with ?box= and ?note= (the thank-you pick and any gift line ride in Notes).
    Market dates: DATES in the script is a copy of index.html's Saturday list; update both if the calendar changes.
    Prices are hard-coded from index.html BOXES (Nov 21): update them if the menu changes. */
@@ -57,12 +57,20 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
 .chips label:has(input:focus-visible){outline:3px solid var(--sage);outline-offset:3px}
 .fld{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:15px}
 .fld input{font:500 18px var(--body);min-height:52px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;background:#fff;color:var(--ink)}
+.gift{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1.5px dashed var(--sage);border-radius:14px;background:var(--leaf);text-decoration:none;color:var(--ink)}
+.gift b{font-size:17px}.gift span{font-size:15px;color:var(--muted)}
 .btn{display:flex;align-items:center;justify-content:center;min-height:56px;width:100%;border:0;border-radius:999px;background:var(--pop);color:#1E1410;font:800 18px var(--body);cursor:pointer;text-decoration:none;padding:0 20px;text-align:center}
 .fine{font-size:15px;color:var(--muted);text-align:center;margin:0}
 .steps{margin:0;padding-left:22px;font-size:16px}
 .steps li{margin:4px 0}
-.ip{max-width:460px;margin:0 auto 40px;padding:0 20px;font-size:14px;opacity:.72;text-align:center}
+.sbar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px max(16px,env(safe-area-inset-left)) max(10px,env(safe-area-inset-bottom));box-shadow:0 -4px 14px rgba(0,0,0,.18)}
+.sbar span{font-size:14px;line-height:1.2;opacity:.9}.sbar b{display:block;font-size:18px}
+.sbar .btn{width:auto;min-height:50px}
+.boxes a{min-height:72px}
+.ip{max-width:460px;margin:0 auto 100px;padding:0 20px;font-size:14px;opacity:.72;text-align:center}
 @media (prefers-color-scheme:dark){
+  .sbar{background:#0B0D0A}
   :root{--bg:#171A15;--panel:#20251E;--ink:#EEF1E8;--muted:#BCC4B2;--line:#343B30;--sage:#9DCBA8;--soft:#33261F;--leaf:#243127}
   .chips label,.boxes a,.fld input{background:var(--panel)}
 }
@@ -75,79 +83,27 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
   <section aria-labelledby="h1">
     <p class="k" style="margin-top:6px">for our Expecting Together class</p>
     <h1 id="h1">hi, class 🌱</h1>
-    <p class="lede">You've had the fruit. Now it can come to you. We shop Chicago's farmers market for you, then you pick it up or we bring it to your door.</p>
+    <p class="lede">The fruit at class comes from us. We shop Chicago's farmers market Saturday morning, then you pick it up or we bring it to your door.</p>
   </section>
 
   <p class="when" id="when"><b>Next up: a Saturday at the farmers market</b><span id="whenLine">Order by Friday, 9 PM.</span></p>
 
-  <section class="card" aria-labelledby="sH">
-    <p class="k">class snacks</p>
-    <h2 id="sH">the fruit from class</h2>
-    <p class="why">Same orchard fruit we bring in, picked ripe that Saturday morning.</p>
+  <section class="card" aria-labelledby="pH">
+    <h2 id="pH">pick a box</h2>
+    <p class="why">One tap puts it in your cart. Your first order comes with a free pastry.</p>
     <ul class="boxes">
-      <li><a data-box="fruitsm" href="/?s=etfood&amp;box=fruitsm#checkout"><b>Fruit Box · a few days</b><span class="p">$20</span><span>About 8 pieces: apples, pears and local blueberries. No cooking.</span></a></li>
-      <li><a data-box="fruit" href="/?s=etfood&amp;box=fruit#checkout"><b>Fruit Box · a week</b><span class="p">$36</span><span>About 16 pieces. A piece or two a day for a week.</span></a></li>
+      <li><a data-box="fruit" href="/?s=etfood&amp;box=fruit#checkout"><b>Fruit Box<i class="tag">from class</i></b><span class="p">$36</span><span>About 16 pieces of orchard fruit. A week of snacks, no cooking.</span></a></li>
+      <li><a data-box="halfpeck" href="/?s=etfood&amp;box=halfpeck#checkout"><b>Half Peck<i class="tag">no hauling bags</i></b><span class="p">$50</span><span>About 9–10 lb. A week of sides and a couple of mains for two.</span></a></li>
+      <li><a data-box="breakfast" href="/?s=etfood&amp;box=breakfast#checkout"><b>Breakfast Box</b><span class="p">$40</span><span>Local oats, farm eggs and fruit. About a week of breakfasts for two.</span></a></li>
+      <li><a data-box="easy1" href="/?s=etfood&amp;box=easy1#checkout"><b>The Easy Two<i class="tag">first weeks home</i></b><span class="p">$47</span><span>Nothing to cook. Fruit, a sourdough loaf, a local cheese and jam.</span></a></li>
     </ul>
+    <a class="gift" id="giftGo" href="/?s=etfood-gift&amp;box=fruit#checkout"><b>🎁 Gift a Fruit Box to a classmate</b><span>Pick delivery and add their name, address and number in Notes. $8 delivery within 3 miles of a stop.</span></a>
+    <a class="rlink" id="byo" href="/?s=etfood#shop">See everything on the main site &rarr;</a>
   </section>
 
-  <section class="card" aria-labelledby="lH">
-    <p class="k">the last stretch</p>
-    <h2 id="lH">no hauling bags</h2>
-    <p class="why">Skip the stairs and the heavy totes. We carry it, you cook it.</p>
-    <ul class="boxes">
-      <li><a data-box="quarter" href="/?s=etfood&amp;box=quarter#checkout"><b>Quarter Peck</b><span class="p">$32</span><span>About 5–6 lb. A few nights of sides for one or two.</span></a></li>
-      <li><a data-box="halfpeck" href="/?s=etfood&amp;box=halfpeck#checkout"><b>Half Peck<i class="tag">most popular</i></b><span class="p">$50</span><span>About 9–10 lb. A week of sides and a couple of mains for two.</span></a></li>
-      <li><a data-box="breakfast" href="/?s=etfood&amp;box=breakfast#checkout"><b>Breakfast Box</b><span class="p">$40</span><span>Stone-ground local oats, farm eggs and orchard fruit. About a week of breakfasts for two.</span></a></li>
-    </ul>
-  </section>
-
-  <section class="card" aria-labelledby="fH">
-    <p class="k">the first weeks home</p>
-    <h2 id="fH">when cooking is the last thing on the list</h2>
-    <p class="why">Food you can eat one-handed, at 3 AM, with no plan.</p>
-    <ul class="boxes">
-      <li><a data-box="easy1" href="/?s=etfood&amp;box=easy1#checkout"><b>The Easy Two</b><span class="p">$47</span><span>No cooking at all. Apples and pears, a sourdough loaf, a local cheese and a jar of jam. A few days for two.</span></a></li>
-      <li><a data-box="fruit" href="/?s=etfood&amp;box=fruit#checkout"><b>Fruit Box · a week</b><span class="p">$36</span><span>Wash and eat. Keeps on the counter or in the fridge.</span></a></li>
-    </ul>
-    <a class="rlink" id="byo" href="/?s=etfood&amp;mode=pick#shop">Or build your own, item by item &rarr;</a>
-  </section>
-
-  <section class="card" aria-labelledby="gH">
-    <p class="k">gift a box</p>
-    <h2 id="gH">send one to a new family</h2>
-    <p class="why">For a classmate once the baby's here, or for anyone you love. We deliver it that Saturday.</p>
-    <label class="fld" for="gName">Who's it for?<input id="gName" type="text" autocomplete="off" maxlength="40" placeholder="Their first name"></label>
-    <div class="chips three" role="radiogroup" aria-label="Pick a box">
-      <label><input type="radio" name="gbox" value="fruit" checked><span>Fruit Box · a week</span><span>$36</span></label>
-      <label><input type="radio" name="gbox" value="breakfast"><span>Breakfast Box</span><span>$40</span></label>
-      <label><input type="radio" name="gbox" value="halfpeck"><span>Half Peck</span><span>$50</span></label>
-    </div>
-    <button class="btn" id="giftGo" type="button">Gift it</button>
-    <p class="fine">At checkout, choose delivery and put their address and number in Notes. Delivery is $8 within 3 miles of a stop.</p>
-  </section>
-
-  <section class="card" aria-labelledby="tH">
-    <h2 id="tH">a little thank-you</h2>
-    <p class="why">Your first order through this page comes with one of these, free. Pick one:</p>
-    <div class="chips" role="radiogroup" aria-labelledby="tH">
-      <label><input type="radio" name="gift" value="pastry" checked>🥐 A pastry</label>
-      <label><input type="radio" name="gift" value="hot sauce">🌶️ Hot sauce</label>
-    </div>
-  </section>
-
-  <p class="note">The fruit at class? That's us. We figured you'd want to know where it comes from. See you in class.<br>M &amp; C</p>
-
-  <section class="card" aria-labelledby="hH">
-    <h2 id="hH">how it works</h2>
-    <ol class="steps">
-      <li>Order by 9 PM Friday. You pay up front, by card or Apple Pay.</li>
-      <li>Saturday morning we hand-pick it at the farmers market, from farms and makers within a close radius.</li>
-      <li>Pickup in Goose Island (12–1), Hyde Park (2–3) or Rogers Park (4–5), or we deliver.</li>
-    </ol>
-    <p class="why">Expecting? Write "expecting" in Notes and any cheese or cider we pick for you will be pasteurized.</p>
-    <p class="fine">Not happy with something? Credit or refund, your choice.</p>
-  </section>
+  <p class="fine">Pickup in Goose Island, Hyde Park or Rogers Park, or delivery. Pay by card or Apple Pay. Not happy with something? Credit or refund. Expecting? Write "expecting" in Notes and any cheese or cider we pick will be pasteurized.<br>M &amp; C</p>
 </main>
+<div class="sbar"><span>Next up<b id="sbarD">Saturday</b></span><a class="btn" id="sbarGo" href="/?s=etfood#shop">Shop all boxes</a></div>
 <p class="ip">&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade; <a href="/terms/" style="font-weight:700;color:inherit">Site terms</a></p>
 <script>
 (function(){
@@ -165,27 +121,20 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
   for(var i=0;i<DATES.length;i++){if(dayBefore(DATES[i])+" 21:00">now){next=DATES[i];break}}
   if(next){var cut=dayBefore(next);
     $("when").firstChild.textContent="Next up: "+nice(next,{weekday:"long",month:"short",day:"numeric"});
+    $("sbarD").textContent=nice(next,{weekday:"short",month:"short",day:"numeric"});
     $("whenLine").textContent="Order by "+nice(cut,{weekday:"long",month:"short",day:"numeric"})+", 9 PM.";}
 
-  function pick(n){var g=document.querySelector("input[name="+n+"]:checked");return g?g.value:""}
-  function noteFor(extra){return ((extra?extra+" · ":"")+"Class thank-you: "+(pick("gift")||"pastry")).slice(0,160)}
+  var NOTE="Class thank-you: pastry";
   function url(tag,extra){return "/?s="+encodeURIComponent(tag)+(extra||"")}
-  function fixLinks(){
-    [].forEach.call(document.querySelectorAll("[data-box]"),function(a){a.href=url(TAG,"&box="+a.dataset.box+"&note="+encodeURIComponent(noteFor()))+"#checkout"});
-    $("byo").href=url(TAG,"&mode=pick&note="+encodeURIComponent(noteFor()))+"#shop";$("home").href=url(TAG,"");
-  }
-  document.addEventListener("change",fixLinks);fixLinks();
-  /* A box link starts a clean cart so it isn't mixed with an old saved one. */
-  [].forEach.call(document.querySelectorAll("[data-box]"),function(a){a.addEventListener("click",function(){try{localStorage.removeItem("pu-draft")}catch(e){}})});
-
-  $("giftGo").addEventListener("click",function(){
-    var nm=($("gName").value||"").replace(/[<>~]/g,"").trim().slice(0,40);
-    var line="GIFT for "+(nm||"a new family")+" · their address and number:";
-    try{localStorage.removeItem("pu-draft")}catch(e){}
-    var gt=TAG==="etfood"?"etfood-gift":TAG;
-    /* Thank-you first, gift line last, so the buyer types the address and number right after it. */
-    location.href=url(gt,"&box="+(pick("gbox")||"fruit")+"&note="+encodeURIComponent((noteFor()+" · "+line+" ").slice(0,160)))+"#checkout";
+  [].forEach.call(document.querySelectorAll("[data-box]"),function(a){
+    a.href=url(TAG,"&box="+a.dataset.box+"&note="+encodeURIComponent(NOTE))+"#checkout";
+    a.addEventListener("click",function(){try{localStorage.removeItem("pu-draft")}catch(e){}});
   });
+  /* Gift: one tap, Fruit Box, gift line last in Notes so the buyer types the address and number right after it. */
+  var gt=TAG==="etfood"?"etfood-gift":TAG;
+  $("giftGo").href=url(gt,"&box=fruit&note="+encodeURIComponent(NOTE+" · GIFT for (name, address, number): "))+"#checkout";
+  $("giftGo").addEventListener("click",function(){try{localStorage.removeItem("pu-draft")}catch(e){}});
+  $("byo").href=url(TAG,"")+"#shop";$("sbarGo").href=url(TAG,"")+"#shop";$("home").href=url(TAG,"");
 })();
 /* Visit counting, same as the other partner pages: one per browser session, no names, skipped on the owner's devices (pu-me). */
 (function(){
