@@ -89,6 +89,8 @@ h1{font-weight:800;font-size:clamp(34px,10vw,44px);line-height:1.02;letter-spaci
     <p class="lede" style="margin-top:10px">We shop Chicago's farmers market for you. Pick what you want by Friday night, we hand-pick it Saturday morning, and you get it by pickup or delivery.</p>
   </section>
 
+  <p class="note" data-until="2026-11-29T06:00:00Z" style="border-left-color:var(--ink)"><b>Heads up:</b> we're closed Sat 11/28 for the holiday. Orders are open now for Sat 12/5.</p>
+
   <p class="note">Ratih cooks with the season, so we turned one of her recipes into a bag of groceries. One tap puts it in your cart. <br>M &amp; C</p>
 
   <section class="card" aria-labelledby="kH">
@@ -139,10 +141,11 @@ h1{font-weight:800;font-size:clamp(34px,10vw,44px);line-height:1.02;letter-spaci
     <h2 id="bH">or let us pick</h2>
     <p class="why">A box of what's best that Saturday. The thank-you counts here too.</p>
     <ul class="boxes" id="boxes">
-      <li data-until="2026-11-22T03:00:00Z"><a data-box="thanks" href="/?s=ratih&amp;box=thanks#checkout"><b>Thanksgiving Sides Box<i class="tag">through 11/21</i></b><span class="p">$95</span><span>About 20 lb of sides for a table of 6–8: potatoes, squash, sprouts, greens, apples for pie and herbs.</span></a></li>
-      <li><a data-box="halfpeck" href="/?s=ratih&amp;box=halfpeck#checkout"><b>Half Peck<i class="tag">most popular</i></b><span class="p">$50</span><span>About 9–10 lb. A week of sides and a couple of mains for two.</span></a></li>
-      <li><a data-box="crate" href="/?s=ratih&amp;box=crate#checkout"><b>Full Crate</b><span class="p">$72</span><span>About 14–15 lb. A full week of cooking for a household.</span></a></li>
+      <li><a data-box="quarter" href="/?s=ratih&amp;box=quarter#checkout"><b>Market Box · Quarter Peck</b><span class="p">$32</span><span>About 5–6 lb. A few nights of sides for one or two.</span></a></li>
+      <li><a data-box="halfpeck" href="/?s=ratih&amp;box=halfpeck#checkout"><b>Market Box · Half Peck<i class="tag">most popular</i></b><span class="p">$50</span><span>About 9–10 lb. A week of sides and a couple of mains for two.</span></a></li>
+      <li><a data-box="crate" href="/?s=ratih&amp;box=crate#checkout"><b>Market Box · Full Crate</b><span class="p">$72</span><span>About 14–15 lb. A full week of cooking for a household.</span></a></li>
       <li><a data-box="forever" href="/?s=ratih&amp;box=forever#checkout"><b>The Vegan Box</b><span class="p">$68</span><span>About 9 lb. Fully vegan and all local.</span></a></li>
+      <li><a data-box="fruitsm" href="/?s=ratih&amp;box=fruitsm#checkout"><b>Fruit Box · a few days</b><span class="p">$20</span><span>About 3 lb. No cooking: orchard fruit picked ripe, plus local blueberries.</span></a></li>
     </ul>
     <a class="rlink" id="byo" href="/?s=ratih&amp;mode=pick#shop">Or build your own, item by item &rarr;</a>
   </section>
@@ -153,11 +156,13 @@ h1{font-weight:800;font-size:clamp(34px,10vw,44px);line-height:1.02;letter-spaci
       <li>Order by 9 PM Friday. You pay up front.</li>
       <li>Saturday morning we hand-pick it at the farmers market, from farms and makers within a close radius.</li>
       <li>Pickup in Goose Island (12–1), Hyde Park (2–3) or Rogers Park (4–5), or we deliver.</li>
+      <li>We run Saturdays all winter, through Mar 20 (off 11/28, 12/26 and 1/2).</li>
     </ol>
     <p class="fine">Not happy with something? Credit or refund, your choice.</p>
   </section>
 </main>
 <div class="sbar" id="sbar"><span>Your bag<b id="tot2"></b></span><button class="btn" id="go2" type="button">Send to cart</button></div>
+<p class="ip" style="margin-bottom:8px"><a href="/?s=ratih" id="site" style="font-weight:700;color:inherit">postedupproduce.org</a> · <a href="https://www.instagram.com/postedupproduce/" target="_blank" rel="noopener" style="font-weight:700;color:inherit">@postedupproduce</a> on Instagram</p>
 <p class="ip">&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade; <a href="/terms/" style="font-weight:700;color:inherit">Site terms</a></p>
 <script>
 (function(){
@@ -185,7 +190,7 @@ h1{font-weight:800;font-size:clamp(34px,10vw,44px);line-height:1.02;letter-spaci
   var kit=0;for(var k in RECIPE.qty)kit+=RECIPE.qty[k]*RECIPE.price[k];
   $("kPrice").textContent="$"+kit;
 
-  /* Dated boxes drop off after their cutoff (Chicago 9 PM Fri 11/21 = 03:00Z Sat 11/22). */
+  /* Dated items (data-until, UTC) remove themselves once the time passes. */
   [].forEach.call(document.querySelectorAll("[data-until]"),function(li){if(Date.now()>=Date.parse(li.dataset.until))li.remove()});
 
   var f=$("f");
@@ -197,7 +202,7 @@ h1{font-weight:800;font-size:clamp(34px,10vw,44px);line-height:1.02;letter-spaci
   /* Box links: carry the tag and the thank-you note; drop any old saved cart so the box isn't mixed with it. */
   function fixLinks(){
     [].forEach.call(document.querySelectorAll("[data-box]"),function(a){a.href=url("&box="+a.dataset.box+"&note="+encodeURIComponent(noteFor()))+"#checkout"});
-    $("byo").href=url("&mode=pick&note="+encodeURIComponent(noteFor()))+"#shop";$("home").href=url("");
+    $("byo").href=url("&mode=pick&note="+encodeURIComponent(noteFor()))+"#shop";$("home").href=url("");$("site").href=url("");
   }
   document.addEventListener("change",fixLinks);fixLinks();
   [].forEach.call(document.querySelectorAll("[data-box]"),function(a){a.addEventListener("click",function(){try{localStorage.removeItem("pu-draft")}catch(e){}})});
