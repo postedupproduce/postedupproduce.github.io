@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>For Ratih Eats readers · Posted Up Produce</title>
 <meta name="robots" content="noindex, nofollow, noai, noimageai">
-<meta name="description" content="We shop Chicago's farmers market for you. Ratih Eats readers get her recipe as a bag of groceries, plus a thank-you on the first order.">
+<meta name="description" content="We shop Chicago's farmers market for you. Ratih Eats readers get her recipe as a one-tap kit, plus a thank-you on the first order.">
 <meta property="og:title" content="welcome, ratih eats readers 🧡">
-<meta property="og:description" content="Her recipe, shopped at Chicago's farmers market and ready Saturday. Pickup or delivery, with a thank-you on your first order.">
+<meta property="og:description" content="Her recipe, shopped at Chicago's farmers market. One tap, ready Saturday, pickup or delivery.">
 <meta property="og:image" content="https://postedupproduce.org/ratih/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:url" content="https://postedupproduce.org/ratih/">
@@ -16,165 +16,143 @@
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-/* /ratih/ (Nov 14, 2026): landing page for Ratih Eats newsletter readers (Ratih Sutrisno's Substack, ratiheats.substack.com).
+/* /ratih/ (Nov 14, 2026; rebuilt Nov 21 for speed): landing page for Ratih Eats newsletter readers (ratiheats.substack.com).
+   Goal (Malik, Nov 21): splash first, then 2–4 taps to an order: [splash, auto or tap] → "Get the kit" or a box (one tap to checkout)
+   → pick pickup/delivery → pay. Everything optional (add-ons, thank-you choice) is inline or folded, never in the way.
    Open link, noindex, tag "ratih" (an incoming ?s=ratih-... is kept). Colors from her Substack theme: cream #FFFAF4, orange #FF6C1F
-   (orange is only used behind dark text; orange text uses the darker --rust for contrast). Lowercase headings echo her post titles.
-   Recipe kit: everything about the recipe lives in RECIPE in the script below, so swapping recipes is one edit.
-   Stand-in recipe until she picks: her free Oct 18 post. Her recipe text is NOT copied here; we link to her post.
-   Checkout hands picks to the main cart via pu-draft + ?note= (her readers' thank-you choice rides in Notes). */
+   (orange only behind dark text; orange text uses the darker --rust). Lowercase headings echo her post titles.
+   Recipe kit: everything about the recipe lives in RECIPE in the script, so swapping recipes is one edit. Her recipe text is NOT
+   copied here; we link to her post. Checkout hands picks to the main cart via pu-draft + ?note= (thank-you choice rides in Notes).
+   Splash: three beats, ~4 s, tap/Enter/Esc to skip, once per browser session; ?splash=1 forces it; reduced motion shows the last beat only. */
 :root{--bg:#FFFAF4;--panel:#FFFFFF;--ink:#2B211B;--muted:#6B5B50;--line:#F0E2D3;--pop:#FF6C1F;--rust:#B8440A;--soft:#FFF0E4;
   --body:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 var(--body)}
 a{color:var(--rust)}
 :focus-visible{outline:3px solid var(--rust);outline-offset:3px}
-main{max-width:460px;margin:0 auto;padding:16px 20px 120px;display:flex;flex-direction:column;gap:14px}
+main{max-width:460px;margin:0 auto;padding:14px 20px 110px;display:flex;flex-direction:column;gap:12px}
 .eb{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.04em;min-height:32px;margin:0}
 .eb a{color:var(--ink);text-decoration:none}
 .eb .beta{border:1.5px solid currentColor;border-radius:999px;padding:0 8px;margin-left:4px;font-size:12px}
 .eb .for{color:var(--rust)}
-h1{font-weight:800;font-size:clamp(34px,10vw,44px);line-height:1.02;letter-spacing:-.02em;margin:8px 0 0}
-.lede{margin:0;color:var(--muted)}
-.note{background:var(--soft);border-left:4px solid var(--pop);border-radius:4px 14px 14px 4px;padding:14px 16px;margin:0;font-size:17px}
-.card{background:var(--panel);border:1.5px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
-.k{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--rust);margin:0}
-.card h2{font-weight:800;font-size:26px;line-height:1.08;letter-spacing:-.015em;margin:0}
-.why{margin:0;font-size:16px;color:var(--muted)}
-.rlink{font-weight:700;text-decoration:underline;text-underline-offset:3px}
-.bag{margin:0;padding:12px 14px;background:var(--bg);border-radius:12px;font-size:16px}
-.bag b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-.bag ul{margin:0;padding-left:20px}
-.price{display:flex;justify-content:space-between;align-items:baseline;font-weight:800;font-size:22px;margin:0}
-.price small{font-weight:500;font-size:15px;color:var(--muted)}
-.ex{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);cursor:pointer}
-.ex:first-of-type{border-top:0}
-.ex .l{display:flex;flex:1;gap:10px}
-.ex input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--rust);flex-shrink:0}
-.ex b{display:block;font-size:17px}
-.ex span span{display:block;font-size:15px;color:var(--muted)}
-.ex i{font-style:normal;font-weight:800;white-space:nowrap}
-.grp{margin:8px 0 0;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust)}
-.gift{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.gift label{display:flex;align-items:center;justify-content:center;gap:6px;min-height:52px;border:1.5px solid var(--line);border-radius:999px;background:#fff;font-weight:700;font-size:16px;cursor:pointer;text-align:center;padding:0 10px}
-.gift label:has(input:checked){border-color:var(--rust);box-shadow:0 0 0 1.5px var(--rust) inset;background:var(--soft)}
-.gift input{position:absolute;opacity:0;pointer-events:none}
-.gift label:has(input:focus-visible){outline:3px solid var(--rust);outline-offset:3px}
+h1{font-weight:800;font-size:clamp(30px,8.6vw,38px);line-height:1.04;letter-spacing:-.02em;margin:4px 0 0}
+.sub{margin:6px 0 0;color:var(--muted);font-size:17px}
+.hu{margin:0;font-size:15px;background:var(--soft);border-radius:10px;padding:8px 12px}
+.kit{background:var(--panel);border:2px solid var(--pop);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.kit .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.kit h2{font-weight:800;font-size:23px;line-height:1.1;letter-spacing:-.015em;margin:0}
+.kit .pr{font-weight:800;font-size:24px;white-space:nowrap}
+.kit .in{margin:0;font-size:16px;color:var(--muted)}
+.kit .in a{font-weight:700;white-space:nowrap}
+.ty{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0;font-size:15px;font-weight:700}
+.ty>span{flex-basis:100%}
+.ty label{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 12px;border:1.5px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-size:15px}
+.ty label:has(input:checked){border-color:var(--rust);box-shadow:0 0 0 1.5px var(--rust) inset;background:var(--soft)}
+.ty input{position:absolute;opacity:0;pointer-events:none}
+.ty label:has(input:focus-visible){outline:3px solid var(--rust);outline-offset:2px}
 .btn{display:flex;align-items:center;justify-content:center;min-height:56px;width:100%;border:0;border-radius:999px;background:var(--pop);color:#1E1410;font:800 18px var(--body);cursor:pointer;text-decoration:none;padding:0 20px;text-align:center}
-.fine{font-size:15px;color:var(--muted);text-align:center;margin:0}
+details.add{border-top:1px solid var(--line);padding-top:6px}
+details.add summary{cursor:pointer;font-weight:700;font-size:16px;color:var(--rust);min-height:40px;display:flex;align-items:center;list-style:none}
+details.add summary::-webkit-details-marker{display:none}
+details.add summary::after{content:"+";margin-left:auto;font-size:22px}
+details.add[open] summary::after{content:"–"}
+.ex{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);cursor:pointer;font-size:16px}
+.ex:first-of-type{border-top:0}
+.ex .l{display:flex;flex:1;gap:10px;align-items:center}
+.ex input{width:22px;height:22px;margin:0;accent-color:var(--rust);flex-shrink:0}
+.ex i{font-style:normal;font-weight:800;white-space:nowrap}
+.or{margin:6px 0 0;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .boxes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.boxes a{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}
-.boxes b{font-size:17px}.boxes .p{font-weight:800}
-.boxes span:not(.p){grid-column:1/-1;font-size:15px;color:var(--muted)}
-.boxes .tag{display:inline-block;background:var(--soft);color:var(--rust);font-size:12px;font-weight:800;letter-spacing:.04em;border-radius:6px;padding:1px 6px;margin-left:4px;vertical-align:2px}
-.steps{margin:0;padding-left:22px;font-size:16px}
-.steps li{margin:4px 0}
+.boxes a{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:56px;padding:8px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}
+.boxes b{font-size:17px;line-height:1.2}.boxes small{display:block;font-size:14px;color:var(--muted);font-weight:500}
+.boxes .p{font-weight:800;white-space:nowrap}
+.boxes .p::after{content:" →";color:var(--rust)}
+.fine{font-size:14px;color:var(--muted);text-align:center;margin:4px 0 0}
 .sbar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:10px max(16px,env(safe-area-inset-left)) max(10px,env(safe-area-inset-bottom));box-shadow:0 -4px 14px rgba(0,0,0,.18)}
+  padding:10px max(16px,env(safe-area-inset-left)) max(10px,env(safe-area-inset-bottom));box-shadow:0 -4px 14px rgba(0,0,0,.18);transform:translateY(110%);transition:transform .25s ease}
+.sbar.on{transform:none}
 .sbar span{font-size:15px;line-height:1.2}.sbar b{display:block;font-size:22px}
 .sbar .btn{width:auto;min-height:50px}
 .ip{max-width:460px;margin:0 auto 90px;padding:0 20px;font-size:14px;opacity:.72;text-align:center}
+/* Splash */
+.sp{position:fixed;inset:0;z-index:50;background:var(--pop);color:#1E1410;display:grid;place-items:center;text-align:center;padding:28px;cursor:pointer;transition:opacity .5s ease}
+.sp[hidden]{display:none}.sp.out{opacity:0;pointer-events:none}
+.sp .b{grid-area:1/1;opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease;max-width:340px}
+.sp .b.on{opacity:1;transform:none}
+.sp h2{font-weight:800;font-size:clamp(34px,10vw,46px);line-height:1.05;letter-spacing:-.02em;margin:0}
+.sp p{margin:10px 0 0;font-size:19px;font-weight:600}
+.sp .em{font-size:46px;margin:0 0 8px;line-height:1}
+.sp .skip{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:0;right:0;font-size:13px;opacity:.7}
+.sp .dots{position:absolute;top:calc(22px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:center;gap:6px}
+.sp .dots i{width:28px;height:4px;border-radius:2px;background:rgba(30,20,16,.2)}
+.sp .dots i.on{background:#1E1410}
+@media (prefers-reduced-motion:reduce){.sp,.sp .b,.sbar{transition:none}}
 @media (prefers-color-scheme:dark){
   :root{--bg:#1C1612;--panel:#26201B;--ink:#F6EDE4;--muted:#C9B8A8;--line:#3A3029;--rust:#FF9A5C;--soft:#33261D}
-  .bag{background:#1C1612}.ex input{accent-color:var(--pop)}.gift label,.boxes a{background:var(--panel)}
-  .sbar{background:#0F0B09}
+  .ty label,.boxes a{background:var(--panel)}.ex input{accent-color:var(--pop)}.sbar{background:#0F0B09}
 }
 </style>
 </head>
 <body>
+<div class="sp" id="sp" role="dialog" aria-label="Welcome" hidden>
+  <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="b"><p class="em" aria-hidden="true">🧡</p><h2>hi, ratih eats readers</h2></div>
+  <div class="b"><p class="em" aria-hidden="true">🥕</p><h2>her recipe, shopped at the farmers market</h2></div>
+  <div class="b"><p class="em" aria-hidden="true">🛍️</p><h2>one tap. ready Saturday.</h2><p>Pickup or delivery.</p></div>
+  <p class="skip">Tap to skip</p>
+</div>
 <main>
   <p class="eb"><a href="/?s=ratih" id="home">Posted Up Produce<span class="beta">Beta</span></a><span class="for">for Ratih Eats readers</span></p>
 
   <section aria-labelledby="h1">
-    <h1 id="h1">welcome, ratih eats readers 🧡</h1>
-    <p class="lede" style="margin-top:10px">We shop Chicago's farmers market for you. Pick what you want by Friday night, we hand-pick it Saturday morning, and you get it by pickup or delivery.</p>
+    <h1 id="h1">ratih's recipe, shopped for you</h1>
+    <p class="sub">We hand-pick it at Chicago's farmers market Saturday morning. Pickup or delivery.</p>
   </section>
 
-  <p class="note" data-until="2026-11-29T06:00:00Z" style="border-left-color:var(--ink)"><b>Heads up:</b> we're closed Sat 11/28 for the holiday. Orders are open now for Sat 12/5.</p>
+  <p class="hu" data-until="2026-11-29T06:00:00Z"><b>Closed Sat 11/28.</b> Orders are open for Sat 12/5.</p>
 
-  <p class="note">Ratih cooks with the season, so we turned one of her recipes into a bag of groceries. One tap puts it in your cart. <br>M &amp; C</p>
-
-  <section class="card" aria-labelledby="kH">
-    <p class="k">shop the recipe</p>
-    <h2 id="kH"></h2>
-    <p class="why" id="kLine"></p>
-    <a class="rlink" id="kLink" href="https://ratiheats.substack.com/" target="_blank" rel="noopener">Get the recipe on Ratih Eats &rarr;</a>
-    <div class="bag"><b>In the bag</b><ul id="kBag"></ul></div>
-    <div class="bag"><b>From your pantry</b><span id="kPantry"></span></div>
-    <p class="price"><span>Recipe kit <span id="kPrice"></span></span><small id="kServes"></small></p>
-  </section>
-
-  <section class="card" aria-labelledby="xH">
-    <h2 id="xH">make it dinner</h2>
-    <p class="why">Optional. Same farmers market, same Saturday.</p>
-    <form id="f">
-      <p class="grp">Out of something?</p>
-      <label class="ex"><span class="l"><input type="checkbox" value="maple" data-p="19"><span><b>Maple syrup, pint</b><span>For the glaze, and your oats all winter</span></span></span><i>$19</i></label>
-      <p class="grp">Protein</p>
-      <label class="ex"><span class="l"><input type="checkbox" value="fish" data-p="30"><span><b>Great Lakes fish fillet</b><span>8–16 oz · walleye, whitefish or lake trout, if fish is in</span></span></span><i>$30</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" value="sausage" data-p="20"><span><b>Sausage, about 1 lb</b><span>4–5 links · roasts on the same pan</span></span></span><i>$20</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" value="eggs" data-p="10"><span><b>Farm eggs</b><span>One dozen · free-range or pasture-raised</span></span></span><i>$10</i></label>
-      <p class="grp">Greens and bread</p>
-      <label class="ex"><span class="l"><input type="checkbox" value="brassica" data-p="8"><span><b>Cabbage family</b><span>e.g. Brussels sprouts or broccoli · same hot oven</span></span></span><i>$8</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" value="greens" data-p="8"><span><b>Hearty greens</b><span>One bunch · kale, collards or chard</span></span></span><i>$8</i></label>
-      <label class="ex"><span class="l"><input type="checkbox" value="sour" data-p="14"><span><b>Sourdough loaf</b><span>For the leftover browned butter</span></span></span><i>$14</i></label>
-    </form>
-  </section>
-
-  <section class="card" aria-labelledby="gH">
-    <h2 id="gH">a little thank-you</h2>
-    <p class="why">Your first order through this page comes with one of these, free. Pick one:</p>
-    <div class="gift" role="radiogroup" aria-labelledby="gH">
-      <label><input type="radio" name="gift" value="pastry" checked>🥐 A pastry</label>
+  <section class="kit" aria-labelledby="kH">
+    <div class="top"><h2 id="kH"></h2><span class="pr" id="kPrice"></span></div>
+    <p class="in"><span id="kIn"></span> <a id="kLink" href="https://ratiheats.substack.com/" target="_blank" rel="noopener">Recipe &rarr;</a></p>
+    <div class="ty" role="radiogroup" aria-label="Free thank-you on your first order"><span>Free on your first order:</span>
+      <label><input type="radio" name="gift" value="pastry" checked>🥐 Pastry</label>
       <label><input type="radio" name="gift" value="hot sauce">🌶️ Hot sauce</label>
     </div>
+    <button class="btn" id="go" type="button">Get the kit&nbsp;·&nbsp;<span id="tot"></span></button>
+    <details class="add" id="add">
+      <summary>Make it dinner (optional)</summary>
+      <form id="f">
+        <label class="ex"><span class="l"><input type="checkbox" value="maple" data-p="19">Maple syrup, pint</span><i>$19</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="fish" data-p="30">Great Lakes fish fillet</span><i>$30</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="sausage" data-p="20">Sausage, about 1 lb</span><i>$20</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="eggs" data-p="10">Farm eggs, a dozen</span><i>$10</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="brassica" data-p="8">Brussels sprouts or broccoli</span><i>$8</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="greens" data-p="8">Hearty greens</span><i>$8</i></label>
+        <label class="ex"><span class="l"><input type="checkbox" value="sour" data-p="14">Sourdough loaf</span><i>$14</i></label>
+      </form>
+    </details>
   </section>
 
-  <section class="card" aria-labelledby="goH">
-    <h2 id="goH">lock it in</h2>
-    <p class="total price"><span>Your bag <span id="tot"></span></span></p>
-    <p class="why">This puts your picks in our order page. Choose a Saturday pickup or delivery there, then pay by card or Apple Pay. Order by Friday 9 PM.</p>
-    <button class="btn" id="go" type="button">Send to my cart</button>
-    <p class="fine">Want a swap? Say it in Notes at checkout.</p>
-  </section>
-
-  <section class="card" aria-labelledby="bH">
-    <h2 id="bH">or let us pick</h2>
-    <p class="why">A box of what's best that Saturday. The thank-you counts here too.</p>
-    <ul class="boxes" id="boxes">
-      <li><a data-box="quarter" href="/?s=ratih&amp;box=quarter#checkout"><b>Market Box · Quarter Peck</b><span class="p">$32</span><span>About 5–6 lb. A few nights of sides for one or two.</span></a></li>
-      <li><a data-box="halfpeck" href="/?s=ratih&amp;box=halfpeck#checkout"><b>Market Box · Half Peck<i class="tag">most popular</i></b><span class="p">$50</span><span>About 9–10 lb. A week of sides and a couple of mains for two.</span></a></li>
-      <li><a data-box="crate" href="/?s=ratih&amp;box=crate#checkout"><b>Market Box · Full Crate</b><span class="p">$72</span><span>About 14–15 lb. A full week of cooking for a household.</span></a></li>
-      <li><a data-box="forever" href="/?s=ratih&amp;box=forever#checkout"><b>The Vegan Box</b><span class="p">$68</span><span>About 9 lb. Fully vegan and all local.</span></a></li>
-      <li><a data-box="fruitsm" href="/?s=ratih&amp;box=fruitsm#checkout"><b>Fruit Box · a few days</b><span class="p">$20</span><span>About 3 lb. No cooking: orchard fruit picked ripe, plus local blueberries.</span></a></li>
-    </ul>
-    <a class="rlink" id="byo" href="/?s=ratih&amp;mode=pick#shop">Or build your own, item by item &rarr;</a>
-  </section>
-
-  <section class="card" aria-labelledby="hH">
-    <h2 id="hH">how it works</h2>
-    <ol class="steps">
-      <li>Order by 9 PM Friday. You pay up front.</li>
-      <li>Saturday morning we hand-pick it at the farmers market, from farms and makers within a close radius.</li>
-      <li>Pickup in Goose Island (12–1), Hyde Park (2–3) or Rogers Park (4–5), or we deliver.</li>
-      <li>We run Saturdays all winter, through Mar 20 (off 11/28, 12/26 and 1/2).</li>
-    </ol>
-    <p class="fine">Not happy with something? Credit or refund, your choice.</p>
-  </section>
+  <p class="or">or we pick, one tap</p>
+  <ul class="boxes" id="boxes">
+    <li><a data-box="halfpeck" href="/?s=ratih&amp;box=halfpeck#checkout"><span><b>Market Box</b><small>A week of sides for two · ~9–10 lb</small></span><span class="p">$50</span></a></li>
+    <li><a data-box="quarter" href="/?s=ratih&amp;box=quarter#checkout"><span><b>Market Box, small</b><small>A few nights for one or two · ~5–6 lb</small></span><span class="p">$32</span></a></li>
+    <li><a data-box="forever" href="/?s=ratih&amp;box=forever#checkout"><span><b>The Vegan Box</b><small>Fully vegan, all local · ~9 lb</small></span><span class="p">$68</span></a></li>
+    <li><a data-box="fruitsm" href="/?s=ratih&amp;box=fruitsm#checkout"><span><b>Fruit Box</b><small>No cooking · ~3 lb</small></span><span class="p">$20</span></a></li>
+  </ul>
+  <p class="fine">Order by Friday 9 PM · pay by card or Apple Pay · not happy? credit or refund.<br>
+    Pickup in Goose Island, Hyde Park or Rogers Park, or delivery. <a href="/?s=ratih&amp;mode=pick#shop" id="byo">Build your own</a></p>
 </main>
-<div class="sbar" id="sbar"><span>Your bag<b id="tot2"></b></span><button class="btn" id="go2" type="button">Send to cart</button></div>
-<p class="ip" style="margin-bottom:8px"><a href="/?s=ratih" id="site" style="font-weight:700;color:inherit">postedupproduce.org</a> · <a href="https://www.instagram.com/postedupproduce/" target="_blank" rel="noopener" style="font-weight:700;color:inherit">@postedupproduce</a> on Instagram</p>
-<p class="ip">&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade; <a href="/terms/" style="font-weight:700;color:inherit">Site terms</a></p>
+<div class="sbar" id="sbar" aria-hidden="true"><span>Ratih's kit<b id="tot2"></b></span><button class="btn" id="go2" type="button" tabindex="-1">Get the kit</button></div>
+<p class="ip"><a href="/?s=ratih" id="site" style="font-weight:700;color:inherit">postedupproduce.org</a> · <a href="https://www.instagram.com/postedupproduce/" target="_blank" rel="noopener" style="font-weight:700;color:inherit">@postedupproduce</a><br>&copy; 2026 123 Footprint, LLC. Posted Up Produce&trade; <a href="/terms/" style="font-weight:700;color:inherit">Site terms</a></p>
 <script>
 (function(){
   /* Swap the recipe here (one edit). qty uses main-site item ids and their menu prices (index.html ITEMS):
-     squash $7 each, butter $13, maple $19. Kit price = sum of qty at menu prices. */
+     squash $7 each, butter $13. Kit price = sum of qty at menu prices. */
   var RECIPE={
-    title:"hasselback honeynut squash",
-    line:"From Ratih Eats, Oct 18. Honeynut halves, scored thin and roasted with a maple cinnamon browned butter.",
+    title:"honeynut squash kit",
+    inside:"About 3 honeynut squash + a pound of grass-fed butter for her hasselback honeynut squash. Serves 3–6.",
     url:"https://ratiheats.substack.com/p/hassleback-honeynut-squash",
-    bag:["Honeynut squash, about 3 (or the closest small, sweet squash that Saturday)","Grass-fed butter, 1 lb (the recipe uses 4 Tbsp; keep the rest)"],
-    pantry:"Apple cider vinegar, maple syrup, cinnamon, salt and pepper. Out of maple? Add ours below.",
-    serves:"serves 3–6 as a side",
     qty:{squash:2,butter:1},
     price:{squash:7,butter:13},
     note:"Ratih Eats kit: honeynut squash x3 for the hasselback recipe"
@@ -184,27 +162,24 @@ h1{font-weight:800;font-size:clamp(34px,10vw,44px);line-height:1.02;letter-spaci
   try{sessionStorage.setItem("pu-src",TAG)}catch(e){}
 
   function $(id){return document.getElementById(id)}
-  $("kH").textContent=RECIPE.title;$("kLine").textContent=RECIPE.line;$("kLink").href=RECIPE.url;
-  $("kPantry").textContent=RECIPE.pantry;$("kServes").textContent=RECIPE.serves;
-  RECIPE.bag.forEach(function(x){var li=document.createElement("li");li.textContent=x;$("kBag").appendChild(li)});
+  $("kH").textContent=RECIPE.title;$("kIn").textContent=RECIPE.inside;$("kLink").href=RECIPE.url;
   var kit=0;for(var k in RECIPE.qty)kit+=RECIPE.qty[k]*RECIPE.price[k];
   $("kPrice").textContent="$"+kit;
 
   /* Dated items (data-until, UTC) remove themselves once the time passes. */
-  [].forEach.call(document.querySelectorAll("[data-until]"),function(li){if(Date.now()>=Date.parse(li.dataset.until))li.remove()});
+  [].forEach.call(document.querySelectorAll("[data-until]"),function(el){if(Date.now()>=Date.parse(el.dataset.until))el.remove()});
 
   var f=$("f");
   function gift(){var g=document.querySelector("input[name=gift]:checked");return g?g.value:"pastry"}
   function noteFor(extra){return ((extra?extra+" · ":"")+"Ratih Eats thank-you: "+gift()).slice(0,160)}
   function upd(){var s=kit;[].forEach.call(f.querySelectorAll("input:checked"),function(x){s+=+x.dataset.p});$("tot").textContent="$"+s;$("tot2").textContent="$"+s}
-  document.addEventListener("change",upd);upd();
   function url(extra){return "/?s="+encodeURIComponent(TAG)+(extra||"")}
-  /* Box links: carry the tag and the thank-you note; drop any old saved cart so the box isn't mixed with it. */
+  /* Box links carry the tag and the thank-you note; an old saved cart is cleared so the box isn't mixed with it. */
   function fixLinks(){
     [].forEach.call(document.querySelectorAll("[data-box]"),function(a){a.href=url("&box="+a.dataset.box+"&note="+encodeURIComponent(noteFor()))+"#checkout"});
     $("byo").href=url("&mode=pick&note="+encodeURIComponent(noteFor()))+"#shop";$("home").href=url("");$("site").href=url("");
   }
-  document.addEventListener("change",fixLinks);fixLinks();
+  document.addEventListener("change",function(){upd();fixLinks()});upd();fixLinks();
   [].forEach.call(document.querySelectorAll("[data-box]"),function(a){a.addEventListener("click",function(){try{localStorage.removeItem("pu-draft")}catch(e){}})});
   function go(){
     var q={};for(var k in RECIPE.qty)q[k]=RECIPE.qty[k];
@@ -213,6 +188,27 @@ h1{font-weight:800;font-size:clamp(34px,10vw,44px);line-height:1.02;letter-spaci
     location.href=url("&note="+encodeURIComponent(noteFor(RECIPE.note)))+"#checkout";
   }
   $("go").addEventListener("click",go);$("go2").addEventListener("click",go);
+  /* Sticky bar only once the main button has scrolled off screen (no second button competing with it). */
+  var sb=$("sbar");
+  if("IntersectionObserver" in window){new IntersectionObserver(function(es){var on=!es[0].isIntersecting&&es[0].boundingClientRect.top<0;sb.classList.toggle("on",on);sb.setAttribute("aria-hidden",on?"false":"true");$("go2").tabIndex=on?0:-1}).observe($("go"))}
+})();
+/* Splash */
+(function(){
+  var sp=document.getElementById("sp");if(!sp)return;
+  var force=/[?&]splash=1/.test(location.search),seen=false;
+  try{seen=!!sessionStorage.getItem("pu-ratih-sp")}catch(e){}
+  if(seen&&!force)return;
+  try{sessionStorage.setItem("pu-ratih-sp","1")}catch(e){}
+  var bs=sp.querySelectorAll(".b"),ds=sp.querySelectorAll(".dots i"),i=-1,tm=null,done=false;
+  var rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function close(kb){if(done)return;done=true;clearTimeout(tm);sp.classList.add("out");setTimeout(function(){sp.hidden=true;if(kb===true){var g=document.getElementById("go");if(g)g.focus({preventScroll:true})}},520)}
+  function step(){i++;if(i>=bs.length)return close();
+    [].forEach.call(bs,function(b,k){b.classList.toggle("on",k===i)});[].forEach.call(ds,function(d,k){d.classList.toggle("on",k<=i)});
+    tm=setTimeout(step,i===bs.length-1?1600:1200)}
+  sp.hidden=false;sp.addEventListener("click",close);
+  addEventListener("keydown",function(e){if(!done&&(e.key==="Escape"||e.key==="Enter"||e.key===" ")){e.preventDefault();close(true)}});
+  if(rm){i=bs.length-2;}
+  step();
 })();
 /* Visit counting, same as the other partner pages: one per browser session, no names, skipped on the owner's devices (pu-me). */
 (function(){

@@ -128,10 +128,10 @@ textarea{min-height:120px;resize:vertical}
     <p class="k">use as much or as little as you like</p>
     <h2 id="cH">copy you can paste</h2>
     <p class="why">Edit freely. The recipe name changes when you pick one below.</p>
-    <p class="lab">Short (a line or two)</p>
+    <p class="lab">5-second version</p>
     <p class="blurb" id="b1"></p>
-    <div class="row"><button class="btn" type="button" data-copy="b1">Copy short</button></div>
-    <p class="lab" style="margin-top:8px">Guest section</p>
+    <div class="row"><button class="btn" type="button" data-copy="b1">Copy 5-second version</button></div>
+    <p class="lab" style="margin-top:8px">Longer guest section, if you have room</p>
     <p class="blurb" id="b2"></p>
     <div class="row"><button class="btn" type="button" data-copy="b2">Copy guest section</button></div>
     <p class="ok" id="cOk" role="status" aria-live="polite"></p>
@@ -187,7 +187,7 @@ textarea{min-height:120px;resize:vertical}
   function recipe(){var r=f.querySelector("input[name=recipe]:checked").value;if(r==="other")return ($("rOther").value.trim()||"one of my recipes");return r}
   function blurbs(){
     var r=recipe();
-    $("b1").textContent="Posted Up Produce shops Chicago's farmers market for you: order by Friday 9 PM, they hand-pick it Saturday morning, and you get it by pickup or delivery. They turned my "+r+" into a one-tap kit, and your first order comes with a free pastry or hot sauce. postedupproduce.org/ratih · Instagram: @postedupproduce";
+    $("b1").textContent="Posted Up Produce shops Chicago's farmers market for you. My "+r+", one tap, ready Saturday: postedupproduce.org/ratih · @postedupproduce";
     $("b2").textContent="hi ratih eats readers! we're Posted Up Produce, a small Chicago team (in beta) that shops the farmers market for you.\n\nYou pick what you want, from one recipe's worth of groceries to a full week of produce. Saturday morning we hand-pick it from farms and makers within a close radius, then hand it off at a pickup in Goose Island, Hyde Park or Rogers Park, or bring it to your door.\n\nWhy we do it: farmers get about 18¢ of the grocery food dollar (USDA, 2024). When we shop their stand, they get their full stand price.\n\nRatih cooks with the season, so we turned her "+r+" into a kit: everything from the farmers market for it, ready Saturday. Your first order through our page comes with a free pastry or small-batch hot sauce, on us.\n\nOrder by Friday 9 PM: postedupproduce.org/ratih\nSee everything we do: postedupproduce.org\nFollow along on Instagram: @postedupproduce\n\nM & C, Posted Up Produce";
     $("fKit").textContent="Everything from the farmers market for your "+r+", in one tap. They can add protein, greens or bread.";
   }
