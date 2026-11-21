@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow, noai, noimageai">
 <meta name="description" content="We shop Chicago's farmers market for you. Fruit for class, food for the last stretch and the first weeks home, and boxes to gift a new family.">
 <meta property="og:title" content="hi, class 🌱">
-<meta property="og:description" content="The fruit from class, plus food for the last stretch and the first weeks home. Shopped at Chicago's farmers market. Pickup or delivery.">
+<meta property="og:description" content="The fruit from the first weeks of class, plus food for the last stretch and the first weeks home. Shopped at Chicago's farmers market. Pickup or delivery.">
 <meta property="og:image" content="https://postedupproduce.org/etfoodhome/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:url" content="https://postedupproduce.org/etfoodhome/">
@@ -69,6 +69,19 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
 .sbar .btn{width:auto;min-height:50px}
 .boxes a{min-height:72px}
 .ip{max-width:460px;margin:0 auto 100px;padding:0 20px;font-size:14px;opacity:.72;text-align:center}
+/* Splash (Nov 21): three short beats, auto-advance ~4 s, tap anywhere to skip, once per browser session (going back from the main site
+   doesn't replay it). ?splash=1 forces it for previews. Reduced motion: last beat only, briefly. */
+.sp{position:fixed;inset:0;z-index:50;background:var(--leaf);color:var(--ink);display:grid;place-items:center;text-align:center;padding:28px;cursor:pointer;transition:opacity .5s ease}
+.sp[hidden]{display:none}.sp.out{opacity:0;pointer-events:none}
+.sp .b{grid-area:1/1;opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease;max-width:340px}
+.sp .b.on{opacity:1;transform:none}
+.sp h2{font-weight:800;font-size:clamp(34px,10vw,46px);line-height:1.05;letter-spacing:-.02em;margin:0}
+.sp p{margin:10px 0 0;font-size:19px;color:var(--muted)}
+.sp .fr{font-size:44px;letter-spacing:6px;margin:0 0 8px}
+.sp .skip{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:0;right:0;font-size:13px;opacity:.6}
+.sp .dots{position:absolute;top:calc(22px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:center;gap:6px}
+.sp .dots i{width:28px;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+.sp .dots i.on{background:var(--sage)}
 @media (prefers-color-scheme:dark){
   .sbar{background:#0B0D0A}
   :root{--bg:#171A15;--panel:#20251E;--ink:#EEF1E8;--muted:#BCC4B2;--line:#343B30;--sage:#9DCBA8;--soft:#33261F;--leaf:#243127}
@@ -77,13 +90,20 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
 </style>
 </head>
 <body>
+<div class="sp" id="sp" role="dialog" aria-label="Welcome" hidden>
+  <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="b"><h2>hi, class 🌱</h2><p>A note from M &amp; C</p></div>
+  <div class="b"><p class="fr" aria-hidden="true">🍎🍐🫐</p><h2>remember the fruit from weeks 1 and 2?</h2></div>
+  <div class="b"><h2>it came from the farmers market.</h2><p>Now we can bring it to you.</p></div>
+  <span class="skip">Tap to skip</span>
+</div>
 <main>
   <p class="eb"><a href="/?s=etfood" id="home">Posted Up Produce<span class="beta">Beta</span></a><span class="for">for the class</span></p>
 
   <section aria-labelledby="h1">
     <p class="k" style="margin-top:6px">for our Expecting Together class</p>
     <h1 id="h1">hi, class 🌱</h1>
-    <p class="lede">The fruit at class comes from us. We shop Chicago's farmers market Saturday morning, then you pick it up or we bring it to your door.</p>
+    <p class="lede">The fruit from the first two weeks of class came from us. We shop Chicago's farmers market Saturday morning, then you pick it up or we bring it to your door.</p>
   </section>
 
   <p class="when" id="when"><b>Next up: a Saturday at the farmers market</b><span id="whenLine">Order by Friday, 9 PM.</span></p>
@@ -92,7 +112,7 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
     <h2 id="pH">pick a box</h2>
     <p class="why">One tap puts it in your cart. Your first order comes with a free pastry.</p>
     <ul class="boxes">
-      <li><a data-box="fruit" href="/?s=etfood&amp;box=fruit#checkout"><b>Fruit Box<i class="tag">from class</i></b><span class="p">$36</span><span>About 16 pieces of orchard fruit. A week of snacks, no cooking.</span></a></li>
+      <li><a data-box="fruit" href="/?s=etfood&amp;box=fruit#checkout"><b>Fruit Box<i class="tag">weeks 1 &amp; 2</i></b><span class="p">$36</span><span>About 16 pieces of orchard fruit. A week of snacks, no cooking.</span></a></li>
       <li><a data-box="halfpeck" href="/?s=etfood&amp;box=halfpeck#checkout"><b>Half Peck<i class="tag">no hauling bags</i></b><span class="p">$50</span><span>About 9–10 lb. A week of sides and a couple of mains for two.</span></a></li>
       <li><a data-box="breakfast" href="/?s=etfood&amp;box=breakfast#checkout"><b>Breakfast Box</b><span class="p">$40</span><span>Local oats, farm eggs and fruit. About a week of breakfasts for two.</span></a></li>
       <li><a data-box="easy1" href="/?s=etfood&amp;box=easy1#checkout"><b>The Easy Two<i class="tag">first weeks home</i></b><span class="p">$47</span><span>Nothing to cook. Fruit, a sourdough loaf, a local cheese and jam.</span></a></li>
@@ -135,6 +155,24 @@ h1{font-weight:800;font-size:clamp(36px,11vw,48px);line-height:1.02;letter-spaci
   $("giftGo").href=url(gt,"&box=fruit&note="+encodeURIComponent(NOTE+" · GIFT for (name, address, number): "))+"#checkout";
   $("giftGo").addEventListener("click",function(){try{localStorage.removeItem("pu-draft")}catch(e){}});
   $("byo").href=url(TAG,"")+"#shop";$("sbarGo").href=url(TAG,"")+"#shop";$("home").href=url(TAG,"");
+})();
+/* Splash */
+(function(){
+  var sp=document.getElementById("sp");if(!sp)return;
+  var force=/[?&]splash=1/.test(location.search),seen=false;
+  try{seen=!!sessionStorage.getItem("pu-et-sp")}catch(e){}
+  if(seen&&!force)return;
+  try{sessionStorage.setItem("pu-et-sp","1")}catch(e){}
+  var bs=sp.querySelectorAll(".b"),ds=sp.querySelectorAll(".dots i"),i=-1,tm=null,done=false;
+  var rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function close(){if(done)return;done=true;clearTimeout(tm);sp.classList.add("out");setTimeout(function(){sp.hidden=true},520)}
+  function step(){i++;if(i>=bs.length)return close();
+    [].forEach.call(bs,function(b,k){b.classList.toggle("on",k===i)});[].forEach.call(ds,function(d,k){d.classList.toggle("on",k<=i)});
+    tm=setTimeout(step,i===bs.length-1?1700:1300)}
+  sp.hidden=false;sp.addEventListener("click",close);
+  addEventListener("keydown",function(e){if(e.key==="Escape"||e.key==="Enter"||e.key===" ")close()});
+  if(rm){i=bs.length-2;}
+  step();
 })();
 /* Visit counting, same as the other partner pages: one per browser session, no names, skipped on the owner's devices (pu-me). */
 (function(){
