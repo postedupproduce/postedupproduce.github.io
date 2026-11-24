@@ -86,7 +86,7 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
 @media(min-width:700px){.wrap{max-width:640px}.tabs a{font-size:14px;padding:9px 12px}}
 </style>
 <style>/* Logo on every page (Oct 29) */.brand{display:inline-flex;align-items:center;gap:8px}.brand .mark{width:32px;height:32px;flex:none;border-radius:50%}</style>
-<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}</style>
+<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}/* Nov 24: 5 tabs (À la carte added). Tighter on phones; slides sideways on very narrow ones instead of wrapping. */@media(max-width:440px){nav.tabs[aria-label="Site pages"]{overflow-x:auto;scrollbar-width:none;gap:0!important}nav.tabs[aria-label="Site pages"]::-webkit-scrollbar{display:none}nav.tabs[aria-label="Site pages"] a{font-size:14px!important;padding:8px 6px!important}}@media(max-width:374px){nav.tabs[aria-label="Site pages"] a{font-size:13px!important;padding:8px 5px!important}}</style>
 </head>
 <body>
 <div class="wrap">
@@ -96,6 +96,7 @@ legend{font-size:15px;font-weight:700;padding:0;margin-bottom:6px}
       <a href="/">Home</a>
       <a href="/how/">How it works</a>
       <a href="/#shop">Boxes</a>
+      <a href="/#inventory">À la carte</a>
       <a href="/faq/">Questions</a>
     </nav>
   </div>

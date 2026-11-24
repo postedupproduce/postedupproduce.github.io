@@ -117,7 +117,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 @media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
 </style>
 <style>/* Share on every page (Nov 7). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
-<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}</style>
+<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}/* Nov 24: 5 tabs (À la carte added). Tighter on phones; slides sideways on very narrow ones instead of wrapping. */@media(max-width:440px){nav.tabs[aria-label="Site pages"]{overflow-x:auto;scrollbar-width:none;gap:0!important}nav.tabs[aria-label="Site pages"]::-webkit-scrollbar{display:none}nav.tabs[aria-label="Site pages"] a{font-size:14px!important;padding:8px 6px!important}}@media(max-width:374px){nav.tabs[aria-label="Site pages"] a{font-size:13px!important;padding:8px 5px!important}}</style>
 </head>
 <body>
 <div class="wrap">
@@ -127,6 +127,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
       <a href="/">Home</a>
       <a href="/how/">How it works</a>
       <a href="/#shop">Boxes</a>
+      <a href="/#inventory">À la carte</a>
       <a href="/faq/" aria-current="page">Questions</a>
     </nav>
   </div>
@@ -183,7 +184,7 @@ button.ghost{width:100%;background:transparent;color:var(--ink);font:700 17px/1.
 /* Carry the ?s= tag through; one answer open at a time. */
 (function(){const raw=(new URLSearchParams(location.search).get("s")||"").replace(/[^a-z0-9-]/gi,"").slice(0,30).toLowerCase();
   if(raw)document.querySelectorAll("a[href^='/']").forEach(a=>{const u=new URL(a.getAttribute("href"),location.origin);u.searchParams.set("s",raw);a.setAttribute("href",u.pathname+u.search+u.hash)});
-  if(/^ref-/.test(raw))document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(!(t==="Home"||t==="How it works"||t==="Boxes"||t==="Questions"))a.hidden=true});
+  if(/^ref-/.test(raw))document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(!(t==="Home"||t==="How it works"||t==="Boxes"||t==="À la carte"||t==="Questions"))a.hidden=true});
   const ds=[...document.querySelectorAll(".faq details")];ds.forEach(d=>d.addEventListener("toggle",()=>{if(d.open)ds.forEach(o=>{if(o!==d)o.open=false})}));
   const h=location.hash.slice(1);if(h){const t=document.getElementById(h);if(t&&t.tagName==="DETAILS")t.open=true}
 })();

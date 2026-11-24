@@ -96,7 +96,7 @@ html.spooky body::after{content:"";position:fixed;left:-60px;top:22%;width:46px;
 #pu-dsplash .ds-tour{margin-top:4px;width:100%;min-height:50px;border-radius:999px;border:2px solid #24392C;background:#F8F2E6;color:#24392C;font:700 16px var(--body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px}
 </style>
 <style>/* Share on every page (Nov 7). */.pu-share{width:100%;min-height:50px;margin:0 0 12px;border:2px solid var(--ink,#1f2a22);border-radius:999px;background:transparent;color:var(--ink,#1f2a22);font:700 16px var(--body,system-ui);cursor:pointer;transition:transform .12s ease-out}.pu-share:active{transform:scale(.97)}</style>
-<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}</style>
+<style>/* Nov 9: one tab bar on every page (same 4 tabs, same size). */nav.tabs[aria-label="Site pages"] a{font-size:15px!important;padding:8px 10px!important;min-height:44px;display:inline-flex;align-items:center;box-sizing:border-box}@media(min-width:700px){nav.tabs[aria-label="Site pages"] a{padding:9px 12px!important}}/* Nov 24: 5 tabs (À la carte added). Tighter on phones; slides sideways on very narrow ones instead of wrapping. */@media(max-width:440px){nav.tabs[aria-label="Site pages"]{overflow-x:auto;scrollbar-width:none;gap:0!important}nav.tabs[aria-label="Site pages"]::-webkit-scrollbar{display:none}nav.tabs[aria-label="Site pages"] a{font-size:14px!important;padding:8px 6px!important}}@media(max-width:374px){nav.tabs[aria-label="Site pages"] a{font-size:13px!important;padding:8px 5px!important}}</style>
 </head>
 <body>
 
@@ -690,6 +690,7 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
   <a href="#start" aria-current="page">Home</a>
   <a href="/how/">How it works</a>
   <a href="#shop">Boxes</a>
+  <a href="#inventory">À la carte</a>
   <a href="/faq/">Questions</a>
 </nav></header>
 
@@ -867,15 +868,16 @@ html:not(.calm) :is(#asanaFeature,#asShop){display:none!important}
         <div class="blist" id="boxes"></div>
         <div class="items" data-cat="produce"></div>
       </section>
-      <section class="bsec" id="sec-meat" aria-labelledby="hMeat"><h2 class="bsec-h" id="hMeat">Meat</h2><div class="blist" id="meatList"></div></section>
-      <section class="bsec" id="sec-fish" aria-labelledby="hFish"><h2 class="bsec-h" id="hFish">Fish</h2><div class="blist" id="fishList"></div></section>
+      <section class="bsec" id="sec-meat" aria-labelledby="hMeat"><h2 class="bsec-h" id="hMeat">Meat</h2><div class="blist" id="meatList"></div><a class="hop" href="#inventory">Just want one thing? Ground meat, sausage and eggs à la carte <span aria-hidden="true">&rarr;</span></a></section>
+      <section class="bsec" id="sec-fish" aria-labelledby="hFish"><h2 class="bsec-h" id="hFish">Fish</h2><div class="blist" id="fishList"></div><a class="hop" href="#inventory">Just one fillet? Buy it à la carte <span aria-hidden="true">&rarr;</span></a></section>
       <p class="seg-note">Pair any produce box with meat or fish: one handoff, 10% off boxes at pickup. Meat and fish come frozen.</p>
     </div>
-    <a class="hop" href="#inventory">Add eggs, meat, bread, cider and more <span aria-hidden="true">&rarr;</span></a>
+    <a class="hop" href="#inventory">À la carte: meat, fish, eggs, bread, cider and more <span aria-hidden="true">&rarr;</span></a>
   </section>
 
   <section class="post" data-view="inventory" id="inventory" aria-labelledby="addH">
-    <h1 id="addH" class="vh1">Add to your order</h1>
+    <h1 id="addH" class="vh1">À la carte</h1>
+    <p class="sub" id="alcNote">No box needed. Order any of these on their own, or add them to a box.</p>
     <div class="bin" id="specialBin" hidden>
       <h3>Specials this week</h3>
       <p class="sub">Kits built for an occasion, picked from a close radius. Add one to any order, or order it on its own. Orders close Friday at 9 PM.</p>
@@ -1301,7 +1303,7 @@ let DATES=pickupDates();
 /* Ref arrivals (Nov 7; stranger review): ?s=ref-* on #shop lands on the Half Peck card, and the tab bar keeps Home / Boxes / How it works only (ConversionXL: every nav link on a one-job page is an exit). */
 (function(){const raw=(new URLSearchParams(location.search).get("s")||"").toLowerCase();
   /* Nov 8 v2: everyone gets the 4 tabs (was ref links only); Contact, Services, Add-ons and Play stay reachable from the page. */
-  document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(!(t==="Home"||t==="How it works"||t==="Boxes"||t==="Questions"))a.hidden=true});
+  document.querySelectorAll(".tabs a").forEach(a=>{const t=a.textContent.trim();if(!(t==="Home"||t==="How it works"||t==="Boxes"||t==="À la carte"||t==="Questions"))a.hidden=true});
   /* Nov 8 v2: any page load on #shop (card, friend and /how/ price row) lands on the Half Peck card, not only ref links. */
   if(location.hash==="#shop"){let n=0;const go=()=>{const c=[...document.querySelectorAll(".bcard")].find(e=>/^Half Peck/.test(e.querySelector("h3")?.textContent||""));if(c&&c.getBoundingClientRect().height>0){c.scrollIntoView({block:"start"});scrollBy(0,-(document.querySelector(".topbar")?.offsetHeight||0)-8)}else if(n++<10)setTimeout(go,150)};if(!/^ref-/.test(raw))setTimeout(go,250)}
   if(!/^ref-/.test(raw))return;
@@ -1721,7 +1723,7 @@ function renderTicket(){
     for(const id of ["eggs","hsmild","cider"]){const it=ALL.find(x=>x.id===id);if(it&&!state.qty[id]&&!itemBlocked(id))sug.push({t:id==="hsmild"?"Hot sauce":id==="cider"?"Apple cider":it.nm,p:it.p,go:()=>{state.qty[id]=1;renderItems()}})}
     if(sug.length){const row=el("div",{class:"ups"},el("span",{class:"ups-h"},"Add to this order"));
       for(const x of sug.slice(0,3))row.append(el("button",{type:"button",class:"upb",onclick:()=>{x.go();if(window.puCart)puCart();renderTicket()}},"+ "+x.t+" $"+x.p));
-      row.append(el("a",{href:"#inventory",class:"ups-more"},"See all add-ons →"));t.append(row)}}
+      row.append(el("a",{href:"#inventory",class:"ups-more"},"See à la carte →"));t.append(row)}}
   t.append(el("div",{class:"total"},el("span",{},"Total"),el("span",{},"$"+total())));
   const f=el("form",{novalidate:"",style:"display:grid;gap:10px"});
   const inp=(id,lab,type,ph)=>{const i=el("input",{id,type,placeholder:ph,autocomplete:id==="phone"?"tel":id==="email"?"email":"name"});i.value=state[id];i.addEventListener("input",()=>state[id]=i.value);return el("label",{for:id},lab,i)};
