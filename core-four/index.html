@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Core Four Box</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&amp;family=Big+Shoulders+Display:wght@800&amp;family=Figtree:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#EFE6D4}
+a{color:#A9361F}a:hover{color:#1F2A22}
+details summary{cursor:pointer;list-style:none}
+details summary::-webkit-details-marker{display:none}
+</style>
+<style>
+:root{--cream:#EFE6D4;--paper:#F8F2E6;--ink:#1F2A22;--forest:#24392C;--forest-ink:#F4ECD9;--tomato:#C4432B;--line:#D6C9AE;--muted:#5A6156;color-scheme:light}
+html,body{background:var(--cream)}
+[hidden]{display:none!important}
+#gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px max(16px,env(safe-area-inset-right,0px)) 32px max(16px,env(safe-area-inset-left,0px));box-sizing:border-box;font-family:Figtree,system-ui,sans-serif;color:var(--ink)}
+#gate form{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:32px;max-width:380px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:14px}
+#gate h1{margin:0;font-family:'Alfa Slab One',Georgia,serif;font-weight:400;font-size:28px;line-height:1.1}
+#gate p{margin:0;color:var(--muted);font-size:15px}
+#gate label{font-weight:700;font-size:15px}
+#gate input{font:inherit;font-size:17px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+#gate input:focus-visible,#gate button:focus-visible{outline:3px solid var(--tomato);outline-offset:2px}
+#gate button{font:inherit;font-weight:700;background:var(--forest);color:var(--forest-ink);border:0;border-radius:10px;padding:13px 20px;min-height:44px;cursor:pointer}
+#gateErr{color:#A9361F;font-weight:600;font-size:15px;margin:0}
+</style>
+</head>
+<body style="margin:0">
+<div id="gate">
+<form id="gateForm" novalidate>
+<h1>Core Four Box</h1>
+<p>Preview for Posted Up Produce. Enter the password to view.</p>
+<label for="pw">Password</label>
+<input id="pw" type="password" autocomplete="off" autofocus>
+<p id="gateErr" hidden>That password didn't match. Try again.</p>
+<button type="submit">View page</button>
+</form>
+</div>
+<div id="site" hidden>
+<div style="background: #EFE6D4; color: #1F2A22; font-family: Figtree, system-ui, sans-serif; font-size: 17px; line-height: 1.55; min-height: 100%;">
+
+<header style="background: #24392C; color: #F4ECD9;">
+<div style="max-width: 1120px; margin: 0 auto; padding: 14px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: #F3D58A; border: 4px solid #E8B23A; box-sizing: border-box;"></div>
+<span style="font-family: 'Alfa Slab One', Georgia, serif; font-size: 20px;">Posted Up Produce</span>
+<span style="background: #C4432B; color: #FFFFFF; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; padding: 4px 9px; border-radius: 999px;">BETA</span>
+</div>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 18px; font-weight: 600; font-size: 15px;">
+<a href="#tiers" style="color: #F4ECD9; text-decoration: none;">Boxes</a>
+<a href="#nocook" style="color: #F4ECD9; text-decoration: none;">No-cook</a>
+<a href="#plates" style="color: #F4ECD9; text-decoration: none;">What you can make</a>
+<a href="#faq" style="color: #F4ECD9; text-decoration: none;">Questions</a>
+<a href="#how" style="color: #F4ECD9; text-decoration: none;">How Saturday goes</a>
+</nav>
+</div>
+</header>
+
+<section style="position: relative; overflow: hidden;">
+<svg aria-hidden="true" viewBox="0 0 1280 560" preserveAspectRatio="xMidYMid slice" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+<g opacity="0.55">
+<path d="M70 90c30-34 74-30 92 8-38 6-66 18-92-8z" fill="#E0782F"/>
+<path d="M190 210c18-40 62-46 88-14-36 14-58 32-88 14z" fill="#C4432B"/>
+<path d="M40 330c26-30 66-26 82 6-34 6-58 16-82-6z" fill="#E8B23A"/>
+<path d="M240 420c22-36 64-38 86-6-36 10-60 26-86 6z" fill="#7E9B3B"/>
+<path d="M120 500c26-30 66-26 82 6-34 6-58 16-82-6z" fill="#E0782F"/>
+<path d="M330 60c20-30 58-30 74 0-32 8-52 18-74 0z" fill="#2F7F7A"/>
+<path d="M420 160c18-26 52-26 66 2-28 6-46 14-66-2z" fill="#E8B23A"/>
+<path d="M500 470c18-26 52-26 66 2-28 6-46 14-66-2z" fill="#C4432B"/>
+</g>
+<g stroke="#9AA69A" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.55">
+<g transform="translate(820 90)"><path d="M0-18V18M-16-9L16 9M-16 9L16-9"/></g>
+<g transform="translate(960 200) scale(1.4)"><path d="M0-18V18M-16-9L16 9M-16 9L16-9"/></g>
+<g transform="translate(1180 110) scale(0.9)"><path d="M0-18V18M-16-9L16 9M-16 9L16-9"/></g>
+<g transform="translate(1100 330) scale(1.2)"><path d="M0-18V18M-16-9L16 9M-16 9L16-9"/></g>
+<g transform="translate(880 430) scale(0.8)"><path d="M0-18V18M-16-9L16 9M-16 9L16-9"/></g>
+<g transform="translate(1220 480)"><path d="M0-18V18M-16-9L16 9M-16 9L16-9"/></g>
+<g transform="translate(700 300) scale(0.7)"><path d="M0-18V18M-16-9L16 9M-16 9L16-9"/></g>
+</g>
+<g fill="#FFFFFF" opacity="0.8">
+<circle cx="760" cy="160" r="4"/><circle cx="1040" cy="70" r="5"/><circle cx="1000" cy="420" r="4"/><circle cx="1150" cy="230" r="3"/><circle cx="650" cy="80" r="3"/><circle cx="1240" cy="380" r="4"/>
+</g>
+</svg>
+<div style="position: relative; max-width: 1120px; margin: 0 auto; padding: 64px 16px 56px; display: flex; flex-wrap: wrap; gap: 44px; align-items: center;">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+<span style="font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 0.04em; color: #24392C;">FALL INTO WINTER · SATURDAYS DEC 5 – MAR 20</span>
+<span style="background: #24392C; color: #F4ECD9; font-size: 13px; font-weight: 700; padding: 5px 12px; border-radius: 999px;">Inspired by Revel &amp; Well</span>
+</div>
+<h1 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5vw, 58px); line-height: 1.02;">The Core Four Box.</h1>
+<p style="margin: 0; font-size: 21px; line-height: 1.45; max-width: 540px;">Protein, healthy fat, fiber and colorful vegetables, guaranteed in every box. We pick the best of each at the farmers market that morning, plus a recipe card so dinner is already planned.</p>
+<p style="margin: 0; color: #5A6156;">We shop the farmers market. You pick up or we deliver.</p>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 6px;">
+<a href="#tiers" style="background: #C4432B; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 14px 22px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Pick your size</a>
+<a href="#plates" style="font-weight: 700;">See what you can make</a>
+</div>
+<p style="margin: 0; font-size: 15px; color: #5A6156;">Three sizes, each with a no-cook version. Order by Friday 9 PM.</p>
+</div>
+<div style="flex: 1 1 380px; min-width: 0;">
+<div style="background: #24392C; border-radius: 14px; padding: 22px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<div style="background: #F8F2E6; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; min-height: 130px;">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#C4432B" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3c-4 0-7 6-7 10a7 7 0 0 0 14 0c0-4-3-10-7-10z"/></svg>
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.03em;">PROTEIN</span>
+<span style="font-size: 15px; color: #5A6156;">Eggs or tofu</span>
+</div>
+<div style="background: #F3D58A; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; min-height: 130px;">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1F2A22" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l9-11 9 11z"/><circle cx="10" cy="14" r="1.2"/><circle cx="14.5" cy="12.5" r="1"/></svg>
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.03em;">HEALTHY FAT</span>
+<span style="font-size: 15px; color: #1F2A22;">Farmstead cheese or butter</span>
+</div>
+<div style="background: #F3D58A; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; min-height: 130px;">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1F2A22" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 21c-1-6 2-12 10-14-1 8-5 12-10 14z"/><path d="M14 4l3 3"/></svg>
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.03em;">FIBER</span>
+<span style="font-size: 15px; color: #1F2A22;">Roots, squash, apples</span>
+</div>
+<div style="background: #F8F2E6; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; min-height: 130px;">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2F6B3F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 19C5 10 11 4 20 4c0 9-6 15-15 15z"/><path d="M5 19l9-9"/></svg>
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.03em;">COLORFUL VEG</span>
+<span style="font-size: 15px; color: #5A6156;">Greens, beets, cabbage</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="tiers" style="background: #F8F2E6; border-top: 1px solid #D6C9AE; border-bottom: 1px solid #D6C9AE;">
+<div style="max-width: 1120px; margin: 0 auto; padding: 56px 16px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 680px;">
+<h2 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.1;">Three sizes. The same four, every time.</h2>
+<p style="margin: 0;">Every size is guaranteed protein, healthy fat, fiber and colorful vegetables. Bigger boxes get more of each, and more variety.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: stretch;">
+
+<div style="background: #EFE6D4; border: 1px solid #D6C9AE; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.04em; color: #24392C;">FOR 1–2 PEOPLE</span>
+<h3 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 28px;">Solo</h3>
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+<div style="background: #C4432B; color: #FFFFFF; font-family: 'Alfa Slab One', Georgia, serif; font-size: 26px; padding: 8px 18px 8px 26px; clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);">$59</div>
+<span style="font-weight: 700;">About 6 plates · $9.83 a plate</span>
+</div>
+<p style="margin: 0; font-weight: 600; font-size: 15px;">Sample box:</p>
+<p style="margin: 0; font-size: 15px;">A dozen eggs · a small wedge of goat cheese · 2 lb sweet potatoes · 2 lb apples · a bunch of kale</p>
+<p style="margin: 0; font-size: 15px; color: #5A6156;">1 recipe card</p>
+<a href="#order" style="margin-top: auto; align-self: flex-start; background: #24392C; color: #F4ECD9; text-decoration: none; font-weight: 700; padding: 13px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Order Solo</a>
+</div>
+
+<div style="background: #24392C; color: #F4ECD9; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.04em; color: #E8B23A;">FOR 2–3 PEOPLE</span>
+<span style="background: #F3D58A; color: #1F2A22; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px;">MOST POPULAR</span>
+</div>
+<h3 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 28px;">Pair</h3>
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+<div style="background: #C4432B; color: #FFFFFF; font-family: 'Alfa Slab One', Georgia, serif; font-size: 26px; padding: 8px 18px 8px 26px; clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);">$89</div>
+<span style="font-weight: 700;">About 10 plates · $8.90 a plate</span>
+</div>
+<p style="margin: 0; font-weight: 600; font-size: 15px;">Sample box:</p>
+<p style="margin: 0; font-size: 15px;">A dozen eggs + a block of tofu · a wedge of goat cheese · sweet potatoes, a squash and apples · kale, beets and mushrooms</p>
+<p style="margin: 0; font-size: 15px; color: #C9CFC4;">2 recipe cards</p>
+<a href="#order" style="margin-top: auto; align-self: flex-start; background: #C4432B; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 13px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Order Pair</a>
+</div>
+
+<div style="background: #EFE6D4; border: 1px solid #D6C9AE; border-radius: 14px; padding: 26px; display: flex; flex-direction: column; gap: 14px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.04em; color: #24392C;">FOR A FAMILY OF 4</span>
+<h3 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 28px;">Family</h3>
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+<div style="background: #C4432B; color: #FFFFFF; font-family: 'Alfa Slab One', Georgia, serif; font-size: 26px; padding: 8px 18px 8px 26px; clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);">$139</div>
+<span style="font-weight: 700;">About 16 plates · $8.69 a plate</span>
+</div>
+<p style="margin: 0; font-weight: 600; font-size: 15px;">Sample box:</p>
+<p style="margin: 0; font-size: 15px;">2 dozen eggs + tofu · goat cheese and farm butter · sweet potatoes, potatoes, a squash and apples · kale, red cabbage, beets and mushrooms</p>
+<p style="margin: 0; font-size: 15px; color: #5A6156;">3 recipe cards</p>
+<a href="#order" style="margin-top: auto; align-self: flex-start; background: #24392C; color: #F4ECD9; text-decoration: none; font-weight: 700; padding: 13px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Order Family</a>
+</div>
+
+</div>
+<p style="margin: 0; font-size: 15px; color: #5A6156;">A plate is one dinner-size serving, made with the box plus pantry basics like oil, salt and a grain. Sample boxes show what a December box could hold; yours changes with the farmers market, and we text you the exact list Saturday morning.</p>
+</div>
+</section>
+
+<section id="nocook" style="max-width: 1120px; margin: 0 auto; padding: 56px 16px 0; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-end; justify-content: space-between;">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 640px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 0.04em; color: #A9361F;">NO STOVE? NO PROBLEM.</span>
+<h2 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.1;">The No-Cook Core Four.</h2>
+<p style="margin: 0;">Same four, every size, nothing to cook. Everything is ready to eat or just needs slicing and stacking. Meals you put together in 10 minutes.</p>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px;">
+<div style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.03em;">PROTEIN</span><span style="font-size: 15px;">Seasoned tofu or tofu salad, cured salami</span></div>
+<div style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.03em;">HEALTHY FAT</span><span style="font-size: 15px;">Fresh goat cheese, aged cheddar, farm butter</span></div>
+<div style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.03em;">FIBER</span><span style="font-size: 15px;">Sourdough, apples and pears, dried fruit</span></div>
+<div style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.03em;">COLORFUL VEG</span><span style="font-size: 15px;">Microgreens, salad greens, kimchi or kraut, crunchy carrots</span></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: stretch;">
+
+<div style="background: #EFE6D4; border: 2px dashed #24392C; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.04em; color: #24392C;">NO-COOK · FOR 1–2</span>
+<h3 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 26px;">Solo, No-Cook</h3>
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+<div style="background: #C4432B; color: #FFFFFF; font-family: 'Alfa Slab One', Georgia, serif; font-size: 24px; padding: 8px 18px 8px 26px; clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);">$69</div>
+<span style="font-weight: 700;">About 6 plates · $11.50 a plate</span>
+</div>
+<p style="margin: 0; font-size: 15px;">Seasoned tofu or a tofu salad · fresh goat cheese · a sourdough loaf · apples and pears · microgreens · a jar of kraut</p>
+<a href="#order" style="margin-top: auto; align-self: flex-start; background: #24392C; color: #F4ECD9; text-decoration: none; font-weight: 700; padding: 13px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Order Solo, No-Cook</a>
+</div>
+
+<div style="background: #EFE6D4; border: 2px dashed #24392C; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.04em; color: #24392C;">NO-COOK · FOR 2–3</span>
+<h3 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 26px;">Pair, No-Cook</h3>
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+<div style="background: #C4432B; color: #FFFFFF; font-family: 'Alfa Slab One', Georgia, serif; font-size: 24px; padding: 8px 18px 8px 26px; clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);">$99</div>
+<span style="font-weight: 700;">About 10 plates · $9.90 a plate</span>
+</div>
+<p style="margin: 0; font-size: 15px;">Seasoned tofu + salami · goat cheese + aged cheddar · sourdough, apples, pears and dried fruit · salad greens, microgreens and kimchi</p>
+<a href="#order" style="margin-top: auto; align-self: flex-start; background: #C4432B; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 13px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Order Pair, No-Cook</a>
+</div>
+
+<div style="background: #EFE6D4; border: 2px dashed #24392C; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.04em; color: #24392C;">NO-COOK · FAMILY OF 4</span>
+<h3 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 26px;">Family, No-Cook</h3>
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+<div style="background: #C4432B; color: #FFFFFF; font-family: 'Alfa Slab One', Georgia, serif; font-size: 24px; padding: 8px 18px 8px 26px; clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);">$149</div>
+<span style="font-weight: 700;">About 16 plates · $9.31 a plate</span>
+</div>
+<p style="margin: 0; font-size: 15px;">2 tofus + salami · goat cheese, cheddar and butter · 2 loaves, apples, pears and dried fruit · greens, microgreens, kimchi, kraut and carrots</p>
+<a href="#order" style="margin-top: auto; align-self: flex-start; background: #24392C; color: #F4ECD9; text-decoration: none; font-weight: 700; padding: 13px 20px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Order Family, No-Cook</a>
+</div>
+
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<h3 style="margin: 0; font-size: 19px;">No-cook plates you can put together:</h3>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+<div style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 4px;"><span style="font-weight: 700;">Goat cheese and apple toast</span><span style="font-size: 14px; color: #5A6156;">Sourdough, goat cheese, sliced apple, microgreens, tofu on the side</span></div>
+<div style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 4px;"><span style="font-weight: 700;">Kimchi tofu bowl</span><span style="font-size: 14px; color: #5A6156;">Seasoned tofu, kimchi, salad greens, shredded carrot, cheese crumble</span></div>
+<div style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 4px;"><span style="font-weight: 700;">Farmers market snack board</span><span style="font-size: 14px; color: #5A6156;">Salami, cheddar, pears, dried fruit, kraut, bread and butter</span></div>
+<div style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 4px;"><span style="font-weight: 700;">Big crunchy salad</span><span style="font-size: 14px; color: #5A6156;">Greens, apple, carrot, tofu salad, goat cheese, torn sourdough</span></div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="worth" style="max-width: 1120px; margin: 0 auto; padding: 56px 16px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 680px;">
+<h2 id="worth" style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.1;">Why it's worth it.</h2>
+<p style="margin: 0;">Under $10 a plate for food picked the morning you get it, with the thinking already done.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 26px; color: #A9361F;">DAYS, NOT WEEKS</span>
+<p style="margin: 0; font-size: 15px;">Picked from farms within about 150 miles, not shipped across the country.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 26px; color: #A9361F;">BALANCED BY DESIGN</span>
+<p style="margin: 0; font-size: 15px;">All four building blocks in every box, so every dinner has protein, fat, fiber and color.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 26px; color: #A9361F;">DINNER, PLANNED</span>
+<p style="margin: 0; font-size: 15px;">Recipe cards that use what's in the box. No list, no store run, no guessing.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 26px; color: #A9361F;">FARMERS GET FULL PRICE</span>
+<p style="margin: 0; font-size: 15px;">We buy at the stand at the farmer's own price. Our fee is built into ours.</p>
+</div>
+</div>
+</section>
+
+<section id="plates" style="background: #F8F2E6; border-top: 1px solid #D6C9AE; border-bottom: 1px solid #D6C9AE;">
+<div style="max-width: 1120px; margin: 0 auto; padding: 56px 16px; display: flex; flex-direction: column; gap: 28px;">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 680px;">
+<h2 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.1;">What you can make from one box.</h2>
+<p style="margin: 0;">A few of the plates a winter Core Four Box turns into. Every one passes the Core Four Check.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+
+<article style="background: #EFE6D4; border: 1px solid #D6C9AE; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 170px; border-bottom: 2px dashed #D6C9AE; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; box-sizing: border-box; color: #5A6156; font-size: 14px; background: #E3D6BB;">Photo: sweet potato hash with fried eggs (ask Monique, or a labeled serving idea)</div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-size: 19px;">Sweet potato hash with fried eggs and kale</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; font-weight: 700;">
+<span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Eggs</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Butter</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Sweet potato</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Kale</span>
+</div>
+</div>
+</article>
+
+<article style="background: #EFE6D4; border: 1px solid #D6C9AE; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 170px; border-bottom: 2px dashed #D6C9AE; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; box-sizing: border-box; color: #5A6156; font-size: 14px; background: #E3D6BB;">Photo: roasted squash and apple salad with goat cheese</div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-size: 19px;">Roasted squash, apple and goat cheese salad</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; font-weight: 700;">
+<span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Soft eggs</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Goat cheese</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Squash, apple</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Greens</span>
+</div>
+</div>
+</article>
+
+<article style="background: #EFE6D4; border: 1px solid #D6C9AE; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 170px; border-bottom: 2px dashed #D6C9AE; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; box-sizing: border-box; color: #5A6156; font-size: 14px; background: #E3D6BB;">Photo: mushroom and kale frittata</div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-size: 19px;">Mushroom, kale and goat cheese frittata</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; font-weight: 700;">
+<span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Eggs</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Goat cheese</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Roast potatoes</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Mushrooms, kale</span>
+</div>
+</div>
+</article>
+
+<article style="background: #EFE6D4; border: 1px solid #D6C9AE; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 170px; border-bottom: 2px dashed #D6C9AE; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; box-sizing: border-box; color: #5A6156; font-size: 14px; background: #E3D6BB;">Photo: crispy tofu bowl with beets and cabbage</div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-size: 19px;">Crispy tofu with roasted beets and red cabbage slaw</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; font-weight: 700;">
+<span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Tofu</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Cheese crumble</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Beets</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Red cabbage</span>
+</div>
+</div>
+</article>
+
+<article style="background: #EFE6D4; border: 1px solid #D6C9AE; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 170px; border-bottom: 2px dashed #D6C9AE; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; box-sizing: border-box; color: #5A6156; font-size: 14px; background: #E3D6BB;">Photo: sheet-pan roots with jammy eggs</div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-size: 19px;">Butter-roasted roots with jammy eggs and greens</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; font-weight: 700;">
+<span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Eggs</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Butter</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Carrots, parsnips</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Spinach</span>
+</div>
+</div>
+</article>
+
+<article style="background: #EFE6D4; border: 1px solid #D6C9AE; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+<div style="height: 170px; border-bottom: 2px dashed #D6C9AE; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; box-sizing: border-box; color: #5A6156; font-size: 14px; background: #E3D6BB;">Photo: cheesy squash and greens bake</div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+<h3 style="margin: 0; font-size: 19px;">Squash and greens bake with a cheese crust</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; font-weight: 700;">
+<span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Eggs</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Cheese</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Squash</span><span style="background: #E3D6BB; padding: 3px 10px; border-radius: 999px;">Collards</span>
+</div>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<section aria-labelledby="homage" style="max-width: 1120px; margin: 0 auto; padding: 56px 16px 0;">
+<div style="background: #24392C; color: #F4ECD9; border-radius: 14px; padding: 34px; display: flex; flex-wrap: wrap; gap: 34px; align-items: center;">
+<div style="flex: 0 0 auto; width: 132px; height: 132px; border-radius: 999px; background: #F3D58A; border: 6px solid #E8B23A; box-sizing: border-box; display: flex; align-items: center; justify-content: center; text-align: center; color: #1F2A22; font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; line-height: 1.05; letter-spacing: 0.03em;">CORE<br>FOUR<br>CHECK</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.04em; color: #E8B23A;">A NOD TO REVEL &amp; WELL</span>
+<h2 id="homage" style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 28px; line-height: 1.15;">Built on the Core Four.</h2>
+<p style="margin: 0;">The Core Four comes from Revel &amp; Well, Monique Mercurio's nutrition coaching practice: build every meal on protein, healthy fat, fiber and colorful vegetables. We loved it, so we built a farmers market box around it.</p>
+<a href="https://www.revelandwell.com/" style="color: #F3D58A; font-weight: 700;">Visit Revel &amp; Well</a>
+</div>
+</div>
+</section>
+
+<section id="faq" style="max-width: 1120px; margin: 0 auto; padding: 56px 16px; display: flex; flex-direction: column; gap: 22px;">
+<h2 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.1;">Questions.</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">Why don't I pick the items?</summary><p style="margin: 10px 0 0; font-size: 15px;">In winter, nobody knows which farms will be at the farmers market until the doors open. So we promise the four groups and pick the best of each that morning. Want to choose every item? Build your own from our à la carte menu.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">What's different about No-Cook?</summary><p style="margin: 10px 0 0; font-size: 15px;">Same four groups, but every item is ready to eat or just needs slicing: tofu, cheese, bread, fruit, greens and ferments instead of raw eggs and roots. It costs a little more because ready-to-eat food costs more at the stand.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">What if the farmers market is out of something?</summary><p style="margin: 10px 0 0; font-size: 15px;">We swap within the same group. You always get all four.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">How do I know what's in my box?</summary><p style="margin: 10px 0 0; font-size: 15px;">We text you the exact list and your recipe cards Saturday morning, before pickup.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">What's a "plate"?</summary><p style="margin: 10px 0 0; font-size: 15px;">One dinner-size serving, made from the box plus pantry basics like oil, salt and a grain. Plates per box are our estimate and depend on how you cook.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">Plant-based or vegetarian?</summary><p style="margin: 10px 0 0; font-size: 15px;">Vegetarian is easy: eggs, cheese and butter are all vegetarian. Plant-based? Tell us when you order. We swap tofu for eggs and pick a plant-based fat when the farmers market has one.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">Allergies or things I won't eat?</summary><p style="margin: 10px 0 0; font-size: 15px;">Put them in your order notes. We skip them and pick something else from the same group.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">How long does it keep?</summary><p style="margin: 10px 0 0; font-size: 15px;">Roots, squash and apples keep for weeks somewhere cool. Eat greens and mushrooms first, within about 5 days. Each recipe card says what to cook first.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">Can I add things?</summary><p style="margin: 10px 0 0; font-size: 15px;">Yes: bread, a pastry, cider or hot sauce at checkout.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">Can I skip a week?</summary><p style="margin: 10px 0 0; font-size: 15px;">On a standing order, reply SKIP or tell us by Friday 9 PM. You only pay for the weeks you get a box.</p></details>
+<details style="background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 12px; padding: 18px 20px;"><summary style="font-weight: 700;">What if something's not right?</summary><p style="margin: 10px 0 0; font-size: 15px;">Hand-picked, or it's on us. Not happy with an item? Credit or refund, your choice.</p></details>
+</div>
+</section>
+
+<section id="how" style="background: #24392C; color: #F4ECD9;">
+<div style="max-width: 1120px; margin: 0 auto; padding: 56px 16px; display: flex; flex-direction: column; gap: 28px;">
+<h2 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 32px; line-height: 1.1;">How Saturday goes.</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 30px; color: #E8B23A;">FRI 9 PM</span>
+<p style="margin: 0;">Pick your size and order by Friday night. Card or Apple Pay.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 30px; color: #E8B23A;">SAT MORNING</span>
+<p style="margin: 0;">We shop the farmers market and text you your list and recipe cards.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 30px; color: #E8B23A;">SAT AFTERNOON</span>
+<p style="margin: 0;">Pick up in Goose Island 12–1, Hyde Park 2–3 or Rogers Park 4–5, or we deliver (from $8).</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="order" style="max-width: 1120px; margin: 0 auto; padding: 56px 16px; display: flex; flex-wrap: wrap; gap: 16px;">
+<div style="flex: 1 1 420px; min-width: 0; background: #F3D58A; border-radius: 14px; padding: 30px; display: flex; flex-direction: column; gap: 12px; color: #1F2A22;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 0.03em;">STANDING ORDER</span>
+<h2 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 28px; line-height: 1.15;">Your Core Four Box, every Saturday.</h2>
+<p style="margin: 0;">Your spot is held all winter. Skip any week by Friday 9 PM, pay week to week. Every 4th box comes with a free add-on.</p>
+<a href="#tiers" style="align-self: flex-start; background: #24392C; color: #F4ECD9; text-decoration: none; font-weight: 700; padding: 14px 22px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Start a standing order</a>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; background: #F8F2E6; border: 1px solid #D6C9AE; border-radius: 14px; padding: 30px; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 0.03em; color: #24392C;">JUST THIS SATURDAY</span>
+<h2 style="margin: 0; font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: 28px; line-height: 1.15;">Solo $59 · Pair $89 · Family $139</h2>
+<p style="margin: 0; font-weight: 700;">No-Cook: Solo $69 · Pair $99 · Family $149</p>
+<p style="margin: 0;">Small batch: 5 boxes a Saturday. Order by Friday 9 PM.</p>
+<a href="#tiers" style="align-self: flex-start; background: #C4432B; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 14px 22px; border-radius: 10px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Order for Sat 12/5</a>
+</div>
+</section>
+
+<footer style="border-top: 1px solid #D6C9AE;">
+<div style="max-width: 1120px; margin: 0 auto; padding: 22px 16px 34px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 15px; color: #5A6156;">
+<span>Local farms and makers within about 150 miles. Picked for you. The Core Four is Revel &amp; Well's, used with thanks.</span>
+<span>No pickup Dec 26 or Jan 2.</span>
+</div>
+</footer>
+
+</div>
+</div>
+<script>
+(function(){
+var gate=document.getElementById('gate'),site=document.getElementById('site'),err=document.getElementById('gateErr');
+function open(){gate.hidden=true;site.hidden=false;}
+try{if(sessionStorage.getItem('pup-cf')==='1')open();}catch(e){}
+document.getElementById('gateForm').addEventListener('submit',function(e){
+e.preventDefault();
+if(document.getElementById('pw').value.trim().toLowerCase()==='mo'){try{sessionStorage.setItem('pup-cf','1');}catch(e){}open();}
+else{err.hidden=false;}
+});
+})();
+</script>
+</body>
+</html>
